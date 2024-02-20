@@ -7,14 +7,20 @@ __version__ = "2.0"
 __maintainer__ = "Oliver R. Fox"
 __email__ = "ollie.fox5@gmail.com"
 __status__ = "Production"
+
 # This script produces a JSON file with a Cypher and GSM representation of the first sentence from
 # "generate_final_db.py" "maintext" paragraph in output JSON file.
 
+import argparse
 import json
-import re
 import subprocess
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--it', dest='iterations', type=str, help='Number of articles to convert')
+    args = parser.parse_args()
+
+
     def create_node(id, name):
         node = {
             "type": "node",
@@ -24,6 +30,7 @@ if __name__ == '__main__':
             }
         }
         return node
+
 
     def create_rel(id, name, start, end):
         rel = {
@@ -35,6 +42,7 @@ if __name__ == '__main__':
         }
         return rel
 
+
     def convert_to_cypher_json(input):
         lines = input.split("\n")
 
@@ -42,9 +50,9 @@ if __name__ == '__main__':
         nodes = []
         rels = []
         for line in lines:
-            split_start = line.split('--')  # [start, rel-->end]
-            if split_start != ['']:
-                split_end = split_start[1].split("->")
+            split_start = line.split('--')  # Split into [start, rel-->end]
+            if split_start != ['']:  # As long as valid relationship exists then
+                split_end = split_start[1].split("->")  # Split into [rel, end]
 
                 start = split_start[0]
                 start_node = create_node(i, start)
@@ -72,7 +80,7 @@ if __name__ == '__main__':
                     nodes.append(end_node)
                 i += 1
 
-                rel = split_end[0].replace('[', '').replace(']', '')
+                rel = split_end[0].replace('[', '').replace(']', '')  # Remove brackets from rel object
                 rel_obj = create_rel(i, rel, start_node, end_node)
                 rels.append(rel_obj)
                 i += 1
@@ -82,6 +90,7 @@ if __name__ == '__main__':
             "rels": rels
         }
 
+    # Function to get JSON key
     def item_generator(json_input, lookup_key):
         if isinstance(json_input, dict):
             for k, v in json_input.items():
@@ -93,33 +102,38 @@ if __name__ == '__main__':
             for item in json_input:
                 yield from item_generator(item, lookup_key)
 
-    with open('final_db.json') as user_file:
+
+    with open('final_db.json') as user_file:  # always take "final_db.json" as input
         parsed_json = json.load(user_file)
 
     db = []
     count = 0
-    for i in item_generator(parsed_json, "maintext"):
-        text = str(i).replace('\n', '.')
-        # print(str(i))
-        # sentence = re.split('.', str(i))
-        # print(sentence)
-        sentence = text.split('.')[0]
-        # print(sentence)
+    for i in item_generator(parsed_json, "maintext"):  # 'maintext' is the body of text from a given article
+        text = str(i).replace('\n', '.')  # Replace newline with . to make split easier
+        sentence = text.split('.')[0]  # Get first sentence from 'maintext'
+
+        # Get entire output string from 'standfrom_nlp_dg_server'
         command = 'curl -X POST -F "p=' + sentence + '" localhost:9999/stanfordnlp'
-        # print(command)
-        output = subprocess.check_output(command, shell=True, text=True)
+        try:
+            output = subprocess.check_output(command, shell=True, text=True)
 
-        # cypher = output.split("§")[0]
+            # Output from "stanford_nlp_dg_server" gives the dependency relations§gsm output so split here with §
+            cypher = convert_to_cypher_json(output.split("§")[0])
+            gsm = output.split("§")[1]
 
-        cypher = convert_to_cypher_json(output.split("§")[0])
-        gsm = output.split("§")[1]
-
-        # print(output)
-        ans = {"first_sentence": sentence, "cypher": cypher, "gsm": gsm}
-        db.append(ans)
+            ans = {"first_sentence": sentence, "cypher": cypher, "gsm": gsm}
+            db.append(ans)
+        except subprocess.CalledProcessError:
+            print("Make sure 'stanford_nlp_dg_server' is running")
+            break
 
         count += 1
-        if count == 99:
+        total = args.iterations
+        if total is not None:
+            if count == total:
+                break
+        else:
+            print("Please enter valid number of iterations as an argument, --it [number]")
             break
 
     print(db)
