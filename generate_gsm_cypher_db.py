@@ -48,36 +48,45 @@ if __name__ == '__main__':
 
         i = 0
         nodes = []
+        nodeIds = []
         rels = []
         for line in lines:
             split_start = line.split('--')  # Split into [start, rel-->end]
             if split_start != ['']:  # As long as valid relationship exists then
                 split_end = split_start[1].split("->")  # Split into [rel, end]
 
-                start = split_start[0]
+                start_obj = split_start[0].replace('(', '').replace(')', '').split(',')
+                startId = start_obj[0]
+                start = start_obj[1]
+
                 start_node = create_node(i, start)
                 exists = False
-                for node in nodes:
-                    if node['properties']['name'] == start:
-                        start_node = node
+                for node in nodeIds:
+                    if node[0] == startId:
+                        start_node = node[1]
                         exists = True
                         break
 
                 if not exists:
                     nodes.append(start_node)
+                    nodeIds.append([startId, start_node])
                 i += 1
 
-                end = split_end[1]
+                end_obj = split_end[1].replace('(', '').replace(')', '').split(',')
+                endId = end_obj[0]
+                end = end_obj[1]
+
                 end_node = create_node(i, end)
                 exists = False
-                for node in nodes:
-                    if node['properties']['name'] == end:
-                        end_node = node
+                for node in nodeIds:
+                    if node[0] == endId:
+                        end_node = node[1]
                         exists = True
                         break
 
                 if not exists:
                     nodes.append(end_node)
+                    nodeIds.append([endId, end_node])
                 i += 1
 
                 rel = split_end[0].replace('[', '').replace(']', '')  # Remove brackets from rel object
@@ -111,6 +120,7 @@ if __name__ == '__main__':
     for i in item_generator(parsed_json, "maintext"):  # 'maintext' is the body of text from a given article
         text = str(i).replace('\n', '.')  # Replace newline with . to make split easier
         sentence = text.split('.')[0]  # Get first sentence from 'maintext'
+        print(sentence)
 
         # Get entire output string from 'standfrom_nlp_dg_server'
         command = 'curl -X POST -F "p=' + sentence + '" localhost:9999/stanfordnlp'
@@ -128,13 +138,13 @@ if __name__ == '__main__':
             break
 
         count += 1
-        total = args.iterations
+        total = int(args.iterations)
         if total is not None:
-            if count == total:
+            if count >= total:
                 break
         else:
             print("Please enter valid number of iterations as an argument, --it [number]")
             break
 
-    print(db)
+    # print(db)
     json.dump(db, open("final_gsm_db.json", "w"), indent=4, sort_keys=True)
