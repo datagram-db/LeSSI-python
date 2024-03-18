@@ -15,6 +15,7 @@ import argparse
 import json
 import subprocess
 import stanza
+import yaml
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
@@ -23,6 +24,9 @@ if __name__ == '__main__':
 
     stanza.download('en')
     nlp = stanza.Pipeline('en')
+
+    with open("config.yaml") as f:
+        cfg = yaml.load(f, Loader=yaml.FullLoader)
 
     def create_node(id, name):
         node = {
@@ -131,7 +135,7 @@ if __name__ == '__main__':
         print(results.ents)
 
         # Get entire output string from 'standfrom_nlp_dg_server'
-        command = 'curl -X POST -F "p=' + sentence + '" localhost:9998/stanfordnlp'
+        command = 'curl -X POST -F "p=' + sentence + '" ' + cfg['stanford_nlp_host'] + ':' + cfg['stanford_nlp_port'] + '/stanfordnlp'
         try:
             output = subprocess.check_output(command, shell=True, text=True)
 
