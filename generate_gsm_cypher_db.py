@@ -17,18 +17,7 @@ import subprocess
 import stanza
 import yaml
 
-if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--it', dest='iterations', type=str, help='Number of articles to convert')
-    args = parser.parse_args()
-
-    stanza.download('en')
-    nlp = stanza.Pipeline('en')
-
-    with open("config.yaml") as f:
-        cfg = yaml.load(f, Loader=yaml.FullLoader)
-
-    def create_node(id, name):
+def create_node(id, name):
         node = {
             "type": "node",
             "id": id,
@@ -38,8 +27,7 @@ if __name__ == '__main__':
         }
         return node
 
-
-    def create_rel(id, name, start, end):
+def create_rel(id, name, start, end):
         rel = {
             "type": "relationship",
             "id": id,
@@ -50,7 +38,7 @@ if __name__ == '__main__':
         return rel
 
 
-    def convert_to_cypher_json(input):
+def convert_to_cypher_json(input):
         lines = input.split("\n")
 
         i = 0
@@ -106,8 +94,8 @@ if __name__ == '__main__':
             "rels": rels
         }
 
-    # Function to get JSON key
-    def item_generator(json_input, lookup_key):
+# Function to get JSON key
+def item_generator(json_input, lookup_key):
         if isinstance(json_input, dict):
             for k, v in json_input.items():
                 if k == lookup_key:
@@ -118,6 +106,17 @@ if __name__ == '__main__':
             for item in json_input:
                 yield from item_generator(item, lookup_key)
 
+
+if __name__ == '__main__':
+    #parser = argparse.ArgumentParser()
+    #parser.add_argument('--it', dest='iterations', type=str, help='Number of articles to convert')
+    #args = parser.parse_args()
+
+    stanza.download('en')
+    nlp = stanza.Pipeline('en')
+
+    with open("config.yaml") as f:
+        cfg = yaml.load(f, Loader=yaml.FullLoader)
 
     with open('final_db.json') as user_file:  # always take "final_db.json" as input
         parsed_json = json.load(user_file)
@@ -150,7 +149,7 @@ if __name__ == '__main__':
             break
 
         count += 1
-        total = int(args.iterations)
+        total = int(cfg['iterations'])
         if total is not None:
             if count >= total:
                 break
