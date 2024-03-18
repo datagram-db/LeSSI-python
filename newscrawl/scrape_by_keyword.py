@@ -105,7 +105,7 @@ def parse_url(url):
     return (NewsPlease.from_html(html, url, download_date).get_serializable_dict())
 
 
-def craw_from_file(filename):
+def craw_from_file(filename, db_ph1):
     """
     This function reads the content of the csv file, and puts its content inside a DB in JSON
     """
@@ -142,12 +142,12 @@ def craw_from_file(filename):
                         cont = r.content
                     except:
                         None
-                    file1 = open("extra/" + dkey + "__" + urlify(row[1]) + ".html", 'w')
+                    file1 = open(os.path.join("extra", dkey + "__" + urlify(row[1]) + ".json"), 'w')
                     file1.write(str(cont))
                     file1.close()
     json.dump(dkey_db, open(dkey_dbfile, 'w'))
     print(Fore.GREEN + " +" + str(len(dkey_db) - before) + " were saved for '" + dkey + "'" + Style.RESET_ALL)
-    dump_database('db.json')
+    dump_database(db_ph1)
 
 
 class MinimalThreaded:
@@ -156,7 +156,7 @@ class MinimalThreaded:
         self.db_entry = db_entry
 
 
-def craw_from_file_multithreaded(filename):
+def craw_from_file_multithreaded(filename, db_ph1):
     """
     This function reads the content of the csv file, and puts its content inside a DB in JSON
     """
@@ -197,11 +197,11 @@ def craw_from_file_multithreaded(filename):
                         cont = r.content
                     except:
                         None
-                    file1 = open("extra/" + dkey + "__" + urlify(row[1]) + ".json", 'w')
+                    file1 = open(os.path.join("extra", dkey + "__" + urlify(row[1]) + ".json"), 'w')
                     file1.write(str(cont))
                     file1.close()
     json.dump(dkey_db, open(dkey_dbfile, 'w'))
-    dump_database('db.json')
+    dump_database(db_ph1)
     return MinimalThreaded(dkey, localdb)
 
 
@@ -227,11 +227,11 @@ def dump_database(filename):
     json.dump(database, open(filename, 'w'))
 
 
-def get_all_csvs():
+def get_all_csvs(db_ph1):
     files = [f for f in os.listdir('.') if os.path.isfile(f)]
     for f in files:
         if (f.endswith('.csv')):
-            craw_from_file(f)
+            craw_from_file(f, db_ph1)
 
 
 def get_all_csvs_iterator():
@@ -282,10 +282,12 @@ def search_rss(rss_entries, phrases, proxy=None):
                     yield entry['link'], entry['title'], "body", hit_phrase
 
 
-def url_wayback_expand(url, min_=dateparser.parse(date_minimum), max_=None):
+def url_wayback_expand(url, min_=None, max_=None):
     """
         This funciton uses the WayBack Machine from Web Archive to retrieve all the past definitions of the RSS feeds
         """
+    if min_ is None:
+        min_ = dateparser.parse(date_minimum)
     print(Fore.YELLOW + "Attempt at wayback-expanding " + url + " ..." + Style.RESET_ALL)
     r = requests.get("http://web.archive.org/web/timemap/link/" + url, timeout=timeout)
     l = str(r.content).split('\\n')[1:]
@@ -446,13 +448,13 @@ class NewsThread:
             self.db_entry = set()
         else:
             self.db_entry = set(database[self.dkey])
-        self.dkey_dbfile = self.dkey+".json"                        #-- Legacy article storage
+        self.dkey_dbfile = self.dkey + ".json"  # -- Legacy article storage
         # self.date_cp = detectMins(self.dkey_dbfile)
         ##self.dkey_db_nextKey = 1                                    -- Legacy article storage
         ##self.dkey_db = {}                                           -- Legacy article storage
         self.proxies = itertools.cycle(proxies)
         self.wasError = False
-        self.dateLimits = detectMins(self.dkey_dbfile)            #-- Temporairly disabling this part of the code
+        self.dateLimits = detectMins(self.dkey_dbfile)  # -- Temporairly disabling this part of the code
         ##if path.exists(self.dkey_dbfile):                         -- Legacy article storage
         ##    self.dkey_db = json.load(open(self.dkey_dbfile))      -- Legacy article storage
         ##if len(self.dkey_db) > 0:                                 -- Legacy article storage
@@ -536,7 +538,7 @@ class NewsThread:
                             cont = r.content
                         except:
                             None
-                        file1 = open("extra/" + self.dkey + "__" + urlify(row[1]) + ".html", 'w')
+                        file1 = open(os.path.join("extra", self.dkey + "__" + urlify(row[1]) + ".html"), 'w')
                         file1.write(str(cont))
                         file1.close()
         append_file.close()
@@ -616,9 +618,10 @@ def url_list(day):
         reader = csv.reader(f)
         for line in reader:
             import string
-            line[1] = str(string.Template(line[1]).safe_substitute({'day':day}))
+            line[1] = str(string.Template(line[1]).safe_substitute({'day': day}))
             lst.append(tuple(line))
     return lst
+
 
 #     return [('https://www.dailymail.co.uk/sciencetech/index.rss',  'dailymail_sci_'+day+'.csv'),
 #     ('http://feeds.bbci.co.uk/news/world/asia/rss.xml',  'bbc_asia_'+day+'.csv'),
@@ -669,7 +672,8 @@ def url_list(day):
 #     ('https://rss.nytimes.com/services/xml/rss/nyt/World.xml',  'nyt_world_'+day+'.csv'),
 #     ('https://www.huffpost.com/section/world-news/feed', 'huff_op_'+day+".csv")]
 
-phrases = [] #['coronavirus', 'covid-19', 'covid', 'SARS-CoV-2']
+phrases = []  # ['coronavirus', 'covid-19', 'covid', 'SARS-CoV-2']
+
 
 # rss_url, phrases, output_csv_path, database, proxies, goBack)
 
@@ -719,13 +723,13 @@ def multithread_crawl(rss_url, phrases, output_csv_path, database, proxies, goBa
     return obj
 
 
-def multi_crawl():
+def multi_crawl(db_ph1):
     day = datetime.datetime.today().strftime('%Y-%m-%d')
     URLS = url_list(day)
     if shuffle: random.shuffle(URLS)
     with concurrent.futures.ThreadPoolExecutor(max_workers=workers) as executor:
         # Start the load operations and mark each future with its URL
-        future_to_url = {executor.submit(craw_from_file_multithreaded, f): f for f in get_all_csvs_iterator()}
+        future_to_url = {executor.submit(craw_from_file_multithreaded, f, db_ph1): f for f in get_all_csvs_iterator()}
         for future in concurrent.futures.as_completed(future_to_url):
             url = future_to_url[future]
             try:
@@ -739,10 +743,79 @@ def multi_crawl():
                     str(url))) + Style.RESET_ALL)
 
 
-if __name__ == '__main__':
+def scrape_by_keyword(args):
+    global backArchive, phrases, doIgnoreInterval, date_minimum, rssFeedFile, date_global_minimum, storeJson, timeout, workers, shuffle, stopIfPresent, doReverse, verify, proxies
+    proxies = get_proxies()
+    backArchive = args.back_archive
+    if hasattr(args, 'property'):
+        phrases = list(args.keywords)
+    else:
+        phrases = []
+    if hasattr(args, 'ignore_intervals'):
+        doIgnoreInterval = bool(args.ignore_intervals)
+    else:
+        doIgnoreInterval = True
+    # doIgnoreInterval = args.ignore_intervals
+    if hasattr(args, 'min_date'):
+        date_minimum = str(args.min_date)
+    else:
+        date_minimum = "2019-10-01"
+    rssFeedFile = args.RSSFeedCsv
+    date_global_minimum = dateparser.parse(date_minimum).replace(tzinfo=utc)
+    storeJson = args.store_json
+    if hasattr(args, 'timeout'):
+        timeout = args.timeout
+    else:
+        timeout = None
+    # timeout = args.timeout
+    shuffle = args.shuffle
+    if hasattr(args, 'threads'):
+        workers = int(args.threads)
+    else:
+        workers = 10
+    # stopIfPresent = args.no_stop_if_parsed
+    if hasattr(args, 'no_stop_if_parsed'):
+        stopIfPresent = not bool(args.no_stop_if_parsed)
+    else:
+        stopIfPresent = False
+    doReverse = args.reverse
+    if hasattr(args, 'no_ssl'):
+        verify =  not bool(args.no_ssl)
+    else:
+        verify = False
+    db_name = 'db.json'
+    if hasattr(args, 'db_ph1'):
+        db_name = args.db_ph1
+    load_database(db_name)
+    multirun2()
+    # get_all_csvs() --> This is replaced by running the loader in each single thead!
+    dump_database(db_name)
+    # lastStats()
+
+
+def crawl_from_csv(args):
     import os
     if not os.path.exists('extra'):
         os.makedirs('extra')
+    global rssFeedFile, workers
+    rssFeedFile = args.RSSFeedCsv
+    db_name = 'db.json'
+    if hasattr(args, 'db_ph1'):
+        db_name = args.db_ph1
+    if hasattr(args, 'threads'):
+        workers = int(args.threads)
+    else:
+        workers = 10
+    load_database(db_name)
+    if workers == 0:
+        get_all_csvs(db_name)
+    else:
+        multi_crawl(db_name)
+    dump_database(db_name)
+
+
+if __name__ == '__main__':
+
     parser = argparse.ArgumentParser(description="Scrape by Keyword: scraping the online news via Python.")
     parser.add_argument('-k', '--keywords', nargs='+', default=[])
     parser.add_argument("--RSSFeedCsv", default=False, type=str,
@@ -767,21 +840,4 @@ if __name__ == '__main__':
     parser.add_argument('--no_stop_if_parsed', default=True, action='store_false',
                         help="Stops from crawling back in time when you hit some day were some articles were already dowloaded")
     args = parser.parse_args(args=None if sys.argv[1:] else ['--help'])
-    backArchive = args.back_archive
-    phrases = args.keywords
-    doIgnoreInterval = args.ignore_intervals
-    date_minimum = args.min_date
-    rssFeedFile = args.RSSFeedCsv
-    date_global_minimum = dateparser.parse(date_minimum).replace(tzinfo=utc)
-    storeJson = args.store_json
-    timeout = args.timeout
-    shuffle = args.shuffle
-    workers = args.threads
-    stopIfPresent = args.no_stop_if_parsed
-    doReverse = args.reverse
-    verify = args.no_ssl
-    load_database('db.json')
-    multirun2()
-    # get_all_csvs() --> This is replaced by running the loader in each single thead!
-    dump_database('db.json')
-    # lastStats()
+    scrape_by_keyword(args)
