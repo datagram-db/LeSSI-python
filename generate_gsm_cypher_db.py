@@ -135,7 +135,7 @@ if __name__ == '__main__':
         print(results.ents)
 
         # Get entire output string from 'standfrom_nlp_dg_server'
-        command = 'curl -X POST -F "p=' + sentence + '" ' + cfg['stanford_nlp_host'] + ':' + cfg['stanford_nlp_port'] + '/stanfordnlp'
+        command = 'curl -X POST -F "p=' + sentence + '" ' + str(cfg['stanford_nlp_host']) + ':' + str(cfg['stanford_nlp_port']) + '/stanfordnlp' #Giacomo: change to the configuration, so to ensure this is always a string (better practices require that ports are numbers)
         try:
             output = subprocess.check_output(command, shell=True, text=True)
 
