@@ -14,12 +14,15 @@ __status__ = "Production"
 import argparse
 import json
 import subprocess
+import stanza
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--it', dest='iterations', type=str, help='Number of articles to convert')
     args = parser.parse_args()
 
+    stanza.download('en')
+    nlp = stanza.Pipeline('en')
 
     def create_node(id, name):
         node = {
@@ -120,10 +123,15 @@ if __name__ == '__main__':
     for i in item_generator(parsed_json, "maintext"):  # 'maintext' is the body of text from a given article
         text = str(i).replace('\n', '.')  # Replace newline with . to make split easier
         sentence = text.split('.')[0]  # Get first sentence from 'maintext'
-        print(sentence)
+        results = nlp(sentence)
+        # TODO: merge strings based on type
+        # for result in results.ents:
+        #     if result.type == "ORG":
+        #         result.text.replace(" ", "")
+        print(results.ents)
 
         # Get entire output string from 'standfrom_nlp_dg_server'
-        command = 'curl -X POST -F "p=' + sentence + '" localhost:9999/stanfordnlp'
+        command = 'curl -X POST -F "p=' + sentence + '" localhost:9998/stanfordnlp'
         try:
             output = subprocess.check_output(command, shell=True, text=True)
 
@@ -147,4 +155,4 @@ if __name__ == '__main__':
             break
 
     # print(db)
-    json.dump(db, open("final_gsm_db.json", "w"), indent=4, sort_keys=True)
+    json.dump(db, open("final_gsm_stanza_db.json", "w"), indent=4, sort_keys=True)
