@@ -41,7 +41,7 @@ def create_rel(id, name, start, end):
 def convert_to_cypher_json(input):
     lines = input.split("\n")
 
-    sim_graph = List[Relationship]
+    # sim_graph = List[Relationship]
 
     i = 0
     nodes = []
@@ -114,7 +114,6 @@ def generate_final_db(self):
     db = []
     sentences = []
     count = 0
-
     if 'should_load_handwritten_sentences' in self.cfg and self.cfg['should_load_handwritten_sentences']:
         with open('hand.txt') as f:
             for line in f:
@@ -137,6 +136,8 @@ def generate_final_db(self):
                 continue
             else:
                 sentences.append(sentence)
+        with open('hand.txt', 'w') as f:
+            f.write(os.linesep.join(sentences))
 
     for sentence in sentences:
         results = self.nlp(sentence)
@@ -183,12 +184,13 @@ def generate_final_db(self):
         if 'stanza_db' in self.cfg['crawl_to_gsm']:
             json.dump(db, open(self.cfg['crawl_to_gsm']['stanza_db'], "w"), indent=4, sort_keys=True)
 
-    all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
-    command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
+    if self.cfg['similarity'] == 'IDEAS24':
+        all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
+        command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
 
-    try:
-        output = subprocess.check_output(command, shell=True, text=True)
-        with open('gsm_sentences.txt', 'w') as f:
-            f.write(output)
-    except subprocess.CalledProcessError:
-        print("Make sure 'stanford_nlp_dg_server' is running")
+        try:
+            output = subprocess.check_output(command, shell=True, text=True)
+            with open('gsm_sentences.txt', 'w') as f:
+                f.write(output)
+        except subprocess.CalledProcessError:
+            print("Make sure 'stanford_nlp_dg_server' is running")

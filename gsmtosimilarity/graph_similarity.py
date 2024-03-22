@@ -3,6 +3,8 @@ from collections import defaultdict
 from typing import Union, List, TypedDict
 from dataclasses import dataclass
 from enum import Enum
+
+import numpy as np
 from sentence_transformers import SentenceTransformer, util
 
 
@@ -12,28 +14,28 @@ class Grouping(Enum):
     NEITHER = 2
 
 
-class Properties(TypedDict):  # Key-Value association
-    property: str  # Key
-    value: Union[int, str, float, bool]  # Value
+# class Properties(TypedDict):  # Key-Value association
+#     property: str  # Key
+#     value: Union[int, str, float, bool]  # Value
 
 
 class NodeEntryPoint:
     pass
 
 
-@dataclass(order=True)
+@dataclass(order=True, frozen=True, eq=True)
 class Singleton(NodeEntryPoint):  # Graph node representing just one entity
     named_entity: str  # String representation of the entity
-    properties: Properties  # Key-Value association for such entity
+    properties: frozenset  # Key-Value association for such entity
 
 
-@dataclass(order=True)
+@dataclass(order=True, frozen=True, eq=True)
 class SetOfSingletons(NodeEntryPoint):  # Graph node representing conjunction/disjunction/exclusion between entities
     type: Grouping  # Type of node grouping
     entities: List[NodeEntryPoint]  # A list of entity nodes
 
 
-@dataclass(order=True)
+@dataclass(order=True, frozen=True, eq=True)
 class Relationship:  # Representation of an edge
     source: NodeEntryPoint  # Source node
     target: NodeEntryPoint  # Target node
@@ -41,12 +43,9 @@ class Relationship:  # Representation of an edge
     isNegated: bool = False  # Whether the edge expresses a negated action
 
 
-@dataclass(order=True)
+@dataclass(order=True, frozen=True, eq=True)
 class Graph:
     edges: List[Relationship]  # A graph is defined as a collection of edges
-
-    def __init__(self):
-        self.edges = list()
 
 
 class SimilarityScore:  # Defining the graph similarity score
@@ -54,11 +53,21 @@ class SimilarityScore:  # Defining the graph similarity score
         self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
     def string_distance(self, x: str, y: str) -> float:  # between 0 and 1
-        x_vec = self.model.encode(x, convert_to_tensor=True)
-        y_vec = self.model.encode(y, convert_to_tensor=True)
-        return 1.0 - util.pytorch_cos_sim(x_vec, y_vec)
+        return 1.0 - self.string_similarity(x,y)
 
-    def properties_distance(self, x: Properties, y: Properties) -> float:
+    def string_similarity(self, x: str, y: str) -> float:  # between 0 and 1
+        x_vec = self.model.encode(x)
+        y_vec = self.model.encode(y)
+        strictSim = float(util.pairwise_dot_score(x_vec, y_vec))
+        if (strictSim > np.finfo(float).eps):
+            return strictSim
+        return 0.0
+
+    def properties_distance(self, x: frozenset, y: frozenset) -> float:
+        if (len(x) == 0) and (len(y) == 0):
+            return 0
+        x = dict(x)
+        y = dict(y)
         L = set(x.keys())
         I = L.intersection(set(y.keys()))
         U = L.union(set(y.keys()))
@@ -88,8 +97,7 @@ class SimilarityScore:  # Defining the graph similarity score
         return (missing + other_dist) / (missing + others)
 
     def singleton_dist(self, x: Singleton, y: Singleton) -> float:  # between 0 and 1
-        return (self.string_distance(x.named_entity, y.named_entity) + self.properties_distance(x.properties,
-                                                                                                y.properties)) / 2.0
+        return (self.string_distance(x.named_entity, y.named_entity) )
 
     def entity_distance(self, x: NodeEntryPoint, y: NodeEntryPoint) -> float:
         if isinstance(x, Singleton) and isinstance(y, Singleton):
@@ -98,10 +106,13 @@ class SimilarityScore:  # Defining the graph similarity score
             pass  # TODO
 
     def edge_distance(self, x: Relationship, y: Relationship):
-        srcDst = self.entity_distance(x.source, y.source)
-        dstDst = self.entity_distance(x.target, y.target)
-        edge = self.singleton_dist(x.edgeLabel, y.edgeLabel) * (1 if x.isNegated == y.isNegated else 0)
-        return (srcDst + dstDst + edge) / 3.0
+        L = (x.source.named_entity,x.edgeLabel.named_entity,x.target.named_entity)
+        R = (y.source.named_entity,y.edgeLabel.named_entity,y.target.named_entity)
+        print (str(L) +" vs "+str(R))
+        srcSim = 1.0 - self.entity_distance(x.source, y.source)
+        dstSim = 1.0 - self.entity_distance(x.target, y.target)
+        edgeSim = 1.0 - self.singleton_dist(x.edgeLabel, y.edgeLabel) * (1 if x.isNegated == y.isNegated else 0)
+        return 1.0- (srcSim * dstSim * edgeSim)
 
     def graph_distance(self, g1: Graph, g2: Graph):
         if len(g1.edges) == 0 or len(g2.edges) == 0:
@@ -126,24 +137,23 @@ class SimilarityScore:  # Defining the graph similarity score
             S2_inv = S2_inv.union(d_inv.get(edge2, empty_set))
         for edge1 in g1.edges:
             S1_inv = S1_inv.union(d.get(edge1, empty_set))
-        total_cost += ((len(S1.difference(S2_inv)) + len(S2.difference(S1_inv))) / 2.0)
-        return total_cost / (1.0 + total_cost)
+        unmatchingDistance = (len(S1.difference(S2_inv)) + len(S2.difference(S1_inv)))
+        unmatchingSimilarity = 1.0 - (unmatchingDistance/(1+unmatchingDistance))
+        totalSimilarity = 1.0 - (total_cost/(1+total_cost))
+        # total_cost += ((len(S1.difference(S2_inv)) + len(S2.difference(S1_inv))) / 2.0)
+        return 1.0 - totalSimilarity*unmatchingSimilarity
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# def print_hi(name):
+#     # Use a breakpoint in the code line below to debug your script.
+#     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
-
-if __name__ == '__main__':
-    # print_hi('PyCharm')
-    # TODO: Load all graph results from output of GSM C++ code
-    result_json = './result.json'
+def load_file_for_similarity(result_json):
     with open(result_json) as user_file:  # always take "final_db.json" as input
         parsed_json = json.load(user_file)
-        graph = Graph()
-        number_of_nodes = range(len(parsed_json))
 
+        number_of_nodes = range(len(parsed_json))
+        edges = []
         nodes = {}
         for row in number_of_nodes:
             item = parsed_json[row]
@@ -157,7 +167,7 @@ if __name__ == '__main__':
 
                 nodes[item['id']] = Singleton(
                     named_entity=name,
-                    properties=item['properties']
+                    properties=frozenset(item['properties'].items())
                 )
 
         for row in number_of_nodes:
@@ -185,7 +195,7 @@ if __name__ == '__main__':
             elif len(conj_nodes) == 1:
                 nodes[item['id']] = conj_nodes[0]
 
-        print(nodes)
+        # print(nodes)
 
         for row in range(len(parsed_json)):
             item = parsed_json[row]
@@ -193,15 +203,17 @@ if __name__ == '__main__':
             for edge in item['phi']:
                 # skip if containment is conj
                 if 'orig' not in edge['containment']:
-                    graph.edges.append(Relationship(
+                    edges.append(Relationship(
                         source=nodes[edge['score']['parent']],
                         target=nodes[edge['score']['child']],
-                        edgeLabel=Singleton(named_entity=edge['containment'].strip(), properties={}),
+                        edgeLabel=Singleton(named_entity=edge['containment'].strip(), properties=frozenset(dict().items())),
                         isNegated=('not' in edge['containment'])
                     ))
+        # print(graph)
+        return Graph(edges=edges)
 
-        print(graph)
-
-        # TODO: Get similarity score of graphs
-        # score = SimilarityScore()
-        # score.graph_distance()
+if __name__ == '__main__':
+    # print_hi('PyCharm')
+    # TODO: Load all graph results from output of GSM C++ code
+    result_json = './result.json'
+    print(load_file_for_similarity(result_json))
