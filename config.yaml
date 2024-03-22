@@ -1,2 +1,14 @@
 'stanford_nlp_host': 'localhost'
 'stanford_nlp_port': '9998'
+
+'iterations': 5 # Number of iterations for creating GSM output
+'should_generate_final_stanza_db': False
+'should_load_handwritten_sentences': True
+'should_generate_cypher_in_db': False
+
+'crawl_to_gsm':
+  'stanza_db': 'final_gsm_stanza_db.json'
+'generate_final_db':
+  'db_ph2': 'final_db.json' # JSON for crawled data
+
+'gsm_gsql_file_path': '/home/fox/CLionProjects/gsm_gsql'
