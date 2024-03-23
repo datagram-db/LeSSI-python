@@ -1,3 +1,5 @@
+import sys
+
 import yaml
 
 from crawltogsm.CrawlToGSM import CrawlToGSM
@@ -11,9 +13,14 @@ class Struct:
 
 
 if __name__ == "__main__":
+    conf = "config.yaml"
+    if (len(sys.argv) >= 2):
+        conf = sys.argv[1]
     try:
-        with open("config.yaml") as f:
+        with open(conf) as f:
             cfg = yaml.load(f, Loader=yaml.FullLoader)
+            if 'hand_dataset' in cfg:
+                cfg['rewritten_dataset'] = 'rewritten_'+cfg['hand_dataset']
     except FileNotFoundError:
         raise Exception("Error: missing configuration file")
 

@@ -114,11 +114,11 @@ def generate_final_db(self):
     db = []
     sentences = []
     count = 0
-    if 'should_load_handwritten_sentences' in self.cfg and self.cfg['should_load_handwritten_sentences']:
-        with open('hand.txt') as f:
+    hasHandDataset = 'should_load_handwritten_sentences' in self.cfg and self.cfg['should_load_handwritten_sentences']
+    if hasHandDataset:
+        with open(self.cfg['hand_dataset']) as f:
             for line in f:
                 sentence = line.split('\n')[0]
-
                 # Skip if sentence already exists
                 if sentence in sentences:
                     continue
@@ -136,7 +136,7 @@ def generate_final_db(self):
                 continue
             else:
                 sentences.append(sentence)
-        with open('hand.txt', 'w') as f:
+        with open(self.cfg['hand_dataset'], 'w') as f:
             f.write(os.linesep.join(sentences))
 
     for sentence in sentences:
@@ -177,7 +177,7 @@ def generate_final_db(self):
             print("Please enter valid number of 'iterations' in config.yaml")
             break
 
-    with open('sentences.txt', 'w') as f:
+    with open(self.cfg['rewritten_dataset'], 'w') as f:
         f.write(os.linesep.join(sentences))
 
     if 'crawl_to_gsm' in self.cfg:
@@ -190,7 +190,7 @@ def generate_final_db(self):
 
         try:
             output = subprocess.check_output(command, shell=True, text=True)
-            with open('gsm_sentences.txt', 'w') as f:
+            with open(self.cfg['gsm_sentences'], 'w') as f:
                 f.write(output)
         except subprocess.CalledProcessError:
             print("Make sure 'stanford_nlp_dg_server' is running")

@@ -1,4 +1,16 @@
 The cat eats the mouse
+The cat eats no mouse
+No cat eats a mouse
+The cat does not eat the mouse
 The mouse is eaten by the cat
+The mouse is eaten by no cat
+No mouse is eaten by a cat
+The mouse is not eaten by the cat
 The mouse eats the cat
+The mouse eats no cat
+No mouse eats a cat
+The mouse does not eat the cat
 The cat is eaten by the mouse
+The cat is eaten by no mouse
+No cat is eaten by a mouse
+The cat is not eaten by the mouse

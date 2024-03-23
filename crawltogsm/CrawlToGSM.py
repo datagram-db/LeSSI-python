@@ -11,12 +11,12 @@ __status__ = "Production"
 import json
 import os.path
 import subprocess
-
+import numpy as np
 import stanza
-
+from scipy.sparse import csr_matrix
+import markov_clustering as mc
 from crawltogsm.generate_gsm_cypher_db import generate_final_db
 from gsmtosimilarity.graph_similarity import load_file_for_similarity, SimilarityScore
-
 
 class CrawlToGSM:
     def __init__(self, full_cfg):
@@ -30,19 +30,20 @@ class CrawlToGSM:
         else:
             self.parsed_json = None
         self.cfg = full_cfg
-        self.sc = SimilarityScore()
+        self.sc = SimilarityScore(self.cfg)
 
     def ideas24Similarity(self):
-        with open('gsm_sentences.txt') as sentences:
-            db = sentences.read()
-        command = (f"{self.cfg['gsm_gsql_file_path']}/cmake-build-release/gsm2_server "
-                   f"data/test/einstein/einstein_query.txt -j '{db}' -iortv -z \"pos\nSizeTAtt\"")
-        try:
-            # This will create the outputs for the given sentences in the C++ GSM
-            output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
-            # print(output)
-        except subprocess.CalledProcessError as e:
-            raise Exception(e.output)
+        if 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']:
+            with open(self.cfg['gsm_sentences']) as sentences:
+                db = sentences.read()
+            command = (f"{self.cfg['gsm_gsql_file_path']}/cmake-build-release/gsm2_server "
+                       f"data/test/einstein/einstein_query.txt -j '{db}' -iortv -z \"pos\nSizeTAtt\"")
+            try:
+                # This will create the outputs for the given sentences in the C++ GSM
+                output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
+                # print(output)
+            except subprocess.CalledProcessError as e:
+                raise Exception(e.output)
         directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
 
         graphs = []
@@ -61,11 +62,11 @@ class CrawlToGSM:
                 dist = 1.0 - dist / (1 + dist)
                 ls.append(dist)
             M.append(ls)
-        return M
+        return np.array(M)
 
     def getSentencesFromFile(self):
         sentences = []
-        with open("hand.txt", "r") as file:
+        with open(self.cfg['hand_dataset'], "r") as file:
             sentences = file.read().splitlines()
         return sentences
 
@@ -83,7 +84,7 @@ class CrawlToGSM:
             for y in L:
                 ls.append(self.sc.string_similarity(x, y))
             M.append(ls)
-        return M
+        return np.array(M)
 
     def __call__(self, *args, **kwargs):
         # Should we regenerate the stanza db or not
@@ -92,9 +93,30 @@ class CrawlToGSM:
             self.nlp = stanza.Pipeline('en')
             generate_final_db(self)
         M = self.getSimilarityMatrix()
+        # perform clustering using different inflation values from 1.5 and 2.5
+        # for each clustering run, calculate the modularity
         s = self.getSentencesFromFile()
+        row = []
+        col = []
+        data = []
+        for i in range(len(M)):
+            j, maxVal = max(filter(lambda idx: idx[0]!=i, enumerate(M[i])), key=lambda x: x[1])
+            for i, currVal in enumerate(M[i]):
+                if currVal >= maxVal:
+                    row.append(i)
+                    col.append(j)
+                    data.append(currVal)
+        sparseMatrix = csr_matrix((np.array(data), (np.array(row), np.array(col))),
+                                  shape=(len(M), len(M))).toarray()
+        # perform clustering using different inflation values from 1.5 and 2.5
+        # for each clustering run, calculate the modularity
+        result = mc.run_mcl(sparseMatrix)
+        clusters = mc.get_clusters(result)
+        print(clusters)
         with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
-            json.dump({ "similarity_matrix": M, "sentences": s }, f)
+            json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
+        with open("clusters_"+self.cfg['similarity']+".txt", "w") as f:
+            f.write(os.linesep.join(map(lambda x: str(x), clusters)))
 
 
 

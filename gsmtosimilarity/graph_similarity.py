@@ -7,11 +7,15 @@ from enum import Enum
 import numpy as np
 from sentence_transformers import SentenceTransformer, util
 
+from gsmtosimilarity.string_similarity_factory import StringSimilarity
+
 
 class Grouping(Enum):
     AND = 0
     OR = 1
     NEITHER = 2
+    NOT = 3
+    NONE = 4
 
 
 # class Properties(TypedDict):  # Key-Value association
@@ -49,19 +53,18 @@ class Graph:
 
 
 class SimilarityScore:  # Defining the graph similarity score
-    def __init__(self):
-        self.model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
+    def __init__(self, cfg):
+        self.entity_similarity = StringSimilarity(cfg, 'string_similarity')
+        if 'verb_similarity' in cfg:
+            self.rel_similarity = StringSimilarity(cfg, 'verb_similarity')
+        else:
+            self.rel_similarity = self.entity_similarity
 
     def string_distance(self, x: str, y: str) -> float:  # between 0 and 1
-        return 1.0 - self.string_similarity(x,y)
+        return 1.0 - self.entity_similarity.string_similarity(x,y)
 
     def string_similarity(self, x: str, y: str) -> float:  # between 0 and 1
-        x_vec = self.model.encode(x)
-        y_vec = self.model.encode(y)
-        strictSim = float(util.pairwise_dot_score(x_vec, y_vec))
-        if (strictSim > np.finfo(float).eps):
-            return strictSim
-        return 0.0
+        return self.entity_similarity.string_similarity(x,y)
 
     def properties_distance(self, x: frozenset, y: frozenset) -> float:
         if (len(x) == 0) and (len(y) == 0):
@@ -96,14 +99,44 @@ class SimilarityScore:  # Defining the graph similarity score
                 other_dist = other_dist + compute
         return (missing + other_dist) / (missing + others)
 
-    def singleton_dist(self, x: Singleton, y: Singleton) -> float:  # between 0 and 1
-        return (self.string_distance(x.named_entity, y.named_entity) )
+    def singleton_dist(self, x: Singleton, y: Singleton, isRel=False) -> float:  # between 0 and 1
+        if isRel:
+            return 1.0-self.rel_similarity.string_similarity(x.named_entity, y.named_entity)
+        else:
+            return self.string_distance(x.named_entity, y.named_entity)
 
     def entity_distance(self, x: NodeEntryPoint, y: NodeEntryPoint) -> float:
         if isinstance(x, Singleton) and isinstance(y, Singleton):
             return self.singleton_dist(x, y)
+        elif isinstance(x, Singleton):
+            if y.type == Grouping.AND:
+                return 0.0
+            elif y.type == Grouping.OR:
+                return min(y.entities, key=lambda z: self.entity_distance(x, z))
+            elif y.type == Grouping.NOT:
+                assert len(y.entities)==1
+                return 1.0 - self.entity_distance(x, y.entities[0])
+            else:
+                raise ValueError(str(y.type)+" is not supported")
+        elif isinstance(y, Singleton):
+            if y.type == Grouping.AND:
+                return min(y.entities, key=lambda z: self.entity_distance(x, z))
+            elif y.type == Grouping.OR:
+                return 0.0
+            elif y.type == Grouping.NOT:
+                assert len(x.entities)==1
+                return 1.0 - self.entity_distance(x.entities[0], y)
+            else:
+                raise ValueError(str(y.type)+" is not supported")
         else:
-            pass  # TODO
+            assert len(x.entities)>0
+            assert len(y.entities)>0
+            matches = []
+            
+            for z in x.entities:
+                yMin = min(y.entities, key=lambda k: self.entity_similarity(z, k))
+                matches.append(tuple([x, yMin]))
+
 
     def edge_distance(self, x: Relationship, y: Relationship):
         L = (x.source.named_entity,x.edgeLabel.named_entity,x.target.named_entity)
@@ -111,7 +144,7 @@ class SimilarityScore:  # Defining the graph similarity score
         print (str(L) +" vs "+str(R))
         srcSim = 1.0 - self.entity_distance(x.source, y.source)
         dstSim = 1.0 - self.entity_distance(x.target, y.target)
-        edgeSim = 1.0 - self.singleton_dist(x.edgeLabel, y.edgeLabel) * (1 if x.isNegated == y.isNegated else 0)
+        edgeSim = 1.0 - self.singleton_dist(x.edgeLabel, y.edgeLabel, True) * (1 if x.isNegated == y.isNegated else 0)
         return 1.0- (srcSim * dstSim * edgeSim)
 
     def graph_distance(self, g1: Graph, g2: Graph):
@@ -175,14 +208,12 @@ def load_file_for_similarity(result_json):
             conj_nodes = []
             if 'conj' in item['properties']:
                 conj = item['properties']['conj']
-
                 if 'and' in conj:
-                    group_type = Grouping(0)
+                    group_type = Grouping.AND
                 elif 'or' in conj:
-                    group_type = Grouping(1)
+                    group_type = Grouping.OR
                 else:
-                    group_type = Grouping(2)
-
+                    group_type = Grouping.NONE
                 for edge in item['phi']:
                     if 'orig' in edge['containment']:
                         conj_nodes.append(nodes[edge['content']])
@@ -206,7 +237,7 @@ def load_file_for_similarity(result_json):
                     edges.append(Relationship(
                         source=nodes[edge['score']['parent']],
                         target=nodes[edge['score']['child']],
-                        edgeLabel=Singleton(named_entity=edge['containment'].strip(), properties=frozenset(dict().items())),
+                        edgeLabel=Singleton(named_entity=edge['containment'].replace("not", " ").strip(), properties=frozenset(dict().items())),
                         isNegated=('not' in edge['containment'])
                     ))
         # print(graph)
