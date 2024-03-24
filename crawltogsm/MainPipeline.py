@@ -15,10 +15,10 @@ import numpy as np
 import stanza
 from scipy.sparse import csr_matrix
 import markov_clustering as mc
-from crawltogsm.generate_gsm_cypher_db import generate_final_db
+from crawltogsm.generate_gsm_cypher_db import sentence_preprocessing
 from gsmtosimilarity.graph_similarity import load_file_for_similarity, SimilarityScore
 
-class CrawlToGSM:
+class MainPipeline:
     def __init__(self, full_cfg):
         final_db = 'final_db.json'  # By default, this is the file name from "generate_final_db.py"
         if 'generate_final_db' in full_cfg:  # Otherwise get file path from config
@@ -31,6 +31,9 @@ class CrawlToGSM:
             self.parsed_json = None
         self.cfg = full_cfg
         self.sc = SimilarityScore(self.cfg)
+        if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
+            stanza.download('en')
+            self.nlp = stanza.Pipeline('en')
 
     def ideas24Similarity(self):
         if 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']:
@@ -86,21 +89,32 @@ class CrawlToGSM:
             M.append(ls)
         return np.array(M)
 
-    def __call__(self, *args, **kwargs):
-        # Should we regenerate the stanza db or not
+    def do_sentence_preprocessing(self):
         if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
-            stanza.download('en')
-            self.nlp = stanza.Pipeline('en')
-            generate_final_db(self)
+            sentence_preprocessing(self)
+
+    def do_sentence_matching_and_evaluation(self):
+        # Should we regenerate the stanza db or not
         M = self.getSimilarityMatrix()
-        # perform clustering using different inflation values from 1.5 and 2.5
-        # for each clustering run, calculate the modularity
         s = self.getSentencesFromFile()
+        with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
+            json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
+
+        sparseMatrix = self.maximal_matching(M)
+        self.mcl_clustrering_matches(sparseMatrix)
+
+    def mcl_clustrering_matches(self, sparseMatrix):
+        result = mc.run_mcl(sparseMatrix)
+        clusters = mc.get_clusters(result)
+        with open("clusters_" + self.cfg['similarity'] + ".txt", "w") as f:
+            f.write(os.linesep.join(map(lambda x: str(x), clusters)))
+
+    def maximal_matching(self, M):
         row = []
         col = []
         data = []
         for i in range(len(M)):
-            j, maxVal = max(filter(lambda idx: idx[0]!=i, enumerate(M[i])), key=lambda x: x[1])
+            j, maxVal = max(filter(lambda idx: idx[0] != i, enumerate(M[i])), key=lambda x: x[1])
             for i, currVal in enumerate(M[i]):
                 if currVal >= maxVal:
                     row.append(i)
@@ -108,15 +122,7 @@ class CrawlToGSM:
                     data.append(currVal)
         sparseMatrix = csr_matrix((np.array(data), (np.array(row), np.array(col))),
                                   shape=(len(M), len(M))).toarray()
-        # perform clustering using different inflation values from 1.5 and 2.5
-        # for each clustering run, calculate the modularity
-        result = mc.run_mcl(sparseMatrix)
-        clusters = mc.get_clusters(result)
-        print(clusters)
-        with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
-            json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
-        with open("clusters_"+self.cfg['similarity']+".txt", "w") as f:
-            f.write(os.linesep.join(map(lambda x: str(x), clusters)))
+        return sparseMatrix
 
 
 

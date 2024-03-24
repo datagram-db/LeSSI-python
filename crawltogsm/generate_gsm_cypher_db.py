@@ -110,38 +110,30 @@ def item_generator(json_input, lookup_key):
             yield from item_generator(item, lookup_key)
 
 
-def generate_final_db(self):
+def sentence_preprocessing(self):
     db = []
     sentences = []
     count = 0
-    hasHandDataset = 'should_load_handwritten_sentences' in self.cfg and self.cfg['should_load_handwritten_sentences']
-    if hasHandDataset:
-        with open(self.cfg['hand_dataset']) as f:
-            for line in f:
-                sentence = line.split('\n')[0]
-                # Skip if sentence already exists
-                if sentence in sentences:
-                    continue
-                else:
-                    sentences.append(sentence)
-    else:
-        for i in item_generator(self.parsed_json, "maintext"):  # 'maintext' is the body of text from a given article
-            text = str(i).replace('\n', '. ')  # Replace newline with '. ' to make split easier
-            sentence = text.split('. ')[0]  # Get first sentence from 'maintext'
+    load_sentences(self, sentences)
+    multi_named_entity_recognition(count, db, self, sentences)
+    if self.cfg['similarity'] == 'IDEAS24':
+        load_to_datagram_db(self, sentences)
 
-            # Skip if sentence already exists
-            if sentence in sentences:
-                continue
-            elif "Published on:" in sentence:  # Omit sentences with this as they are malformed
-                continue
-            else:
-                sentences.append(sentence)
-        with open(self.cfg['hand_dataset'], 'w') as f:
-            f.write(os.linesep.join(sentences))
 
+def load_to_datagram_db(self, sentences):
+    all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
+    command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
+    try:
+        output = subprocess.check_output(command, shell=True, text=True)
+        with open(self.cfg['gsm_sentences'], 'w') as f:
+            f.write(output)
+    except subprocess.CalledProcessError:
+        print("Make sure 'stanford_nlp_dg_server' is running")
+
+
+def multi_named_entity_recognition(count, db, self, sentences):
     for sentence in sentences:
         results = self.nlp(sentence)
-
         entities = []
         multi_entity_unit = []
         for ent in results.ents:
@@ -176,21 +168,35 @@ def generate_final_db(self):
         else:
             print("Please enter valid number of 'iterations' in config.yaml")
             break
-
     with open(self.cfg['rewritten_dataset'], 'w') as f:
         f.write(os.linesep.join(sentences))
-
     if 'crawl_to_gsm' in self.cfg:
         if 'stanza_db' in self.cfg['crawl_to_gsm']:
             json.dump(db, open(self.cfg['crawl_to_gsm']['stanza_db'], "w"), indent=4, sort_keys=True)
 
-    if self.cfg['similarity'] == 'IDEAS24':
-        all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
-        command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
 
-        try:
-            output = subprocess.check_output(command, shell=True, text=True)
-            with open(self.cfg['gsm_sentences'], 'w') as f:
-                f.write(output)
-        except subprocess.CalledProcessError:
-            print("Make sure 'stanford_nlp_dg_server' is running")
+def load_sentences(self, sentences):
+    hasHandDataset = 'should_load_handwritten_sentences' in self.cfg and self.cfg['should_load_handwritten_sentences']
+    if hasHandDataset:
+        with open(self.cfg['hand_dataset']) as f:
+            for line in f:
+                sentence = line.split('\n')[0]
+                # Skip if sentence already exists
+                if sentence in sentences:
+                    continue
+                else:
+                    sentences.append(sentence)
+    else:
+        for i in item_generator(self.parsed_json, "maintext"):  # 'maintext' is the body of text from a given article
+            text = str(i).replace('\n', '. ')  # Replace newline with '. ' to make split easier
+            sentence = text.split('. ')[0]  # Get first sentence from 'maintext'
+
+            # Skip if sentence already exists
+            if sentence in sentences:
+                continue
+            elif "Published on:" in sentence:  # Omit sentences with this as they are malformed
+                continue
+            else:
+                sentences.append(sentence)
+        with open(self.cfg['hand_dataset'], 'w') as f:
+            f.write(os.linesep.join(sentences))

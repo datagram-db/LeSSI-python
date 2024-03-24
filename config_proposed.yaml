@@ -6,7 +6,7 @@
 'should_load_handwritten_sentences': True
 'should_generate_cypher_in_db': False
 'should_run_datagram_db': False
-hand_dataset: 'hand.txt'
+hand_dataset: 'hand2.txt'
 gsm_sentences: 'gsm_sentences.txt'
 
 'similarity': 'SentenceTransformer'
