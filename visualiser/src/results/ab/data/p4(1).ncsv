@@ -1,0 +1,14 @@
+p4("graph", "B", "*") {
+	[0, NULL, @*("V", "l_label", "l", "Z", "w_label", "w") {
+		[0, "dobj", "↑4", 3, NULL, "↑NULL"]
+}]
+	[1, NULL, @*("V", "l_label", "l", "Z", "w_label", "w") {
+		[0, "dobj", "↑6", 1, NULL, "↑NULL"]
+}]
+	[2, NULL, @*("V", "l_label", "l", "Z", "w_label", "w") {
+		[0, "dobj", "↑7", 2, NULL, "↑NULL"]
+}]
+	[3, NULL, @*("V", "l_label", "l", "Z", "w_label", "w") {
+		[0, "dobj", "↑5", 1, NULL, "↑NULL"]
+}]
+}

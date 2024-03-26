@@ -1,0 +1,10 @@
+p2("graph", "X", "*") {
+	[0, 0, @*("H", "l_label", "l", "c_label", "c", "Z", "g_label", "g", "Y") {
+		[1, "nsubj", "↑8", "cc", "↑0", 4, "conj", "↑2", 2]
+		[2, "nsubj", "↑9", NULL, "↑NULL", NULL, NULL, "↑NULL", NULL]
+}]
+	[3, 0, @*("H", "l_label", "l", "c_label", "c", "Z", "g_label", "g", "Y") {
+		[2, "nsubj", "↑10", NULL, "↑NULL", NULL, NULL, "↑NULL", NULL]
+		[3, "nsubj", "↑11", "cc", "↑1", 4, "conj", "↑3", 2]
+}]
+}

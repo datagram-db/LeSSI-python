@@ -16,7 +16,7 @@ class ConceptNet5Numberbatch:
         self.minTheta = minTheta
         self.dictionary = SimplifiedFuzzyStringMatching()
         if not os.path.exists("mini.h5"):
-            print("Downloading Mini HDF5 dataset...")
+            print("Downloading Mini HDF5 data...")
             urllib.request.urlretrieve("http://conceptnet.s3.amazonaws.com/precomputed-data/2016/numberbatch/19.08/mini.h5", "mini.h5")
         self.f = pd.read_hdf("mini.h5", 'mat', encoding='utf-8')
         self.data_pts = dict()

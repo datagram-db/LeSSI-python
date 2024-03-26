@@ -1,0 +1,2 @@
+[{"id":1, "ell":["noun"], "xi":["bob"], "properties":{"specification":"common", "number":"singular", "pos":"1.000000"}, "phi":[{"containment":"  plays", "content":2, "properties":{}, "score":{"type": "ProvPhi", "parent":1,"label":"  plays","child":2,"id":0}}], "scores":{"type": "ProvObject","object":1}}, 
+{"id":2, "ell":["noun"], "xi":["cricket"], "properties":{"specification":"common", "number":"singular", "pos":"3.000000"}, "phi":[], "scores":{"type": "ProvObject","object":2}}]

@@ -10,6 +10,7 @@ __status__ = "Production"
 
 import json
 import os.path
+import shutil
 import subprocess
 import numpy as np
 import stanza
@@ -17,6 +18,8 @@ from scipy.sparse import csr_matrix
 import markov_clustering as mc
 from crawltogsm.generate_gsm_cypher_db import sentence_preprocessing
 from gsmtosimilarity.graph_similarity import load_file_for_similarity, SimilarityScore
+from main import write_to_log
+
 
 class MainPipeline:
     def __init__(self, full_cfg):
@@ -32,11 +35,12 @@ class MainPipeline:
         self.cfg = full_cfg
         self.sc = SimilarityScore(self.cfg)
         if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
+            write_to_log(self.cfg, "Downloading Stanza database...")
             stanza.download('en')
             self.nlp = stanza.Pipeline('en')
 
     def ideas24Similarity(self):
-        print("IDEAS24 similarity matrix...")
+        write_to_log(self.cfg, "Using IDEAS24 similarity matrix...")
         if 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']:
             with open(self.cfg['gsm_sentences']) as sentences:
                 db = sentences.read()
@@ -49,6 +53,11 @@ class MainPipeline:
             except subprocess.CalledProcessError as e:
                 raise Exception(e.output)
         directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
+
+        dataset_folder = f"{self.cfg['web_dir']}/dataset/data"
+        if os.path.exists(dataset_folder):
+            shutil.rmtree(dataset_folder)
+        shutil.copytree(directory, dataset_folder)
 
         graphs = []
         for x in os.walk(directory):
@@ -74,18 +83,18 @@ class MainPipeline:
         else:
             with open(self.cfg['hand_dataset'], "r") as file:
                 sentences = file.read().splitlines()
-        print(f"Chosen sentences: {sentences}")
+        write_to_log(self.cfg, f"Chosen sentences: {sentences}")
         return sentences
 
     def getSimilarityMatrix(self):
-        print("Getting similarity matrix...")
+        write_to_log(self.cfg, "Getting similarity matrix...")
         if self.cfg['similarity'] == 'IDEAS24':
             return self.ideas24Similarity()
         elif self.cfg['similarity'] == 'SentenceTransformer':
             return self.bertSimilarity()
 
     def bertSimilarity(self):
-        print("BERT similarity matrix...")
+        write_to_log(self.cfg, "Using BERT similarity matrix...")
         L = self.getSentencesFromFile()
         M = []
         for x in L:
@@ -101,7 +110,7 @@ class MainPipeline:
 
     def do_sentence_matching_and_evaluation(self):
         # Should we regenerate the stanza db or not
-        print("Doing sentence matching...")
+        write_to_log(self.cfg, "Doing sentence matching...")
         M = self.getSimilarityMatrix()
         s = self.getSentencesFromFile()
         with open(self.cfg['web_dir']+"similarity_"+self.cfg['similarity']+".json", "w") as f:
@@ -111,14 +120,14 @@ class MainPipeline:
         self.mcl_clustering_matches(sparseMatrix)
 
     def mcl_clustering_matches(self, sparseMatrix):
-        print("Clustering matches...")
+        write_to_log(self.cfg, "Clustering matches...")
         result = mc.run_mcl(sparseMatrix)
         clusters = mc.get_clusters(result)
         with open(self.cfg['web_dir']+"clusters_" + self.cfg['similarity'] + ".txt", "w") as f:
             f.write(os.linesep.join(map(lambda x: str(x), clusters)))
 
     def maximal_matching(self, M):
-        print("Maximal matching...")
+        write_to_log(self.cfg, "Maximal matching...")
         row = []
         col = []
         data = []

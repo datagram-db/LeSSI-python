@@ -1,0 +1,3 @@
+[{"id":0, "ell":["VBZ","root"], "xi":["plays"], "properties":{"pos":"2.000000", "lemma":"play"}, "phi":[{"containment":"dobj", "content":1, "properties":{}, "score":{"type": "ProvPhi", "parent":0,"label":"dobj","child":1,"id":0}},{"containment":"nsubj", "content":2, "properties":{}, "score":{"type": "ProvPhi", "parent":0,"label":"nsubj","child":2,"id":0}}], "scores":{"type": "ProvObject","object":0}}, 
+{"id":1, "ell":["noun"], "xi":["cricket"], "properties":{"pos":"3.000000", "number":"singular", "specification":"common"}, "phi":[], "scores":{"type": "ProvObject","object":1}}, 
+{"id":2, "ell":["noun"], "xi":["alice"], "properties":{"pos":"1.000000", "number":"singular", "specification":"common"}, "phi":[], "scores":{"type": "ProvObject","object":2}}]

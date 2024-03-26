@@ -4,28 +4,30 @@ VBZ
 root
 .
 xi:
-is
+plays
 .
 properties:
 "pos"	"2"
-"lemma"	"be"
+"lemma"	"play"
 .
 phi:
-"expl"
+"nsubj"
 	1.0	1
-;"nsubj"
+;"dobj"
 	1.0	2
 ;.
 
 id:1
 ell:
-∃
+noun
 .
 xi:
-there
+jane
 .
 properties:
+"number"	"singular"
 "pos"	"1"
+"specification"	"common"
 .
 phi:
 .
@@ -35,233 +37,12 @@ ell:
 noun
 .
 xi:
-traffic
-.
-properties:
-"number"	"singular"
-"pos"	"4"
-"specification"	"common"
-.
-phi:
-"neg"
-	1.0	3
-;"nmod"
-	1.0	4
-;.
-
-id:3
-ell:
-det
-.
-xi:
-no
-.
-properties:
-"pos"	"3"
-.
-phi:
-.
-
-id:4
-ell:
-noun
-.
-xi:
-centre
-.
-properties:
-"number"	"singular"
-"pos"	"9"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	5
-;"amod"
-	1.0	6
-;"compound"
-	1.0	7
-;"case"
-	1.0	8
-;.
-
-id:8
-ell:
-IN
-.
-xi:
-in
-.
-properties:
-"pos"	"5"
-.
-phi:
-.
-
-id:5
-ell:
-det
-.
-xi:
-the
-.
-properties:
-"pos"	"6"
-.
-phi:
-.
-
-id:6
-ell:
-JJ
-.
-xi:
-newcastle
-.
-properties:
-"pos"	"7"
-.
-phi:
-.
-
-id:7
-ell:
-noun
-.
-xi:
-city
-.
-properties:
-"number"	"singular"
-"pos"	"8"
-"specification"	"common"
-.
-phi:
-.
-
-~~
-id:0
-ell:
-noun
-.
-xi:
-city
-.
-properties:
-"number"	"singular"
-"pos"	"7"
-"specification"	"common"
-.
-phi:
-.
-
-id:1
-ell:
-VBZ
-root
-.
-xi:
-is
-.
-properties:
-"pos"	"2"
-"lemma"	"be"
-.
-phi:
-"expl"
-	1.0	2
-;"nsubj"
-	1.0	3
-;.
-
-id:2
-ell:
-∃
-.
-xi:
-there
-.
-properties:
-"pos"	"1"
-.
-phi:
-.
-
-id:3
-ell:
-noun
-.
-xi:
-traffic
+tennis
 .
 properties:
 "number"	"singular"
 "pos"	"3"
 "specification"	"common"
-.
-phi:
-"nmod"
-	1.0	4
-;.
-
-id:4
-ell:
-noun
-.
-xi:
-centre
-.
-properties:
-"number"	"singular"
-"pos"	"8"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	5
-;"amod"
-	1.0	6
-;"compound"
-	1.0	0
-;"case"
-	1.0	7
-;.
-
-id:7
-ell:
-IN
-.
-xi:
-in
-.
-properties:
-"pos"	"4"
-.
-phi:
-.
-
-id:5
-ell:
-det
-.
-xi:
-the
-.
-properties:
-"pos"	"5"
-.
-phi:
-.
-
-id:6
-ell:
-JJ
-.
-xi:
-newcastle
-.
-properties:
-"pos"	"6"
 .
 phi:
 .
@@ -273,40 +54,40 @@ VBZ
 root
 .
 xi:
-is
+plays
 .
 properties:
 "pos"	"2"
-"lemma"	"be"
+"lemma"	"play"
 .
 phi:
-"expl"
+"dobj"
 	1.0	1
 ;"nsubj"
 	1.0	2
-;"dep"
-	1.0	3
 ;.
-
-id:1
-ell:
-∃
-.
-xi:
-there
-.
-properties:
-"pos"	"1"
-.
-phi:
-.
 
 id:2
 ell:
 noun
 .
 xi:
-traffic
+dom
+.
+properties:
+"number"	"singular"
+"pos"	"1"
+"specification"	"common"
+.
+phi:
+.
+
+id:1
+ell:
+noun
+.
+xi:
+tennis
 .
 properties:
 "number"	"singular"
@@ -316,21 +97,43 @@ properties:
 phi:
 .
 
-id:3
+~~
+id:0
 ell:
-RB
+VBP
+root
 .
 xi:
-not
+play
 .
 properties:
-"pos"	"5"
+"pos"	"4"
+.
+phi:
+"nsubj"
+	1.0	1
+	1.0	2
+;"dobj"
+	1.0	3
+;.
+
+id:1
+ell:
+noun
+.
+xi:
+dom
+.
+properties:
+"number"	"singular"
+"pos"	"1"
+"specification"	"common"
 .
 phi:
 "cc"
 	1.0	4
-;"nmod"
-	1.0	5
+;"conj"
+	1.0	2
 ;.
 
 id:4
@@ -338,86 +141,39 @@ ell:
 CC
 .
 xi:
-but
+and
 .
 properties:
-"pos"	"4"
+"pos"	"2"
 .
 phi:
 .
 
-id:5
+id:2
 ell:
 noun
 .
 xi:
-centre
+jane
 .
 properties:
 "number"	"singular"
-"pos"	"10"
+"pos"	"3"
 "specification"	"common"
 .
 phi:
-"det"
-	1.0	6
-;"amod"
-	1.0	7
-;"compound"
-	1.0	8
-;"case"
-	1.0	9
-;.
-
-id:9
-ell:
-IN
-.
-xi:
-in
-.
-properties:
-"pos"	"6"
-.
-phi:
 .
 
-id:6
-ell:
-det
-.
-xi:
-the
-.
-properties:
-"pos"	"7"
-.
-phi:
-.
-
-id:7
-ell:
-JJ
-.
-xi:
-newcastle
-.
-properties:
-"pos"	"8"
-.
-phi:
-.
-
-id:8
+id:3
 ell:
 noun
 .
 xi:
-city
+tennis
 .
 properties:
 "number"	"singular"
-"pos"	"9"
+"pos"	"5"
 "specification"	"common"
 .
 phi:
@@ -426,64 +182,29 @@ phi:
 ~~
 id:0
 ell:
-VBZ
-.
-xi:
-is
-.
-properties:
-"pos"	"5"
-"lemma"	"be"
-.
-phi:
-.
-
-id:1
-ell:
 VBG
 root
 .
 xi:
-flowing
+raining
 .
 properties:
-"pos"	"6"
-"lemma"	"flow"
+"pos"	"3"
+"lemma"	"rain"
 .
 phi:
 "aux"
-	1.0	0
-;"nmod"
-	1.0	2
-;"punct"
-	1.0	3
+	1.0	1
 ;"nsubj"
-	1.0	4
+	1.0	2
 ;.
 
 id:2
 ell:
-noun
+PRP
 .
 xi:
-newcastle
-.
-properties:
-"number"	"singular"
-"pos"	"2"
-"specification"	"common"
-.
-phi:
-"case"
-	1.0	5
-;.
-
-id:5
-ell:
-IN
-.
-xi:
-in
+it
 .
 properties:
 "pos"	"1"
@@ -491,30 +212,16 @@ properties:
 phi:
 .
 
-id:3
+id:1
 ell:
-,
+VBZ
 .
 xi:
-,
+is
 .
 properties:
-"pos"	"3"
-.
-phi:
-.
-
-id:4
-ell:
-noun
-.
-xi:
-traffic
-.
-properties:
-"number"	"singular"
-"pos"	"4"
-"specification"	"common"
+"pos"	"2"
+"lemma"	"be"
 .
 phi:
 .
