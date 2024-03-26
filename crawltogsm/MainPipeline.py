@@ -36,6 +36,7 @@ class MainPipeline:
             self.nlp = stanza.Pipeline('en')
 
     def ideas24Similarity(self):
+        print("IDEAS24 similarity matrix...")
         if 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']:
             with open(self.cfg['gsm_sentences']) as sentences:
                 db = sentences.read()
@@ -68,18 +69,23 @@ class MainPipeline:
         return np.array(M)
 
     def getSentencesFromFile(self):
-        sentences = []
-        with open(self.cfg['hand_dataset'], "r") as file:
-            sentences = file.read().splitlines()
+        if len(self.cfg['sentences']) > 0:
+            sentences = self.cfg['sentences']
+        else:
+            with open(self.cfg['hand_dataset'], "r") as file:
+                sentences = file.read().splitlines()
+        print(f"Chosen sentences: {sentences}")
         return sentences
 
     def getSimilarityMatrix(self):
+        print("Getting similarity matrix...")
         if self.cfg['similarity'] == 'IDEAS24':
             return self.ideas24Similarity()
         elif self.cfg['similarity'] == 'SentenceTransformer':
             return self.bertSimilarity()
 
     def bertSimilarity(self):
+        print("BERT similarity matrix...")
         L = self.getSentencesFromFile()
         M = []
         for x in L:
@@ -95,21 +101,24 @@ class MainPipeline:
 
     def do_sentence_matching_and_evaluation(self):
         # Should we regenerate the stanza db or not
+        print("Doing sentence matching...")
         M = self.getSimilarityMatrix()
         s = self.getSentencesFromFile()
-        with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
+        with open(self.cfg['web_dir']+"similarity_"+self.cfg['similarity']+".json", "w") as f:
             json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
 
         sparseMatrix = self.maximal_matching(M)
-        self.mcl_clustrering_matches(sparseMatrix)
+        self.mcl_clustering_matches(sparseMatrix)
 
-    def mcl_clustrering_matches(self, sparseMatrix):
+    def mcl_clustering_matches(self, sparseMatrix):
+        print("Clustering matches...")
         result = mc.run_mcl(sparseMatrix)
         clusters = mc.get_clusters(result)
-        with open("clusters_" + self.cfg['similarity'] + ".txt", "w") as f:
+        with open(self.cfg['web_dir']+"clusters_" + self.cfg['similarity'] + ".txt", "w") as f:
             f.write(os.linesep.join(map(lambda x: str(x), clusters)))
 
     def maximal_matching(self, M):
+        print("Maximal matching...")
         row = []
         col = []
         data = []

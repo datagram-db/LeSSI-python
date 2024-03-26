@@ -4,141 +4,28 @@ VBZ
 root
 .
 xi:
-eats
-.
-properties:
-"pos"	"3"
-"lemma"	"eat"
-.
-phi:
-"nsubj"
-	1.0	1
-;"dobj"
-	1.0	2
-;.
-
-id:1
-ell:
-noun
-.
-xi:
-cat
-.
-properties:
-"number"	"singular"
-"pos"	"2"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	3
-;.
-
-id:3
-ell:
-det
-.
-xi:
-the
-.
-properties:
-"pos"	"1"
-.
-phi:
-.
-
-id:2
-ell:
-noun
-.
-xi:
-mouse
-.
-properties:
-"number"	"singular"
-"pos"	"5"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	4
-;.
-
-id:4
-ell:
-det
-.
-xi:
-the
-.
-properties:
-"pos"	"4"
-.
-phi:
-.
-
-~~
-id:0
-ell:
-VBN
-root
-.
-xi:
-eaten
-.
-properties:
-"pos"	"4"
-"lemma"	"eat"
-.
-phi:
-"nsubjpass"
-	1.0	1
-;"nmod"
-	1.0	2
-;"auxpass"
-	1.0	3
-;.
-
-id:1
-ell:
-noun
-.
-xi:
-mouse
-.
-properties:
-"number"	"singular"
-"pos"	"2"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	4
-;.
-
-id:4
-ell:
-det
-.
-xi:
-the
-.
-properties:
-"pos"	"1"
-.
-phi:
-.
-
-id:3
-ell:
-VBZ
-.
-xi:
 is
 .
 properties:
-"pos"	"3"
+"pos"	"2"
 "lemma"	"be"
+.
+phi:
+"expl"
+	1.0	1
+;"nsubj"
+	1.0	2
+;.
+
+id:1
+ell:
+∃
+.
+xi:
+there
+.
+properties:
+"pos"	"1"
 .
 phi:
 .
@@ -148,26 +35,62 @@ ell:
 noun
 .
 xi:
-cat
+traffic
 .
 properties:
 "number"	"singular"
-"pos"	"7"
+"pos"	"4"
+"specification"	"common"
+.
+phi:
+"neg"
+	1.0	3
+;"nmod"
+	1.0	4
+;.
+
+id:3
+ell:
+det
+.
+xi:
+no
+.
+properties:
+"pos"	"3"
+.
+phi:
+.
+
+id:4
+ell:
+noun
+.
+xi:
+centre
+.
+properties:
+"number"	"singular"
+"pos"	"9"
 "specification"	"common"
 .
 phi:
 "det"
 	1.0	5
-;"case"
+;"amod"
 	1.0	6
+;"compound"
+	1.0	7
+;"case"
+	1.0	8
 ;.
 
-id:6
+id:8
 ell:
 IN
 .
 xi:
-by
+in
 .
 properties:
 "pos"	"5"
@@ -188,16 +111,46 @@ properties:
 phi:
 .
 
+id:6
+ell:
+JJ
+.
+xi:
+newcastle
+.
+properties:
+"pos"	"7"
+.
+phi:
+.
+
+id:7
+ell:
+noun
+.
+xi:
+city
+.
+properties:
+"number"	"singular"
+"pos"	"8"
+"specification"	"common"
+.
+phi:
+.
+
 ~~
 id:0
 ell:
-det
+noun
 .
 xi:
-the
+city
 .
 properties:
-"pos"	"4"
+"number"	"singular"
+"pos"	"7"
+"specification"	"common"
 .
 phi:
 .
@@ -208,42 +161,25 @@ VBZ
 root
 .
 xi:
-eats
+is
 .
 properties:
-"pos"	"3"
-"lemma"	"eat"
+"pos"	"2"
+"lemma"	"be"
 .
 phi:
-"nsubj"
+"expl"
 	1.0	2
-;"dobj"
+;"nsubj"
 	1.0	3
 ;.
 
 id:2
 ell:
-noun
+∃
 .
 xi:
-mouse
-.
-properties:
-"number"	"singular"
-"pos"	"2"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	4
-;.
-
-id:4
-ell:
-det
-.
-xi:
-the
+there
 .
 properties:
 "pos"	"1"
@@ -256,112 +192,50 @@ ell:
 noun
 .
 xi:
-cat
+traffic
 .
 properties:
 "number"	"singular"
-"pos"	"5"
+"pos"	"3"
+"specification"	"common"
+.
+phi:
+"nmod"
+	1.0	4
+;.
+
+id:4
+ell:
+noun
+.
+xi:
+centre
+.
+properties:
+"number"	"singular"
+"pos"	"8"
 "specification"	"common"
 .
 phi:
 "det"
+	1.0	5
+;"amod"
+	1.0	6
+;"compound"
 	1.0	0
-;.
-
-~~
-id:0
-ell:
-VBN
-root
-.
-xi:
-eaten
-.
-properties:
-"pos"	"4"
-"lemma"	"eat"
-.
-phi:
-"nsubjpass"
-	1.0	1
-;"nmod"
-	1.0	2
-;"auxpass"
-	1.0	3
-;.
-
-id:1
-ell:
-noun
-.
-xi:
-cat
-.
-properties:
-"number"	"singular"
-"pos"	"2"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	4
-;.
-
-id:4
-ell:
-det
-.
-xi:
-the
-.
-properties:
-"pos"	"1"
-.
-phi:
-.
-
-id:3
-ell:
-VBZ
-.
-xi:
-is
-.
-properties:
-"pos"	"3"
-"lemma"	"be"
-.
-phi:
-.
-
-id:2
-ell:
-noun
-.
-xi:
-mouse
-.
-properties:
-"number"	"singular"
-"pos"	"7"
-"specification"	"common"
-.
-phi:
-"det"
-	1.0	5
 ;"case"
-	1.0	6
+	1.0	7
 ;.
 
-id:6
+id:7
 ell:
 IN
 .
 xi:
-by
+in
 .
 properties:
-"pos"	"5"
+"pos"	"4"
 .
 phi:
 .
@@ -374,7 +248,273 @@ xi:
 the
 .
 properties:
+"pos"	"5"
+.
+phi:
+.
+
+id:6
+ell:
+JJ
+.
+xi:
+newcastle
+.
+properties:
 "pos"	"6"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+VBZ
+root
+.
+xi:
+is
+.
+properties:
+"pos"	"2"
+"lemma"	"be"
+.
+phi:
+"expl"
+	1.0	1
+;"nsubj"
+	1.0	2
+;"dep"
+	1.0	3
+;.
+
+id:1
+ell:
+∃
+.
+xi:
+there
+.
+properties:
+"pos"	"1"
+.
+phi:
+.
+
+id:2
+ell:
+noun
+.
+xi:
+traffic
+.
+properties:
+"number"	"singular"
+"pos"	"3"
+"specification"	"common"
+.
+phi:
+.
+
+id:3
+ell:
+RB
+.
+xi:
+not
+.
+properties:
+"pos"	"5"
+.
+phi:
+"cc"
+	1.0	4
+;"nmod"
+	1.0	5
+;.
+
+id:4
+ell:
+CC
+.
+xi:
+but
+.
+properties:
+"pos"	"4"
+.
+phi:
+.
+
+id:5
+ell:
+noun
+.
+xi:
+centre
+.
+properties:
+"number"	"singular"
+"pos"	"10"
+"specification"	"common"
+.
+phi:
+"det"
+	1.0	6
+;"amod"
+	1.0	7
+;"compound"
+	1.0	8
+;"case"
+	1.0	9
+;.
+
+id:9
+ell:
+IN
+.
+xi:
+in
+.
+properties:
+"pos"	"6"
+.
+phi:
+.
+
+id:6
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"7"
+.
+phi:
+.
+
+id:7
+ell:
+JJ
+.
+xi:
+newcastle
+.
+properties:
+"pos"	"8"
+.
+phi:
+.
+
+id:8
+ell:
+noun
+.
+xi:
+city
+.
+properties:
+"number"	"singular"
+"pos"	"9"
+"specification"	"common"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+VBZ
+.
+xi:
+is
+.
+properties:
+"pos"	"5"
+"lemma"	"be"
+.
+phi:
+.
+
+id:1
+ell:
+VBG
+root
+.
+xi:
+flowing
+.
+properties:
+"pos"	"6"
+"lemma"	"flow"
+.
+phi:
+"aux"
+	1.0	0
+;"nmod"
+	1.0	2
+;"punct"
+	1.0	3
+;"nsubj"
+	1.0	4
+;.
+
+id:2
+ell:
+noun
+.
+xi:
+newcastle
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+.
+phi:
+"case"
+	1.0	5
+;.
+
+id:5
+ell:
+IN
+.
+xi:
+in
+.
+properties:
+"pos"	"1"
+.
+phi:
+.
+
+id:3
+ell:
+,
+.
+xi:
+,
+.
+properties:
+"pos"	"3"
+.
+phi:
+.
+
+id:4
+ell:
+noun
+.
+xi:
+traffic
+.
+properties:
+"number"	"singular"
+"pos"	"4"
+"specification"	"common"
 .
 phi:
 .

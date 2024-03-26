@@ -113,8 +113,11 @@ def item_generator(json_input, lookup_key):
 def sentence_preprocessing(self):
     db = []
     sentences = []
+    if len(self.cfg['sentences']) > 0:
+        sentences = self.cfg['sentences']
+    else:
+        load_sentences(self, sentences)
     count = 0
-    load_sentences(self, sentences)
     multi_named_entity_recognition(count, db, self, sentences)
     if self.cfg['similarity'] == 'IDEAS24':
         load_to_datagram_db(self, sentences)

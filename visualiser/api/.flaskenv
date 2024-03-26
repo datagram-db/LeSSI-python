@@ -1,0 +1,2 @@
+FLASK_APP=visualiser.py
+FLASK_ENV=development
