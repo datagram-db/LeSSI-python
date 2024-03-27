@@ -4,7 +4,7 @@ import './fonts/index.css'
 import {ConfusionMatrix} from "react-confusion-matrix";
 
 // Data
-import { NewcastleSimIdeasData, NewcastleSimSTData, CatSimIdeasData, CatSimSTData, ABSimIdeasData, ABSimSTData, simIdeasData, simSTData } from './results';
+import { NewcastleSimIdeasData, NewcastleSimSTData, CatSimIdeasData, CatSimSTData, ABSimIdeasData, ABSimSTData, simIdeasData, simSTData, Log } from './results';
 
 function App() {
   // Config
@@ -57,7 +57,7 @@ function App() {
     if (running && !outputText.includes("Finished")) {
       printLog()
     }
-  }, [running, outputText]);
+  }, [running, outputText, Log]);
 
   function printLog() {
     setTimeout(() => {
@@ -77,8 +77,6 @@ function App() {
             console.log(outputText)
             let logDiv = document.getElementsByClassName('log')[0]
             logDiv.scrollTop = logDiv.scrollHeight
-          } else {
-            printLog()
           }
         })
       })
@@ -134,20 +132,20 @@ function App() {
   }
 
   function loadResult(sentences, ideasData, bertData, path = 'dataset/') {
-    let desc = <div></div>;
-    if (sentences.includes("There is traffic in the Newcastle city centre")) {
-      desc = <div>
-        In this example, BERT seems to evaluate that <i>'There is traffic in Newcastle but not in the city centre'</i> is <b>90% similar</b> to <i>'There is traffic in Newcastle city centre'</i>, and
-        in fact does this for all opposing sentences. Whereas our approach evaluates a much lower similarity, suggesting a correlation but not a strong one.
-      </div>
-      setResultDescription(desc);
-    } else if (sentences.includes("There is traffic in Newcastle city centre")) {
-      desc = <div>
-        Need to write this
-      </div>
-      setResultDescription(desc);
-    }
-    setResultDescription(desc);
+    // let desc = <div></div>;
+    // if (sentences.includes("There is traffic in the Newcastle city centre")) {
+    //   desc = <div>
+    //     In this example, BERT seems to evaluate that <i>'There is traffic in Newcastle but not in the city centre'</i> is <b>90% similar</b> to <i>'There is traffic in Newcastle city centre'</i>, and
+    //     in fact does this for all opposing sentences. Whereas our approach evaluates a much lower similarity, suggesting a correlation but not a strong one.
+    //   </div>
+    //   setResultDescription(desc);
+    // } else if (sentences.includes("There is traffic in Newcastle city centre")) {
+    //   desc = <div>
+    //     Need to write this
+    //   </div>
+    //   setResultDescription(desc);
+    // }
+    // setResultDescription(desc);
 
 
     setSelectedGraphUrl('')

@@ -12,3 +12,6 @@ export { default as ABSimSTData } from './ab/similarity_SentenceTransformer.json
 // User input
 export { default as simIdeasData } from './similarity_IDEAS24.json'
 export { default as simSTData } from './similarity_SentenceTransformer.json'
+
+// Log
+export { default as Log } from './log.txt'
