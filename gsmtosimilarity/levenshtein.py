@@ -11,6 +11,8 @@ def ld(s, t):
 	return 1 + min(l1, l2, l3)
 
 def lev(x,y):
+    if len(x)==0 and len(y)==0:
+       return 1.0
     L = max(len(x), len(y))
     return float(L - ld(x, y)) / float(L)
 

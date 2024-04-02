@@ -1,1 +1,1 @@
-{"similarity_matrix": [[1.0, 0.0, 0.9718253158075502, 0.0], [0.0, 1.0, 0.0, 0.9797958971132713], [0.9718253158075502, 0.0, 1.0, 0.0], [0.0, 0.9797958971132713, 0.0, 1.0]], "sentences": ["The cat eats the mouse", "The mouse is eaten by the cat", "The mouse eats the cat", "The cat is eaten by the mouse"]}
+{"similarity_matrix": [[1.0, 0.0, 0.0, 0.8846153846153846], [0.0, 1.0, 0.0, 0.0], [0.0, 0.0, 1.0, 0.0], [0.8846153846153846, 0.0, 0.0, 1.0]], "sentences": ["Alice and Bob play cricket", "Alice plays cricket", "Bob plays cricket", "Alice or Bob play cricket"]}

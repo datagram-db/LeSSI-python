@@ -1,10 +1,19 @@
 import sys
 
+import stanza
 import yaml
 
 from crawltogsm.MainPipeline import MainPipeline
 from newscrawl.NewsCrawl import NewsCrawl
 
+## TODO: your current configuration uses this as a server, right?
+##       Then, at initialization phase, we should move the time-consuming
+##       initialization at this point, so to reduce the warm-up time
+stanza.download('en')
+Crawler = NewsCrawl()
+## TODO: also add the initialization for the GeoNames resolution.
+## Be warned! It takes a lot of primary memory
+## TODO:
 
 if __name__ == "__main__":
     conf = "config.yaml"
@@ -17,8 +26,6 @@ if __name__ == "__main__":
                 cfg['rewritten_dataset'] = 'rewritten_'+cfg['hand_dataset']
     except FileNotFoundError:
         raise Exception("Error: missing configuration file")
-
-    Crawler = NewsCrawl()
     Crawler(cfg)
     pipeline = MainPipeline(cfg)
     pipeline.do_sentence_preprocessing()

@@ -32,7 +32,6 @@ class MainPipeline:
         self.cfg = full_cfg
         self.sc = SimilarityScore(self.cfg)
         if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
-            stanza.download('en')
             self.nlp = stanza.Pipeline('en')
 
     def ideas24Similarity(self):
@@ -40,32 +39,33 @@ class MainPipeline:
             with open(self.cfg['gsm_sentences']) as sentences:
                 db = sentences.read()
             command = (f"{self.cfg['gsm_gsql_file_path']}/cmake-build-release/gsm2_server "
-                       f"data/test/einstein/einstein_query.txt -j '{db}' -iortv -z \"pos\nSizeTAtt\"")
+                       f"data/test/einstein/einstein_query.txt -j '{db}' -iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
             try:
                 # This will create the outputs for the given sentences in the C++ GSM
                 output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
-                # print(output)
+                print(output)
             except subprocess.CalledProcessError as e:
                 raise Exception(e.output)
-        directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
 
-        graphs = []
-        for x in os.walk(directory):
-            graphs = [None for _ in range(len(x[1]))]
-            for result_folder in x[1]:
-                resultFile = os.path.join(x[0], result_folder, "result.json")
-                graphs[int(result_folder)] = load_file_for_similarity(resultFile)
-            break  # // Skipping the remaining subfolder
+        if 'should_match_sentences' in self.cfg and self.cfg['should_match_sentences']:
+            graphs = []
+            directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
+            for x in os.walk(directory):
+                graphs = [None for _ in range(len(x[1]))]
+                for result_folder in x[1]:
+                    resultFile = os.path.join(x[0], result_folder, "result.json")
+                    graphs[int(result_folder)] = load_file_for_similarity(resultFile)
+                break  # // Skipping the remaining subfolder
 
-        M = []
-        for x in graphs:
-            ls = []
-            for y in graphs:
-                dist = self.sc.graph_distance(x, y)*1.0
-                dist = 1.0 - dist / (1 + dist)
-                ls.append(dist)
-            M.append(ls)
-        return np.array(M)
+            M = []
+            for x in graphs:
+                ls = []
+                for y in graphs:
+                    dist = self.sc.graph_distance(x, y)*1.0
+                    dist = 1.0 - dist / (1 + dist)
+                    ls.append(dist)
+                M.append(ls)
+            return np.array(M)
 
     def getSentencesFromFile(self):
         sentences = []
@@ -96,12 +96,13 @@ class MainPipeline:
     def do_sentence_matching_and_evaluation(self):
         # Should we regenerate the stanza db or not
         M = self.getSimilarityMatrix()
-        s = self.getSentencesFromFile()
-        with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
-            json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
+        if 'should_match_sentences' in self.cfg and self.cfg['should_match_sentences']:
+            s = self.getSentencesFromFile()
+            with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
+                json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
 
-        sparseMatrix = self.maximal_matching(M)
-        self.mcl_clustrering_matches(sparseMatrix)
+            sparseMatrix = self.maximal_matching(M)
+            self.mcl_clustrering_matches(sparseMatrix)
 
     def mcl_clustrering_matches(self, sparseMatrix):
         result = mc.run_mcl(sparseMatrix)
