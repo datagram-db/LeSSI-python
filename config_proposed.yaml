@@ -6,6 +6,7 @@
 'should_load_handwritten_sentences': True
 'should_generate_cypher_in_db': False
 'should_run_datagram_db': True
+should_match_sentences: True
 hand_dataset: 'hand.txt'
 gsm_sentences: '/home/fox/PycharmProjects/news-crawler2/gsm_sentences.txt'
 

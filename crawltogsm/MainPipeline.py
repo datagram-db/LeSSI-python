@@ -17,8 +17,8 @@ import stanza
 from scipy.sparse import csr_matrix
 import markov_clustering as mc
 from crawltogsm.generate_gsm_cypher_db import sentence_preprocessing
+from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.graph_similarity import load_file_for_similarity, SimilarityScore
-from main import write_to_log
 
 
 class MainPipeline:
@@ -35,8 +35,7 @@ class MainPipeline:
         self.cfg = full_cfg
         self.sc = SimilarityScore(self.cfg)
         if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
-            write_to_log(self.cfg, "Downloading Stanza database...")
-            stanza.download('en')
+            write_to_log(self.cfg, "Initialising Stanza pipeline...")
             self.nlp = stanza.Pipeline('en')
 
     def ideas24Similarity(self):
@@ -45,7 +44,8 @@ class MainPipeline:
             with open(self.cfg['gsm_sentences']) as sentences:
                 db = sentences.read()
             command = (f"{self.cfg['gsm_gsql_file_path']}cmake-build-release/gsm2_server "
-                       f"data/test/einstein/einstein_query.txt -j '{db}' -iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
+                       f"data/test/einstein/einstein_query.txt -j '{db}' "
+                       f"-iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
             try:
                 # This will create the outputs for the given sentences in the C++ GSM
                 output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
@@ -54,10 +54,12 @@ class MainPipeline:
                 raise Exception(e.output)
         directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
 
-        dataset_folder = f"{self.cfg['web_dir']}/dataset/data"
-        if os.path.exists(dataset_folder):
-            shutil.rmtree(dataset_folder)
-        shutil.copytree(directory, dataset_folder)
+        # Check if config contains web dir, for visualisation tool
+        if 'web_dir' in self.cfg and cfg['web_dir'] is not None:
+            dataset_folder = f"{self.cfg['web_dir']}/dataset/data"
+            if os.path.exists(dataset_folder):
+                shutil.rmtree(dataset_folder)
+            shutil.copytree(directory, dataset_folder)
 
         graphs = []
         for x in os.walk(directory):
@@ -78,7 +80,7 @@ class MainPipeline:
         return np.array(M)
 
     def getSentencesFromFile(self):
-        if len(self.cfg['sentences']) > 0:
+        if 'sentences' in self.cfg and len(self.cfg['sentences']) > 0:
             sentences = self.cfg['sentences']
         else:
             with open(self.cfg['hand_dataset'], "r") as file:
@@ -115,10 +117,10 @@ class MainPipeline:
         s = self.getSentencesFromFile()
         if 'should_match_sentences' in self.cfg and self.cfg['should_match_sentences']:
             with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
-                json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
-        else:
-            with open(self.cfg['web_dir']+"similarity_"+self.cfg['similarity']+".json", "w") as f:
-                json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
+                json.dump({"similarity_matrix": M.tolist(), "sentences": s}, f)
+        elif 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
+            with open(self.cfg['web_dir'] + "similarity_" + self.cfg['similarity'] + ".json", "w") as f:
+                json.dump({"similarity_matrix": M.tolist(), "sentences": s}, f)
 
         sparseMatrix = self.maximal_matching(M)
         self.mcl_clustering_matches(sparseMatrix)
@@ -127,8 +129,12 @@ class MainPipeline:
         write_to_log(self.cfg, "Clustering matches...")
         result = mc.run_mcl(sparseMatrix)
         clusters = mc.get_clusters(result)
-        with open(self.cfg['web_dir']+"clusters_" + self.cfg['similarity'] + ".txt", "w") as f:
-            f.write(os.linesep.join(map(lambda x: str(x), clusters)))
+        if 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
+            with open(self.cfg['web_dir']+"clusters_" + self.cfg['similarity'] + ".txt", "w") as f:
+                f.write(os.linesep.join(map(lambda x: str(x), clusters)))
+        else:
+            with open("clusters_" + self.cfg['similarity'] + ".txt", "w") as f:
+                f.write(os.linesep.join(map(lambda x: str(x), clusters)))
 
     def maximal_matching(self, M):
         write_to_log(self.cfg, "Maximal matching...")
@@ -145,6 +151,3 @@ class MainPipeline:
         sparseMatrix = csr_matrix((np.array(data), (np.array(row), np.array(col))),
                                   shape=(len(M), len(M))).toarray()
         return sparseMatrix
-
-
-
