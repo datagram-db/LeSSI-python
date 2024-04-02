@@ -12,6 +12,7 @@ __status__ = "Production"
 # "generate_final_db.py" "maintext" paragraph in output JSON file, or from a given set of sentences
 
 import json
+import math
 import os
 import shutil
 import subprocess
@@ -134,9 +135,18 @@ def load_to_datagram_db(self, sentences):
     except subprocess.CalledProcessError:
         print("Make sure 'stanford_nlp_dg_server' is running")
 
+def send_time_parsing(self, sentences):
+    all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
+    command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
+    try:
+        output = subprocess.check_output(command, shell=True, text=True)
+        return json.loads(output)
+    except subprocess.CalledProcessError:
+        print("Make sure 'stanford_nlp_dg_server' is running")
 
 def multi_named_entity_recognition(count, db, self, sentences):
-    for sentence in sentences:
+    tp = send_time_parsing(self, sentences)
+    for sentence, withTime in zip(sentences,tp):
         results = self.nlp(sentence)
         entities = []
         multi_entity_unit = []
@@ -146,16 +156,19 @@ def multi_named_entity_recognition(count, db, self, sentences):
                 entity = ent.text
                 monad = entity.replace(" ", "")
                 entities.append([entity, monad])
-
             result = {
                 "text": ent.text,
                 "type": ent.type,
                 "start_char": ent.start_char,
                 "end_char": ent.end_char,
-                "monad": monad
+                "monad": monad,
+                "confidence": math.nan
             }
-
             multi_entity_unit.append(result)
+        for time in withTime:
+            multi_entity_unit.append(time)
+        ## TODO: add the spatial resolution from GeoNamesService, as per the example provided in the mainof GeoNames, maybe with a subset of all the GeoGraphical names
+        ## TODO: similarly we might use the same idea to resolve all the multi-named entity from a dictionary (e.g., ConceptNet)
         print(multi_entity_unit)
 
         # Loop through all entities and replace in sentence before passing to NLP server

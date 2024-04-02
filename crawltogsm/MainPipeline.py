@@ -113,8 +113,12 @@ class MainPipeline:
         write_to_log(self.cfg, "Doing sentence matching...")
         M = self.getSimilarityMatrix()
         s = self.getSentencesFromFile()
-        with open(self.cfg['web_dir']+"similarity_"+self.cfg['similarity']+".json", "w") as f:
-            json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
+        if 'should_match_sentences' in self.cfg and self.cfg['should_match_sentences']:
+            with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
+                json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
+        else:
+            with open(self.cfg['web_dir']+"similarity_"+self.cfg['similarity']+".json", "w") as f:
+                json.dump({ "similarity_matrix": M.tolist(), "sentences": s }, f)
 
         sparseMatrix = self.maximal_matching(M)
         self.mcl_clustering_matches(sparseMatrix)

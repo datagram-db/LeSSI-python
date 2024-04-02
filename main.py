@@ -1,6 +1,7 @@
 import subprocess
 import sys
 
+import stanza
 import yaml
 
 
@@ -12,6 +13,15 @@ def write_to_log(cfg, text):
 
 from crawltogsm.MainPipeline import MainPipeline
 from newscrawl.NewsCrawl import NewsCrawl
+
+## TODO: your current configuration uses this as a server, right?
+##       Then, at initialization phase, we should move the time-consuming
+##       initialization at this point, so to reduce the warm-up time
+stanza.download('en')
+Crawler = NewsCrawl()
+## TODO: also add the initialization for the GeoNames resolution.
+## Be warned! It takes a lot of primary memory
+## TODO:
 
 
 def start_pipeline(sentences=None, cfg=None):

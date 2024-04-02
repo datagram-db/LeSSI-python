@@ -14,6 +14,6 @@ class HuggingFace:
         x_vec = self.model.encode(x)
         y_vec = self.model.encode(y)
         strictSim = float(util.pairwise_dot_score(x_vec, y_vec))
-        if (strictSim > np.finfo(float).eps):
+        if (strictSim > np.finfo(float).eps): #ReLU
             return strictSim
         return 0.0

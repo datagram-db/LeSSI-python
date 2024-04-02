@@ -1,5 +1,6 @@
 import functools
 import json
+import re
 from collections import defaultdict
 from typing import Union, List, TypedDict
 from dataclasses import dataclass
@@ -10,6 +11,7 @@ from sentence_transformers import SentenceTransformer, util
 
 from gsmtosimilarity.string_similarity_factory import StringSimilarity
 
+negations = ['not', 'no']
 
 class Grouping(Enum):
     AND = 0
@@ -105,7 +107,9 @@ class SimilarityScore:  # Defining the graph similarity score
 
     @functools.lru_cache
     def singleton_dist(self, x: Singleton, y: Singleton, isRel=False) -> float:  # between 0 and 1
-        if isRel:
+        if (x is None) or (y is None):
+            return 0.0
+        elif isRel:
             return 1.0 - self.rel_similarity.string_similarity(x.named_entity, y.named_entity)
         else:
             return self.string_distance(x.named_entity, y.named_entity)
@@ -120,25 +124,25 @@ class SimilarityScore:  # Defining the graph similarity score
             if y.type == Grouping.AND:
                 return 1.0
             elif y.type == Grouping.OR:
-                return self.entity_distance(x, min(y.entities, key=lambda z: self.entity_distance(x, z)))
+                return self.entity_distance(x,min(y.entities, key=lambda z: self.entity_distance(x, z)))
             elif y.type == Grouping.NOT:
-                assert len(y.entities) == 1
+                assert len(y.entities)==1
                 return self.entity_distance(x, y.entities[0])
             else:
-                raise ValueError(str(y.type) + " is not supported")
+                raise ValueError(str(y.type)+" is not supported")
         elif isinstance(y, Singleton):
             if x.type == Grouping.AND:
-                return self.entity_distance(min(x.entities, key=lambda z: self.entity_distance(z, y)), y)
+                return self.entity_distance(min(x.entities, key=lambda z: self.entity_distance(z, y)),y)
             elif x.type == Grouping.OR:
                 return 1.0
             elif x.type == Grouping.NOT:
-                assert len(x.entities) == 1
+                assert len(x.entities)==1
                 return self.entity_distance(x.entities[0], y)
             else:
                 raise ValueError(str(y.type) + " is not supported")
         else:
-            assert len(x.entities) > 0
-            assert len(y.entities) > 0
+            assert len(x.entities)>0
+            assert len(y.entities)>0
             S1 = set(x.entities)
             S2 = set(y.entities)
             d = defaultdict(set)
@@ -158,33 +162,32 @@ class SimilarityScore:  # Defining the graph similarity score
             empty_set = set()
 
             for edge2 in y.entities:
-                S2_inv = S2_inv.union(d_inv.get(edge2, empty_set))
+             S2_inv = S2_inv.union(d_inv.get(edge2, empty_set))
             for edge1 in x.entities:
-                S1_inv = S1_inv.union(d.get(edge1, empty_set))
-            # unmatchingDistance = (len(S1.difference(S2_inv)) + len(S2.difference(S1_inv)))
-            if x.type == Grouping.AND:
-                if y.type == Grouping.AND:
-                    if len(S2) == len(S1_inv):
-                        return float(total_cost) / float(len(matches))
-                    else:
-                        return 1.0  # If some of elements could not be derived from the left, the left does not entail the right
-                elif y.type == Grouping.OR:
-                    return float(total_cost) / float(len(matches))  # Assuming there is at least one alignment
+             S1_inv = S1_inv.union(d.get(edge1, empty_set))
+            #unmatchingDistance = (len(S1.difference(S2_inv)) + len(S2.difference(S1_inv)))
+            if (x.type == Grouping.AND):
+                if (y.type == Grouping.AND):
+                   if len(S2) == len(S1_inv):
+                      return float(total_cost)/float(len(matches))
+                   else:
+                      return 1.0 # If some of elements could not be derived from the left, the left does not entail the right
+                elif (y.type == Grouping.OR):
+                   return float(total_cost)/float(len(matches)) #Assuming there is at least one alignment
                 else:
-                    return 1.0  # Contradiction
-            elif x.type == Grouping.OR:
-                if y.type == Grouping.AND:
-                    return 1.0  # Cannot convert a disjunction into a conjunction
-                elif y.type == Grouping.OR:
-                    return float(total_cost + len(S2.difference(S1_inv))) / float(
-                        len(matches) + len(S2.difference(S1_inv)))
+                   return 1.0 #Contradiction
+            elif (x.type == Grouping.OR):
+                if (y.type == Grouping.AND):
+                   return 1.0 #Cannot convert a disjunction into a conjunction
+                elif (y.type == Grouping.OR):
+                   return float(total_cost+len(S2.difference(S1_inv)))/float(len(matches)+len(S2.difference(S1_inv)))
                 else:
-                    return 1.0  # Contradiction
-            elif x.type == Grouping.NOT:
-                if y.type == Grouping.NOT:
-                    return self.entity_distance(x.entities[0], y.entities[0])
+                   return 1.0 #Contradiction
+            elif (x.type == Grouping.NOT):
+                if (y.type == Grouping.NOT):
+                   return self.entity_distance(x.entities[0], y.entities[0])
                 else:
-                    return 1.0
+                   return 1.0
 
     @functools.lru_cache
     def edge_distance(self, x: Relationship, y: Relationship):
@@ -282,15 +285,22 @@ def load_file_for_similarity(result_json):
         for row in range(len(parsed_json)):
             item = parsed_json[row]
 
+            ## TODO: merge the nodes together that belong to the same spatio-temporal entities,
+            ##       or multi-named entities known from ConceptNet5
+
             for edge in item['phi']:
                 # skip if containment is conj
                 if 'orig' not in edge['containment']:
+                    x = edge['containment']
+                    for name in negations:
+                        x = re.sub("\b("+name+")\b", " ", x)
+                    x = x.strip()
+                    hasNegations = any(map(lambda x: x in edge['containment'], negations))
                     edges.append(Relationship(
                         source=nodes[edge['score']['parent']],
                         target=nodes[edge['score']['child']],
-                        edgeLabel=Singleton(named_entity=edge['containment'].replace("not", " ").strip(),
-                                            properties=frozenset(dict().items())),
-                        isNegated=('not' in edge['containment'])
+                        edgeLabel=Singleton(named_entity=x, properties=frozenset(dict().items())),
+                        isNegated=hasNegations
                     ))
         # print(graph)
         return Graph(edges=edges)
