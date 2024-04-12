@@ -1,5 +1,13 @@
 'stanford_nlp_host': 'localhost'
 'stanford_nlp_port': '9998'
+db:
+  uname: giacomo
+  pw: omocaig
+  host: localhost
+  port: 5432
+  db: conceptnet
+conceptnet: "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt"
+geonames: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
 
 'iterations': 5 # Number of iterations for creating GSM output
 'should_generate_final_stanza_db': False

@@ -3,6 +3,7 @@ import os
 
 from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.conceptnet.SimplifiedFuzzyStringMatching import SimplifiedFuzzyStringMatching
+from gsmtosimilarity.database.FuzzyStringMatchDatabase import DBFuzzyStringMatching, FuzzyStringMatchDatabase
 from gsmtosimilarity.resolve_multi_entity import ResolveMultiNamedEntity
 from gsmtosimilarity.stanza_pipeline import StanzaService
 
@@ -73,30 +74,30 @@ class GeoNamesService():
     _instance = None
 
     def __init__(self, file=None):
+        self.s = DBFuzzyStringMatching(FuzzyStringMatchDatabase.instance(), "geonames")
         self.nlp = StanzaService().nlp_token
-        self.s = SimplifiedFuzzyStringMatching()
-        self.name_to_id = dict()
-        if file is not None and os.path.exists(file):
-            with open(file) as f:
-                for line in f.readlines():
-                    g = GeoNameField(line)
-                    self.no_file_init(g.name, g.geonameid)
-                    self.no_file_init(g.ascii, g.geonameid)
-                    for x in g.others:
-                        self.no_file_init(x, g.geonameid)
+        # self.s = SimplifiedFuzzyStringMatching()
+        # self.name_to_id = dict()
+        # if file is not None and os.path.exists(file):
+        #     with open(file) as f:
+        #         for line in f.readlines():
+        #             g = GeoNameField(line)
+        #             self.no_file_init(g.name, g.geonameid)
+        #             self.no_file_init(g.ascii, g.geonameid)
+        #             for x in g.others:
+        #                 self.no_file_init(x, g.geonameid)
 
-    def no_file_init(self, x, id):
-        if x not in self.name_to_id:
-            self.name_to_id[x.lower()] = set()
-        self.name_to_id[x.lower()].add(id)
-        self.s.put(x)
-
-    def get_value(self, x):
-        return self.name_to_id[x]
+    # def no_file_init(self, x, id):
+    #     if x not in self.name_to_id:
+    #         self.name_to_id[x.lower()] = set()
+    #     self.name_to_id[x.lower()].add(id)
+    #     self.s.put(x)
+    #
+    # def get_value(self, x):
+    #     return self.name_to_id[x]
 
     def resolve_u(self, recallThreshold, precisionThreshold, s, type):
         ar = ResolveMultiNamedEntity(recallThreshold, precisionThreshold)
-        ## TODO: 
         return ar.start(s, self.s, self, self.nlp, type)
 
     def __new__(cls):

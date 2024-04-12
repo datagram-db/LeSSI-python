@@ -159,3 +159,4 @@ Werkzeug==3.0.1
 wordfreq==3.1.1
 zipp==3.17.0
 zope.interface==6.1
+psycopg2

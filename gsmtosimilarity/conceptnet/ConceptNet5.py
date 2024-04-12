@@ -8,6 +8,7 @@ from sentence_transformers import util
 
 from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.conceptnet.SimplifiedFuzzyStringMatching import SimplifiedFuzzyStringMatching
+from gsmtosimilarity.database.FuzzyStringMatchDatabase import DBFuzzyStringMatching, FuzzyStringMatchDatabase
 from gsmtosimilarity.resolve_multi_entity import ResolveMultiNamedEntity
 from gsmtosimilarity.stanza_pipeline import StanzaService
 
@@ -21,22 +22,22 @@ class ConceptNetService(object):
     _instance = None
 
     def __init__(self):
-        self.s = SimplifiedFuzzyStringMatching()
-        self.name_to_id = dict()
+        self.s = DBFuzzyStringMatching(FuzzyStringMatchDatabase.instance(), "conceptnet")
+        # self.name_to_id = dict()
         self.nlp = StanzaService().nlp_token
-
-        if not os.path.exists("mini.h5"):
-            print("Downloading Mini HDF5 data...")
-            urllib.request.urlretrieve(
-                "http://conceptnet.s3.amazonaws.com/precomputed-data/2016/numberbatch/19.08/mini.h5",
-                "mini.h5")
-        self.f = pd.read_hdf("mini.h5", 'mat', encoding='utf-8')
-        self.data_pts = dict()
-        for x in self.f.index:
-            concept = x.split("/")
-            if concept[2] == 'en':
-                key = concept[3].replace("_", " ")
-                self.no_file_init(key, x)
+        #
+        # if not os.path.exists("mini.h5"):
+        #     print("Downloading Mini HDF5 data...")
+        #     urllib.request.urlretrieve(
+        #         "http://conceptnet.s3.amazonaws.com/precomputed-data/2016/numberbatch/19.08/mini.h5",
+        #         "mini.h5")
+        # self.f = pd.read_hdf("mini.h5", 'mat', encoding='utf-8')
+        # self.data_pts = dict()
+        # for x in self.f.index:
+        #     concept = x.split("/")
+        #     if concept[2] == 'en':
+        #         key = concept[3].replace("_", " ")
+        #         self.no_file_init(key, x)
 
     def no_file_init(self, x, id):
         if x not in self.name_to_id:
@@ -49,7 +50,6 @@ class ConceptNetService(object):
 
     def resolve_u(self, recallThreshold, precisionThreshold, s, type):
         ar = ResolveMultiNamedEntity(recallThreshold, precisionThreshold)
-        ## TODO:
         return ar.start(s, self.s, self, self.nlp, type)
 
     def __new__(cls):
