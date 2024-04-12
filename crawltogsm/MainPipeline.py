@@ -19,6 +19,7 @@ import markov_clustering as mc
 from crawltogsm.generate_gsm_cypher_db import sentence_preprocessing
 from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.graph_similarity import load_file_for_similarity, SimilarityScore
+from gsmtosimilarity.stanza_pipeline import StanzaService
 
 
 class MainPipeline:
@@ -36,7 +37,7 @@ class MainPipeline:
         self.sc = SimilarityScore(self.cfg)
         if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
             write_to_log(self.cfg, "Initialising Stanza pipeline...")
-            self.nlp = stanza.Pipeline('en')
+            self.nlp = StanzaService().nlp
 
     def ideas24Similarity(self):
         write_to_log(self.cfg, "Using IDEAS24 similarity matrix...")
@@ -55,7 +56,7 @@ class MainPipeline:
         directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
 
         # Check if config contains web dir, for visualisation tool
-        if 'web_dir' in self.cfg and cfg['web_dir'] is not None:
+        if 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
             dataset_folder = f"{self.cfg['web_dir']}/dataset/data"
             if os.path.exists(dataset_folder):
                 shutil.rmtree(dataset_folder)
@@ -66,7 +67,7 @@ class MainPipeline:
             graphs = [None for _ in range(len(x[1]))]
             for result_folder in x[1]:
                 resultFile = os.path.join(x[0], result_folder, "result.json")
-                graphs[int(result_folder)] = load_file_for_similarity(resultFile)
+                graphs[int(result_folder)] = load_file_for_similarity(self.cfg, resultFile)
             break  # // Skipping the remaining subfolder
 
         M = []

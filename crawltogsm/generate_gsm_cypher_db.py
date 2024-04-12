@@ -17,6 +17,10 @@ import os
 import shutil
 import subprocess
 
+from crawltogsm.write_to_log import write_to_log
+from gsmtosimilarity.geonames.GeoNames import GeoNamesService
+from gsmtosimilarity.conceptnet.ConceptNet5 import ConceptNetService
+
 
 def create_node(id, name):
     node = {
@@ -72,20 +76,20 @@ def convert_to_cypher_json(input):
             i += 1
 
             end_obj = split_end[1].replace('(', '').replace(')', '').split(',')
-            endId = end_obj[0]
+            end_id = end_obj[0]
             end = end_obj[1]
 
             end_node = create_node(i, end)
             exists = False
             for node in nodeIds:
-                if node[0] == endId:
+                if node[0] == end_id:
                     end_node = node[1]
                     exists = True
                     break
 
             if not exists:
                 nodes.append(end_node)
-                nodeIds.append([endId, end_node])
+                nodeIds.append([end_id, end_node])
             i += 1
 
             rel = split_end[0].replace('[', '').replace(']', '')  # Remove brackets from rel object
@@ -115,7 +119,7 @@ def item_generator(json_input, lookup_key):
 def sentence_preprocessing(self):
     db = []
     sentences = []
-    if len(self.cfg['sentences']) > 0:
+    if 'sentences' in self.cfg and len(self.cfg['sentences']) > 0:
         sentences = self.cfg['sentences']
     else:
         load_sentences(self, sentences)
@@ -135,6 +139,7 @@ def load_to_datagram_db(self, sentences):
     except subprocess.CalledProcessError:
         print("Make sure 'stanford_nlp_dg_server' is running")
 
+
 def send_time_parsing(self, sentences):
     all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
     command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
@@ -144,38 +149,67 @@ def send_time_parsing(self, sentences):
     except subprocess.CalledProcessError:
         print("Make sure 'stanford_nlp_dg_server' is running")
 
+
 def multi_named_entity_recognition(count, db, self, sentences):
+    geo_names_service = GeoNamesService()
+    concept_net_service = ConceptNetService()
+
     tp = send_time_parsing(self, sentences)
-    for sentence, withTime in zip(sentences,tp):
+    for sentence, withTime in zip(sentences, tp):
         results = self.nlp(sentence)
         entities = []
         multi_entity_unit = []
+
+        # Add results from Stanza to MEU
         for ent in results.ents:
             monad = ""
             if ent.type == "ORG":  # Remove spaces to create one word 'ORG' entities
                 entity = ent.text
                 monad = entity.replace(" ", "")
                 entities.append([entity, monad])
+
             result = {
                 "text": ent.text,
                 "type": ent.type,
                 "start_char": ent.start_char,
                 "end_char": ent.end_char,
                 "monad": monad,
-                "confidence": math.nan
+                "confidence": 1  # Used to be NaN
             }
             multi_entity_unit.append(result)
         for time in withTime:
             multi_entity_unit.append(time)
-        ## TODO: add the spatial resolution from GeoNamesService, as per the example provided in the mainof GeoNames, maybe with a subset of all the GeoGraphical names
-        ## TODO: similarly we might use the same idea to resolve all the multi-named entity from a dictionary (e.g., ConceptNet)
-        print(multi_entity_unit)
+
+        # TODO: add the spatial resolution from GeoNamesService, as per the example provided in the mainof GeoNames,
+        #  maybe with a subset of all the GeoGraphical names
+        # TODO: similarly we might use the same idea to resolve all the multi-named entity from a dictionary
+        #  (e.g., ConceptNet)
+        locs = geo_names_service.resolve_u(
+            self.cfg['resolve_params']['recall_threshold'],
+            self.cfg['resolve_params']['precision_threshold'],
+            sentence,
+            "LOC"
+        )
+        for loc in locs:
+            multi_entity_unit.append(loc)
+
+        # Get ConceptNet entities
+        concept_net = concept_net_service.resolve_u(
+            self.cfg['resolve_params']['recall_threshold'],
+            self.cfg['resolve_params']['precision_threshold'],
+            sentence,
+            "ENTITY"
+        )
+        for net in concept_net:
+            multi_entity_unit.append(net)
 
         # Loop through all entities and replace in sentence before passing to NLP server
         for entity in entities:
             sentence = sentence.replace(entity[0], entity[1])
 
         db.append({'first_sentence': sentence, 'multi_entity_unit': multi_entity_unit})
+
+        write_to_log(None, f"MEU for '{sentence}' finished")
 
         count += 1
         total = int(self.cfg['iterations'])
@@ -193,8 +227,8 @@ def multi_named_entity_recognition(count, db, self, sentences):
 
 
 def load_sentences(self, sentences):
-    hasHandDataset = 'should_load_handwritten_sentences' in self.cfg and self.cfg['should_load_handwritten_sentences']
-    if hasHandDataset:
+    has_hand_dataset = 'should_load_handwritten_sentences' in self.cfg and self.cfg['should_load_handwritten_sentences']
+    if has_hand_dataset:
         with open(self.cfg['hand_dataset']) as f:
             for line in f:
                 sentence = line.split('\n')[0]

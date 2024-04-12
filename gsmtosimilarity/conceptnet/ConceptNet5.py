@@ -1,13 +1,64 @@
 import math
 import os.path
 import urllib.request
+
 import numpy
 import pandas as pd
-from gsmtosimilarity.conceptnet.SimplifiedFuzzyStringMatching import SimplifiedFuzzyStringMatching
 from sentence_transformers import util
 
+from crawltogsm.write_to_log import write_to_log
+from gsmtosimilarity.conceptnet.SimplifiedFuzzyStringMatching import SimplifiedFuzzyStringMatching
+from gsmtosimilarity.resolve_multi_entity import ResolveMultiNamedEntity
+from gsmtosimilarity.stanza_pipeline import StanzaService
+
+
 def kernel_n(x, y, K):
-    return float(K(x,y)/math.sqrt(K(x,x)*K(y,y)))
+    return float(K(x, y) / math.sqrt(K(x, x) * K(y, y)))
+
+
+# Create ConceptNetServiceClass similar to GeoNames
+class ConceptNetService(object):
+    _instance = None
+
+    def __init__(self):
+        self.s = SimplifiedFuzzyStringMatching()
+        self.name_to_id = dict()
+        self.nlp = StanzaService().nlp_token
+
+        if not os.path.exists("mini.h5"):
+            print("Downloading Mini HDF5 data...")
+            urllib.request.urlretrieve(
+                "http://conceptnet.s3.amazonaws.com/precomputed-data/2016/numberbatch/19.08/mini.h5",
+                "mini.h5")
+        self.f = pd.read_hdf("mini.h5", 'mat', encoding='utf-8')
+        self.data_pts = dict()
+        for x in self.f.index:
+            concept = x.split("/")
+            if concept[2] == 'en':
+                key = concept[3].replace("_", " ")
+                self.no_file_init(key, x)
+
+    def no_file_init(self, x, id):
+        if x not in self.name_to_id:
+            self.name_to_id[x.lower()] = set()
+        self.name_to_id[x.lower()].add(id)
+        self.s.put(x)
+
+    def get_value(self, x):
+        return self.name_to_id[x]
+
+    def resolve_u(self, recallThreshold, precisionThreshold, s, type):
+        ar = ResolveMultiNamedEntity(recallThreshold, precisionThreshold)
+        ## TODO:
+        return ar.start(s, self.s, self, self.nlp, type)
+
+    def __new__(cls):
+        if cls._instance is None:
+            write_to_log(None, "Initialising ConceptNet...")
+            cls._instance = super(ConceptNetService, cls).__new__(cls)
+
+        return cls._instance
+
 
 class ConceptNet5Numberbatch:
     def __init__(self, lan, minTheta):
@@ -17,35 +68,36 @@ class ConceptNet5Numberbatch:
         self.dictionary = SimplifiedFuzzyStringMatching()
         if not os.path.exists("mini.h5"):
             print("Downloading Mini HDF5 data...")
-            urllib.request.urlretrieve("http://conceptnet.s3.amazonaws.com/precomputed-data/2016/numberbatch/19.08/mini.h5", "mini.h5")
+            urllib.request.urlretrieve(
+                "http://conceptnet.s3.amazonaws.com/precomputed-data/2016/numberbatch/19.08/mini.h5", "mini.h5")
         self.f = pd.read_hdf("mini.h5", 'mat', encoding='utf-8')
         self.data_pts = dict()
         for x in self.f.index:
             concept = x.split("/")
-            if (concept[2] == lan):
+            if concept[2] == lan:
                 key = concept[3].replace("_", " ")
                 idx, present = self.dictionary.put(key)
                 if not present:
                     self.data_pts[idx] = (numpy.array(self.f.loc[x]))
 
-    def getEmbedding(self, x):
+    def get_embedding(self, x):
         return self.dictionary.fuzzyMatch(self.minTheta, x)
 
     def string_similarity(self, x, y):
-        L = {z for k,v in self.getEmbedding(x).items() for z in v}
-        R = {z for k,v in self.getEmbedding(y).items() for z in v}
+        L = {z for k, v in self.get_embedding(x).items() for z in v}
+        R = {z for k, v in self.get_embedding(y).items() for z in v}
         K = util.pairwise_dot_score
         finalScore = 0.0
         for inL in L:
-            vec =self.data_pts[inL]
+            vec = self.data_pts[inL]
             for inR in R:
-                score = kernel_n(vec, self.data_pts[inR], K)
+                score = kernel_n(vec, self.data_pts[inR], K)  # Compute vector similarity
                 if score > finalScore:
                     finalScore = score
         return finalScore
 
 
 if __name__ == "__main__":
+    # Example
     cn5n = ConceptNet5Numberbatch("en", 0.8)
     print(cn5n.string_similarity("cat", "mouse"))
-

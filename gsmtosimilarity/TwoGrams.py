@@ -1,6 +1,6 @@
 import math
 
-from gsmtosimilarity.conceptnet.ConceptNet5 import ConceptNet5Numberbatch
+# from gsmtosimilarity.conceptnet.ConceptNet5 import ConceptNet5Numberbatch
 from gsmtosimilarity.huggingface.HuggingFace import HuggingFace
 from gsmtosimilarity.levenshtein import lev, MultiLevenshtein
 
@@ -42,8 +42,8 @@ def testsims(x,y):
     print(TwoGramSetSimilarity(x, y))
     print(lev(x,y))
     print(MultiLevenshtein(x,y))
-    cn = ConceptNet5Numberbatch("en", 0.8)
-    print(cn.string_similarity(x, y))
+    # cn = ConceptNet5Numberbatch("en", 0.8)
+    # print(cn.string_similarity(x, y))
     hf = HuggingFace()
     print(hf.string_similarity(x, y))
 
