@@ -32,7 +32,7 @@ concept_net = ConceptNetService()
 
 def start_pipeline(sentences=None, cfg=None):
     if cfg is None:
-        conf = "config_proposed.yaml"
+        conf = "config.yaml"
         if len(sys.argv) >= 2:
             conf = sys.argv[1]
         try:

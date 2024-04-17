@@ -157,7 +157,7 @@ class SimilarityScore:  # Defining the graph similarity score
                 return self.entity_distance(x, min(y.entities, key=lambda z: self.entity_distance(x, z)))
             elif y.type == Grouping.NOT:
                 assert len(y.entities) == 1
-                return self.entity_distance(x, y.entities[0])
+                return 1 - self.entity_distance(x, y.entities[0])
             else:
                 raise ValueError(str(y.type) + " is not supported")
         elif isinstance(y, Singleton):
@@ -167,7 +167,7 @@ class SimilarityScore:  # Defining the graph similarity score
                 return 1.0
             elif x.type == Grouping.NOT:
                 assert len(x.entities) == 1
-                return self.entity_distance(x.entities[0], y)
+                return 1 - self.entity_distance(x.entities[0], y)
             else:
                 raise ValueError(str(y.type) + " is not supported")
         else:

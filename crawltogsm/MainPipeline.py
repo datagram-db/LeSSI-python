@@ -114,11 +114,11 @@ class MainPipeline:
         write_to_log(self.cfg, "Doing sentence matching...")
         M = self.getSimilarityMatrix()
         s = self.getSentencesFromFile()
-        if 'should_match_sentences' in self.cfg and self.cfg['should_match_sentences']:
-            with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
-                json.dump({"similarity_matrix": M.tolist(), "sentences": s}, f)
-        elif 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
+        if 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
             with open(self.cfg['web_dir'] + "similarity_" + self.cfg['similarity'] + ".json", "w") as f:
+                json.dump({"similarity_matrix": M.tolist(), "sentences": s}, f)
+        elif 'should_match_sentences' in self.cfg and self.cfg['should_match_sentences']:
+            with open("similarity_"+self.cfg['similarity']+".json", "w") as f:
                 json.dump({"similarity_matrix": M.tolist(), "sentences": s}, f)
 
         sparseMatrix = self.maximal_matching(M)
