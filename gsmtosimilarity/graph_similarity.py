@@ -5,13 +5,14 @@ import json
 import math
 import re
 from collections import defaultdict
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import List
 
 from gsmtosimilarity.string_similarity_factory import StringSimilarity
 
-negations = ['not', 'no']
+negations = {'not', 'no', 'but'}
+location_types = {'GPE', 'LOC'}
 
 
 class Grouping(Enum):
@@ -60,6 +61,15 @@ class Relationship:  # Representation of an edge
 
 
 @dataclass(order=True, frozen=True, eq=True)
+class Sentence:
+    kernel: Relationship
+    properties: dict = field(default_factory=lambda: {
+        'time': List[NodeEntryPoint],
+        'loc': List[NodeEntryPoint]
+    })
+
+
+@dataclass(order=True, frozen=True, eq=True)
 class Graph:
     edges: List[Relationship]  # A graph is defined as a collection of edges
 
@@ -70,6 +80,8 @@ class EnhancedJSONEncoder(json.JSONEncoder):
             return dataclasses.asdict(o)
         elif isinstance(o, frozenset):
             return dict(o)
+        elif isinstance(o, Grouping):
+            return o.name
         return super().default(o)
 
 
@@ -248,12 +260,8 @@ class SimilarityScore:  # Defining the graph similarity score
         return 1.0 - totalSimilarity * unmatchingSimilarity
 
 
-# def print_hi(name):
-#     # Use a breakpoint in the code line below to debug your script.
-#     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
-
 def load_file_for_similarity(cfg, result_json):
-    with (open(result_json) as user_file):  # always take "final_db.json" as input
+    with (open(result_json) as user_file):  # result.json from C++
         parsed_json = json.load(user_file)
 
         number_of_nodes = range(len(parsed_json))
@@ -346,42 +354,180 @@ def load_file_for_similarity(cfg, result_json):
                         item = nodes[key]
 
                         if isinstance(item, SetOfSingletons):
-                            if 'rewriting_strategy' in cfg and cfg['rewriting_strategy'] is not None:
-                                simplistic = cfg['rewriting_strategy'] == 'simplistic'
-                                nodes = merge_set_of_singletons(item, nodes, key, simplistic)
+                            if item.type == Grouping.GROUPING:
+                                if 'rewriting_strategy' in cfg and cfg['rewriting_strategy'] is not None:
+                                    simplistic = cfg['rewriting_strategy'] == 'simplistic'
+                                    nodes = merge_set_of_singletons(item, nodes, key, simplistic)
+
+                    # Check for negation in node 'xi' and 'properties
+                    for key in nodes:
+                        grouped_nodes = []
+                        sing_item = nodes[key]  # Singleton node
+
+                        for row in range(len(parsed_json)):  # Find node in JSON so we can get child nodes
+                            json_item = parsed_json[row]
+                            is_prop_negated = False
+
+                            for prop_key in json_item['properties']:  # Check properties for negation
+                                prop = json_item['properties'][prop_key]
+                                if prop in negations:
+                                    is_prop_negated = True
+
+                            # Check if name is not/no or if negation found in properties
+                            if key == json_item['id']:
+                                if sing_item.named_entity in negations:
+                                    for edge in json_item['phi']:
+                                        child = nodes[edge['score']['child']]
+                                        if child.named_entity not in negations:
+                                            grouped_nodes.append(child)
+                                            nodes[key] = SetOfSingletons(
+                                                type=Grouping.NOT,
+                                                entities=tuple(grouped_nodes),
+                                                min=min(grouped_nodes, key=lambda x: x.min).min,
+                                                max=max(grouped_nodes, key=lambda x: x.max).max,
+                                                confidence=-1
+                                            )
+                                elif is_prop_negated:
+                                    nodes[key] = SetOfSingletons(
+                                        type=Grouping.NOT,
+                                        entities=tuple([sing_item]),
+                                        min=sing_item.min,
+                                        max=sing_item.max,
+                                        confidence=-1
+                                    )
+
+                    # print(nodes)
 
                     for row in range(len(parsed_json)):
                         item = parsed_json[row]
                         for edge in item['phi']:
-                            # Skip if containment is conj
-                            if 'compound' in edge['containment']:  # TODO: Move 'compound' into file and check set
-                                continue
-                            if 'orig' not in edge['containment']:
-                                x = edge['containment']
-                                for name in negations:
-                                    x = re.sub("\b(" + name + ")\b", " ", x)  # Concatenate label if negation is found
-                                x = x.strip()  # Strip of leading/trailing whitespace
+                            # Make sure current edge is not in list of rejected edges, e.g. 'compound'
+                            with open(cfg['rejected_edge_types'], 'r') as f:
+                                rejected_edges = f.read()
+                                if edge['containment'] not in rejected_edges:
+                                    if 'orig' not in edge['containment']:
+                                        x = edge['containment']  # Name of edge label
 
-                                has_negations = any(map(lambda x: x in edge['containment'], negations))
+                                        for name in negations:  # No / not
+                                            x = re.sub("\b(" + name + ")\b", " ", x)
+                                        x = x.strip()  # Strip of leading/trailing whitespace
 
-                                # Check if name of edge is in "non verbs"
-                                edge_type = "non_verb"
-                                with open(cfg['non_verbs'], "r") as f:
-                                    non_verbs = f.read()
-                                    if x not in non_verbs:
+                                        has_negations = any(map(lambda x: x in edge['containment'], negations))
+
+                                        # Check if name of edge is in "non verbs"
                                         edge_type = "verb"
+                                        with open(cfg['non_verbs'], "r") as f:
+                                            non_verbs = f.readlines()
+                                            for non_verb in non_verbs:
+                                                if x == non_verb.strip():
+                                                    edge_type = "non_verb"
+                                                    break
 
-                                edges.append(Relationship(
-                                    source=nodes[edge['score']['parent']],
-                                    target=nodes[edge['score']['child']],
-                                    edgeLabel=Singleton(named_entity=x, properties=frozenset(dict().items()), min=-1,
-                                                        max=-1, type=edge_type,
-                                                        confidence=nodes[item['id']].confidence),
-                                    isNegated=has_negations
-                                ))
+                                        edges.append(Relationship(
+                                            source=nodes[edge['score']['parent']],
+                                            target=nodes[edge['score']['child']],
+                                            edgeLabel=Singleton(named_entity=x, properties=frozenset(dict().items()),
+                                                                min=-1,
+                                                                max=-1, type=edge_type,
+                                                                confidence=nodes[item['id']].confidence),
+                                            isNegated=has_negations
+                                        ))
         print(json.dumps(Graph(edges=edges), cls=EnhancedJSONEncoder))
 
+        # sentence = create_sentence_obj(cfg, edges, nodes)
+        # print(json.dumps(sentence, cls=EnhancedJSONEncoder))
+
         return Graph(edges=edges)
+
+
+def create_sentence_obj(cfg, edges, nodes):
+    if len(edges) <= 0:
+        create_existential(edges, nodes)
+    # With graph created, make the 'Sentence' object
+    kernel = None
+    properties = defaultdict(list)
+    for edge in edges:
+        if edge.edgeLabel.type == "verb":
+            # If not a transitive verb, remove target as target reflects direct object
+            with open(cfg['transitive_verbs'], "r") as f:
+                transitive_verbs = f.read()
+                if edge.edgeLabel.named_entity not in transitive_verbs:
+                    kernel = Relationship(
+                        source=edge.source,
+                        target=None,
+                        edgeLabel=edge.edgeLabel,
+                        isNegated=edge.isNegated
+                    )
+                else:
+                    kernel = edge
+    # If kernel is none, look for existential
+    if kernel is None:
+        for edge in edges:
+            if isinstance(edge.source, SetOfSingletons):
+                for entity in edge.target.entities:
+                    for prop in entity.properties:
+                        if prop[1] == '∃':
+                            kernel = edge
+                            break
+            else:
+                for prop in edge.target.properties:
+                    if prop[1] == '∃':
+                        kernel = edge
+                        break
+    if kernel is None:
+        n = len(edges)
+        create_existential(edges, nodes)
+
+        if n < len(edges):
+            kernel = edges[-1]
+    kernel_nodes = set()
+    if kernel is not None:
+        if kernel.source is not None:
+            kernel_nodes.add(kernel.source)
+        if kernel.target is not None:
+            kernel_nodes.add(kernel.target)
+    for edge in edges:
+        if edge.edgeLabel.type == "non_verb":
+            if edge.source not in kernel_nodes:
+                properties[edge.source.type if isinstance(edge.source.type, str) else edge.source.type.name].append(
+                    edge.source)
+            if edge.target not in kernel_nodes:
+                properties[edge.target.type if isinstance(edge.target.type, str) else edge.target.type.name].append(
+                    edge.target)
+    sentence = Sentence(
+        kernel=kernel,
+        properties=dict(properties)
+    )
+    return sentence
+
+
+def create_existential(edges, nodes):
+    for key in nodes:
+        node = nodes[key]
+        for prop in dict(node.properties):
+            if 'kernel' in prop:
+                edges.append(Relationship(
+                    source=node,
+                    target=Singleton(
+                        named_entity="there",
+                        properties=frozenset(dict().items()),
+                        min=-1,
+                        max=-1,
+                        type="non_verb",
+                        confidence=-1
+                    ),
+                    edgeLabel=Singleton(
+                        named_entity="is",
+                        properties=frozenset(dict().items()),
+                        min=-1,
+                        max=-1,
+                        type="verb",
+                        confidence=-1
+                    ),
+                    isNegated=False
+                ))
+
+                return
 
 
 def assign_type_to_singleton(item, stanza_json, nodes, key):

@@ -42,17 +42,9 @@ class MainPipeline:
     def ideas24Similarity(self):
         write_to_log(self.cfg, "Using IDEAS24 similarity matrix...")
         if 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']:
-            with open(self.cfg['gsm_sentences']) as sentences:
-                db = sentences.read()
-            from pathlib import Path
-            path = Path(self.cfg['gsm_sentences'])
-            with open(os.path.join(path.parent, "schema.txt"), "w") as f:
-                f.write("pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt")
-
-            #"data/test/einstein/einstein_query.txt" "/home/giacomo/projects/gsm2/data/test/articles/n3.txt"
             command = (f"{self.cfg['gsm_gsql_file_path']}cmake-build-release/gsm2_server "
-                       f"data/test/einstein/einstein_query.txt \"{self.cfg['gsm_sentences']}\" "
-                       f"-iortv")
+                       f"data/test/einstein/einstein_query.txt '{self.cfg['gsm_sentences']}' "
+                       f"-iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
             try:
                 # This will create the outputs for the given sentences in the C++ GSM
                 output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
