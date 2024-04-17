@@ -10,6 +10,8 @@ should_match_sentences: True
 hand_dataset: 'newcastle_sentences.txt'
 gsm_sentences: '/home/fox/PycharmProjects/news-crawler2/gsm_sentences.txt'
 non_verbs: '/home/fox/PycharmProjects/news-crawler2/gsmtosimilarity/non_verb_types.txt'
+rejected_edge_types: '/home/fox/PycharmProjects/news-crawler2/gsmtosimilarity/rejected_edge_types.txt'
+transitive_verbs: '/home/fox/PycharmProjects/news-crawler2/gsmtosimilarity/transitive_verbs.txt'
 
 rewriting_strategy: 'logic' # simplistic / logic
 
