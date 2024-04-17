@@ -1,14 +1,21 @@
 'stanford_nlp_host': 'localhost'
 'stanford_nlp_port': '9998'
 
+'web_dir': '/home/fox/PycharmProjects/news-crawler2/visualiser/src/results/'
+
 'iterations': 5 # Number of iterations for creating GSM output
-'should_generate_final_stanza_db': False
+'should_generate_final_stanza_db': True
 'should_load_handwritten_sentences': True
 'should_generate_cypher_in_db': False
 'should_run_datagram_db': True
-hand_dataset: 'hand.txt'
+should_match_sentences: True
+hand_dataset: 'newcastle_sentences.txt'
 gsm_sentences: '/home/fox/PycharmProjects/news-crawler2/gsm_sentences.txt'
-'web_dir': '/home/fox/PycharmProjects/news-crawler2/visualiser/src/results/'
+non_verbs: '/home/fox/PycharmProjects/news-crawler2/gsmtosimilarity/non_verb_types.txt'
+rejected_edge_types: '/home/fox/PycharmProjects/news-crawler2/gsmtosimilarity/rejected_edge_types.txt'
+transitive_verbs: '/home/fox/PycharmProjects/news-crawler2/gsmtosimilarity/transitive_verbs.txt'
+
+rewriting_strategy: 'logic' # simplistic / logic
 
 'similarity': 'IDEAS24' #IDEAS24 / SentenceTransformer
 'HuggingFace': 'sentence-transformers/all-MiniLM-L6-v2'
@@ -22,6 +29,10 @@ ConceptNet5Numberbatch:
 'prevailing':
   'string_similarity': 'string_similarity_prevailing'
   'verb_similarity': 'verb_similarity_prevailing'
+
+resolve_params:
+  recall_threshold: 0.1
+  precision_threshold: 0.6  # 0.7 doesn't detect Newcastle upon Tyne from 'Newcastle'
 
 'crawl_to_gsm':
   'stanza_db': 'final_gsm_stanza_db.json'
