@@ -17,7 +17,9 @@ import os
 import shutil
 import subprocess
 
+from CurlSimulation import fire_post_request
 from crawltogsm.write_to_log import write_to_log
+# from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.geonames.GeoNames import GeoNamesService
 from gsmtosimilarity.conceptnet.ConceptNet5 import ConceptNetService
 
@@ -126,40 +128,58 @@ def sentence_preprocessing(self):
     count = 0
     multi_named_entity_recognition(count, db, self, sentences)
     if self.cfg['similarity'] == 'IDEAS24':
-        load_to_datagram_db(self, sentences)
+        stanford_nlp_to_gsm(self, sentences)
 
 
-def load_to_datagram_db(self, sentences):
-    all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
-    command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
-    try:
-        output = subprocess.check_output(command, shell=True, text=True)
+def stanford_nlp_to_gsm(self, sentences):
+    # output = None
+    # all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
+    url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
+    data = dict(zip(map(str,range(len(sentences))), map(str,sentences)))
+    output = fire_post_request(url, data)
+    if output is not None:
         with open(self.cfg['gsm_sentences'], 'w') as f:
             f.write(output)
-    except subprocess.CalledProcessError:
+    else:
         print("Make sure 'stanford_nlp_dg_server' is running")
+    # # command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
+    # try:
+    #     output = subprocess.check_output(command, shell=True, text=True)
+    #     with open(self.cfg['gsm_sentences'], 'w') as f:
+    #         f.write(output)
+    # except subprocess.CalledProcessError:
+    #     print("Make sure 'stanford_nlp_dg_server' is running")
+    return output, self.cfg['gsm_sentences']
 
 
 def send_time_parsing(self, sentences):
-    all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
-    command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
-    try:
-        output = subprocess.check_output(command, shell=True, text=True)
+    # all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
+    url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
+    data = dict(zip(map(str,range(len(sentences))), map(str,sentences)))
+    output = fire_post_request(url, data)
+    if output is not None:
         return json.loads(output)
-    except subprocess.CalledProcessError:
+    else:
         print("Make sure 'stanford_nlp_dg_server' is running")
+        return None
+    # command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
+    # try:
+    #     output = subprocess.check_output(command, shell=True, text=True)
+    #     return json.loads(output)
+    # except subprocess.CalledProcessError:
+    #     print("Make sure 'stanford_nlp_dg_server' is running")
 
 
 def multi_named_entity_recognition(count, db, self, sentences):
+    if db is None:
+        db = list()
     geo_names_service = GeoNamesService()
     concept_net_service = ConceptNetService()
-
     tp = send_time_parsing(self, sentences)
     for sentence, withTime in zip(sentences, tp):
         results = self.nlp(sentence)
         entities = []
         multi_entity_unit = []
-
         # Add results from Stanza to MEU
         for ent in results.ents:
             monad = ""
@@ -167,7 +187,6 @@ def multi_named_entity_recognition(count, db, self, sentences):
                 entity = ent.text
                 monad = entity.replace(" ", "")
                 entities.append([entity, monad])
-
             result = {
                 "text": ent.text,
                 "type": ent.type,
@@ -209,7 +228,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
 
         db.append({'first_sentence': sentence, 'multi_entity_unit': multi_entity_unit})
 
-        write_to_log(None, f"MEU for '{sentence}' finished")
+        write_to_log(f"MEU for '{sentence}' finished")
 
         count += 1
         total = int(self.cfg['iterations'])
@@ -224,6 +243,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
     if 'crawl_to_gsm' in self.cfg:
         if 'stanza_db' in self.cfg['crawl_to_gsm']:
             json.dump(db, open(self.cfg['crawl_to_gsm']['stanza_db'], "w"), indent=4, sort_keys=True)
+    return db
 
 
 def load_sentences(self, sentences):
@@ -238,10 +258,10 @@ def load_sentences(self, sentences):
                 else:
                     sentences.append(sentence)
     else:
+        ## TODO: connecting eventually to the crawler!
         for i in item_generator(self.parsed_json, "maintext"):  # 'maintext' is the body of text from a given article
             text = str(i).replace('\n', '. ')  # Replace newline with '. ' to make split easier
             sentence = text.split('. ')[0]  # Get first sentence from 'maintext'
-
             # Skip if sentence already exists
             if sentence in sentences:
                 continue

@@ -22,7 +22,7 @@ from gsmtosimilarity.graph_similarity import load_file_for_similarity, Similarit
 from gsmtosimilarity.stanza_pipeline import StanzaService
 
 
-class MainPipeline:
+class LegacyPipeline:
     def __init__(self, full_cfg):
         final_db = 'final_db.json'  # By default, this is the file name from "generate_final_db.py"
         if 'generate_final_db' in full_cfg:  # Otherwise get file path from config
@@ -41,31 +41,32 @@ class MainPipeline:
 
     def ideas24Similarity(self):
         write_to_log(self.cfg, "Using IDEAS24 similarity matrix...")
-        if 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']:
-            command = (f"{self.cfg['gsm_gsql_file_path']}cmake-build-release/gsm2_server "
-                       f"data/test/einstein/einstein_query.txt '{self.cfg['gsm_sentences']}' "
-                       f"-iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
-            try:
-                # This will create the outputs for the given sentences in the C++ GSM
-                output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
-                print(output)
-            except subprocess.CalledProcessError as e:
-                raise Exception(e.output)
-        directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
+        should_run_datagram_db = 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']
 
-        # Check if config contains web dir, for visualisation tool
-        if 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
-            dataset_folder = f"{self.cfg['web_dir']}/dataset/data"
-            if os.path.exists(dataset_folder):
-                shutil.rmtree(dataset_folder)
-            shutil.copytree(directory, dataset_folder)
+        directory = self.graph_grammars_with_datagramdb(should_run_datagram_db)
+        stanza_json = None
+        rejected_edges = []
+        non_verbs = []
+        if 'crawl_to_gsm' in self.cfg:
+            if 'stanza_db' in self.cfg['crawl_to_gsm']:
+                with open(self.cfg['crawl_to_gsm']['stanza_db']) as stanza_db_file:
+                    stanza_json = json.load(stanza_db_file)
+        with open(self.cfg['rejected_edge_types'], 'r') as f:
+            rejected_edges = f.read()
+        with open(self.cfg['non_verbs'], "r") as f:
+            non_verbs = f.readlines()
+        doRewriting = False
+        simplistic = False
+        if 'rewriting_strategy' in self.cfg and self.cfg['rewriting_strategy'] is not None:
+            doRewriting = True
+            simplistic = self.cfg['rewriting_strategy'] == 'simplistic'
 
         graphs = []
         for x in os.walk(directory):
             graphs = [None for _ in range(len(x[1]))]
             for result_folder in x[1]:
                 resultFile = os.path.join(x[0], result_folder, "result.json")
-                graphs[int(result_folder)] = load_file_for_similarity(self.cfg, resultFile)
+                graphs[int(result_folder)] = load_file_for_similarity(resultFile, stanza_json, rejected_edges, non_verbs, doRewriting, simplistic)
             break  # // Skipping the remaining subfolder
 
         M = []
@@ -77,6 +78,28 @@ class MainPipeline:
                 ls.append(dist)
             M.append(ls)
         return np.array(M)
+
+    def graph_grammars_with_datagramdb(self, should_run_datagram_db=True, gsm_sentences=None):
+        if gsm_sentences is None:
+            gsm_sentences = self.cfg['gsm_sentences']
+        if should_run_datagram_db:
+            command = (f"{self.cfg['gsm_gsql_file_path']}cmake-build-release/gsm2_server "
+                       f"data/test/einstein/einstein_query.txt '{gsm_sentences}' "
+                       f"-iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
+            try:
+                # This will create the outputs for the given sentences in the C++ GSM
+                output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
+                # print(output)
+            except subprocess.CalledProcessError as e:
+                raise Exception(e.output)
+        directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
+        # Check if config contains web dir, for visualisation tool
+        if 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
+            dataset_folder = f"{self.cfg['web_dir']}/dataset/data"
+            if os.path.exists(dataset_folder):
+                shutil.rmtree(dataset_folder)
+            shutil.copytree(directory, dataset_folder)
+        return directory
 
     def getSentencesFromFile(self):
         if 'sentences' in self.cfg and len(self.cfg['sentences']) > 0:

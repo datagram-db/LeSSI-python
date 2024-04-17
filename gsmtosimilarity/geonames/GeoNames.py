@@ -2,6 +2,8 @@ import csv
 import os
 
 from crawltogsm.write_to_log import write_to_log
+# from CleanPipeline import CleanPipeline
+# from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.conceptnet.SimplifiedFuzzyStringMatching import SimplifiedFuzzyStringMatching
 from gsmtosimilarity.database.FuzzyStringMatchDatabase import DBFuzzyStringMatching, FuzzyStringMatchDatabase
 from gsmtosimilarity.resolve_multi_entity import ResolveMultiNamedEntity

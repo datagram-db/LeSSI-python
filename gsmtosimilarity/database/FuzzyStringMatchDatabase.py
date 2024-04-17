@@ -9,7 +9,7 @@ class FuzzyStringMatchDatabase:
         with self.connection.cursor() as cursor:
             cursor.execute("select * from information_schema.tables")
             records = cursor.fetchall()
-            S = set(map(lambda x: x[0], records))
+            S = set(map(lambda x: x[2], records))
             exists = tablename in S
             cursor.close()
         if not exists:
@@ -19,9 +19,9 @@ class FuzzyStringMatchDatabase:
                 cursor2.execute("DROP TABLE IF EXISTS "+tablename)
                 self.connection.commit()
                 cursor2.execute("CREATE TABLE "+tablename+" (id integer NOT NULL, idx text, t text)")
-                self.connection.commit()
+                # self.connection.commit()
                 cursor2.execute("CREATE EXTENSION IF NOT EXISTS pg_trgm")
-                self.connection.commit()
+                # self.connection.commit()
                 with open(file, 'r') as f:
                     # Notice that we don't need the csv module.
                     next(f)  # Skip the header row.

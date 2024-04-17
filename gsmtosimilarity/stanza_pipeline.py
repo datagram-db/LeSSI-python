@@ -3,6 +3,9 @@ import stanza
 from crawltogsm.write_to_log import write_to_log
 
 
+# from crawltogsm.write_to_log import write_to_log
+
+
 class StanzaService:
     _instance = None
 
