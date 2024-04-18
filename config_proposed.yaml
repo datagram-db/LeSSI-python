@@ -27,7 +27,7 @@ transitive_verbs: 'gsmtosimilarity/transitive_verbs.txt'
 #>>>>>>> d127fcd28fd165342de0820948d27e37e09e7892
 
 rewriting_strategy: 'logic' # simplistic / logic
-'similarity': 'IDEAS24' #IDEAS24 / SentenceTransformer
+'similarity': 'IDEAS24_graphs' #IDEAS24_graphs /IDEAS_logic / SentenceTransformer
 'HuggingFace': 'sentence-transformers/all-MiniLM-L6-v2'
 'string_similarity': 'Prevailing'
 'string_similarity_prevailing': 'HuggingFace'
