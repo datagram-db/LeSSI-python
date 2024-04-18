@@ -5,3 +5,7 @@ __pycache__/
 *$py.class
 venv/
 venv/*
+/mini.h5
+/mini.h5_db_input.txt
+mini.h5_sql_input.txt
+/mini.h5_sql_input.txt
