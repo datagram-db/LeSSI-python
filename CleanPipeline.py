@@ -56,17 +56,6 @@ class CleanPipeline:
         self.stanza_service = StanzaService()
         self.crawler = NewsCrawl()
         self.sentences = None
-        # TODO: also add the initialization for the GeoNames resolution.
-        #       Be warned! It takes a lot of primary memory
-        # self.geo_names = None
-        # Temp init locations
-        # geo_names.no_file_init("Newcastle Upon Tyne", "n/t/uk/e/w")
-        # geo_names.no_file_init("Tyne and Wear", "t/uk/e/w")
-        # geo_names.no_file_init("London", "l/uk/e/w")
-        # geo_names.no_file_init("Rome", "r/l/i/e/w")
-        # TODO:
-        # self.concept_net = None
-        # self.FuzzyStringMatchDatabase.instance()
 
         if self.sentences is None:
             if 'hand_dataset' in self.cfg:
@@ -231,7 +220,7 @@ class CleanPipeline:
             return self.getLogicalRepresentation(graphs)
 
     def getSimilarityFunction(self):
-        if self.cfg['similarity'] == 'IDEAS24':
+        if 'IDEAS24' in self.cfg['similarity']:
             if 'graphs' in self.cfg['similarity']:
                 return self.legacy_pipeline.graph_similarity
             else:
