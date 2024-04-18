@@ -23,21 +23,22 @@ from gsmtosimilarity.stanza_pipeline import StanzaService
 
 
 class LegacyPipeline:
-    def __init__(self, full_cfg):
-        final_db = 'final_db.json'  # By default, this is the file name from "generate_final_db.py"
-        if 'generate_final_db' in full_cfg:  # Otherwise get file path from config
-            if 'db_ph2' in full_cfg["generate_final_db"]:
-                final_db = full_cfg["generate_final_db"]["db_ph2"]
-        if os.path.exists(final_db) and os.path.isfile(final_db):
-            with open(final_db) as user_file:
-                self.parsed_json = json.load(user_file)
-        else:
-            self.parsed_json = None
-        self.cfg = full_cfg
-        self.sc = SimilarityScore(self.cfg)
-        if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
-            write_to_log(self.cfg, "Initialising Stanza pipeline...")
-            self.nlp = StanzaService().nlp
+    def __init__(self, full_cfg=None):
+        if full_cfg is not None:
+            final_db = 'final_db.json'  # By default, this is the file name from "generate_final_db.py"
+            if 'generate_final_db' in full_cfg:  # Otherwise get file path from config
+                if 'db_ph2' in full_cfg["generate_final_db"]:
+                    final_db = full_cfg["generate_final_db"]["db_ph2"]
+            if os.path.exists(final_db) and os.path.isfile(final_db):
+                with open(final_db) as user_file:
+                    self.parsed_json = json.load(user_file)
+            else:
+                self.parsed_json = None
+            self.cfg = full_cfg
+            self.sc = SimilarityScore(self.cfg)
+            if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
+                write_to_log(self.cfg, "Initialising Stanza pipeline...")
+                self.nlp = StanzaService().nlp
 
     def ideas24Similarity(self):
         write_to_log(self.cfg, "Using IDEAS24 similarity matrix...")
@@ -78,6 +79,10 @@ class LegacyPipeline:
                 ls.append(dist)
             M.append(ls)
         return np.array(M)
+
+    def graph_similarity(self, x, y)->float:
+        dist = self.sc.graph_distance(x, y) * 1.0
+        return 1.0 - dist #/ (1 + dist)
 
     def graph_grammars_with_datagramdb(self, should_run_datagram_db=True, gsm_sentences=None):
         if gsm_sentences is None:

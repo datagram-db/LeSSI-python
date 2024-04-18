@@ -42,6 +42,7 @@ class FuzzyStringMatchDatabase:
                                   port=port,
                                   database=database_name)
     def similarity(self,table,query,score=1.0):
+        query = query.replace("'","''")
         poll = OrderedDict()
         with self.connection.cursor() as cursor:
             cursor.execute(f"""SELECT idx, similarity(t, '{query}') AS sml

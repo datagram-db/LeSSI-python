@@ -149,7 +149,7 @@ def stanford_nlp_to_gsm(self, sentences):
     #         f.write(output)
     # except subprocess.CalledProcessError:
     #     print("Make sure 'stanford_nlp_dg_server' is running")
-    return output, self.cfg['gsm_sentences']
+    return output, os.path.abspath(self.cfg['gsm_sentences'])
 
 
 def send_time_parsing(self, sentences):
@@ -228,7 +228,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
 
         db.append({'first_sentence': sentence, 'multi_entity_unit': multi_entity_unit})
 
-        write_to_log(f"MEU for '{sentence}' finished")
+        write_to_log(None, f"MEU for '{sentence}' finished")
 
         count += 1
         total = int(self.cfg['iterations'])

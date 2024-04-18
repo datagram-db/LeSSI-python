@@ -2,13 +2,31 @@ from gsmtosimilarity.TwoGrams import TwoGramSetSimilarity
 
 
 def build_loc_result(text, type, start_char, end_char, monad, conf, id):
-    return map(lambda x: {"text": text,
+    if isinstance(id, str):
+        return [{"text": text,
                           "type": type,
                           "start_char": start_char,
                           "end_char": end_char,
                           "monad": monad,
                           "confidence": conf,
-                          "id": x}, id)
+                          "id": id}]
+    from collections.abc import Iterable
+    if isinstance(id, Iterable):
+        return map(lambda x: {"text": text,
+                              "type": type,
+                              "start_char": start_char,
+                              "end_char": end_char,
+                              "monad": monad,
+                              "confidence": conf,
+                              "id": x}, id)
+    else:
+        return [{"text": text,
+                 "type": type,
+                 "start_char": start_char,
+                 "end_char": end_char,
+                 "monad": monad,
+                 "confidence": conf,
+                 "id": str(id)}]
 
 
 class ResolveMultiNamedEntity:
@@ -23,14 +41,14 @@ class ResolveMultiNamedEntity:
     def test(self, current, rest, k, v, start, end, type):
         if len(rest) == 0:
             if k >= self.forinsert:
-                for j in build_loc_result(current, type, start, end, v, k, self.fa.get_value(v)):
+                for j in build_loc_result(current, type, start, end, v, k, v):
                     self.result.append(j)
         else:
             next = current + " " + rest[0][0]
             val = TwoGramSetSimilarity(next, v)
             if val < k:
                 if k >= self.forinsert:
-                    for j in build_loc_result(current, type, start, end, v, k, self.fa.get_value(v)):
+                    for j in build_loc_result(current, type, start, end, v, k, v):
                         self.result.append(j)
             else:
                 self.test(next, rest[1:], val, v, start, rest[0][1], type)
@@ -45,8 +63,8 @@ class ResolveMultiNamedEntity:
                 m = s.fuzzyMatch(self.threshold, ls[i][0])
                 for k, v in m.items():
                     for candidate in v:
-                        cand = s.get(candidate)
-                        newK = TwoGramSetSimilarity(ls[i][0], cand)
+                        # cand = s.get(candidate)
+                        newK = TwoGramSetSimilarity(ls[i][0], candidate)
                         if newK >= self.threshold:
-                            self.test(ls[i][0], ls[i + 1:], newK, s.get(candidate), ls[i][1], ls[i][2], type)
+                            self.test(ls[i][0], ls[i + 1:], newK, candidate, ls[i][1], ls[i][2], type)
         return self.result

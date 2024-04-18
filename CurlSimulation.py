@@ -1,6 +1,10 @@
 def fire_post_request(http, data):
     import requests
-    r = requests.post(http, data=data)
+    import os
+    os.environ['NO_PROXY'] = '127.0.0.1'
+    if not (http.startswith('http://') or http.startswith('https://')):
+        http = 'http://' + http
+    r = requests.post(http, files=data)
     if r.status_code == 200:
         return r.text
     else:

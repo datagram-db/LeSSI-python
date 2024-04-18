@@ -1,3 +1,4 @@
+import json
 import os.path
 import sys
 
@@ -42,6 +43,13 @@ class CleanPipeline:
                 self.cfg = yaml.load(f, Loader=yaml.FullLoader)
         except FileNotFoundError:
             raise Exception("Error: missing configuration file")
+        if 'should_generate_final_stanza_db' not in self.cfg or not self.cfg['should_generate_final_stanza_db']:
+            self.cfg['should_generate_final_stanza_db'] = True
+        if 'should_run_datagram_db' not in self.cfg or not self.cfg['should_run_datagram_db']:
+            self.cfg['should_run_datagram_db'] = self.cfg['similarity'].startswith('IDEAS24')
+        if 'rewritten_dataset' not in self.cfg:
+            self.cfg['rewritten_dataset'] = 'rewritten_dataset.txt'
+        self.write_to_log("Starting the pipeline...")
         # TODO: your current configuration uses this as a server, right?
         #       Then, at initialization phase, we should move the time-consuming
         #       initialization at this point, so to reduce the warm-up time
@@ -59,12 +67,19 @@ class CleanPipeline:
         # TODO:
         # self.concept_net = None
         # self.FuzzyStringMatchDatabase.instance()
+
         if self.sentences is None:
             if 'hand_dataset' in self.cfg:
-                self.cfg['rewritten_dataset'] = 'rewritten_' + self.cfg['hand_dataset']
+                self.cfg['rewritten_dataset'] = self.cfg['hand_dataset']+'_rewritten.txt'
         else:
             self.cfg['sentences'] = self.sentences
-            self.cfg['rewritten_dataset'] = 'rewritten_user_input'
+            self.cfg['rewritten_dataset'] = 'rewritten_user_input.txt'
+        if 'gsm_sentences' not in self.cfg:
+            self.cfg['gsm_sentences'] = self.cfg['rewritten_dataset'].replace("rewritten","")+'_gsm_sentences.txt'
+        if 'crawl_to_gsm' not in self.cfg:
+            self.cfg['crawl_to_gsm'] = {}
+        if 'stanza_db' not in self.cfg['crawl_to_gsm']:
+            self.cfg['crawl_to_gsm']['stanza_db'] = self.cfg['rewritten_dataset'].replace("rewritten","")+'_stanza_db.json'
 
         ## DB Initialisation
         (FuzzyStringMatchDatabase
@@ -96,11 +111,15 @@ class CleanPipeline:
         # if "should_generate_final_stanza_db" in self.cfg and self.cfg["should_generate_final_stanza_db"]:
         if 'sentences' in self.cfg and len(self.cfg['sentences']) > 0:
             self.sentences = self.cfg['sentences']
+            with open("automated_dataset.txt", "w") as f:
+                f.writelines(self.sentences)
+            self.cfg['hand_dataset'] = "automated_dataset.txt"
         else:
             load_sentences(self.legacy_pipeline, self.sentences)
         return self.sentences
 
     def run(self):
+        import json
         self.write_to_log("Starting pipeline...")
         sentences = self.getSentences()
         f = self.getSimilarityFunction()
@@ -115,7 +134,8 @@ class CleanPipeline:
             for y in result:
                 ls.append(f(x, y))
             M.append(ls)
-        return np.array(M), sentences
+        M = np.array(M)
+        return json.dumps({"similarity_matrix": M.tolist(), "sentences": sentences})
 
     def apply_graph_grammar(self, gsm_dbs):
         from gsmtosimilarity.graph_similarity import read_graph_from_file
@@ -143,43 +163,69 @@ class CleanPipeline:
 
     def transformSentences(self, sentences):
         #Performing MultiNamedEntity Recognition
-        stanza_db = multi_named_entity_recognition(0, None, self, sentences)
-        with open("/home/giacomo/dumping_ground/stanzadb.json", "w") as f:
-            print("STANZADB.json")
-            import json
-            json.dump(stanza_db, f)
+
+        stanza_db = {}
+        if 'crawl_to_gsm' in self.cfg and\
+            'stanza_db' in self.cfg['crawl_to_gsm'] and\
+            os.path.isfile(self.cfg['crawl_to_gsm']['stanza_db']):
+                with open(self.cfg['crawl_to_gsm']['stanza_db']) as f:
+                    self.write_to_log("READING PREVIOUS COMPUTATION FOR: stanza_db")
+                    stanza_db = json.load(f)
+        else:
+            stanza_db = multi_named_entity_recognition(0, None, self.legacy_pipeline, sentences)
+        # with open("/home/giacomo/dumping_ground/stanzadb.json", "w") as f:
+        #     print("STANZADB.json")
+        #     import json
+        #     json.dump(stanza_db, f)
 
         #Converting into the C++ format
-        gsm_dbs, filepath = stanford_nlp_to_gsm(self, sentences) #some strings
-        with open("/home/giacomo/dumping_ground/gsm.txt", "w") as f:
-            print("gsm.txt")
-            import json
-            f.write(gsm_dbs)
+        gsm_dbs = ""
+        filepath = ""
+        if 'gsm_sentences' in self.cfg and os.path.isfile(self.cfg['gsm_sentences']):
+            filepath = os.path.abspath(self.cfg['gsm_sentences'])
+            with open(filepath) as f:
+                self.write_to_log("READING PREVIOUS COMPUTATION FOR: gsm_dbs")
+                gsm_dbs = f.read()
+        else:
+            gsm_dbs, filepath = stanford_nlp_to_gsm(self, sentences) #some strings
+        # with open("/home/giacomo/dumping_ground/gsm.txt", "w") as f:
+        #     print("gsm.txt")
+        #     import json
+        #     f.write(gsm_dbs)
 
         #Running the Graph Grammar Rewriting
-        graphs = self.apply_graph_grammar(filepath)
-        with open("/home/giacomo/dumping_ground/after_graph_grammar.json", "w") as f:
-            print("gsm.txt")
-            import json
-            json.dump(graphs, f)
+
+        gsmout_graphlist_file = self.cfg["hand_dataset"]+"_out_gsm.json"
+        if os.path.isfile(gsmout_graphlist_file):
+            with open(gsmout_graphlist_file) as f:
+                self.write_to_log("READING PREVIOUS COMPUTATION FOR: graphs")
+                graphs = json.load(f)
+        else:
+            graphs = self.apply_graph_grammar(filepath)
+            with open(gsmout_graphlist_file, "w") as f:
+                json.dump(graphs, f, indent=4)
+        # with open("/home/giacomo/dumping_ground/after_graph_grammar.json", "w") as f:
+        #     print("gsm.txt")
+        #     import json
+        #     json.dump(graphs, f)
 
         #Perform the internal rewriting
         graphs = self.doGraphOperations(graphs, stanza_db)
-        with open("/home/giacomo/dumping_ground/after_internal_rewriting.json", "w") as f:
-            print("gsm.txt")
-            import json
-            from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
-            json.dump([graph[0] for graph in graphs], f, cls=EnhancedJSONEncoder)
+        # with open("/home/giacomo/dumping_ground/after_internal_rewriting.json", "w") as f:
+        #     print("gsm.txt")
+        #     import json
+        #     from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+        #     json.dump([graph[0] for graph in graphs], f, cls=EnhancedJSONEncoder)
 
         # TODO If transform into graphs, then return directly graphs
         #      Otherwise, call getLogicalRepresentation and return those instead
-        return graphs
+        return [graph[0] for graph in graphs]
 
     def getSimilarityFunction(self):
         if self.cfg['similarity'] == 'IDEAS24':
-            # TODO If transform into graphs, then return self.legacy_pipeline.sc.graph_distance
+            # TODO If transform into graphs, then return self.legacy_pipeline.graph_similarity
             #      Otherwise, return the new logical-based metric [TODO]
-            return self.legacy_pipeline.sc.graph_distance
+            return self.legacy_pipeline.graph_similarity
         else:
             return self.legacy_pipeline.sc.string_similarity
 

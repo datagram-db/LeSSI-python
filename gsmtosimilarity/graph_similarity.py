@@ -147,36 +147,36 @@ class SimilarityScore:  # Defining the graph similarity score
             return self.string_distance(x.named_entity, y.named_entity)
 
     @functools.lru_cache
-    def entity_distance(self, x: NodeEntryPoint, y: NodeEntryPoint) -> float:
-        if (x is None) or (y is None):
+    def entity_distance(self, lhs: NodeEntryPoint, rhs: NodeEntryPoint) -> float:
+        if (lhs is None) or (rhs is None):
             return 0.0
-        elif isinstance(x, Singleton) and isinstance(y, Singleton):
-            return self.singleton_dist(x, y)
-        elif isinstance(x, Singleton):
-            if y.type == Grouping.AND:
+        elif isinstance(lhs, Singleton) and isinstance(rhs, Singleton):
+            return self.singleton_dist(lhs, rhs)
+        elif isinstance(lhs, Singleton):
+            if rhs.type == Grouping.AND:
                 return 1.0
-            elif y.type == Grouping.OR:
-                return self.entity_distance(x, min(y.entities, key=lambda z: self.entity_distance(x, z)))
-            elif y.type == Grouping.NOT:
-                assert len(y.entities) == 1
-                return 1 - self.entity_distance(x, y.entities[0])
+            elif rhs.type == Grouping.OR:
+                return self.entity_distance(lhs, min(rhs.entities, key=lambda z: self.entity_distance(lhs, z)))
+            elif rhs.type == Grouping.NOT:
+                assert len(rhs.entities) == 1
+                return 1 - self.entity_distance(lhs, rhs.entities[0])
             else:
-                raise ValueError(str(y.type) + " is not supported")
-        elif isinstance(y, Singleton):
-            if x.type == Grouping.AND:
-                return self.entity_distance(min(x.entities, key=lambda z: self.entity_distance(z, y)), y)
-            elif x.type == Grouping.OR:
+                raise ValueError(str(rhs.type) + " is not supported")
+        elif isinstance(rhs, Singleton):
+            if lhs.type == Grouping.AND:
+                return self.entity_distance(min(lhs.entities, key=lambda z: self.entity_distance(z, rhs)), rhs)
+            elif lhs.type == Grouping.OR:
                 return 1.0
-            elif x.type == Grouping.NOT:
-                assert len(x.entities) == 1
-                return 1 - self.entity_distance(x.entities[0], y)
+            elif lhs.type == Grouping.NOT:
+                assert len(lhs.entities) == 1
+                return 1 - self.entity_distance(lhs.entities[0], rhs)
             else:
-                raise ValueError(str(y.type) + " is not supported")
+                raise ValueError(str(rhs.type) + " is not supported")
         else:
-            assert len(x.entities) > 0
-            assert len(y.entities) > 0
-            S1 = set(x.entities)
-            S2 = set(y.entities)
+            assert len(lhs.entities) > 0
+            assert len(rhs.entities) > 0
+            S1 = set(lhs.entities)
+            S2 = set(rhs.entities)
             d = defaultdict(set)
             d_inv = defaultdict(set)
             matches = []
@@ -193,32 +193,32 @@ class SimilarityScore:  # Defining the graph similarity score
             S2_inv = set()
             empty_set = set()
 
-            for edge2 in y.entities:
+            for edge2 in rhs.entities:
                 S2_inv = S2_inv.union(d_inv.get(edge2, empty_set))
-            for edge1 in x.entities:
+            for edge1 in lhs.entities:
                 S1_inv = S1_inv.union(d.get(edge1, empty_set))
             # unmatchingDistance = (len(S1.difference(S2_inv)) + len(S2.difference(S1_inv)))
-            if x.type == Grouping.AND:
-                if y.type == Grouping.AND:
+            if lhs.type == Grouping.AND:
+                if rhs.type == Grouping.AND:
                     if len(S2) == len(S1_inv):
                         return float(total_cost) / float(len(matches))
                     else:
                         return 1.0  # If some of elements could not be derived from the left, the left does not entail the right
-                elif y.type == Grouping.OR:
+                elif rhs.type == Grouping.OR:
                     return float(total_cost) / float(len(matches))  # Assuming there is at least one alignment
                 else:
                     return 1.0  # Contradiction
-            elif x.type == Grouping.OR:
-                if y.type == Grouping.AND:
+            elif lhs.type == Grouping.OR:
+                if rhs.type == Grouping.AND:
                     return 1.0  # Cannot convert a disjunction into a conjunction
-                elif y.type == Grouping.OR:
+                elif rhs.type == Grouping.OR:
                     return float(total_cost + len(S2.difference(S1_inv))) / float(
                         len(matches) + len(S2.difference(S1_inv)))
                 else:
                     return 1.0  # Contradiction
-            elif x.type == Grouping.NOT:
-                if y.type == Grouping.NOT:
-                    return self.entity_distance(x.entities[0], y.entities[0])
+            elif lhs.type == Grouping.NOT:
+                if rhs.type == Grouping.NOT:
+                    return self.entity_distance(lhs.entities[0], rhs.entities[0])
                 else:
                     return 1.0
 
@@ -229,10 +229,11 @@ class SimilarityScore:  # Defining the graph similarity score
         # print (str(L) +" vs "+str(R))
         srcSim = 1.0 - self.entity_distance(x.source, y.source)
         dstSim = 1.0 - self.entity_distance(x.target, y.target)
-        edgeSim = 1.0 - self.singleton_dist(x.edgeLabel, y.edgeLabel, True) * (1 if x.isNegated == y.isNegated else 0)
+        edgeSim = 1.0 - self.singleton_dist(x.edgeLabel, y.edgeLabel, True)
+        edgeSim = edgeSim * (1 if x.isNegated == y.isNegated else 0)
         return 1.0 - (srcSim * dstSim * edgeSim)
 
-    def graph_distance(self, g1: Graph, g2: Graph):
+    def graph_distance(self, g1: Graph, g2: Graph)->float:
         if len(g1.edges) == 0 or len(g2.edges) == 0:
             return []
         d = defaultdict(set)
@@ -240,12 +241,14 @@ class SimilarityScore:  # Defining the graph similarity score
         S1 = set(g1.edges)
         S2 = set(g2.edges)
         total_cost = 0
+        count = 0
         L = []
         for edge1 in g1.edges:
             edge2_cand = min(g2.edges, key=lambda edge2: self.edge_distance(edge1, edge2))
             distance = self.edge_distance(edge1, edge2_cand)
             L.append(tuple([edge1, distance, edge2_cand]))
             total_cost += distance
+            count += 1
             d[edge1].add(edge2_cand)
             d_inv[edge2_cand].add(edge1)
         S1_inv = set()
@@ -257,7 +260,7 @@ class SimilarityScore:  # Defining the graph similarity score
             S1_inv = S1_inv.union(d.get(edge1, empty_set))
         unmatchingDistance = (len(S1.difference(S2_inv)) + len(S2.difference(S1_inv)))
         unmatchingSimilarity = 1.0 - (unmatchingDistance / (1 + unmatchingDistance))
-        totalSimilarity = 1.0 - (total_cost / (1 + total_cost))
+        totalSimilarity = 1.0 - (total_cost / count)
         # total_cost += ((len(S1.difference(S2_inv)) + len(S2.difference(S1_inv))) / 2.0)
         return 1.0 - totalSimilarity * unmatchingSimilarity
 
@@ -282,7 +285,8 @@ def toInternalGraph(parsed_json, stanza_json, rejected_edges,non_verbs,doRewriti
                     item = nodes[key]
 
                     # If key is SetOfSingletons, loop over each Singleton and make association to type
-                    if isinstance(item, SetOfSingletons):
+                    # Giacomo: FIX, but only if they are not logical predicates
+                    if isinstance(item, SetOfSingletons) and ((nodes[key].type == Grouping.NONE) or (nodes[key].type == Grouping.GROUPING)):
                         for entity in item.entities:
                             nodes = assign_type_to_singleton(entity, stanza_json, nodes, key)
                     else:
@@ -314,7 +318,9 @@ def toInternalGraph(parsed_json, stanza_json, rejected_edges,non_verbs,doRewriti
 
                         # Check if name is not/no or if negation found in properties
                         if key == json_item['id']:
-                            if sing_item.named_entity in negations:
+                            ## TODO: there was a case where sing_item didn't have the field named_entity
+                            ##       Please double check if this will fix it...
+                            if hasattr(sing_item, "named_entity") and sing_item.named_entity in negations:
                                 for edge in json_item['phi']:
                                     child = nodes[edge['score']['child']]
                                     if child.named_entity not in negations:
@@ -408,6 +414,8 @@ def groupNodes(nodes, number_of_nodes, parsed_json):
             conj = item['properties']['conj']
             if 'and' in conj:
                 group_type = Grouping.AND
+            elif ('nor' in conj) or ('neither' in conj):
+                group_type = Grouping.NEITHER
             elif 'or' in conj:
                 group_type = Grouping.OR
             else:
@@ -422,12 +430,16 @@ def groupNodes(nodes, number_of_nodes, parsed_json):
                     grouped_nodes.append(nodes[edge['score']['child']])
 
         if has_conj:
+            if group_type == Grouping.NEITHER:
+                grouped_nodes = [SetOfSingletons(type=Grouping.NOT, entities=tuple([x]), min=x.min, max=x.max, confidence=x.confidence) for x in grouped_nodes]
+                grouped_nodes = tuple(grouped_nodes)
+                group_type = Grouping.AND
             nodes[item['id']] = SetOfSingletons(
-                type=group_type,
-                entities=tuple(grouped_nodes),
-                min=min(grouped_nodes, key=lambda x: x.min).min,
-                max=max(grouped_nodes, key=lambda x: x.max).max,
-                confidence=-1
+                    type=group_type,
+                    entities=tuple(grouped_nodes),
+                    min=min(grouped_nodes, key=lambda x: x.min).min,
+                    max=max(grouped_nodes, key=lambda x: x.max).max,
+                    confidence=-1
             )
         elif is_compound:
             grouped_nodes.insert(0, nodes[item['id']])
@@ -588,6 +600,7 @@ def assign_type_to_singleton(item, stanza_json, nodes, key):
                 confidence=best_item['confidence']
             )
 
+            # Giacomo: This was a bug: you were discarding relevant AND/OR information!
             if isinstance(nodes[key], SetOfSingletons):
                 new_set = []
                 confidence = 1
@@ -628,7 +641,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
     for entity in sorted_entities:
         norm_confidence *= entity.confidence
         fusion_properties = fusion_properties | dict(entity.properties)  # TODO: Most properties are overwritten?
-
+                                                                         # Giacomo: then, we'd need to use a defaultdict(list) and merge them as https://stackoverflow.com/a/70689832/1376095
         if entity.type != "ENTITY" and not simplistic:
             chosen_entity = entity
         else:
@@ -638,8 +651,6 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
     extra = extra.strip()  # Remove whitespace
 
     if chosen_entity is None and not simplistic:
-        # TODO: Later we will use Prostgres
-
         # Null new properties for ? object
         new_properties = {
             "specification": "none",
@@ -686,7 +697,6 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
         new_properties = new_properties | fusion_properties
 
         if chosen_entity is not None:
-            # TODO: Postgres
             type = chosen_entity.type
         else:
             type = "ENTITY"
