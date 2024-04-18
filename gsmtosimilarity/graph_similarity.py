@@ -459,7 +459,7 @@ def load_file_for_similarity(result_json,stanza_json, rejected_edges, non_verbs,
         g, a, b = toInternalGraph(parsed_json,stanza_json, rejected_edges, non_verbs, doRewrite, simplistic)
         return g
 
-def create_sentence_obj(cfg, edges, nodes):
+def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
     if len(edges) <= 0:
         create_existential(edges, nodes)
     # With graph created, make the 'Sentence' object
@@ -468,9 +468,8 @@ def create_sentence_obj(cfg, edges, nodes):
     for edge in edges:
         if edge.edgeLabel.type == "verb":
             # If not a transitive verb, remove target as target reflects direct object
-            with open(cfg['transitive_verbs'], "r") as f:
-                transitive_verbs = f.read()
-                if edge.edgeLabel.named_entity not in transitive_verbs:
+            # Giacomo: You had to include lemmatization!!!!
+                if len(legacy.lemmatize_sentence(edge.edgeLabel.named_entity).intersection(transitive_verbs))==0:
                     kernel = Relationship(
                         source=edge.source,
                         target=None,

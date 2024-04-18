@@ -40,6 +40,10 @@ class LegacyPipeline:
                 write_to_log(self.cfg, "Initialising Stanza pipeline...")
                 self.nlp = StanzaService().nlp
 
+    def lemmatize_sentence(self, text):
+        doc = self.nlp(text)
+        return {word.lemma for sent in doc.sentences for word in sent.words}
+
     def ideas24Similarity(self):
         write_to_log(self.cfg, "Using IDEAS24 similarity matrix...")
         should_run_datagram_db = 'should_run_datagram_db' in self.cfg and self.cfg['should_run_datagram_db']
@@ -79,6 +83,10 @@ class LegacyPipeline:
                 ls.append(dist)
             M.append(ls)
         return np.array(M)
+
+    def bogus(self, x, y)->float:
+        return -1.0
+
 
     def graph_similarity(self, x, y)->float:
         dist = self.sc.graph_distance(x, y) * 1.0

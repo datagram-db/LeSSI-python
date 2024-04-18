@@ -94,9 +94,14 @@ class CleanPipeline:
         self.legacy_pipeline = LegacyPipeline(self.cfg)
         self.db = []
         self.sentences = []
+        if os.path.isfile(self.cfg['transitive_verbs']):
+            with open(self.cfg['transitive_verbs'], "r") as f:
+                self.transitive_verbs = set(map(lambda x: x.strip(), f.readlines()))
+        else:
+            self.transitive_verbs = set()
         if os.path.isfile(self.cfg['rejected_edge_types']):
             with open(self.cfg['rejected_edge_types'], 'r') as f:
-                self.rejected_edges = set(f.read())
+                self.rejected_edges = set(map(lambda x: x.strip(), f.readlines()))
         else:
             self.rejected_edges = set()
         if os.path.isfile(self.cfg['non_verbs']):
@@ -128,6 +133,7 @@ class CleanPipeline:
             result = self.transformSentences(sentences)
         else:
             result = sentences
+
         M = []
         for x in result:
             ls = []
@@ -158,7 +164,7 @@ class CleanPipeline:
     def getLogicalRepresentation(self, graph_e_n_list):
         from gsmtosimilarity.graph_similarity import create_sentence_obj
         # graph, edges, nodes = graph_e_n
-        sentences = [create_sentence_obj(self.cfg, edges, nodes) for graph, edges, nodes in graph_e_n_list]
+        sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for graph, edges, nodes in graph_e_n_list]
         return sentences
 
     def transformSentences(self, sentences):
@@ -219,14 +225,22 @@ class CleanPipeline:
 
         # TODO If transform into graphs, then return directly graphs
         #      Otherwise, call getLogicalRepresentation and return those instead
-        return [graph[0] for graph in graphs]
+        if "graphs" in self.cfg['similarity']:
+            return [graph[0] for graph in graphs]
+        else:
+            return self.getLogicalRepresentation(graphs)
 
     def getSimilarityFunction(self):
         if self.cfg['similarity'] == 'IDEAS24':
+            if 'graphs' in self.cfg['similarity']:
+                return self.legacy_pipeline.graph_similarity
+            else:
+                return self.legacy_pipeline.bogus
             # TODO If transform into graphs, then return self.legacy_pipeline.graph_similarity
             #      Otherwise, return the new logical-based metric [TODO]
-            return self.legacy_pipeline.graph_similarity
+
         else:
             return self.legacy_pipeline.sc.string_similarity
+
 
 
