@@ -38,6 +38,7 @@ class CleanPipeline:
             print(text)
 
     def init(self, conf):
+        self.stanza_db = {}
         try:
             with open(conf) as f:
                 self.cfg = yaml.load(f, Loader=yaml.FullLoader)
@@ -153,21 +154,24 @@ class CleanPipeline:
     def getLogicalRepresentation(self, graph_e_n_list):
         from gsmtosimilarity.graph_similarity import create_sentence_obj
         # graph, edges, nodes = graph_e_n
-        sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for graph, edges, nodes in graph_e_n_list]
+        sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for graph, nodes, edges in graph_e_n_list]
+        with open("/home/giacomo/dumping_ground/logical_rewriting.json", "w") as f:
+            print("logical_rewriting.json")
+            import json
+            from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+            json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
         return sentences
 
     def transformSentences(self, sentences):
         #Performing MultiNamedEntity Recognition
-
-        stanza_db = {}
         if 'crawl_to_gsm' in self.cfg and\
             'stanza_db' in self.cfg['crawl_to_gsm'] and\
             os.path.isfile(self.cfg['crawl_to_gsm']['stanza_db']):
                 with open(self.cfg['crawl_to_gsm']['stanza_db']) as f:
                     self.write_to_log("READING PREVIOUS COMPUTATION FOR: stanza_db")
-                    stanza_db = json.load(f)
+                    self.stanza_db = json.load(f)
         else:
-            stanza_db = multi_named_entity_recognition(0, None, self.legacy_pipeline, sentences)
+            self.stanza_db = multi_named_entity_recognition(0, None, self.legacy_pipeline, sentences)
         # with open("/home/giacomo/dumping_ground/stanzadb.json", "w") as f:
         #     print("STANZADB.json")
         #     import json
@@ -205,7 +209,7 @@ class CleanPipeline:
         #     json.dump(graphs, f)
 
         #Perform the internal rewriting
-        graphs = self.doGraphOperations(graphs, stanza_db)
+        graphs = self.doGraphOperations(graphs, self.stanza_db)
         # with open("/home/giacomo/dumping_ground/after_internal_rewriting.json", "w") as f:
         #     print("gsm.txt")
         #     import json
@@ -222,7 +226,7 @@ class CleanPipeline:
     def getSimilarityFunction(self):
         if 'IDEAS24' in self.cfg['similarity']:
             if 'graphs' in self.cfg['similarity']:
-                return self.legacy_pipeline.graph_similarity
+                return self.legacy_pipeline.graph_with_logic_similarity
             else:
                 return self.legacy_pipeline.bogus
             # TODO If transform into graphs, then return self.legacy_pipeline.graph_similarity

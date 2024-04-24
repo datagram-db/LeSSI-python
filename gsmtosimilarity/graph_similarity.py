@@ -10,69 +10,15 @@ from enum import Enum
 from typing import List
 
 from gsmtosimilarity.string_similarity_factory import StringSimilarity
+from inference_engine.EntityRelationship import Relationship, Grouping, Singleton, NodeEntryPoint, SetOfSingletons
+from inference_engine.Sentence import Sentence
 
 negations = {'not', 'no', 'but'}
 location_types = {'GPE', 'LOC'}
 
-
-class Grouping(Enum):
-    AND = 0
-    OR = 1
-    NEITHER = 2
-    NOT = 3
-    NONE = 4
-    GROUPING = 5
-
-
-# class Properties(TypedDict):  # Key-Value association
-#     property: str  # Key
-#     value: Union[int, str, float, bool]  # Value
-
-
-class NodeEntryPoint:
-    pass
-
-
-@dataclass(order=True, frozen=True, eq=True)
-class Singleton(NodeEntryPoint):  # Graph node representing just one entity
-    named_entity: str  # String representation of the entity
-    properties: frozenset  # Key-Value association for such entity
-    min: int
-    max: int
-    type: str
-    confidence: float
-
-
-@dataclass(order=True, frozen=True, eq=True)
-class SetOfSingletons(NodeEntryPoint):  # Graph node representing conjunction/disjunction/exclusion between entities
-    type: Grouping  # Type of node grouping
-    entities: List[NodeEntryPoint]  # A list of entity nodes
-    min: int
-    max: int
-    confidence: float
-
-
-@dataclass(order=True, frozen=True, eq=True)
-class Relationship:  # Representation of an edge
-    source: NodeEntryPoint  # Source node
-    target: NodeEntryPoint  # Target node
-    edgeLabel: Singleton  # Edge label, also represented as an entity with properties
-    isNegated: bool = False  # Whether the edge expresses a negated action
-
-
-@dataclass(order=True, frozen=True, eq=True)
-class Sentence:
-    kernel: Relationship
-    properties: dict = field(default_factory=lambda: {
-        'time': List[NodeEntryPoint],
-        'loc': List[NodeEntryPoint]
-    })
-
-
 @dataclass(order=True, frozen=True, eq=True)
 class Graph:
     edges: List[Relationship]  # A graph is defined as a collection of edges
-
 
 class EnhancedJSONEncoder(json.JSONEncoder):
     def default(self, o):
@@ -390,17 +336,23 @@ def groupNodes(nodes, number_of_nodes, parsed_json):
         if 'conj' in item['properties']:
             continue  # add set of singletons later as we might not have all nodes yet
         else:
+            minV = -1
+            maxV = -1
+            typeV = "None"
             if len(item['xi']) > 0:  # xi might be empty?
                 name = item['xi'][0]
+                minV = int(item['properties']['begin'])
+                maxV = int(item['properties']['end'])
+                typeV = item['ell'][0] if len(item['ell'])>0 else "None"
             else:
-                name = ''
+                name = '?' # Yes, it might be empty if the node is invented, this is the only use case
 
             nodes[item['id']] = Singleton(
                 named_entity=name,
                 properties=frozenset(item['properties'].items()),
-                min=int(item['properties']['begin']),
-                max=int(item['properties']['end']),
-                type="None",
+                min=minV,
+                max=maxV,
+                type=typeV,
                 confidence=0
             )
     # Check if conjugation ('conj') exists and if true exists, merge into SetOfSingletons

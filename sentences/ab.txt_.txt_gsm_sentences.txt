@@ -1,0 +1,189 @@
+id:0
+ell:
+verb
+root
+.
+xi:
+felt
+.
+properties:
+"pos"	"7"
+"lemma"	"feel"
+"end"	"27"
+"begin"	"23"
+.
+phi:
+"obj"
+	1.0	1
+;"obl"
+	1.0	2
+	1.0	3
+;"punct"
+	1.0	4
+	1.0	5
+;"nsubj"
+	1.0	6
+;.
+
+id:2
+ell:
+noun
+.
+xi:
+hand
+.
+properties:
+"number"	"singular"
+"pos"	"4"
+"specification"	"common"
+"end"	"17"
+"begin"	"13"
+.
+phi:
+"det"
+	1.0	7
+;"amod"
+	1.0	8
+;"case"
+	1.0	9
+;.
+
+id:9
+ell:
+IN
+.
+xi:
+On
+.
+properties:
+"pos"	"1"
+"lemma"	"on"
+"end"	"2"
+"begin"	"0"
+.
+phi:
+.
+
+id:7
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"2"
+"end"	"6"
+"begin"	"3"
+.
+phi:
+.
+
+id:8
+ell:
+JJ
+.
+xi:
+other
+.
+properties:
+"pos"	"3"
+"end"	"12"
+"begin"	"7"
+.
+phi:
+.
+
+id:4
+ell:
+,
+.
+xi:
+,
+.
+properties:
+"pos"	"5"
+"end"	"18"
+"begin"	"17"
+.
+phi:
+.
+
+id:6
+ell:
+PRP
+.
+xi:
+she
+.
+properties:
+"pos"	"6"
+"end"	"22"
+"begin"	"19"
+.
+phi:
+.
+
+id:1
+ell:
+WP
+.
+xi:
+what
+.
+properties:
+"pos"	"8"
+"end"	"32"
+"begin"	"28"
+.
+phi:
+.
+
+id:3
+ell:
+PRP
+.
+xi:
+him
+.
+properties:
+"pos"	"10"
+"lemma"	"he"
+"end"	"40"
+"begin"	"37"
+.
+phi:
+"case"
+	1.0	10
+;.
+
+id:10
+ell:
+IN
+.
+xi:
+for
+.
+properties:
+"pos"	"9"
+"end"	"36"
+"begin"	"33"
+.
+phi:
+.
+
+id:5
+ell:
+<dot>
+.
+xi:
+?
+.
+properties:
+"pos"	"11"
+"end"	"41"
+"begin"	"40"
+.
+phi:
+.
+

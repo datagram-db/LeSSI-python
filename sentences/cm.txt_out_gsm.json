@@ -1,0 +1,454 @@
+[
+    [
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "mouse"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "17",
+                "end": "22",
+                "number": "singular",
+                "pos": "5.000000",
+                "det": "the"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        },
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "cat"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "4",
+                "end": "7",
+                "pos": "2.000000",
+                "kernel": "cat",
+                "number": "singular",
+                "expl": "",
+                "det": "The"
+            },
+            "phi": [
+                {
+                    "containment": "    eats ",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "    eats ",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "dep",
+                        "child": 1,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        }
+    ],
+    [
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "cat"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "26",
+                "end": "29",
+                "number": "singular",
+                "pos": "7.000000",
+                "det": "the",
+                "case": "by"
+            },
+            "phi": [
+                {
+                    "containment": " eaten",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 3,
+                        "label": " eaten",
+                        "child": 1,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "mouse"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "4",
+                "end": "9",
+                "number": "singular",
+                "pos": "2.000000",
+                "kernel": "mouse",
+                "det": "The"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "cat"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "19",
+                "end": "22",
+                "number": "singular",
+                "pos": "5.000000",
+                "det": "the"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "mouse"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "4",
+                "end": "9",
+                "pos": "2.000000",
+                "kernel": "mouse",
+                "number": "singular",
+                "expl": "",
+                "det": "The"
+            },
+            "phi": [
+                {
+                    "containment": "    eats ",
+                    "content": 2,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 3,
+                        "label": "    eats ",
+                        "child": 2,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 2,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 3,
+                        "label": "dep",
+                        "child": 2,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        }
+    ],
+    [
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "mouse"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "24",
+                "end": "29",
+                "number": "singular",
+                "pos": "7.000000",
+                "det": "the",
+                "case": "by"
+            },
+            "phi": [
+                {
+                    "containment": " eaten",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 3,
+                        "label": " eaten",
+                        "child": 1,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "cat"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "4",
+                "end": "7",
+                "number": "singular",
+                "pos": "2.000000",
+                "kernel": "cat",
+                "det": "The"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "mouse"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "24",
+                "end": "29",
+                "number": "singular",
+                "pos": "7.000000",
+                "det": "the"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        },
+        {
+            "id": 4,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "cat"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "4",
+                "end": "7",
+                "pos": "2.000000",
+                "kernel": "cat",
+                "number": "singular",
+                "expl": "",
+                "det": "The"
+            },
+            "phi": [
+                {
+                    "containment": "  does not eat ",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 4,
+                        "label": "  does not eat ",
+                        "child": 3,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 4,
+                        "label": "dep",
+                        "child": 3,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 4
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "NEG"
+            ],
+            "xi": [
+                "not"
+            ],
+            "properties": {
+                "begin": "12",
+                "end": "15",
+                "pos": "4.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 0,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "mouse"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "4",
+                "end": "9",
+                "pos": "2.000000",
+                "kernel": "mouse",
+                "number": "singular",
+                "expl": "",
+                "det": "The"
+            },
+            "phi": [
+                {
+                    "containment": "  does not eat ",
+                    "content": 4,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 0,
+                        "label": "  does not eat ",
+                        "child": 4,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 4,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 0,
+                        "label": "dep",
+                        "child": 4,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        },
+        {
+            "id": 4,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "cat"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "26",
+                "end": "29",
+                "number": "singular",
+                "pos": "7.000000",
+                "det": "the"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 4
+            }
+        },
+        {
+            "id": 3,
+            "ell": [
+                "NEG"
+            ],
+            "xi": [
+                "not"
+            ],
+            "properties": {
+                "begin": "14",
+                "end": "17",
+                "pos": "4.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        }
+    ]
+]

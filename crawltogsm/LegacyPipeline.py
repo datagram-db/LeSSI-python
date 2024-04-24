@@ -88,7 +88,7 @@ class LegacyPipeline:
         return -1.0
 
 
-    def graph_similarity(self, x, y)->float:
+    def graph_with_logic_similarity(self, x, y)->float:
         dist = self.sc.graph_distance(x, y) * 1.0
         return 1.0 - dist #/ (1 + dist)
 

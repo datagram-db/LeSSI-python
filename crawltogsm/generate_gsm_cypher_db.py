@@ -16,6 +16,7 @@ import math
 import os
 import shutil
 import subprocess
+from typing import List
 
 from CurlSimulation import fire_post_request
 from crawltogsm.write_to_log import write_to_log
@@ -131,7 +132,7 @@ def sentence_preprocessing(self):
         stanford_nlp_to_gsm(self, sentences)
 
 
-def stanford_nlp_to_gsm(self, sentences):
+def stanford_nlp_to_gsm(self, sentences:List[str]):
     # output = None
     # all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
     url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'

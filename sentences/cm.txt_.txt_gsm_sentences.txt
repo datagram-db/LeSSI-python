@@ -1,0 +1,683 @@
+id:0
+ell:
+verb
+root
+.
+xi:
+eats
+.
+properties:
+"pos"	"3"
+"lemma"	"eat"
+"end"	"12"
+"begin"	"8"
+.
+phi:
+"obj"
+	1.0	1
+;"nsubj"
+	1.0	2
+;.
+
+id:2
+ell:
+noun
+.
+xi:
+cat
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"7"
+"begin"	"4"
+.
+phi:
+"det"
+	1.0	3
+;.
+
+id:3
+ell:
+det
+.
+xi:
+The
+.
+properties:
+"pos"	"1"
+"lemma"	"the"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+id:1
+ell:
+noun
+.
+xi:
+mouse
+.
+properties:
+"number"	"singular"
+"pos"	"5"
+"specification"	"common"
+"end"	"22"
+"begin"	"17"
+.
+phi:
+"det"
+	1.0	4
+;.
+
+id:4
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"4"
+"end"	"16"
+"begin"	"13"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+verb
+root
+.
+xi:
+eaten
+.
+properties:
+"pos"	"4"
+"lemma"	"eat"
+"end"	"18"
+"begin"	"13"
+.
+phi:
+"nsubjpass"
+	1.0	1
+;"auxpass"
+	1.0	2
+;"obl"
+	1.0	3
+;.
+
+id:1
+ell:
+noun
+.
+xi:
+mouse
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"9"
+"begin"	"4"
+.
+phi:
+"det"
+	1.0	4
+;.
+
+id:4
+ell:
+det
+.
+xi:
+The
+.
+properties:
+"pos"	"1"
+"lemma"	"the"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+id:2
+ell:
+verb
+.
+xi:
+is
+.
+properties:
+"pos"	"3"
+"lemma"	"be"
+"end"	"12"
+"begin"	"10"
+.
+phi:
+.
+
+id:3
+ell:
+noun
+.
+xi:
+cat
+.
+properties:
+"number"	"singular"
+"pos"	"7"
+"specification"	"common"
+"end"	"29"
+"begin"	"26"
+.
+phi:
+"det"
+	1.0	5
+;"case"
+	1.0	6
+;.
+
+id:6
+ell:
+IN
+.
+xi:
+by
+.
+properties:
+"pos"	"5"
+"end"	"21"
+"begin"	"19"
+.
+phi:
+.
+
+id:5
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"6"
+"end"	"25"
+"begin"	"22"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"4"
+"end"	"18"
+"begin"	"15"
+.
+phi:
+.
+
+id:1
+ell:
+verb
+root
+.
+xi:
+eats
+.
+properties:
+"pos"	"3"
+"lemma"	"eat"
+"end"	"14"
+"begin"	"10"
+.
+phi:
+"obj"
+	1.0	2
+;"nsubj"
+	1.0	3
+;.
+
+id:3
+ell:
+noun
+.
+xi:
+mouse
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"9"
+"begin"	"4"
+.
+phi:
+"det"
+	1.0	4
+;.
+
+id:4
+ell:
+det
+.
+xi:
+The
+.
+properties:
+"pos"	"1"
+"lemma"	"the"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+id:2
+ell:
+noun
+.
+xi:
+cat
+.
+properties:
+"number"	"singular"
+"pos"	"5"
+"specification"	"common"
+"end"	"22"
+"begin"	"19"
+.
+phi:
+"det"
+	1.0	0
+;.
+
+~~
+id:0
+ell:
+verb
+root
+.
+xi:
+eaten
+.
+properties:
+"pos"	"4"
+"lemma"	"eat"
+"end"	"16"
+"begin"	"11"
+.
+phi:
+"nsubjpass"
+	1.0	1
+;"auxpass"
+	1.0	2
+;"obl"
+	1.0	3
+;.
+
+id:1
+ell:
+noun
+.
+xi:
+cat
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"7"
+"begin"	"4"
+.
+phi:
+"det"
+	1.0	4
+;.
+
+id:4
+ell:
+det
+.
+xi:
+The
+.
+properties:
+"pos"	"1"
+"lemma"	"the"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+id:2
+ell:
+verb
+.
+xi:
+is
+.
+properties:
+"pos"	"3"
+"lemma"	"be"
+"end"	"10"
+"begin"	"8"
+.
+phi:
+.
+
+id:3
+ell:
+noun
+.
+xi:
+mouse
+.
+properties:
+"number"	"singular"
+"pos"	"7"
+"specification"	"common"
+"end"	"29"
+"begin"	"24"
+.
+phi:
+"det"
+	1.0	5
+;"case"
+	1.0	6
+;.
+
+id:6
+ell:
+IN
+.
+xi:
+by
+.
+properties:
+"pos"	"5"
+"end"	"19"
+"begin"	"17"
+.
+phi:
+.
+
+id:5
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"6"
+"end"	"23"
+"begin"	"20"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+verb
+root
+.
+xi:
+eat
+.
+properties:
+"pos"	"5"
+"end"	"19"
+"begin"	"16"
+.
+phi:
+"neg"
+	1.0	1
+;"aux"
+	1.0	2
+;"obj"
+	1.0	3
+;"nsubj"
+	1.0	4
+;.
+
+id:4
+ell:
+noun
+.
+xi:
+cat
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"7"
+"begin"	"4"
+.
+phi:
+"det"
+	1.0	5
+;.
+
+id:5
+ell:
+det
+.
+xi:
+The
+.
+properties:
+"pos"	"1"
+"lemma"	"the"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+id:2
+ell:
+verb
+.
+xi:
+does
+.
+properties:
+"pos"	"3"
+"lemma"	"do"
+"end"	"12"
+"begin"	"8"
+.
+phi:
+.
+
+id:1
+ell:
+NEG
+.
+xi:
+not
+.
+properties:
+"pos"	"4"
+"end"	"15"
+"begin"	"12"
+.
+phi:
+.
+
+id:3
+ell:
+noun
+.
+xi:
+mouse
+.
+properties:
+"number"	"singular"
+"pos"	"7"
+"specification"	"common"
+"end"	"29"
+"begin"	"24"
+.
+phi:
+"det"
+	1.0	6
+;.
+
+id:6
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"6"
+"end"	"23"
+"begin"	"20"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+noun
+.
+xi:
+mouse
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"9"
+"begin"	"4"
+.
+phi:
+"det"
+	1.0	1
+;.
+
+id:1
+ell:
+det
+.
+xi:
+The
+.
+properties:
+"pos"	"1"
+"lemma"	"the"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+id:2
+ell:
+verb
+.
+xi:
+does
+.
+properties:
+"pos"	"3"
+"lemma"	"do"
+"end"	"14"
+"begin"	"10"
+.
+phi:
+.
+
+id:3
+ell:
+NEG
+.
+xi:
+not
+.
+properties:
+"pos"	"4"
+"end"	"17"
+"begin"	"14"
+.
+phi:
+.
+
+id:4
+ell:
+noun
+.
+xi:
+cat
+.
+properties:
+"number"	"singular"
+"pos"	"7"
+"specification"	"common"
+"end"	"29"
+"begin"	"26"
+.
+phi:
+"det"
+	1.0	5
+;.
+
+id:5
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"6"
+"end"	"25"
+"begin"	"22"
+.
+phi:
+.
+
+id:6
+ell:
+verb
+root
+.
+xi:
+eat
+.
+properties:
+"pos"	"5"
+"end"	"21"
+"begin"	"18"
+.
+phi:
+"neg"
+	1.0	3
+;"aux"
+	1.0	2
+;"obj"
+	1.0	4
+;"nsubj"
+	1.0	0
+;.
+

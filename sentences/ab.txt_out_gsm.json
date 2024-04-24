@@ -1,0 +1,788 @@
+[
+    [
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Alice"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "5",
+                "pos": "1.000000",
+                "kernel": "Alice",
+                "number": "singular",
+                "expl": ""
+            },
+            "phi": [
+                {
+                    "containment": "    plays",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "    plays",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "dep",
+                        "child": 1,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "12",
+                "end": "20",
+                "number": "singular",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Bob"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "3",
+                "pos": "1.000000",
+                "kernel": "Bob",
+                "number": "singular",
+                "expl": ""
+            },
+            "phi": [
+                {
+                    "containment": "    plays",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "    plays",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "dep",
+                        "child": 1,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "10",
+                "end": "18",
+                "number": "singular",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 5,
+            "ell": [],
+            "xi": [
+                "Alice Bob"
+            ],
+            "properties": {
+                "kernel": "Alice Bob",
+                "expl": "",
+                "conj": "and"
+            },
+            "phi": [
+                {
+                    "containment": "    play",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "    play",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "dep",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 2,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "orig",
+                        "child": 2,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "orig",
+                        "child": 3,
+                        "id": 2
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 5
+            }
+        },
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Alice"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "5",
+                "number": "singular",
+                "pos": "1.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Bob"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "10",
+                "end": "13",
+                "number": "singular",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "19",
+                "end": "27",
+                "number": "singular",
+                "pos": "5.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 5,
+            "ell": [],
+            "xi": [
+                "Bob Alice"
+            ],
+            "properties": {
+                "kernel": "Bob Alice",
+                "expl": "",
+                "conj": "or"
+            },
+            "phi": [
+                {
+                    "containment": "    play",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "    play",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "dep",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 2,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "orig",
+                        "child": 2,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "orig",
+                        "child": 3,
+                        "id": 2
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 5
+            }
+        },
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Alice"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "5",
+                "number": "singular",
+                "pos": "1.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        },
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Bob"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "9",
+                "end": "12",
+                "number": "singular",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "18",
+                "end": "26",
+                "number": "singular",
+                "pos": "5.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 4,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Alice"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "5",
+                "pos": "1.000000",
+                "kernel": "Alice",
+                "number": "singular",
+                "expl": ""
+            },
+            "phi": [
+                {
+                    "containment": "  does not play",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 4,
+                        "label": "  does not play",
+                        "child": 3,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 4,
+                        "label": "dep",
+                        "child": 3,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 4
+            }
+        },
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "19",
+                "end": "27",
+                "number": "singular",
+                "pos": "5.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "NEG"
+            ],
+            "xi": [
+                "not"
+            ],
+            "properties": {
+                "begin": "10",
+                "end": "13",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 4,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Bob"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "3",
+                "pos": "1.000000",
+                "kernel": "Bob",
+                "number": "singular",
+                "expl": ""
+            },
+            "phi": [
+                {
+                    "containment": "  does not play",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 4,
+                        "label": "  does not play",
+                        "child": 3,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 4,
+                        "label": "dep",
+                        "child": 3,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 4
+            }
+        },
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "17",
+                "end": "25",
+                "number": "singular",
+                "pos": "5.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "NEG"
+            ],
+            "xi": [
+                "not"
+            ],
+            "properties": {
+                "begin": "8",
+                "end": "11",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Dan"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "3",
+                "pos": "1.000000",
+                "kernel": "Dan",
+                "number": "singular",
+                "expl": ""
+            },
+            "phi": [
+                {
+                    "containment": "    plays",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "    plays",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "dep",
+                        "child": 1,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "10",
+                "end": "18",
+                "number": "singular",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        }
+    ],
+    [
+        {
+            "id": 0,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Bob"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "18",
+                "end": "21",
+                "number": "singular",
+                "pos": "4.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        },
+        {
+            "id": 6,
+            "ell": [],
+            "xi": [
+                "Bob Alice"
+            ],
+            "properties": {
+                "kernel": "Bob Alice",
+                "expl": "",
+                "conj": "nor Neither"
+            },
+            "phi": [
+                {
+                    "containment": "    play",
+                    "content": 2,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 6,
+                        "label": "    play",
+                        "child": 2,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 2,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 6,
+                        "label": "dep",
+                        "child": 2,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 0,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 6,
+                        "label": "orig",
+                        "child": 0,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 4,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 6,
+                        "label": "orig",
+                        "child": 4,
+                        "id": 2
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 6
+            }
+        },
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "football"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "27",
+                "end": "35",
+                "number": "singular",
+                "pos": "6.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 4,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Alice"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "8",
+                "end": "13",
+                "number": "singular",
+                "pos": "2.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 4
+            }
+        }
+    ]
+]
