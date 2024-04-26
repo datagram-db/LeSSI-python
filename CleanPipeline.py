@@ -38,12 +38,14 @@ class CleanPipeline:
             print(text)
 
     def init(self, conf):
-        self.stanza_db = {}
-        try:
-            with open(conf) as f:
-                self.cfg = yaml.load(f, Loader=yaml.FullLoader)
-        except FileNotFoundError:
-            raise Exception("Error: missing configuration file")
+        if ".yaml" in conf:  # Check if this is a file instead of loaded from React
+            try:
+                with open(conf) as f:
+                    self.cfg = yaml.load(f, Loader=yaml.FullLoader)
+            except FileNotFoundError:
+                raise Exception("Error: missing configuration file")
+        else:
+            self.cfg = conf
         if 'should_generate_final_stanza_db' not in self.cfg or not self.cfg['should_generate_final_stanza_db']:
             self.cfg['should_generate_final_stanza_db'] = True
         if 'should_run_datagram_db' not in self.cfg or not self.cfg['should_run_datagram_db']:
@@ -58,18 +60,19 @@ class CleanPipeline:
         self.crawler = NewsCrawl()
         self.sentences = None
 
-        if self.sentences is None:
+        if self.sentences is None and 'sentences' not in self.cfg:
             if 'hand_dataset' in self.cfg:
-                self.cfg['rewritten_dataset'] = self.cfg['hand_dataset']+'_rewritten.txt'
+                self.cfg['rewritten_dataset'] = self.cfg['hand_dataset'] + '_rewritten.txt'
         else:
-            self.cfg['sentences'] = self.sentences
+            # self.cfg['sentences'] = self.sentences
             self.cfg['rewritten_dataset'] = 'rewritten_user_input.txt'
         if 'gsm_sentences' not in self.cfg:
-            self.cfg['gsm_sentences'] = self.cfg['rewritten_dataset'].replace("rewritten","")+'_gsm_sentences.txt'
+            self.cfg['gsm_sentences'] = self.cfg['rewritten_dataset'].replace("rewritten", "") + '_gsm_sentences.txt'
         if 'crawl_to_gsm' not in self.cfg:
             self.cfg['crawl_to_gsm'] = {}
         if 'stanza_db' not in self.cfg['crawl_to_gsm']:
-            self.cfg['crawl_to_gsm']['stanza_db'] = self.cfg['rewritten_dataset'].replace("rewritten","")+'_stanza_db.json'
+            self.cfg['crawl_to_gsm']['stanza_db'] = self.cfg['rewritten_dataset'].replace("rewritten",
+                                                                                          "") + '_stanza_db.json'
 
         ## DB Initialisation
         (FuzzyStringMatchDatabase
@@ -148,28 +151,27 @@ class CleanPipeline:
 
     def doGraphOperations(self, graphs, stanza_db):
         # TODO: find a more explicative name
-        from gsmtosimilarity.graph_similarity import toInternalGraph
-        return [toInternalGraph(graph, stanza_db, self.rejected_edges, self.non_verbs, True, self.simplistic) for graph in graphs]
+        from gsmtosimilarity.graph_similarity import to_internal_graph
+        return [to_internal_graph(graph, stanza_row, self.rejected_edges, self.non_verbs, True, self.simplistic) for graph, stanza_row in zip(graphs, stanza_db)]
 
     def getLogicalRepresentation(self, graph_e_n_list):
         from gsmtosimilarity.graph_similarity import create_sentence_obj
         # graph, edges, nodes = graph_e_n
         sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for graph, nodes, edges in graph_e_n_list]
-        with open("/home/giacomo/dumping_ground/logical_rewriting.json", "w") as f:
-            print("logical_rewriting.json")
-            import json
-            from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
-            json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
+        # with open("logical_rewriting.json", "w") as f:
+        #     print("logical_rewriting.json")
+        #     import json
+        #     from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+        #     json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
         return sentences
 
     def transformSentences(self, sentences):
         #Performing MultiNamedEntity Recognition
-        if 'crawl_to_gsm' in self.cfg and\
-            'stanza_db' in self.cfg['crawl_to_gsm'] and\
-            os.path.isfile(self.cfg['crawl_to_gsm']['stanza_db']):
-                with open(self.cfg['crawl_to_gsm']['stanza_db']) as f:
-                    self.write_to_log("READING PREVIOUS COMPUTATION FOR: stanza_db")
-                    self.stanza_db = json.load(f)
+        if 'crawl_to_gsm' in self.cfg and 'stanza_db' in self.cfg['crawl_to_gsm'] and \
+                os.path.isfile(self.cfg['crawl_to_gsm']['stanza_db']) and not self.cfg['force_regenerate']:
+            with open(self.cfg['crawl_to_gsm']['stanza_db']) as f:
+                self.write_to_log("READING PREVIOUS COMPUTATION FOR: stanza_db")
+                self.stanza_db = json.load(f)
         else:
             self.stanza_db = multi_named_entity_recognition(0, None, self.legacy_pipeline, sentences)
         # with open("/home/giacomo/dumping_ground/stanzadb.json", "w") as f:
@@ -180,7 +182,8 @@ class CleanPipeline:
         #Converting into the C++ format
         gsm_dbs = ""
         filepath = ""
-        if 'gsm_sentences' in self.cfg and os.path.isfile(self.cfg['gsm_sentences']):
+        if 'gsm_sentences' in self.cfg and os.path.isfile(self.cfg['gsm_sentences']) and not self.cfg[
+            'force_regenerate']:
             filepath = os.path.abspath(self.cfg['gsm_sentences'])
             with open(filepath) as f:
                 self.write_to_log("READING PREVIOUS COMPUTATION FOR: gsm_dbs")
@@ -195,7 +198,7 @@ class CleanPipeline:
         #Running the Graph Grammar Rewriting
 
         gsmout_graphlist_file = self.cfg["hand_dataset"]+"_out_gsm.json"
-        if os.path.isfile(gsmout_graphlist_file):
+        if os.path.isfile(gsmout_graphlist_file) and not self.cfg['force_regenerate']:
             with open(gsmout_graphlist_file) as f:
                 self.write_to_log("READING PREVIOUS COMPUTATION FOR: graphs")
                 graphs = json.load(f)

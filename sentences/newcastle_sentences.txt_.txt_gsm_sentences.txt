@@ -898,3 +898,206 @@ properties:
 phi:
 .
 
+~~
+id:0
+ell:
+JJ
+root
+.
+xi:
+busy
+.
+properties:
+"pos"	"6"
+"end"	"34"
+"begin"	"30"
+.
+phi:
+"cop"
+	1.0	1
+;"nsubj"
+	1.0	2
+;.
+
+id:2
+ell:
+noun
+.
+xi:
+centres
+.
+properties:
+"number"	"plural"
+"pos"	"2"
+"specification"	"common"
+"lemma"	"centre"
+"end"	"12"
+"begin"	"5"
+.
+phi:
+"nmod"
+	1.0	3
+;"compound"
+	1.0	4
+;.
+
+id:4
+ell:
+noun
+.
+xi:
+City
+.
+properties:
+"number"	"singular"
+"pos"	"1"
+"specification"	"proper"
+"end"	"4"
+"begin"	"0"
+.
+phi:
+.
+
+id:3
+ell:
+noun
+.
+xi:
+Saturdays
+.
+properties:
+"number"	"singular"
+"pos"	"4"
+"specification"	"proper"
+"end"	"25"
+"begin"	"16"
+.
+phi:
+"case"
+	1.0	5
+;.
+
+id:5
+ell:
+IN
+.
+xi:
+on
+.
+properties:
+"pos"	"3"
+"end"	"15"
+"begin"	"13"
+.
+phi:
+.
+
+id:1
+ell:
+verb
+.
+xi:
+are
+.
+properties:
+"pos"	"5"
+"lemma"	"be"
+"end"	"29"
+"begin"	"26"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+verb
+root
+.
+xi:
+has
+.
+properties:
+"pos"	"4"
+"lemma"	"have"
+"end"	"25"
+"begin"	"22"
+.
+phi:
+"obj"
+	1.0	1
+;"nsubj"
+	1.0	2
+;.
+
+id:2
+ell:
+noun
+.
+xi:
+centre
+.
+properties:
+"number"	"singular"
+"pos"	"3"
+"specification"	"common"
+"end"	"21"
+"begin"	"15"
+.
+phi:
+"compound"
+	1.0	3
+	1.0	4
+;.
+
+id:4
+ell:
+noun
+.
+xi:
+Newcastle
+.
+properties:
+"number"	"singular"
+"pos"	"1"
+"specification"	"proper"
+"end"	"9"
+"begin"	"0"
+.
+phi:
+.
+
+id:3
+ell:
+noun
+.
+xi:
+city
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"14"
+"begin"	"10"
+.
+phi:
+.
+
+id:1
+ell:
+noun
+.
+xi:
+traffic
+.
+properties:
+"number"	"singular"
+"pos"	"5"
+"specification"	"common"
+"end"	"33"
+"begin"	"26"
+.
+phi:
+.
+

@@ -232,13 +232,13 @@ def multi_named_entity_recognition(count, db, self, sentences):
         write_to_log(None, f"MEU for '{sentence}' finished")
 
         count += 1
-        total = int(self.cfg['iterations'])
-        if total is not None:
-            if count >= total:
-                break
-        else:
-            print("Please enter valid number of 'iterations' in config.yaml")
-            break
+        # total = int(self.cfg['iterations'])
+        # if total is not None:
+        #     if count >= total:
+        #         break
+        # else:
+        #     print("Please enter valid number of 'iterations' in config.yaml")
+        #     break
     with open(self.cfg['rewritten_dataset'], 'w') as f:
         f.write(os.linesep.join(sentences))
     if 'crawl_to_gsm' in self.cfg:

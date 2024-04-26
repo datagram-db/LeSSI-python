@@ -4,7 +4,18 @@ import './fonts/index.css'
 import {ConfusionMatrix} from "react-confusion-matrix";
 
 // Data
-import { NewcastleSimIdeasData, NewcastleSimSTData, CatSimIdeasData, CatSimSTData, ABSimIdeasData, ABSimSTData, simIdeasData, simSTData, Log } from './results';
+import {
+  CatSimIdeasData,
+  simIdeasData,
+  Log,
+  CatSimMPNETData,
+  CatSimL6Data,
+  CatSimLRobertaData,
+  NewcastleSimIdeasData,
+  NewcastleSimL6Data,
+  NewcastleSimMPNETData,
+  NewcastleSimRobertaData, ABSimIdeasData, simL6Data, simMPNETData, simRobertaData, ABSimL6Data, ABSimMPNETData, ABSimRobertaData
+} from './results';
 
 function App() {
   // Config
@@ -17,14 +28,17 @@ function App() {
   const [resultDescription, setResultDescription] = useState(<div></div>)
 
   // Flask
-  const [similarity, setSimilarity] = useState("IDEAS24") // Which similarity measure to pass to Flask
+  const [similarity, setSimilarity] = useState("IDEAS24_graphs") // Which similarity measure to pass to Flask
+  const [transformer, setTransformer] = useState("all-MiniLM-L6-v2") // Which similarity measure to pass to Flask
   const [outputText, setOutputText] = useState(['']) // Log text
+  const [directory, setDirectory] = useState('')
 
   // Results
   const [IDEASResults, setIDEASResults] = useState(<div></div>);
   const [IDEASMatrix, setIDEASMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
-  const [BERTResults, setBERTResults] = useState(<div></div>);
-  const [BERTMatrix, setBERTMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  const [L6Matrix, setL6Matrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  const [MPNETMatrix, setMPNETMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  const [RobertaMatrix, setRobertaMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
 
   const inputs = inputSentences.map((v, i) =>
     <div>
@@ -44,14 +58,23 @@ function App() {
 
   useEffect(() => {
     if (!running) {
-      if (JSON.stringify(simIdeasData.sentences) === JSON.stringify(simSTData.sentences)) {
-        loadResult(simIdeasData.sentences, simIdeasData, simSTData)
-      } else {
+      // if (JSON.stringify(simIdeasData.sentences) === JSON.stringify(sim.sentences)) {
+      //   // loadResult(simIdeasData.sentences, simIdeasData, simSTData)
+      // } else {
         let empty = {"similarity_matrix": [], "sentences": []};
-        loadResult(similarity === "IDEAS24" ? simIdeasData.sentences : simSTData.sentences, similarity === "IDEAS24" ? simIdeasData : empty, similarity === "SentenceTransformer" ? simSTData : empty)
-      }
+        if (similarity === "IDEAS24_graphs") {
+          // loadResult(simIdeasData.sentences, simIdeasData, simL6Data, simMPNETData, simRobertaData)
+        } else if (similarity === "SentenceTransformer" && transformer === "all-MiniLM-L6-v2") {
+
+        } else if (similarity === "SentenceTransformer" && transformer === "all-mpnet-base-v2") {
+
+        } else if (similarity === "SentenceTransformer" && transformer === "paraphrase-multilingual-MiniLM-L12-v2") {
+
+        }
+
+      // }
     }
-  }, [running, simIdeasData, simSTData]);
+  }, [running, simIdeasData]);
 
   useEffect(() => {
     if (running && !outputText.includes("Finished")) {
@@ -113,10 +136,13 @@ function App() {
       body: JSON.stringify({
         'sentences': tempSentences,
         'config': {
+          'sentences': tempSentences,
           'similarity': similarity,
+          'HuggingFace': `sentence-transformers/${transformer}`,
           'should_generate_final_stanza_db': true,
           'should_load_handwritten_sentences': true,
-          'should_run_datagram_db': true
+          'should_run_datagram_db': true,
+          'web_dir': `/home/fox/PycharmProjects/news-crawler2/visualiser/src/results/${directory}`
         }
       })
     }).then(response => {
@@ -131,7 +157,7 @@ function App() {
     })
   }
 
-  function loadResult(sentences, ideasData, bertData, path = 'dataset/') {
+  function loadResult(sentences, ideasData, l6Data, mpnetData, robertaData, path = 'dataset/') {
     // let desc = <div></div>;
     // if (sentences.includes("There is traffic in the Newcastle city centre")) {
     //   desc = <div>
@@ -176,17 +202,28 @@ function App() {
 
     // Round matricies
     let tempIData = roundMatrix(ideasData, 4)
-    let tempBData = roundMatrix(bertData, 4)
+    let tempL6Data = roundMatrix(l6Data, 4)
+    let tempMPNETData = roundMatrix(mpnetData, 4)
+    let tempRobertaData = roundMatrix(robertaData, 4)
+
+    const numbers = Array.from({ length: tempIData.sentences.length }, (_, index) => index + 1);
 
     setIDEASResults(results)
     setIDEASMatrix(<ConfusionMatrix
       data={tempIData.similarity_matrix}
-      labels={tempIData.sentences}
+      labels={numbers}
     />)
-    setBERTResults(results)
-    setBERTMatrix(<ConfusionMatrix
-      data={tempBData.similarity_matrix}
-      labels={tempBData.sentences}
+    setL6Matrix(<ConfusionMatrix
+      data={tempL6Data.similarity_matrix}
+      labels={numbers}
+    />)
+    setMPNETMatrix(<ConfusionMatrix
+      data={tempMPNETData.similarity_matrix}
+      labels={numbers}
+    />)
+    setRobertaMatrix(<ConfusionMatrix
+      data={tempRobertaData.similarity_matrix}
+      labels={numbers}
     />)
 
     setLoadedSentences(sentences)
@@ -206,15 +243,18 @@ function App() {
   const ExampleButton = (props) => {
     let name = props.name;
     let ideasData = props.ideasData;
-    let stData = props.stData;
+    let l6Data = props.l6Data;
+    let mpnetData = props.mpnetData;
+    let robertaData = props.robertaData;
     let path = props.path;
     let style = props.newStyle;
 
     return <button className={'buttonToolTip'} style={{
       backgroundColor: (loadedSentences === ideasData.sentences ? '#5bae38' : '')
     }} onClick={() => {
-      loadResult(ideasData.sentences, ideasData, stData, path);
+      loadResult(ideasData.sentences, ideasData, l6Data, mpnetData, robertaData, path);
       setInputSentences(ideasData.sentences)
+      setDirectory(path)
     }}>{name}
       <span className={'toolTipText'} style={style}>
         {ideasData.sentences.map((v, i) => {
@@ -251,10 +291,10 @@ function App() {
               that our proposed approach improves upon.
             </div>
             <div className={'configButtons'}>
-              <ExampleButton name={'CAT AND MICE'} ideasData={CatSimIdeasData} stData={CatSimSTData} path={'cat/'} newStyle={{marginLeft: '-35px'}}/>
-              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasData={NewcastleSimIdeasData} stData={NewcastleSimSTData} path={'newcastle/'} />
-              <ExampleButton name={'ALICE AND BOB'} ideasData={ABSimIdeasData} stData={ABSimSTData} path={'ab/'} />
-              <ExampleButton name={'PREVIOUS RESULTS'} ideasData={simIdeasData} stData={simSTData} newStyle={{marginLeft: '-175px'}} />
+              <ExampleButton name={'CAT AND MICE'} ideasData={CatSimIdeasData} l6Data={CatSimL6Data} mpnetData={CatSimMPNETData} robertaData={CatSimLRobertaData} path={'cat/'} newStyle={{marginLeft: '-35px'}}/>
+              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasData={NewcastleSimIdeasData} l6Data={NewcastleSimL6Data} mpnetData={NewcastleSimMPNETData} robertaData={NewcastleSimRobertaData} path={'newcastle/'} />
+              <ExampleButton name={'ALICE AND BOB'} ideasData={ABSimIdeasData} l6Data={ABSimL6Data} mpnetData={ABSimMPNETData} robertaData={ABSimRobertaData} path={'ab/'} />
+              <ExampleButton name={'PREVIOUS RESULTS'} ideasData={simIdeasData} l6Data={simL6Data} mpnetData={simMPNETData} robertaData={simRobertaData} path={''} newStyle={{marginLeft: '-175px'}} />
               </div>
 
               {/*<h2>Config</h2>*/}
@@ -293,31 +333,49 @@ function App() {
               Below gives options for our 'proposed' non-training-based approach, using graph grammars and graph matching techniques; as
               well as the training-based 'BERT' similarity measure.
             </div>
-            <div className={'simBtns'}>
-              <button style={{
-                backgroundColor: 'IDEAS24' === similarity ? '#5bae38' : '#3c3c3c',
-                color: 'IDEAS24' === similarity ? '' : '#6d6d6d'
-              }} onClick={() => {
-                setSimilarity('IDEAS24')
-              }}>PROPOSED
-              </button>
-              <button style={{
-                backgroundColor: 'SentenceTransformer' === similarity ? '#5bae38' : '#3c3c3c',
-                color: 'SentenceTransformer' === similarity ? '' : '#6d6d6d'
-              }} onClick={() => {
-                setSimilarity('SentenceTransformer')
-              }}>BERT
-              </button>
-            </div>
-            <br/>
-            <button className={'runBtn'} onClick={submitSentences}>RUN</button>
-            <h2>Log</h2>
-            <div className={'log'}>
-              {outputText.map((v, i) => {
-                return <div key={i}>{v}</div>
-              })}
-            </div>
+          <div className={'simBtns'}>
+            <button style={{
+              backgroundColor: 'IDEAS24_graphs' === similarity ? '#5bae38' : '#3c3c3c',
+              color: 'IDEAS24_graphs' === similarity ? '' : '#6d6d6d'
+            }} onClick={() => {
+              setSimilarity('IDEAS24_graphs')
+              setTransformer('all-MiniLM-L6-v2')
+            }}>PROPOSED
+            </button>
+            <button style={{
+              backgroundColor: (similarity === "SentenceTransformer" && 'all-MiniLM-L6-v2' === transformer) ? '#5bae38' : '#3c3c3c',
+              color: 'all-MiniLM-L6-v2' === transformer ? '' : '#6d6d6d'
+            }} onClick={() => {
+              setSimilarity('SentenceTransformer')
+              setTransformer('all-MiniLM-L6-v2')
+            }}>all-MiniLM-L6-v2
+            </button>
+            <button style={{
+              backgroundColor: 'all-mpnet-base-v2' === transformer ? '#5bae38' : '#3c3c3c',
+              color: 'all-mpnet-base-v2' === transformer ? '' : '#6d6d6d'
+            }} onClick={() => {
+              setSimilarity('SentenceTransformer')
+              setTransformer('all-mpnet-base-v2')
+            }}>all-mpnet-base-v2
+            </button>
+            <button style={{
+              backgroundColor: 'all-roberta-large-v1' === transformer ? '#5bae38' : '#3c3c3c',
+              color: 'all-roberta-large-v1' === transformer ? '' : '#6d6d6d'
+            }} onClick={() => {
+              setSimilarity('SentenceTransformer')
+              setTransformer('all-roberta-large-v1')
+            }}>all-roberta-large-v1
+            </button>
           </div>
+          <br/>
+          <button className={'runBtn'} onClick={submitSentences}>RUN</button>
+          <h2>Log</h2>
+          <div className={'log'}>
+            {outputText.map((v, i) => {
+              return <div key={i}>{v}</div>
+            })}
+          </div>
+        </div>
 
 
         <div className={'rightSide'}>
@@ -327,37 +385,51 @@ function App() {
           </div>
           <div className={'resultsInnerDiv'}>
             <div>
-              <h3>PROPOSED</h3>
+              <h3 className={'resultTitle'}>Simplistic Proposed</h3>
               <div>
                 {IDEASMatrix}
               </div>
             </div>
             <div>
-              <h3>BERT</h3>
-              {/*{BERTResults}*/}
+              <h3 className={'resultTitle'}>all-MiniLM-L6-v2</h3>
               <div>
-                {BERTMatrix}
+                {L6Matrix}
+              </div>
+            </div>
+          </div>
+          <div className={'resultsInnerDiv'}>
+            <div>
+              <h3 className={'resultTitle'}>all-mpnet-base-v2</h3>
+              <div>
+                {MPNETMatrix}
+              </div>
+            </div>
+            <div>
+              <h3 className={'resultTitle'}>all-roberta-Large-v1</h3>
+              <div>
+                {RobertaMatrix}
               </div>
             </div>
           </div>
 
           <div>
             <h2>Sentences</h2>
-              <div className={'resultSentences'}>
-                {IDEASResults}
-              </div>
+            <div className={'resultSentences'}>
+              {IDEASResults}
+            </div>
 
-              {selectedGraphUrl !== "" ?
+            {selectedGraphUrl !== "" ?
+              <div>
+                <br/>
+                <h3>Generalised Semistructured Model
+                  (GSM) {selectedGraphUrl.includes('input') ? 'input' : 'result'} graph</h3>
                 <div>
-                  <br/>
-                  <h3>Generalised Semistructured Model (GSM) {selectedGraphUrl.includes('input') ? 'input' : 'result'} graph</h3>
-                  <div>
-                    This graph has been rewritten on the given sentence in order to feed in to our similarity pipeline.
-                  </div>
-                  <iframe src={selectedGraphUrl} className={'gsmGraphWindow'} title="GSM Graph"></iframe>
+                  This graph has been rewritten on the given sentence in order to feed in to our similarity pipeline.
                 </div>
-                :
-                <div></div>}
+                <iframe src={selectedGraphUrl} className={'gsmGraphWindow'} title="GSM Graph"></iframe>
+              </div>
+              :
+              <div></div>}
           </div>
         </div>
       </div>

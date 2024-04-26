@@ -71,7 +71,7 @@ class LegacyPipeline:
             graphs = [None for _ in range(len(x[1]))]
             for result_folder in x[1]:
                 resultFile = os.path.join(x[0], result_folder, "result.json")
-                graphs[int(result_folder)] = load_file_for_similarity(resultFile, stanza_json, rejected_edges, non_verbs, doRewriting, simplistic)
+                graphs[int(result_folder)] = load_file_for_similarity(resultFile, stanza_json[int(result_folder)], rejected_edges, non_verbs, doRewriting, simplistic)
             break  # // Skipping the remaining subfolder
 
         M = []
