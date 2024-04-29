@@ -20,7 +20,7 @@ non_verbs: 'gsmtosimilarity/non_verb_types.txt'
 rejected_edge_types: 'gsmtosimilarity/rejected_edge_types.txt'
 transitive_verbs: 'gsmtosimilarity/transitive_verbs.txt'
 
-force_regenerate: True
+force_regenerate: False
 
 rewriting_strategy: 'logic' # simplistic / logic
 'similarity': 'IDEAS24_logic' #IDEAS24 / SentenceTransformer
