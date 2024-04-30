@@ -158,11 +158,14 @@ class CleanPipeline:
         from gsmtosimilarity.graph_similarity import create_sentence_obj
         # graph, edges, nodes = graph_e_n
         sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for graph, nodes, edges in graph_e_n_list]
-        # with open("logical_rewriting.json", "w") as f:
-        #     print("logical_rewriting.json")
-        #     import json
-        #     from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
-        #     json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
+        gsmout_graphlist_file = self.cfg["hand_dataset"] + "_logical_rewriting.json"
+        if not os.path.isfile(gsmout_graphlist_file):
+            with open(gsmout_graphlist_file, "w") as f:
+                print(gsmout_graphlist_file)
+                import json
+                from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+                json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
+                sys.exit(101)
         return sentences
 
     def transformSentences(self, sentences):

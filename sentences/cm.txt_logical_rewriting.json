@@ -1,0 +1,232 @@
+[
+    {
+        "kernel": {
+            "source": {
+                "named_entity": "cat",
+                "properties": {
+                    "pos": "2.000000",
+                    "end": "7",
+                    "specification": "common",
+                    "expl": "",
+                    "kernel": "cat",
+                    "number": "singular",
+                    "det": "The",
+                    "begin": "4"
+                },
+                "min": 4,
+                "max": 7,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "target": {
+                "named_entity": "mouse",
+                "properties": {
+                    "specification": "common",
+                    "begin": "17",
+                    "number": "singular",
+                    "end": "22",
+                    "pos": "5.000000",
+                    "det": "the"
+                },
+                "min": 17,
+                "max": 22,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "edgeLabel": {
+                "named_entity": "eats",
+                "properties": {},
+                "min": -1,
+                "max": -1,
+                "type": "verb",
+                "confidence": 1
+            },
+            "isNegated": false
+        },
+        "properties": {}
+    },
+    {
+        "kernel": {
+            "source": {
+                "named_entity": "cat",
+                "properties": {
+                    "begin": "26",
+                    "pos": "7.000000",
+                    "specification": "common",
+                    "number": "singular",
+                    "end": "29",
+                    "case": "by",
+                    "det": "the"
+                },
+                "min": 26,
+                "max": 29,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "target": {
+                "named_entity": "mouse",
+                "properties": {
+                    "pos": "2.000000",
+                    "kernel": "mouse",
+                    "specification": "common",
+                    "number": "singular",
+                    "det": "The",
+                    "end": "9",
+                    "begin": "4"
+                },
+                "min": 4,
+                "max": 9,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "edgeLabel": {
+                "named_entity": "eaten",
+                "properties": {},
+                "min": -1,
+                "max": -1,
+                "type": "verb",
+                "confidence": 1
+            },
+            "isNegated": false
+        },
+        "properties": {}
+    },
+    {
+        "kernel": {
+            "source": {
+                "named_entity": "mouse",
+                "properties": {
+                    "pos": "2.000000",
+                    "kernel": "mouse",
+                    "specification": "common",
+                    "expl": "",
+                    "number": "singular",
+                    "det": "The",
+                    "end": "9",
+                    "begin": "4"
+                },
+                "min": 4,
+                "max": 9,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "target": {
+                "named_entity": "cat",
+                "properties": {
+                    "specification": "common",
+                    "number": "singular",
+                    "end": "22",
+                    "pos": "5.000000",
+                    "det": "the",
+                    "begin": "19"
+                },
+                "min": 19,
+                "max": 22,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "edgeLabel": {
+                "named_entity": "eats",
+                "properties": {},
+                "min": -1,
+                "max": -1,
+                "type": "verb",
+                "confidence": 1
+            },
+            "isNegated": false
+        },
+        "properties": {}
+    },
+    {
+        "kernel": {
+            "source": {
+                "named_entity": "mouse",
+                "properties": {
+                    "pos": "7.000000",
+                    "specification": "common",
+                    "number": "singular",
+                    "end": "29",
+                    "case": "by",
+                    "begin": "24",
+                    "det": "the"
+                },
+                "min": 24,
+                "max": 29,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "target": {
+                "named_entity": "cat",
+                "properties": {
+                    "pos": "2.000000",
+                    "end": "7",
+                    "specification": "common",
+                    "kernel": "cat",
+                    "number": "singular",
+                    "det": "The",
+                    "begin": "4"
+                },
+                "min": 4,
+                "max": 7,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "edgeLabel": {
+                "named_entity": "eaten",
+                "properties": {},
+                "min": -1,
+                "max": -1,
+                "type": "verb",
+                "confidence": 1
+            },
+            "isNegated": false
+        },
+        "properties": {}
+    },
+    {
+        "kernel": {
+            "source": {
+                "named_entity": "cat",
+                "properties": {
+                    "pos": "2.000000",
+                    "end": "7",
+                    "specification": "common",
+                    "expl": "",
+                    "kernel": "cat",
+                    "number": "singular",
+                    "det": "The",
+                    "begin": "4"
+                },
+                "min": 4,
+                "max": 7,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "target": {
+                "named_entity": "mouse",
+                "properties": {
+                    "pos": "7.000000",
+                    "specification": "common",
+                    "number": "singular",
+                    "begin": "24",
+                    "end": "29",
+                    "det": "the"
+                },
+                "min": 24,
+                "max": 29,
+                "type": "ENTITY",
+                "confidence": 1
+            },
+            "edgeLabel": {
+                "named_entity": "does eat",
+                "properties": {},
+                "min": -1,
+                "max": -1,
+                "type": "verb",
+                "confidence": 1
+            },
+            "isNegated": true
+        },
+        "properties": {}
+    }
+]

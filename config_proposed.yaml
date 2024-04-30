@@ -1,11 +1,11 @@
 'stanford_nlp_host': 'localhost'
 'stanford_nlp_port': '9998'
 db:
-  uname: fox  # giacomo
-  pw: password  # omocaig
+  uname: giacomo #fox  # giacomo
+  pw: omocaig #password  # omocaig
   host: localhost
   port: 5432
-  db: ideas  # conceptnet
+  db: conceptnet #ideas  # conceptnet
 conceptnet: "/home/fox/PycharmProjects/news-crawler2/mini.h5_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt"
 geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
 
@@ -15,7 +15,7 @@ geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_inp
 #'should_generate_cypher_in_db': False
 #'should_run_datagram_db': True
 should_match_sentences: True
-hand_dataset: 'sentences/newcastle_sentences.txt'
+hand_dataset: 'sentences/cm.txt'
 non_verbs: 'gsmtosimilarity/non_verb_types.txt'
 rejected_edge_types: 'gsmtosimilarity/rejected_edge_types.txt'
 transitive_verbs: 'gsmtosimilarity/transitive_verbs.txt'

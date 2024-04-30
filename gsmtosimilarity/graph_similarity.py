@@ -299,9 +299,13 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
                         if 'orig' not in edge['containment']:
                             x = edge['containment']  # Name of edge label
 
-                            for name in negations:  # No / not
-                                x = re.sub("\b(" + name + ")\b", " ", x)
-                            x = x.strip()  # Strip of leading/trailing whitespace
+                            # Giacomo: the former code was not able to handle: "does not play"
+                            querywords = x.split()
+                            resultwords = [word for word in querywords if word.lower() not in negations]
+                            x = ' '.join(resultwords)
+                            # for name in negations:  # No / not
+                            #     x = re.sub("\b(" + name + ")\b", " ", x)
+                            # x = x.strip()  # Strip of leading/trailing whitespace
 
                             has_negations = any(map(lambda x: x in edge['containment'], negations))
 
@@ -609,39 +613,59 @@ def assign_type_to_singleton(item, stanza_row, nodes, key):
 
     for association in associations[item]:
         if len(meu_entities) > 0:
-            best_item = max(meu_entities, key=lambda y: y['confidence'])
-            item = Singleton(
-                named_entity=association.named_entity,
-                properties=association.properties,
-                min=association.min,
-                max=association.max,
-                type=best_item['type'],
-                confidence=best_item['confidence']
-            )
+            best_score = max(map(lambda y: y['confidence'], meu_entities))
+            best_items = [y for y in meu_entities if y['confidence'] == best_score]
+            best_type = None
+            if len(best_items) == 1:
+                best_item = best_items[0]
+                best_type = best_item['type']
+            else:
+                best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
+                best_type = None
+                if len(best_types) == 1:
+                    best_type = best_types[0]
+                elif "LOC" in best_types and "GPE" in best_types:
+                    best_type = "LOC"
+                else:
+                    best_type = "None"
+            if isinstance(association, Singleton):
+                item = Singleton(
+                    named_entity=association.named_entity,
+                    properties=association.properties,
+                    min=association.min,
+                    max=association.max,
+                    type=best_type,
+                    confidence=best_score
+                )
+            else:
+                item = association
 
             # Giacomo: This was a bug: you were discarding relevant AND/OR information!
             if isinstance(nodes[key], SetOfSingletons):
-                new_set = []
-                confidence = 1
-                for entity in nodes[key].entities:
-                    if (entity.confidence < best_item['confidence'] or math.isnan(best_item['confidence'])) and \
-                            item.named_entity == entity.named_entity:  # Should this be == or in?
-                        new_set.append(item)
-                        confidence *= item.confidence
-                    else:
-                        new_set.append(entity)
-                        confidence *= entity.confidence
+                if isinstance(item, SetOfSingletons):
+                    set_item = item
+                else:
+                    new_set = []
+                    confidence = 1
+                    for entity in nodes[key].entities:
+                        if (entity.confidence < best_score or math.isnan(best_score)) and \
+                                item.named_entity == entity.named_entity:  # Should this be == or in?
+                            new_set.append(item)
+                            confidence *= item.confidence
+                        else:
+                            new_set.append(entity)
+                            confidence *= entity.confidence
 
-                set_item = SetOfSingletons(
-                    type=Grouping.GROUPING,
-                    entities=tuple(new_set),
-                    min=nodes[key].min,
-                    max=nodes[key].max,
-                    confidence=confidence
-                )
+                    set_item = SetOfSingletons(
+                        type=Grouping.GROUPING,
+                        entities=tuple(new_set),
+                        min=nodes[key].min,
+                        max=nodes[key].max,
+                        confidence=confidence
+                    )
                 nodes[key] = set_item
             else:
-                if nodes[key].confidence < best_item['confidence'] or math.isnan(best_item['confidence']):
+                if nodes[key].confidence < best_score or math.isnan(best_score):
                     nodes[key] = item
                 else:
                     nodes[key] = association
