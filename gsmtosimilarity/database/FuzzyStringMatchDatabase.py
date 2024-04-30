@@ -58,6 +58,23 @@ class FuzzyStringMatchDatabase:
             cursor.close()
         return poll
 
+    def morphosyntax(self,table, word, ending):
+        poll = OrderedDict()
+        with self.connection.cursor() as cursor:
+            cursor.execute(f"""SELECT idx, t, similarity(t, '{word}') AS sml
+                               FROM {table}
+                               WHERE t % '{word}' AND t like '%{ending}'
+                               ORDER BY sml DESC, t""")
+            records = cursor.fetchall()
+            for row in records:
+                score = float(row[2])
+                if score not in poll:
+                    poll[score] = set()
+                if row[1].endswith(ending):
+                    poll[score].add(tuple([row[0], row[1]]))
+            cursor.close()
+        return poll
+
     @classmethod
     def instance(cls):
         if cls._instance is None:
@@ -80,10 +97,12 @@ class DBFuzzyStringMatching:
 
 
 if __name__ == "__main__":
-    c = FuzzyStringMatchDatabase("conceptnet")
-    c.create("conceptnet", "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt")
-    c.create("geonames", "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt")
-    print(c.similarity("conceptnet", "giacomo", 20, .8))
-    print(c.similarity("geonames", "newcastle", 20, .8))
-    print(c.similarity("geonames", "newcastle city", 20, .8))
-    print(c.similarity("geonames", "newcastle upon tyne", 20, .8))
+    c = FuzzyStringMatchDatabase.instance()
+    c.init("conceptnet")
+    print(c.morphosyntax("conceptnet", "traffic", "ed"))
+    # c.create("conceptnet", "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt")
+    # c.create("geonames", "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt")
+    # print(c.similarity("conceptnet", "giacomo", 20, .8))
+    # print(c.similarity("geonames", "newcastle", 20, .8))
+    # print(c.similarity("geonames", "newcastle city", 20, .8))
+    # print(c.similarity("geonames", "newcastle upon tyne", 20, .8))
