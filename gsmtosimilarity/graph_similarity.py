@@ -5,6 +5,7 @@ import json
 import math
 import re
 from collections import defaultdict
+from copy import copy
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List
@@ -245,7 +246,6 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
             if isinstance(item, SetOfSingletons):
                 if item.type == Grouping.GROUPING:
                     if do_rewriting:
-                        # simplistic = cfg['rewriting_strategy'] == 'simplistic'
                         nodes = merge_set_of_singletons(item, nodes, key, is_rewriting_simplistic)
 
         # Check for negation in node 'xi' and 'properties
@@ -378,8 +378,9 @@ def group_nodes(nodes, parsed_json):
                     grouped_nodes.append(nodes[edge['content']])
         else:
             for edge in item['phi']:
-                is_compound = 'compound' in edge['containment']
-                if is_compound:
+                is_current_edge_compound = 'compound' in edge['containment']
+                if is_current_edge_compound:
+                    is_compound = True
                     grouped_nodes.append(nodes[edge['score']['child']])
 
         if has_conj:
@@ -470,12 +471,17 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
         if kernel.target is not None:
             kernel_nodes.add(kernel.target)
     for edge in edges:
-        # if edge.edgeLabel.type == "non_verb":
         type_key = edge.source.type if isinstance(edge.source.type, str) else edge.source.type.name
+        if type_key == 'JJ' or type_key == 'JJS':
+            kernel = create_cop(edge, kernel, 'source')
+            continue
         if type_key not in 'NEG':
             if edge.source not in kernel_nodes and edge.source not in properties[type_key]:
                 properties[type_key].append(edge.source)
         type_key = edge.target.type if isinstance(edge.target.type, str) else edge.target.type.name
+        if type_key == 'JJ' or type_key == 'JJS':
+            kernel = create_cop(edge, kernel, 'target')
+            continue
         if type_key not in 'NEG':
             if edge.target not in kernel_nodes and edge.target not in properties[type_key]:
                 properties[type_key].append(edge.target)
@@ -485,6 +491,48 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
     )
     print(json.dumps(sentence, cls=EnhancedJSONEncoder))
     return sentence
+
+
+def create_cop(edge, kernel, targetOrSource):
+    if targetOrSource == 'target':
+        temp_prop = dict(copy(kernel.target.properties))
+        target_json = json.dumps(edge.target, cls=EnhancedJSONEncoder)
+        target_dict = dict(json.loads(target_json))
+        temp_prop['cop'] = target_dict
+        new_target = Singleton(
+            named_entity=kernel.target.named_entity,
+            properties=temp_prop,
+            min=kernel.target.min,
+            max=kernel.target.max,
+            type=kernel.target.type,
+            confidence=kernel.target.confidence
+        )
+        kernel = Relationship(
+            source=kernel.source,
+            target=new_target,
+            edgeLabel=kernel.edgeLabel,
+            isNegated=kernel.isNegated
+        )
+    else:
+        temp_prop = dict(copy(kernel.source.properties))
+        target_json = json.dumps(edge.source, cls=EnhancedJSONEncoder)
+        target_dict = dict(json.loads(target_json))
+        temp_prop['cop'] = target_dict
+        new_source = Singleton(
+            named_entity=kernel.source.named_entity,
+            properties=temp_prop,
+            min=kernel.source.min,
+            max=kernel.source.max,
+            type=kernel.source.type,
+            confidence=kernel.source.confidence
+        )
+        kernel = Relationship(
+            source=new_source,
+            target=kernel.target,
+            edgeLabel=kernel.edgeLabel,
+            isNegated=kernel.isNegated
+        )
+    return kernel
 
 
 def create_existential(edges, nodes):
@@ -616,8 +664,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
         if entity.type != "ENTITY" and entity.type != 'noun' and not simplistic and chosen_entity is None:  # TODO: FIX CHOSEN ENTITY NOT NONE
             chosen_entity = entity
         else:
-            # Ensure there is no leading space
-            extra = " ".join((extra, entity.named_entity))
+            extra = " ".join((extra, entity.named_entity))  # Ensure there is no leading space
 
     extra = extra.strip()  # Remove whitespace
 
