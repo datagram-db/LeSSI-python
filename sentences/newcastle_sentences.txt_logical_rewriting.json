@@ -1,560 +1,256 @@
 [
     {
-        "kernel": {
-            "source": {
-                "named_entity": "traffic",
-                "properties": {
-                    "pos": "4.000000",
-                    "kernel": "traffic",
-                    "specification": "common",
-                    "expl": "\u2203",
-                    "begin": "12",
-                    "end": "19",
-                    "adv": "",
-                    "number": "singular"
-                },
-                "min": 12,
-                "max": 19,
+        "arg": {
+            "rel": "be",
+            "arg": {
+                "name": "traffic",
                 "type": "noun",
-                "confidence": 0
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
             },
-            "target": null,
-            "edgeLabel": {
-                "named_entity": "be",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 0
+            "score": 1.0,
+            "properties": {
+                "GPE": [
+                    {
+                        "name": "Newcastle",
+                        "type": "GPE",
+                        "specification": "city centre",
+                        "cop": null,
+                        "meta": "FVariable"
+                    }
+                ]
             },
-            "isNegated": true
+            "meta": "FUnaryPredicate"
         },
-        "properties": {
-            "\u2203": [
-                {
-                    "named_entity": "There",
-                    "properties": {
-                        "end": "5",
-                        "begin": "0",
-                        "lemma": "there",
-                        "pos": "1.000000"
-                    },
-                    "min": 0,
-                    "max": 5,
-                    "type": "\u2203",
-                    "confidence": 0
-                }
-            ],
-            "GPE": [
-                {
-                    "named_entity": "Newcastle",
-                    "properties": {
-                        "begin": "27",
-                        "pos": "7.000000",
-                        "extra": "city centre",
-                        "end": "36",
-                        "specification": "proper",
-                        "number": "singular"
-                    },
-                    "min": 27,
-                    "max": 48,
-                    "type": "GPE",
-                    "confidence": 0
-                }
-            ]
-        }
+        "meta": "FNot"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "?",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "None",
-                "confidence": 0
-            },
-            "target": null,
-            "edgeLabel": {
-                "named_entity": "traffic",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 0
-            },
-            "isNegated": false
+        "rel": "traffic",
+        "arg": {
+            "name": "?",
+            "type": "None",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
+        "score": 1.0,
         "properties": {
             "GPE": [
                 {
-                    "named_entity": "Newcastle",
-                    "properties": {
-                        "pos": "1.000000",
-                        "extra": "city centre",
-                        "begin": "0",
-                        "end": "9",
-                        "specification": "proper",
-                        "number": "singular"
-                    },
-                    "min": 0,
-                    "max": 21,
+                    "name": "Newcastle",
                     "type": "GPE",
-                    "confidence": 0
+                    "specification": "city centre",
+                    "cop": null,
+                    "meta": "FVariable"
                 }
             ]
-        }
+        },
+        "meta": "FUnaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "traffic",
-                "properties": {
-                    "begin": "9",
-                    "kernel": "traffic",
-                    "specification": "common",
-                    "expl": "\u2203",
-                    "end": "16",
-                    "pos": "3.000000",
-                    "adv": "",
-                    "number": "singular"
-                },
-                "min": 9,
-                "max": 16,
-                "type": "noun",
-                "confidence": 0
-            },
-            "target": null,
-            "edgeLabel": {
-                "named_entity": "be",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 0
-            },
-            "isNegated": false
+        "rel": "be",
+        "arg": {
+            "name": "traffic",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
+        "score": 1.0,
         "properties": {
-            "\u2203": [
-                {
-                    "named_entity": "There",
-                    "properties": {
-                        "end": "5",
-                        "begin": "0",
-                        "lemma": "there",
-                        "pos": "1.000000"
-                    },
-                    "min": 0,
-                    "max": 5,
-                    "type": "\u2203",
-                    "confidence": 0
-                }
-            ],
-            "NOT": [
-                {
-                    "type": "NOT",
-                    "entities": [
-                        {
-                            "named_entity": "Newcastle",
-                            "properties": {
-                                "pos": "8.000000",
-                                "begin": "32",
-                                "extra": "city centre",
-                                "end": "41",
-                                "specification": "proper",
-                                "number": "singular"
-                            },
-                            "min": 32,
-                            "max": 53,
-                            "type": "GPE",
-                            "confidence": 0
-                        }
-                    ],
-                    "min": 32,
-                    "max": 53,
-                    "confidence": -1
-                }
-            ],
             "GPE": [
                 {
-                    "named_entity": "Newcastle",
-                    "properties": {
-                        "pos": "8.000000",
-                        "begin": "32",
-                        "extra": "city centre",
-                        "end": "41",
-                        "specification": "proper",
-                        "number": "singular"
+                    "arg": {
+                        "name": "Newcastle",
+                        "type": "GPE",
+                        "specification": "city centre",
+                        "cop": null,
+                        "meta": "FVariable"
                     },
-                    "min": 32,
-                    "max": 53,
-                    "type": "GPE",
-                    "confidence": 0
+                    "meta": "FNot"
                 }
             ]
-        }
+        },
+        "meta": "FUnaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "traffic",
-                "properties": {
-                    "pos": "4.000000",
-                    "kernel": "traffic",
-                    "specification": "common",
-                    "end": "21",
-                    "begin": "14",
-                    "number": "singular"
-                },
-                "min": 14,
-                "max": 21,
-                "type": "noun",
-                "confidence": 0
-            },
-            "target": null,
-            "edgeLabel": {
-                "named_entity": "flow in",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 0
-            },
-            "isNegated": false
+        "rel": "flow in",
+        "arg": {
+            "name": "traffic",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
+        "score": 1.0,
         "properties": {
             "GPE": [
                 {
-                    "named_entity": "Newcastle",
-                    "properties": {
-                        "end": "12",
-                        "pos": "2.000000",
-                        "specification": "proper",
-                        "begin": "3",
-                        "number": "singular"
-                    },
-                    "min": 3,
-                    "max": 12,
+                    "name": "Newcastle",
                     "type": "GPE",
-                    "confidence": 1
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
                 }
             ]
-        }
+        },
+        "meta": "FUnaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "It",
-                "properties": {
-                    "kernel": "It",
-                    "lemma": "it",
-                    "cop": "busy",
-                    "end": "2",
-                    "pos": "1.000000",
-                    "begin": "0"
-                },
-                "min": 0,
-                "max": 2,
-                "type": "PRP",
-                "confidence": 0
-            },
-            "target": {
-                "named_entity": "there",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "non_verb",
-                "confidence": -1
-            },
-            "edgeLabel": {
-                "named_entity": "be",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": -1
-            },
-            "isNegated": false
+        "rel": "be",
+        "arg": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
+        "score": 1.0,
         "properties": {
             "GPE": [
                 {
-                    "named_entity": "Newcastle",
-                    "properties": {
-                        "end": "23",
-                        "pos": "5.000000",
-                        "begin": "14",
-                        "specification": "proper",
-                        "number": "singular"
-                    },
-                    "min": 14,
-                    "max": 23,
+                    "name": "Newcastle",
                     "type": "GPE",
-                    "confidence": 1
-                }
-            ],
-            "IN": [
-                {
-                    "named_entity": "in",
-                    "properties": {
-                        "pos": "4.000000",
-                        "begin": "11",
-                        "end": "13"
-                    },
-                    "min": 11,
-                    "max": 13,
-                    "type": "IN",
-                    "confidence": 0
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
                 }
             ],
             "DATE": [
                 {
-                    "named_entity": "Saturday",
-                    "properties": {
-                        "pos": "8.000000",
-                        "det": "a",
-                        "end": "37",
-                        "begin": "29",
-                        "specification": "proper",
-                        "number": "singular",
-                        "case": "on"
-                    },
-                    "min": 29,
-                    "max": 37,
+                    "name": "Saturday",
                     "type": "DATE",
-                    "confidence": 1
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
                 }
             ]
-        }
+        },
+        "meta": "FUnaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "Saturdays",
-                "properties": {
-                    "kernel": "Saturdays",
-                    "pos": "1.000000",
-                    "begin": "0",
-                    "end": "9",
-                    "specification": "proper",
-                    "number": "singular"
-                },
-                "min": 0,
-                "max": 9,
-                "type": "DATE",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "city centers",
-                "properties": {
-                    "specification": "common",
-                    "lemma": "center",
-                    "begin": "33",
-                    "extra": "",
-                    "pos": "6.000000",
-                    "end": "40",
-                    "number": "plural",
-                    "cop": {
-                        "named_entity": "busy",
-                        "properties": {
-                            "pos": "4.000000",
-                            "advmod": "usually",
-                            "end": "27",
-                            "begin": "23"
-                        },
-                        "min": 23,
-                        "max": 27,
-                        "type": "JJ",
-                        "confidence": 0
-                    }
-                },
-                "min": 28,
-                "max": 40,
-                "type": "None",
-                "confidence": 0
-            },
-            "edgeLabel": {
-                "named_entity": "have",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
+        "rel": "have",
+        "src": {
+            "name": "city centers",
+            "type": "None",
+            "specification": "",
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "dst": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "DATE": [
+                {
+                    "name": "Saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "Saturdays",
-                "properties": {
-                    "end": "25",
-                    "pos": "4.000000",
-                    "kernel": "Saturdays",
-                    "cop": "busy",
-                    "begin": "16",
-                    "specification": "proper",
-                    "number": "singular"
-                },
-                "min": 16,
-                "max": 25,
-                "type": "DATE",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "there",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "non_verb",
-                "confidence": -1
-            },
-            "edgeLabel": {
-                "named_entity": "be",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": -1
-            },
-            "isNegated": false
+        "rel": "be",
+        "arg": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
+        "score": 1.0,
         "properties": {
             "verb": [
                 {
-                    "named_entity": "centers",
-                    "properties": {
-                        "end": "12",
-                        "pos": "2.000000",
-                        "lemma": "center",
-                        "begin": "5"
-                    },
-                    "min": 5,
-                    "max": 12,
+                    "name": "centers",
                     "type": "verb",
-                    "confidence": 0
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
                 }
             ],
             "noun": [
                 {
-                    "named_entity": "City",
-                    "properties": {
-                        "pos": "1.000000",
-                        "end": "4",
-                        "begin": "0",
-                        "specification": "proper",
-                        "number": "singular"
-                    },
-                    "min": 0,
-                    "max": 4,
+                    "name": "City",
                     "type": "noun",
-                    "confidence": 0
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ],
+            "DATE": [
+                {
+                    "name": "Saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
                 }
             ]
-        }
+        },
+        "meta": "FUnaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "City centres",
-                "properties": {
-                    "specification": "common",
-                    "cop": "busy",
-                    "end": "12",
-                    "extra": "",
-                    "pos": "2.000000",
-                    "begin": "5",
-                    "kernel": "centres",
-                    "number": "plural",
-                    "lemma": "centre"
-                },
-                "min": 0,
-                "max": 12,
-                "type": "None",
-                "confidence": 0
-            },
-            "target": {
-                "named_entity": "there",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "non_verb",
-                "confidence": -1
-            },
-            "edgeLabel": {
-                "named_entity": "be",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": -1
-            },
-            "isNegated": false
+        "rel": "have",
+        "src": {
+            "name": "City centres",
+            "type": "None",
+            "specification": "",
+            "cop": null,
+            "meta": "FVariable"
         },
+        "dst": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
         "properties": {
             "DATE": [
                 {
-                    "named_entity": "Saturdays",
-                    "properties": {
-                        "end": "25",
-                        "pos": "4.000000",
-                        "begin": "16",
-                        "specification": "proper",
-                        "number": "singular",
-                        "case": "on"
-                    },
-                    "min": 16,
-                    "max": 25,
+                    "name": "Saturdays",
                     "type": "DATE",
-                    "confidence": 1
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
                 }
             ]
-        }
+        },
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "Newcastle",
-                "properties": {
-                    "pos": "1.000000",
-                    "extra": "city centre",
-                    "begin": "0",
-                    "end": "9",
-                    "specification": "proper",
-                    "number": "singular"
-                },
-                "min": 0,
-                "max": 21,
-                "type": "GPE",
-                "confidence": 0
-            },
-            "target": {
-                "named_entity": "traffic",
-                "properties": {
-                    "specification": "common",
-                    "end": "33",
-                    "pos": "5.000000",
-                    "begin": "26",
-                    "number": "singular"
-                },
-                "min": 26,
-                "max": 33,
-                "type": "noun",
-                "confidence": 0
-            },
-            "edgeLabel": {
-                "named_entity": "have",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 0
-            },
-            "isNegated": false
+        "rel": "be",
+        "arg": {
+            "name": "traffic",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": "city centre",
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
     }
 ]

@@ -1,430 +1,249 @@
 [
     {
-        "kernel": {
-            "source": {
-                "named_entity": "Alice",
-                "properties": {
-                    "specification": "proper",
-                    "pos": "1.000000",
-                    "kernel": "Alice",
-                    "begin": "0",
-                    "expl": "",
-                    "number": "singular",
-                    "end": "5"
-                },
-                "min": 0,
-                "max": 5,
-                "type": "None",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "begin": "12",
-                    "specification": "common",
-                    "end": "20",
-                    "pos": "3.000000",
-                    "number": "singular"
-                },
-                "min": 12,
-                "max": 20,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
+        "rel": "play",
+        "src": {
+            "name": "Alice",
+            "type": "None",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "dst": {
+            "name": "football",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1,
+        "properties": {},
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "Bob",
-                "properties": {
-                    "specification": "proper",
-                    "end": "3",
-                    "pos": "1.000000",
-                    "begin": "0",
-                    "expl": "",
-                    "number": "singular",
-                    "kernel": "Bob"
-                },
-                "min": 0,
-                "max": 3,
-                "type": "None",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "end": "18",
-                    "specification": "common",
-                    "begin": "10",
-                    "pos": "3.000000",
-                    "number": "singular"
-                },
-                "min": 10,
-                "max": 18,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
+        "rel": "play",
+        "src": {
+            "name": "Bob",
+            "type": "None",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "dst": {
+            "name": "football",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1,
+        "properties": {},
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "type": "AND",
-                "entities": [
-                    {
-                        "named_entity": "Alice",
-                        "properties": {
-                            "specification": "proper",
-                            "pos": "1.000000",
-                            "begin": "0",
-                            "number": "singular",
-                            "end": "5"
-                        },
-                        "min": 0,
-                        "max": 5,
+        "args": [
+            {
+                "rel": "play",
+                "src": {
+                    "name": "Alice",
+                    "type": "noun",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "dst": {
+                    "name": "football",
+                    "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "score": 1,
+                "properties": {},
+                "meta": "FBinaryPredicate"
+            },
+            {
+                "rel": "play",
+                "src": {
+                    "name": "Bob",
+                    "type": "noun",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "dst": {
+                    "name": "football",
+                    "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "score": 1,
+                "properties": {},
+                "meta": "FBinaryPredicate"
+            }
+        ],
+        "meta": "FAnd"
+    },
+    {
+        "args": [
+            {
+                "rel": "play",
+                "src": {
+                    "name": "Bob",
+                    "type": "noun",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "dst": {
+                    "name": "football",
+                    "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "score": 1,
+                "properties": {},
+                "meta": "FBinaryPredicate"
+            },
+            {
+                "rel": "play",
+                "src": {
+                    "name": "Alice",
+                    "type": "noun",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "dst": {
+                    "name": "football",
+                    "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                "score": 1,
+                "properties": {},
+                "meta": "FBinaryPredicate"
+            }
+        ],
+        "meta": "FOr"
+    },
+    {
+        "arg": {
+            "rel": "play",
+            "src": {
+                "name": "Alice",
+                "type": "None",
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
+            },
+            "dst": {
+                "name": "football",
+                "type": "ENTITY",
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
+            },
+            "score": 1,
+            "properties": {},
+            "meta": "FBinaryPredicate"
+        },
+        "meta": "FNot"
+    },
+    {
+        "arg": {
+            "rel": "play",
+            "src": {
+                "name": "Bob",
+                "type": "None",
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
+            },
+            "dst": {
+                "name": "football",
+                "type": "ENTITY",
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
+            },
+            "score": 1,
+            "properties": {},
+            "meta": "FBinaryPredicate"
+        },
+        "meta": "FNot"
+    },
+    {
+        "rel": "play",
+        "src": {
+            "name": "Dan",
+            "type": "None",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "dst": {
+            "name": "football",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1,
+        "properties": {},
+        "meta": "FBinaryPredicate"
+    },
+    {
+        "args": [
+            {
+                "arg": {
+                    "rel": "play",
+                    "src": {
+                        "name": "Bob",
                         "type": "noun",
-                        "confidence": 0
+                        "specification": null,
+                        "cop": null,
+                        "meta": "FVariable"
                     },
-                    {
-                        "named_entity": "Bob",
-                        "properties": {
-                            "specification": "proper",
-                            "end": "13",
-                            "begin": "10",
-                            "pos": "3.000000",
-                            "number": "singular"
-                        },
-                        "min": 10,
-                        "max": 13,
-                        "type": "noun",
-                        "confidence": 0
-                    }
-                ],
-                "min": 0,
-                "max": 13,
-                "confidence": -1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "specification": "common",
-                    "number": "singular",
-                    "begin": "19",
-                    "end": "27",
-                    "pos": "5.000000"
-                },
-                "min": 19,
-                "max": 27,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": -1
-            },
-            "isNegated": false
-        },
-        "properties": {}
-    },
-    {
-        "kernel": {
-            "source": {
-                "type": "OR",
-                "entities": [
-                    {
-                        "named_entity": "Bob",
-                        "properties": {
-                            "specification": "proper",
-                            "begin": "9",
-                            "end": "12",
-                            "pos": "3.000000",
-                            "number": "singular"
-                        },
-                        "min": 9,
-                        "max": 12,
-                        "type": "noun",
-                        "confidence": 0
+                    "dst": {
+                        "name": "football",
+                        "type": "ENTITY",
+                        "specification": null,
+                        "cop": null,
+                        "meta": "FVariable"
                     },
-                    {
-                        "named_entity": "Alice",
-                        "properties": {
-                            "specification": "proper",
-                            "pos": "1.000000",
-                            "begin": "0",
-                            "number": "singular",
-                            "end": "5"
-                        },
-                        "min": 0,
-                        "max": 5,
+                    "score": 1,
+                    "properties": {},
+                    "meta": "FBinaryPredicate"
+                },
+                "meta": "FNot"
+            },
+            {
+                "arg": {
+                    "rel": "play",
+                    "src": {
+                        "name": "Alice",
                         "type": "noun",
-                        "confidence": 0
-                    }
-                ],
-                "min": 0,
-                "max": 12,
-                "confidence": -1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "begin": "18",
-                    "end": "26",
-                    "specification": "common",
-                    "number": "singular",
-                    "pos": "5.000000"
-                },
-                "min": 18,
-                "max": 26,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": -1
-            },
-            "isNegated": false
-        },
-        "properties": {}
-    },
-    {
-        "kernel": {
-            "source": {
-                "named_entity": "Alice",
-                "properties": {
-                    "specification": "proper",
-                    "pos": "1.000000",
-                    "kernel": "Alice",
-                    "begin": "0",
-                    "expl": "",
-                    "number": "singular",
-                    "end": "5"
-                },
-                "min": 0,
-                "max": 5,
-                "type": "None",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "specification": "common",
-                    "number": "singular",
-                    "begin": "19",
-                    "end": "27",
-                    "pos": "5.000000"
-                },
-                "min": 19,
-                "max": 27,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": true
-        },
-        "properties": {}
-    },
-    {
-        "kernel": {
-            "source": {
-                "named_entity": "Bob",
-                "properties": {
-                    "specification": "proper",
-                    "end": "3",
-                    "pos": "1.000000",
-                    "begin": "0",
-                    "expl": "",
-                    "number": "singular",
-                    "kernel": "Bob"
-                },
-                "min": 0,
-                "max": 3,
-                "type": "None",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "end": "25",
-                    "begin": "17",
-                    "specification": "common",
-                    "number": "singular",
-                    "pos": "5.000000"
-                },
-                "min": 17,
-                "max": 25,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": true
-        },
-        "properties": {}
-    },
-    {
-        "kernel": {
-            "source": {
-                "named_entity": "Dan",
-                "properties": {
-                    "specification": "proper",
-                    "end": "3",
-                    "pos": "1.000000",
-                    "kernel": "Dan",
-                    "begin": "0",
-                    "expl": "",
-                    "number": "singular"
-                },
-                "min": 0,
-                "max": 3,
-                "type": "None",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "end": "18",
-                    "specification": "common",
-                    "begin": "10",
-                    "pos": "3.000000",
-                    "number": "singular"
-                },
-                "min": 10,
-                "max": 18,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
-        },
-        "properties": {}
-    },
-    {
-        "kernel": {
-            "source": {
-                "type": "AND",
-                "entities": [
-                    {
-                        "type": "NOT",
-                        "entities": [
-                            {
-                                "named_entity": "Bob",
-                                "properties": {
-                                    "specification": "proper",
-                                    "begin": "18",
-                                    "pos": "4.000000",
-                                    "end": "21",
-                                    "number": "singular"
-                                },
-                                "min": 18,
-                                "max": 21,
-                                "type": "noun",
-                                "confidence": 0
-                            }
-                        ],
-                        "min": 18,
-                        "max": 21,
-                        "confidence": 0
+                        "specification": null,
+                        "cop": null,
+                        "meta": "FVariable"
                     },
-                    {
-                        "type": "NOT",
-                        "entities": [
-                            {
-                                "named_entity": "Alice",
-                                "properties": {
-                                    "specification": "proper",
-                                    "begin": "8",
-                                    "pos": "2.000000",
-                                    "end": "13",
-                                    "number": "singular"
-                                },
-                                "min": 8,
-                                "max": 13,
-                                "type": "noun",
-                                "confidence": 0
-                            }
-                        ],
-                        "min": 8,
-                        "max": 13,
-                        "confidence": 0
-                    }
-                ],
-                "min": 8,
-                "max": 21,
-                "confidence": -1
-            },
-            "target": {
-                "named_entity": "football",
-                "properties": {
-                    "end": "35",
-                    "begin": "27",
-                    "specification": "common",
-                    "pos": "6.000000",
-                    "number": "singular"
+                    "dst": {
+                        "name": "football",
+                        "type": "ENTITY",
+                        "specification": null,
+                        "cop": null,
+                        "meta": "FVariable"
+                    },
+                    "score": 1,
+                    "properties": {},
+                    "meta": "FBinaryPredicate"
                 },
-                "min": 27,
-                "max": 35,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "play",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": -1
-            },
-            "isNegated": false
-        },
-        "properties": {}
+                "meta": "FNot"
+            }
+        ],
+        "meta": "FAnd"
     }
 ]

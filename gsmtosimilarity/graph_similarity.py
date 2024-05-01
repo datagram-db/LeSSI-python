@@ -26,6 +26,8 @@ class Graph:
 
 class EnhancedJSONEncoder(json.JSONEncoder):
     def default(self, o):
+        if o is None:
+            return None
         if isinstance(o, list):
             return super().default([self.default(x) for x in o])
         if dataclasses.is_dataclass(o):
@@ -505,8 +507,10 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
         ),
         properties=dict(properties)
     )
-    print(json.dumps(sentence, cls=EnhancedJSONEncoder))
-    return sentence
+    from logical_repr.rewrite_kernels import rewrite_kernels
+    final =  rewrite_kernels(sentence)
+    print(json.dumps(final, cls=EnhancedJSONEncoder))
+    return final
 
 
 def create_cop(edge, kernel, targetOrSource):

@@ -1,232 +1,105 @@
 [
     {
-        "kernel": {
-            "source": {
-                "named_entity": "cat",
-                "properties": {
-                    "pos": "2.000000",
-                    "begin": "4",
-                    "det": "The",
-                    "number": "singular",
-                    "expl": "",
-                    "kernel": "cat",
-                    "end": "7",
-                    "specification": "common"
-                },
-                "min": 4,
-                "max": 7,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "mouse",
-                "properties": {
-                    "pos": "5.000000",
-                    "number": "singular",
-                    "end": "22",
-                    "begin": "17",
-                    "det": "the",
-                    "specification": "common"
-                },
-                "min": 17,
-                "max": 22,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "eat",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
+        "rel": "eat",
+        "src": {
+            "name": "cat",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "dst": {
+            "name": "mouse",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1,
+        "properties": {},
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "cat",
-                "properties": {
-                    "number": "singular",
-                    "begin": "26",
-                    "end": "29",
-                    "case": "by",
-                    "det": "the",
-                    "pos": "7.000000",
-                    "specification": "common"
-                },
-                "min": 26,
-                "max": 29,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "mouse",
-                "properties": {
-                    "pos": "2.000000",
-                    "begin": "4",
-                    "det": "The",
-                    "number": "singular",
-                    "end": "9",
-                    "kernel": "mouse",
-                    "specification": "common"
-                },
-                "min": 4,
-                "max": 9,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "eat",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
+        "rel": "eat",
+        "src": {
+            "name": "cat",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "dst": {
+            "name": "mouse",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1,
+        "properties": {},
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "mouse",
-                "properties": {
-                    "pos": "2.000000",
-                    "begin": "4",
-                    "det": "The",
-                    "number": "singular",
-                    "expl": "",
-                    "end": "9",
-                    "kernel": "mouse",
-                    "specification": "common"
-                },
-                "min": 4,
-                "max": 9,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "cat",
-                "properties": {
-                    "pos": "5.000000",
-                    "number": "singular",
-                    "end": "22",
-                    "begin": "19",
-                    "det": "the",
-                    "specification": "common"
-                },
-                "min": 19,
-                "max": 22,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "eat",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
+        "rel": "eat",
+        "src": {
+            "name": "mouse",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "dst": {
+            "name": "cat",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1,
+        "properties": {},
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "mouse",
-                "properties": {
-                    "number": "singular",
-                    "end": "29",
-                    "case": "by",
-                    "begin": "24",
-                    "det": "the",
-                    "pos": "7.000000",
-                    "specification": "common"
-                },
-                "min": 24,
-                "max": 29,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "target": {
-                "named_entity": "cat",
-                "properties": {
-                    "pos": "2.000000",
-                    "begin": "4",
-                    "det": "The",
-                    "number": "singular",
-                    "kernel": "cat",
-                    "end": "7",
-                    "specification": "common"
-                },
-                "min": 4,
-                "max": 7,
-                "type": "ENTITY",
-                "confidence": 1
-            },
-            "edgeLabel": {
-                "named_entity": "eat",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": false
+        "rel": "eat",
+        "src": {
+            "name": "mouse",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
         },
-        "properties": {}
+        "dst": {
+            "name": "cat",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1,
+        "properties": {},
+        "meta": "FBinaryPredicate"
     },
     {
-        "kernel": {
-            "source": {
-                "named_entity": "cat",
-                "properties": {
-                    "pos": "2.000000",
-                    "begin": "4",
-                    "det": "The",
-                    "number": "singular",
-                    "expl": "",
-                    "kernel": "cat",
-                    "end": "7",
-                    "specification": "common"
-                },
-                "min": 4,
-                "max": 7,
+        "arg": {
+            "rel": "eat",
+            "src": {
+                "name": "cat",
                 "type": "ENTITY",
-                "confidence": 1
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
             },
-            "target": {
-                "named_entity": "mouse",
-                "properties": {
-                    "number": "singular",
-                    "end": "29",
-                    "begin": "24",
-                    "det": "the",
-                    "pos": "7.000000",
-                    "specification": "common"
-                },
-                "min": 24,
-                "max": 29,
+            "dst": {
+                "name": "mouse",
                 "type": "ENTITY",
-                "confidence": 1
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
             },
-            "edgeLabel": {
-                "named_entity": "eat",
-                "properties": {},
-                "min": -1,
-                "max": -1,
-                "type": "verb",
-                "confidence": 1
-            },
-            "isNegated": true
+            "score": 1,
+            "properties": {},
+            "meta": "FBinaryPredicate"
         },
-        "properties": {}
+        "meta": "FNot"
     }
 ]
