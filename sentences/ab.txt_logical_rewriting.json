@@ -5,12 +5,12 @@
                 "named_entity": "Alice",
                 "properties": {
                     "specification": "proper",
-                    "end": "5",
-                    "expl": "",
                     "pos": "1.000000",
                     "kernel": "Alice",
+                    "begin": "0",
+                    "expl": "",
                     "number": "singular",
-                    "begin": "0"
+                    "end": "5"
                 },
                 "min": 0,
                 "max": 5,
@@ -20,11 +20,11 @@
             "target": {
                 "named_entity": "football",
                 "properties": {
-                    "number": "singular",
                     "begin": "12",
                     "specification": "common",
                     "end": "20",
-                    "pos": "3.000000"
+                    "pos": "3.000000",
+                    "number": "singular"
                 },
                 "min": 12,
                 "max": 20,
@@ -32,7 +32,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "plays",
+                "named_entity": "play",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -50,11 +50,11 @@
                 "properties": {
                     "specification": "proper",
                     "end": "3",
-                    "expl": "",
                     "pos": "1.000000",
-                    "kernel": "Bob",
+                    "begin": "0",
+                    "expl": "",
                     "number": "singular",
-                    "begin": "0"
+                    "kernel": "Bob"
                 },
                 "min": 0,
                 "max": 3,
@@ -64,11 +64,11 @@
             "target": {
                 "named_entity": "football",
                 "properties": {
-                    "begin": "10",
-                    "specification": "common",
                     "end": "18",
-                    "number": "singular",
-                    "pos": "3.000000"
+                    "specification": "common",
+                    "begin": "10",
+                    "pos": "3.000000",
+                    "number": "singular"
                 },
                 "min": 10,
                 "max": 18,
@@ -76,7 +76,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "plays",
+                "named_entity": "play",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -96,10 +96,10 @@
                         "named_entity": "Alice",
                         "properties": {
                             "specification": "proper",
-                            "end": "5",
                             "pos": "1.000000",
+                            "begin": "0",
                             "number": "singular",
-                            "begin": "0"
+                            "end": "5"
                         },
                         "min": 0,
                         "max": 5,
@@ -110,10 +110,10 @@
                         "named_entity": "Bob",
                         "properties": {
                             "specification": "proper",
-                            "begin": "10",
                             "end": "13",
-                            "number": "singular",
-                            "pos": "3.000000"
+                            "begin": "10",
+                            "pos": "3.000000",
+                            "number": "singular"
                         },
                         "min": 10,
                         "max": 13,
@@ -128,11 +128,11 @@
             "target": {
                 "named_entity": "football",
                 "properties": {
-                    "pos": "5.000000",
-                    "end": "27",
                     "specification": "common",
                     "number": "singular",
-                    "begin": "19"
+                    "begin": "19",
+                    "end": "27",
+                    "pos": "5.000000"
                 },
                 "min": 19,
                 "max": 27,
@@ -162,8 +162,8 @@
                             "specification": "proper",
                             "begin": "9",
                             "end": "12",
-                            "number": "singular",
-                            "pos": "3.000000"
+                            "pos": "3.000000",
+                            "number": "singular"
                         },
                         "min": 9,
                         "max": 12,
@@ -174,10 +174,10 @@
                         "named_entity": "Alice",
                         "properties": {
                             "specification": "proper",
-                            "end": "5",
                             "pos": "1.000000",
+                            "begin": "0",
                             "number": "singular",
-                            "begin": "0"
+                            "end": "5"
                         },
                         "min": 0,
                         "max": 5,
@@ -192,11 +192,11 @@
             "target": {
                 "named_entity": "football",
                 "properties": {
-                    "end": "26",
-                    "pos": "5.000000",
                     "begin": "18",
+                    "end": "26",
                     "specification": "common",
-                    "number": "singular"
+                    "number": "singular",
+                    "pos": "5.000000"
                 },
                 "min": 18,
                 "max": 26,
@@ -221,12 +221,12 @@
                 "named_entity": "Alice",
                 "properties": {
                     "specification": "proper",
-                    "end": "5",
-                    "expl": "",
                     "pos": "1.000000",
                     "kernel": "Alice",
+                    "begin": "0",
+                    "expl": "",
                     "number": "singular",
-                    "begin": "0"
+                    "end": "5"
                 },
                 "min": 0,
                 "max": 5,
@@ -236,11 +236,11 @@
             "target": {
                 "named_entity": "football",
                 "properties": {
-                    "pos": "5.000000",
-                    "end": "27",
                     "specification": "common",
                     "number": "singular",
-                    "begin": "19"
+                    "begin": "19",
+                    "end": "27",
+                    "pos": "5.000000"
                 },
                 "min": 19,
                 "max": 27,
@@ -248,7 +248,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "does play",
+                "named_entity": "play",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -266,11 +266,11 @@
                 "properties": {
                     "specification": "proper",
                     "end": "3",
-                    "expl": "",
                     "pos": "1.000000",
-                    "kernel": "Bob",
+                    "begin": "0",
+                    "expl": "",
                     "number": "singular",
-                    "begin": "0"
+                    "kernel": "Bob"
                 },
                 "min": 0,
                 "max": 3,
@@ -281,10 +281,10 @@
                 "named_entity": "football",
                 "properties": {
                     "end": "25",
-                    "pos": "5.000000",
-                    "specification": "common",
                     "begin": "17",
-                    "number": "singular"
+                    "specification": "common",
+                    "number": "singular",
+                    "pos": "5.000000"
                 },
                 "min": 17,
                 "max": 25,
@@ -292,7 +292,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "does play",
+                "named_entity": "play",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -310,11 +310,11 @@
                 "properties": {
                     "specification": "proper",
                     "end": "3",
-                    "kernel": "Dan",
-                    "expl": "",
                     "pos": "1.000000",
-                    "number": "singular",
-                    "begin": "0"
+                    "kernel": "Dan",
+                    "begin": "0",
+                    "expl": "",
+                    "number": "singular"
                 },
                 "min": 0,
                 "max": 3,
@@ -324,11 +324,11 @@
             "target": {
                 "named_entity": "football",
                 "properties": {
-                    "begin": "10",
-                    "specification": "common",
                     "end": "18",
-                    "number": "singular",
-                    "pos": "3.000000"
+                    "specification": "common",
+                    "begin": "10",
+                    "pos": "3.000000",
+                    "number": "singular"
                 },
                 "min": 10,
                 "max": 18,
@@ -336,7 +336,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "plays",
+                "named_entity": "play",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -359,8 +359,8 @@
                                 "named_entity": "Bob",
                                 "properties": {
                                     "specification": "proper",
-                                    "pos": "4.000000",
                                     "begin": "18",
+                                    "pos": "4.000000",
                                     "end": "21",
                                     "number": "singular"
                                 },
@@ -381,9 +381,9 @@
                                 "named_entity": "Alice",
                                 "properties": {
                                     "specification": "proper",
-                                    "end": "13",
-                                    "pos": "2.000000",
                                     "begin": "8",
+                                    "pos": "2.000000",
+                                    "end": "13",
                                     "number": "singular"
                                 },
                                 "min": 8,
@@ -404,10 +404,10 @@
             "target": {
                 "named_entity": "football",
                 "properties": {
-                    "begin": "27",
-                    "pos": "6.000000",
-                    "specification": "common",
                     "end": "35",
+                    "begin": "27",
+                    "specification": "common",
+                    "pos": "6.000000",
                     "number": "singular"
                 },
                 "min": 27,

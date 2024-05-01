@@ -31,6 +31,14 @@ class Singleton(NodeEntryPoint):  # Graph node representing just one entity
     confidence: float
 
 
+def replaceNamed(entity:Singleton, s:str)->Singleton:
+    return Singleton(named_entity=s,
+                     properties=entity.properties,
+                     min=entity.min,
+                     max=entity.max,
+                     type=entity.type,
+                     confidence=entity.confidence)
+
 @dataclass(order=True, frozen=True, eq=True)
 class SetOfSingletons(NodeEntryPoint):  # Graph node representing conjunction/disjunction/exclusion between entities
     type: Grouping  # Type of node grouping

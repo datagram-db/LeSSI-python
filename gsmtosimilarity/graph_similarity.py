@@ -9,13 +9,16 @@ from copy import copy
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List
+from nltk.stem.wordnet import WordNetLemmatizer
 
 from gsmtosimilarity.string_similarity_factory import StringSimilarity
-from inference_engine.EntityRelationship import Relationship, Grouping, Singleton, NodeEntryPoint, SetOfSingletons
+from inference_engine.EntityRelationship import Relationship, Grouping, Singleton, NodeEntryPoint, SetOfSingletons, \
+    replaceNamed
 from inference_engine.Sentence import Sentence
 
 negations = {'not', 'no', 'but'}
 location_types = {'GPE', 'LOC'}
+lemmatizer = WordNetLemmatizer()
 
 @dataclass(order=True, frozen=True, eq=True)
 class Graph:
@@ -489,8 +492,17 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
         if type_key not in 'NEG':
             if edge.target not in kernel_nodes and edge.target not in properties[type_key]:
                 properties[type_key].append(edge.target)
+
+    from gsmtosimilarity.stanza_pipeline import StanzaService
+
+    el = " ".join(map(lambda y: y["lemma"], filter(lambda x: x["upos"] != "AUX", StanzaService().stNLP(lemmatizer.lemmatize(kernel.edgeLabel.named_entity, 'v')).to_dict()[0])))
     sentence = Sentence(
-        kernel=kernel,
+        kernel=Relationship(
+            source=kernel.source,
+            target=kernel.target,
+            edgeLabel=replaceNamed(kernel.edgeLabel, el),
+            isNegated=kernel.isNegated
+        ),
         properties=dict(properties)
     )
     print(json.dumps(sentence, cls=EnhancedJSONEncoder))

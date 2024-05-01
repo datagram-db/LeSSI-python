@@ -11,6 +11,7 @@ class StanzaService:
 
     nlp_token = None
     nlp = None
+    stNLP= None
 
     def __init__(self):
         if self.nlp is None:
@@ -21,10 +22,13 @@ class StanzaService:
             write_to_log(None, "Initialising Stanza Tokenization...")
             self.nlp_token = stanza.Pipeline(lang='en', processors='tokenize')
 
+        if self.stNLP is None:
+            self.stNLP = stanza.Pipeline(processors='tokenize,mwt,pos,lemma', lang='en')
+
     def __new__(cls):
         if cls._instance is None:
             write_to_log(None, "Initialising Stanza...")
-            stanza.download('en')
+            stanza.download('en',  processors='tokenize,mwt,pos,lemma', verbose=False)
             cls._instance = super(StanzaService, cls).__new__(cls)
 
         return cls._instance

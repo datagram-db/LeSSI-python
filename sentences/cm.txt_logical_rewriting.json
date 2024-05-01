@@ -5,13 +5,13 @@
                 "named_entity": "cat",
                 "properties": {
                     "pos": "2.000000",
-                    "end": "7",
-                    "specification": "common",
+                    "begin": "4",
+                    "det": "The",
+                    "number": "singular",
                     "expl": "",
                     "kernel": "cat",
-                    "number": "singular",
-                    "det": "The",
-                    "begin": "4"
+                    "end": "7",
+                    "specification": "common"
                 },
                 "min": 4,
                 "max": 7,
@@ -21,12 +21,12 @@
             "target": {
                 "named_entity": "mouse",
                 "properties": {
-                    "specification": "common",
-                    "begin": "17",
+                    "pos": "5.000000",
                     "number": "singular",
                     "end": "22",
-                    "pos": "5.000000",
-                    "det": "the"
+                    "begin": "17",
+                    "det": "the",
+                    "specification": "common"
                 },
                 "min": 17,
                 "max": 22,
@@ -34,7 +34,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "eats",
+                "named_entity": "eat",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -50,13 +50,13 @@
             "source": {
                 "named_entity": "cat",
                 "properties": {
-                    "begin": "26",
-                    "pos": "7.000000",
-                    "specification": "common",
                     "number": "singular",
+                    "begin": "26",
                     "end": "29",
                     "case": "by",
-                    "det": "the"
+                    "det": "the",
+                    "pos": "7.000000",
+                    "specification": "common"
                 },
                 "min": 26,
                 "max": 29,
@@ -67,12 +67,12 @@
                 "named_entity": "mouse",
                 "properties": {
                     "pos": "2.000000",
-                    "kernel": "mouse",
-                    "specification": "common",
-                    "number": "singular",
+                    "begin": "4",
                     "det": "The",
+                    "number": "singular",
                     "end": "9",
-                    "begin": "4"
+                    "kernel": "mouse",
+                    "specification": "common"
                 },
                 "min": 4,
                 "max": 9,
@@ -80,7 +80,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "eaten",
+                "named_entity": "eat",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -97,13 +97,13 @@
                 "named_entity": "mouse",
                 "properties": {
                     "pos": "2.000000",
-                    "kernel": "mouse",
-                    "specification": "common",
-                    "expl": "",
-                    "number": "singular",
+                    "begin": "4",
                     "det": "The",
+                    "number": "singular",
+                    "expl": "",
                     "end": "9",
-                    "begin": "4"
+                    "kernel": "mouse",
+                    "specification": "common"
                 },
                 "min": 4,
                 "max": 9,
@@ -113,12 +113,12 @@
             "target": {
                 "named_entity": "cat",
                 "properties": {
-                    "specification": "common",
+                    "pos": "5.000000",
                     "number": "singular",
                     "end": "22",
-                    "pos": "5.000000",
+                    "begin": "19",
                     "det": "the",
-                    "begin": "19"
+                    "specification": "common"
                 },
                 "min": 19,
                 "max": 22,
@@ -126,7 +126,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "eats",
+                "named_entity": "eat",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -142,13 +142,13 @@
             "source": {
                 "named_entity": "mouse",
                 "properties": {
-                    "pos": "7.000000",
-                    "specification": "common",
                     "number": "singular",
                     "end": "29",
                     "case": "by",
                     "begin": "24",
-                    "det": "the"
+                    "det": "the",
+                    "pos": "7.000000",
+                    "specification": "common"
                 },
                 "min": 24,
                 "max": 29,
@@ -159,12 +159,12 @@
                 "named_entity": "cat",
                 "properties": {
                     "pos": "2.000000",
-                    "end": "7",
-                    "specification": "common",
-                    "kernel": "cat",
-                    "number": "singular",
+                    "begin": "4",
                     "det": "The",
-                    "begin": "4"
+                    "number": "singular",
+                    "kernel": "cat",
+                    "end": "7",
+                    "specification": "common"
                 },
                 "min": 4,
                 "max": 7,
@@ -172,7 +172,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "eaten",
+                "named_entity": "eat",
                 "properties": {},
                 "min": -1,
                 "max": -1,
@@ -189,13 +189,13 @@
                 "named_entity": "cat",
                 "properties": {
                     "pos": "2.000000",
-                    "end": "7",
-                    "specification": "common",
+                    "begin": "4",
+                    "det": "The",
+                    "number": "singular",
                     "expl": "",
                     "kernel": "cat",
-                    "number": "singular",
-                    "det": "The",
-                    "begin": "4"
+                    "end": "7",
+                    "specification": "common"
                 },
                 "min": 4,
                 "max": 7,
@@ -205,12 +205,12 @@
             "target": {
                 "named_entity": "mouse",
                 "properties": {
-                    "pos": "7.000000",
-                    "specification": "common",
                     "number": "singular",
-                    "begin": "24",
                     "end": "29",
-                    "det": "the"
+                    "begin": "24",
+                    "det": "the",
+                    "pos": "7.000000",
+                    "specification": "common"
                 },
                 "min": 24,
                 "max": 29,
@@ -218,7 +218,7 @@
                 "confidence": 1
             },
             "edgeLabel": {
-                "named_entity": "does eat",
+                "named_entity": "eat",
                 "properties": {},
                 "min": -1,
                 "max": -1,
