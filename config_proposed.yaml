@@ -15,7 +15,7 @@ geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_inp
 #'should_generate_cypher_in_db': False
 #'should_run_datagram_db': True
 should_match_sentences: True
-hand_dataset: 'sentences/newcastle_sentences.txt'
+hand_dataset: 'sentences/cm.txt'
 non_verbs: 'gsmtosimilarity/non_verb_types.txt'
 rejected_edge_types: 'gsmtosimilarity/rejected_edge_types.txt'
 transitive_verbs: 'gsmtosimilarity/transitive_verbs.txt'

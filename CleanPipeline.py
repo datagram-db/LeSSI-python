@@ -13,6 +13,7 @@ from gsmtosimilarity.conceptnet.ConceptNet5 import ConceptNetService
 from gsmtosimilarity.database.FuzzyStringMatchDatabase import FuzzyStringMatchDatabase
 from gsmtosimilarity.geonames.GeoNames import GeoNamesService
 from gsmtosimilarity.stanza_pipeline import StanzaService
+from logical_repr.sentence_expansion import SentenceExpansion
 from newscrawl.NewsCrawl import NewsCrawl
 
 class CleanPipeline:
@@ -120,12 +121,12 @@ class CleanPipeline:
         import json
         self.write_to_log("Starting pipeline...")
         sentences = self.getSentences()
-        f = self.getSimilarityFunction()
         result = None
         if self.cfg['similarity'].startswith('IDEAS24'):
             result = self.transformSentences(sentences)
         else:
             result = sentences
+        f = self.getSimilarityFunction(result)
 
         M = []
         for x in result:
@@ -165,7 +166,7 @@ class CleanPipeline:
                 import json
                 from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
                 json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
-                sys.exit(101)
+                # sys.exit(101)
         return sentences
 
     def transformSentences(self, sentences):
@@ -229,12 +230,12 @@ class CleanPipeline:
         else:
             return self.getLogicalRepresentation(graphs)
 
-    def getSimilarityFunction(self):
+    def getSimilarityFunction(self, sentences):
         if 'IDEAS24' in self.cfg['similarity']:
             if 'graphs' in self.cfg['similarity']:
                 return self.legacy_pipeline.graph_with_logic_similarity
             else:
-                return self.legacy_pipeline.bogus
+                return SentenceExpansion(sentences, None)
             # TODO If transform into graphs, then return self.legacy_pipeline.graph_similarity
             #      Otherwise, return the new logical-based metric [TODO]
 

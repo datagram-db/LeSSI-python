@@ -54,7 +54,7 @@ def make_unary(rel, dst, score, prop):
                 prop[dst.type] = []
             prop[dst.type].append(dst)
             return make_unary(rel, dst.cop, score, prop)
-    return FUnaryPredicate(rel=rel, arg=dst, score=score, properties=prop)
+    return FUnaryPredicate(rel=rel, arg=dst, score=score, properties=frozenset(prop.items()))
 
 def make_binary(rel, src, dst, score, prop):
     if rel == "have":# TODO: generalise
@@ -63,7 +63,7 @@ def make_binary(rel, src, dst, score, prop):
                 prop[src.type] = []
             prop[src.type].append(src)
             return make_unary("be", dst, score, prop)
-    return FBinaryPredicate(rel=rel, src=src, dst=dst, score=score, properties=prop)
+    return FBinaryPredicate(rel=rel, src=src, dst=dst, score=score, properties=frozenset(prop.items()))
 
 def make_properties(p):
     result = defaultdict(set)
