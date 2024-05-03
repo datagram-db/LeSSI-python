@@ -606,9 +606,8 @@ def assign_type_to_singleton(item, stanza_row, nodes, key):
         if start_graph > end_meu or start_meu > end_graph:
             continue
         else:
-            start_intersection = max(start_meu, start_graph)
-            end_intersection = min(end_meu, end_graph)
-
+            # start_intersection = max(start_meu, start_graph)
+            # end_intersection = min(end_meu, end_graph)
             if not (start_graph > end_meu or start_meu > end_graph):
                 if meu not in meu_entities:
                     meu_entities.append(meu)

@@ -130,7 +130,7 @@ class SentenceExpansion:
         Rj = with_variables_from(self.sentence_list[j], self.d[j], self.minimal_constituents, "R"+str(j))
         result = self.U.merge(Ri).merge(Rj)[list(set(Ri.columns).union(set(Rj.columns)))].drop_duplicates()[["R"+str(j)]].prod(axis=1)
         total = result.sum(axis=0)/len(result)
-        print(f"{i}~{j} := {total}")
+        # print(f"{i}~{j} := {total}")
         return total
 
 

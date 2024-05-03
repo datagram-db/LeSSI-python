@@ -16,6 +16,8 @@ import math
 import os
 import shutil
 import subprocess
+from collections import defaultdict
+from dataclasses import dataclass
 from typing import List
 
 from CurlSimulation import fire_post_request
@@ -171,17 +173,40 @@ def send_time_parsing(self, sentences):
     #     print("Make sure 'stanford_nlp_dg_server' is running")
 
 
+@dataclass
+@dataclass(order=True, frozen=False, eq=True)
+class SentenceCoordinates:
+    text: str
+    sentence_id: int
+    start_char: int
+    end_char: int
+    type: str
+    confidence: float
+
+@dataclass(order=True, frozen=False, eq=True)
+class NamedEntity:
+    monad: str
+
+class MultiEntityUnit:
+    def __init__(self):
+        self.d = defaultdict(lambda : defaultdict(list[SentenceCoordinates]))
+
+    def add_entity(self, sentence_id:int, text:str, type:str, start_char:int, end_char:int, monad:str, confidence:float):
+        self.d[monad][sentence_id].append(SentenceCoordinates(text, sentence_id, start_char, end_char, type, confidence))
+
 def multi_named_entity_recognition(count, db, self, sentences):
     if db is None:
         db = list()
     geo_names_service = GeoNamesService()
     concept_net_service = ConceptNetService()
+
     tp = send_time_parsing(self, sentences)
     for sentence, withTime in zip(sentences, tp):
-        results = self.nlp(sentence)
         entities = []
         multi_entity_unit = []
+
         # Add results from Stanza to MEU
+        results = self.nlp(sentence)
         for ent in results.ents:
             monad = ""
             if ent.type == "ORG":  # Remove spaces to create one word 'ORG' entities
@@ -197,6 +222,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
                 "confidence": 1  # Used to be NaN
             }
             multi_entity_unit.append(result)
+
         for time in withTime:
             multi_entity_unit.append(time)
 

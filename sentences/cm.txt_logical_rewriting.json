@@ -15,7 +15,7 @@
             "cop": null,
             "meta": "FVariable"
         },
-        "score": 1,
+        "score": 1.0,
         "properties": {},
         "meta": "FBinaryPredicate"
     },
@@ -35,7 +35,7 @@
             "cop": null,
             "meta": "FVariable"
         },
-        "score": 1,
+        "score": 1.0,
         "properties": {},
         "meta": "FBinaryPredicate"
     },
@@ -55,7 +55,7 @@
             "cop": null,
             "meta": "FVariable"
         },
-        "score": 1,
+        "score": 1.0,
         "properties": {},
         "meta": "FBinaryPredicate"
     },
@@ -75,7 +75,7 @@
             "cop": null,
             "meta": "FVariable"
         },
-        "score": 1,
+        "score": 1.0,
         "properties": {},
         "meta": "FBinaryPredicate"
     },
@@ -96,7 +96,30 @@
                 "cop": null,
                 "meta": "FVariable"
             },
-            "score": 1,
+            "score": 1.0,
+            "properties": {},
+            "meta": "FBinaryPredicate"
+        },
+        "meta": "FNot"
+    },
+    {
+        "arg": {
+            "rel": "eat",
+            "src": {
+                "name": "mouse",
+                "type": "ENTITY",
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
+            },
+            "dst": {
+                "name": "cat",
+                "type": "ENTITY",
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
+            },
+            "score": 1.0,
             "properties": {},
             "meta": "FBinaryPredicate"
         },

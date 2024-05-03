@@ -15,7 +15,7 @@
             "cop": null,
             "meta": "FVariable"
         },
-        "score": 1,
+        "score": 1.0,
         "properties": {},
         "meta": "FBinaryPredicate"
     },
@@ -35,7 +35,7 @@
             "cop": null,
             "meta": "FVariable"
         },
-        "score": 1,
+        "score": 1.0,
         "properties": {},
         "meta": "FBinaryPredicate"
     },
@@ -57,7 +57,7 @@
                     "cop": null,
                     "meta": "FVariable"
                 },
-                "score": 1,
+                "score": 1.0,
                 "properties": {},
                 "meta": "FBinaryPredicate"
             },
@@ -77,7 +77,7 @@
                     "cop": null,
                     "meta": "FVariable"
                 },
-                "score": 1,
+                "score": 1.0,
                 "properties": {},
                 "meta": "FBinaryPredicate"
             }
@@ -102,7 +102,7 @@
                     "cop": null,
                     "meta": "FVariable"
                 },
-                "score": 1,
+                "score": 1.0,
                 "properties": {},
                 "meta": "FBinaryPredicate"
             },
@@ -122,7 +122,7 @@
                     "cop": null,
                     "meta": "FVariable"
                 },
-                "score": 1,
+                "score": 1.0,
                 "properties": {},
                 "meta": "FBinaryPredicate"
             }
@@ -146,7 +146,7 @@
                 "cop": null,
                 "meta": "FVariable"
             },
-            "score": 1,
+            "score": 1.0,
             "properties": {},
             "meta": "FBinaryPredicate"
         },
@@ -169,7 +169,7 @@
                 "cop": null,
                 "meta": "FVariable"
             },
-            "score": 1,
+            "score": 1.0,
             "properties": {},
             "meta": "FBinaryPredicate"
         },
@@ -191,7 +191,7 @@
             "cop": null,
             "meta": "FVariable"
         },
-        "score": 1,
+        "score": 1.0,
         "properties": {},
         "meta": "FBinaryPredicate"
     },
@@ -214,7 +214,7 @@
                         "cop": null,
                         "meta": "FVariable"
                     },
-                    "score": 1,
+                    "score": 1.0,
                     "properties": {},
                     "meta": "FBinaryPredicate"
                 },
@@ -237,7 +237,7 @@
                         "cop": null,
                         "meta": "FVariable"
                     },
-                    "score": 1,
+                    "score": 1.0,
                     "properties": {},
                     "meta": "FBinaryPredicate"
                 },

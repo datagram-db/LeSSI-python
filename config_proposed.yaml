@@ -15,7 +15,7 @@ geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_inp
 #'should_generate_cypher_in_db': False
 #'should_run_datagram_db': True
 should_match_sentences: True
-hand_dataset: 'sentences/cm.txt'
+hand_dataset: 'sentences/ab.txt'
 non_verbs: 'gsmtosimilarity/non_verb_types.txt'
 rejected_edge_types: 'gsmtosimilarity/rejected_edge_types.txt'
 transitive_verbs: 'gsmtosimilarity/transitive_verbs.txt'
@@ -45,4 +45,4 @@ resolve_params:
 #'generate_final_db':
 #  'db_ph2': 'final_db.json' # JSON for crawled data
 
-'gsm_gsql_file_path': '/home/fox/CLionProjects/gsm_gsql/' # '/home/giacomo/projects/gsm2/'
+'gsm_gsql_file_path': '/home/giacomo/projects/gsm2/' # '/home/fox/CLionProjects/gsm_gsql/' # '/home/giacomo/projects/gsm2/'
