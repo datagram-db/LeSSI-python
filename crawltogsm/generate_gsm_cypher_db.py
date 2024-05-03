@@ -194,14 +194,21 @@ class MultiEntityUnit:
     def add_entity(self, sentence_id:int, text:str, type:str, start_char:int, end_char:int, monad:str, confidence:float):
         self.d[monad][sentence_id].append(SentenceCoordinates(text, sentence_id, start_char, end_char, type, confidence))
 
+    def add_entity_from_dict(self, sentence_id, d):
+        self.add_entity(sentence_id, d["text"], d["type"], d["start_char"], d["end_char"], d["monad"], d["confidence"])
+        pass
+
+
 def multi_named_entity_recognition(count, db, self, sentences):
     if db is None:
         db = list()
     geo_names_service = GeoNamesService()
     concept_net_service = ConceptNetService()
-
+    meu = MultiEntityUnit()
     tp = send_time_parsing(self, sentences)
+    sentence_id = -1
     for sentence, withTime in zip(sentences, tp):
+        sentence_id += 1
         entities = []
         multi_entity_unit = []
 
@@ -213,6 +220,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
                 entity = ent.text
                 monad = entity.replace(" ", "")
                 entities.append([entity, monad])
+            #Possible alternative to keep one single entity:  meu.add_entity(sentence_id, ent.text, ent.type, ent.start_char, ent.end_char, monad, 1)
             result = {
                 "text": ent.text,
                 "type": ent.type,
@@ -224,6 +232,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
             multi_entity_unit.append(result)
 
         for time in withTime:
+            #Possible alternative to keep one single entity:  meu.add_entity_from_dict(sentence_id, time)
             multi_entity_unit.append(time)
 
         # TODO: add the spatial resolution from GeoNamesService, as per the example provided in the mainof GeoNames,
@@ -237,6 +246,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
             "LOC"
         )
         for loc in locs:
+            #Possible alternative to keep one single entity:  meu.add_entity_from_dict(sentence_id, loc)
             multi_entity_unit.append(loc)
 
         # Get ConceptNet entities
@@ -247,6 +257,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
             "ENTITY"
         )
         for net in concept_net:
+            #Possible alternative to keep one single entity: meu.add_entity_from_dict(sentence_id, net)
             multi_entity_unit.append(net)
 
         # Loop through all entities and replace in sentence before passing to NLP server
