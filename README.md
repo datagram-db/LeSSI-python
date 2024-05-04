@@ -7,5 +7,5 @@
 
 ## What is LeSSI?
 
-It is a pun from "I read" in Italian and how Lassie (dog) is pronounced in the same language.
+It is a pun from "I read (past)", "(to be) boiled", and how Lassie (dog) is pronounced, all in Italian.
 
