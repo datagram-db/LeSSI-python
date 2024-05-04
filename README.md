@@ -1,6 +1,6 @@
 # LeSSI
 
-Logical, Structural, and Semantic Interpretation
+Logical, Structural, and Semantical text Interpretation
 
 Crawling Web News and storing them in JSON Format
 
