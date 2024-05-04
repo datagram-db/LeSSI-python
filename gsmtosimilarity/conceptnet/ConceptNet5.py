@@ -1,3 +1,10 @@
+__author__ = "Giacomo Bergami"
+__copyright__ = "Copyright 2024, Giacomo Bergami"
+__credits__ = ["Giacomo Bergami"]
+__license__ = "GPL"
+__version__ = "2.0"
+__maintainer__ = "Oliver R. Fox, Giacomo Bergami"
+__status__ = "Production"
 import math
 import os.path
 import urllib.request

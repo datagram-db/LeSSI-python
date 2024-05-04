@@ -1,3 +1,11 @@
+__author__ = "Giacomo Bergami"
+__copyright__ = "Copyright 2020, Giacomo Bergami"
+__credits__ = ["Giacomo Bergami"]
+__license__ = "GPL"
+__version__ = "2.0"
+__maintainer__ = "Giacomo Bergami"
+__email__ = "bergamigiacomo@gmail.com"
+__status__ = "Production"
 import json
 import os.path
 import sys
@@ -152,11 +160,11 @@ class CleanPipeline:
 
     def doGraphOperations(self, graphs, stanza_db):
         # TODO: find a more explicative name
-        from gsmtosimilarity.graph_similarity import to_internal_graph
+        from graph_repr.internal_graph import to_internal_graph
         return [to_internal_graph(graph, stanza_row, self.rejected_edges, self.non_verbs, True, self.simplistic) for graph, stanza_row in zip(graphs, stanza_db)]
 
     def getLogicalRepresentation(self, graph_e_n_list):
-        from gsmtosimilarity.graph_similarity import create_sentence_obj
+        from graph_repr.internal_graph import create_sentence_obj
         # graph, edges, nodes = graph_e_n
         sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for graph, nodes, edges in graph_e_n_list]
         gsmout_graphlist_file = self.cfg["hand_dataset"] + "_logical_rewriting.json"

@@ -1,3 +1,10 @@
+__author__ = "Oliver R. Fox"
+__copyright__ = "Copyright 2024, Oliver R. Fox"
+__credits__ = ["Oliver R. Fox"]
+__license__ = "GPL"
+__version__ = "2.0"
+__maintainer__ = "Oliver R. Fox"
+__status__ = "Production"
 import argparse
 import subprocess
 

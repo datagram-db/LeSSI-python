@@ -1,3 +1,12 @@
+__author__ = "Giacomo Bergami"
+__copyright__ = "Copyright 2024, Giacomo Bergami"
+__credits__ = ["Giacomo Bergami"]
+__license__ = "GPL"
+__version__ = "2.0"
+__maintainer__ = "Giacomo Bergami"
+__email__ = "bergamigiacomo@gmail.com"
+__status__ = "Production"
+
 from functools import lru_cache
 
 from gsmtosimilarity.TwoGrams import TwoGramSetSimilarity

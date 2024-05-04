@@ -1,3 +1,10 @@
+__author__ = "Oliver R. Fox, Giacomo Bergami"
+__copyright__ = "Copyright 2024, Oliver R. Fox, Giacomo Bergami"
+__credits__ = ["Oliver R. Fox, Giacomo Bergami"]
+__license__ = "GPL"
+__version__ = "2.0"
+__maintainer__ = "Oliver R. Fox, Giacomo Bergami"
+__status__ = "Production"
 import stanza
 
 from crawltogsm.write_to_log import write_to_log
