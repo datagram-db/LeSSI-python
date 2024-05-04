@@ -1,7 +1,11 @@
-# LeSSI
+<p align="center">
+  <img src="https://github.com/datagram-db/LeSSI/blob/main/WhoIsLeSSI.jpeg?raw=true" alt="This is LeSSI: a pun from "I read" in Italian, and the way Lassie (dog) is pronounced in Italian."/>
+</p>
 
-Logical, Structural, and Semantical text Interpretation
 
-Crawling Web News and storing them in JSON Format
+# LeSSI : Logical, Structural, and Semantical text Interpretation
 
-This project crawls the news' RSS Feed and optionally retrieves articles being stored in the Web Archive. This then extracts the full-text of an article, and it dumps it in a JSON semistructured file. All the articles are then associated to a timestamp. Articles that were not successfully parsed are dumped raw as HTML in a ```extra``` folder. Have a look at the shell script for an idea on how to make things work.
+## What is LeSSI?
+
+It is a pun from "I read" in Italian and how Lassie (dog) is pronounced in the same language.
+
