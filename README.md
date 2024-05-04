@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/datagram-db/LeSSI/blob/main/WhoIsLeSSI.jpeg?raw=true" alt="This is LeSSI: a pun from "I read" in Italian, and the way Lassie (dog) is pronounced in Italian."/>
+  <img src="https://github.com/datagram-db/LeSSI/blob/main/WhoIsLeSSI.jpeg?raw=true" width="300" alt="This is LeSSI: a pun from "I read" in Italian, and the way Lassie (dog) is pronounced in Italian."/>
 </p>
 
 
