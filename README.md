@@ -1,4 +1,6 @@
-# news-crawler
+# LeSSI
+
+Logical, Structural, and Semantic Interpretation
 
 Crawling Web News and storing them in JSON Format
 
