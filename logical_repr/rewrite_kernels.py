@@ -39,7 +39,16 @@ def make_arg(entity):
         return entity
     props = entity if isinstance(entity, dict) else dict(entity.properties)
     specification = props["extra"] if "extra" in props else None
+    coplist = []
     cop = make_cop(props["cop"]) if "cop" in props else None
+    if cop is None:
+        for k in props:
+            if k.endswith("mod"):
+                coplist.append(make_cop(props[k]))
+    if len(coplist)==1:
+        cop = coplist[0]
+    elif len(coplist)>1:
+        cop = tuple(coplist)
     named_entity = props["named_entity"] if isinstance(entity, dict) else entity.named_entity
     type = props["type"] if isinstance(entity, dict) else entity.type
     return FVariable(name=named_entity, type=type, specification=specification, cop=cop)
@@ -62,6 +71,8 @@ def make_unary(rel, dst, score, prop):
                 prop[dst.type] = []
             prop[dst.type].append(dst)
             return make_unary(rel, dst.cop, score, prop)
+    if "non_verb" in prop:
+        prop.pop("non_verb")
     return FUnaryPredicate(rel=rel, arg=dst, score=score, properties=frozenset(prop.items()))
 
 def make_binary(rel, src, dst, score, prop):
@@ -71,6 +82,8 @@ def make_binary(rel, src, dst, score, prop):
                 prop[src.type] = []
             prop[src.type].append(src)
             return make_unary("be", dst, score, prop)
+    if "non_verb" in prop:
+        prop.pop("non_verb")
     return FBinaryPredicate(rel=rel, src=src, dst=dst, score=score, properties=frozenset(prop.items()))
 
 def make_properties(p):

@@ -50,7 +50,7 @@ def update_sentences():
             cfg[cKey] = cValue
             print(f"Updated {cKey} to {cValue}")
 
-    main.start_pipeline(sentences, cfg)
+    main.start_pipeline(cfg)
 
     return 'Finished pipeline'
 

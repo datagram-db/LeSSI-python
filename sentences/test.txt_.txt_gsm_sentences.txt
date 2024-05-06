@@ -1,0 +1,216 @@
+id:0
+ell:
+noun
+root
+.
+xi:
+road
+.
+properties:
+"number"	"singular"
+"pos"	"3"
+"specification"	"common"
+"end"	"11"
+"begin"	"7"
+.
+phi:
+"det"
+	1.0	1
+;"amod"
+	1.0	2
+;.
+
+id:1
+ell:
+det
+.
+xi:
+a
+.
+properties:
+"pos"	"1"
+"end"	"1"
+"begin"	"0"
+.
+phi:
+.
+
+id:2
+ell:
+JJ
+.
+xi:
+busy
+.
+properties:
+"pos"	"2"
+"end"	"6"
+"begin"	"2"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+noun
+root
+.
+xi:
+road
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"9"
+"begin"	"5"
+.
+phi:
+"amod"
+	1.0	1
+;.
+
+id:1
+ell:
+JJ
+.
+xi:
+busy
+.
+properties:
+"pos"	"1"
+"end"	"4"
+"begin"	"0"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+noun
+root
+.
+xi:
+elements
+.
+properties:
+"number"	"plural"
+"pos"	"2"
+"specification"	"common"
+"lemma"	"element"
+"end"	"12"
+"begin"	"4"
+.
+phi:
+"det"
+	1.0	1
+;.
+
+id:1
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"1"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+noun
+root
+.
+xi:
+opposition
+.
+properties:
+"number"	"singular"
+"pos"	"2"
+"specification"	"common"
+"end"	"13"
+"begin"	"3"
+.
+phi:
+"det"
+	1.0	1
+;.
+
+id:1
+ell:
+det
+.
+xi:
+an
+.
+properties:
+"pos"	"1"
+"lemma"	"a"
+"end"	"2"
+"begin"	"0"
+.
+phi:
+.
+
+~~
+id:0
+ell:
+noun
+root
+.
+xi:
+traveller
+.
+properties:
+"number"	"singular"
+"pos"	"3"
+"specification"	"common"
+"end"	"18"
+"begin"	"9"
+.
+phi:
+"det"
+	1.0	1
+;"amod"
+	1.0	2
+;.
+
+id:1
+ell:
+det
+.
+xi:
+the
+.
+properties:
+"pos"	"1"
+"end"	"3"
+"begin"	"0"
+.
+phi:
+.
+
+id:2
+ell:
+aggregation
+.
+xi:
+best
+.
+properties:
+"pos"	"2"
+"lemma"	"good"
+"end"	"8"
+"begin"	"4"
+.
+phi:
+.
+

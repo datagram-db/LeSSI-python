@@ -3,14 +3,14 @@
         "rel": "play",
         "src": {
             "name": "Alice",
-            "type": "None",
+            "type": "noun",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
         },
         "dst": {
             "name": "football",
-            "type": "ENTITY",
+            "type": "noun",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
@@ -23,14 +23,14 @@
         "rel": "play",
         "src": {
             "name": "Bob",
-            "type": "None",
+            "type": "noun",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
         },
         "dst": {
             "name": "football",
-            "type": "ENTITY",
+            "type": "noun",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
@@ -52,7 +52,7 @@
                 },
                 "dst": {
                     "name": "football",
-                    "type": "ENTITY",
+                    "type": "noun",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -72,7 +72,7 @@
                 },
                 "dst": {
                     "name": "football",
-                    "type": "ENTITY",
+                    "type": "noun",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -97,7 +97,7 @@
                 },
                 "dst": {
                     "name": "football",
-                    "type": "ENTITY",
+                    "type": "noun",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -117,7 +117,7 @@
                 },
                 "dst": {
                     "name": "football",
-                    "type": "ENTITY",
+                    "type": "noun",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -134,14 +134,14 @@
             "rel": "play",
             "src": {
                 "name": "Alice",
-                "type": "None",
+                "type": "noun",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
             },
             "dst": {
                 "name": "football",
-                "type": "ENTITY",
+                "type": "noun",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
@@ -157,14 +157,14 @@
             "rel": "play",
             "src": {
                 "name": "Bob",
-                "type": "None",
+                "type": "noun",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
             },
             "dst": {
                 "name": "football",
-                "type": "ENTITY",
+                "type": "noun",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
@@ -179,14 +179,14 @@
         "rel": "play",
         "src": {
             "name": "Dan",
-            "type": "None",
+            "type": "noun",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
         },
         "dst": {
             "name": "football",
-            "type": "ENTITY",
+            "type": "noun",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
@@ -209,7 +209,7 @@
                     },
                     "dst": {
                         "name": "football",
-                        "type": "ENTITY",
+                        "type": "noun",
                         "specification": null,
                         "cop": null,
                         "meta": "FVariable"
@@ -232,7 +232,7 @@
                     },
                     "dst": {
                         "name": "football",
-                        "type": "ENTITY",
+                        "type": "noun",
                         "specification": null,
                         "cop": null,
                         "meta": "FVariable"

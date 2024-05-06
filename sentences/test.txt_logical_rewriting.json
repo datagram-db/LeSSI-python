@@ -1,0 +1,88 @@
+[
+    {
+        "rel": "have",
+        "src": {
+            "name": "road",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "dst": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {},
+        "meta": "FBinaryPredicate"
+    },
+    {
+        "rel": "have",
+        "src": {
+            "name": "road",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "dst": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {},
+        "meta": "FBinaryPredicate"
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "elements",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {},
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "opposition",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {},
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "have",
+        "src": {
+            "name": "traveller",
+            "type": "noun",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "dst": {
+            "name": "best",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {},
+        "meta": "FBinaryPredicate"
+    }
+]

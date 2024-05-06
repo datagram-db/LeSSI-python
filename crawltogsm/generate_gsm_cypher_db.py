@@ -183,16 +183,30 @@ class SentenceCoordinates:
     type: str
     confidence: float
 
-@dataclass(order=True, frozen=False, eq=True)
+
 class NamedEntity:
     monad: str
+    type: str
+
+    def __init__(self, name=None):
+        self.monad = name
+        self.type = "None"
+        self.fromSentences = defaultdict(list[SentenceCoordinates])
+
+    def reinit(self,name):
+        self.monad = name
+        return self
+
+    def __getitem__(self, item):
+        return self.fromSentences[item]
+
 
 class MultiEntityUnit:
     def __init__(self):
-        self.d = defaultdict(lambda : defaultdict(list[SentenceCoordinates]))
+        self.d = defaultdict(NamedEntity)
 
     def add_entity(self, sentence_id:int, text:str, type:str, start_char:int, end_char:int, monad:str, confidence:float):
-        self.d[monad][sentence_id].append(SentenceCoordinates(text, sentence_id, start_char, end_char, type, confidence))
+        self.d[monad].reinit(monad)[sentence_id].append(SentenceCoordinates(text, sentence_id, start_char, end_char, type, confidence))
 
     def add_entity_from_dict(self, sentence_id, d):
         self.add_entity(sentence_id, d["text"], d["type"], d["start_char"], d["end_char"], d["monad"], d["confidence"])
@@ -204,7 +218,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
         db = list()
     geo_names_service = GeoNamesService()
     concept_net_service = ConceptNetService()
-    meu = MultiEntityUnit()
+    # meu = MultiEntityUnit()
     tp = send_time_parsing(self, sentences)
     sentence_id = -1
     for sentence, withTime in zip(sentences, tp):
@@ -215,12 +229,13 @@ def multi_named_entity_recognition(count, db, self, sentences):
         # Add results from Stanza to MEU
         results = self.nlp(sentence)
         for ent in results.ents:
-            monad = ""
+            # monad = ""
+            entity = ent.text
+            monad = entity.replace(" ", "")
             if ent.type == "ORG":  # Remove spaces to create one word 'ORG' entities
-                entity = ent.text
-                monad = entity.replace(" ", "")
                 entities.append([entity, monad])
-            #Possible alternative to keep one single entity:  meu.add_entity(sentence_id, ent.text, ent.type, ent.start_char, ent.end_char, monad, 1)
+            #Possible alternative to keep one single entity:
+            # meu.add_entity(sentence_id, ent.text, ent.type, ent.start_char, ent.end_char, monad, 1)
             result = {
                 "text": ent.text,
                 "type": ent.type,
@@ -232,7 +247,8 @@ def multi_named_entity_recognition(count, db, self, sentences):
             multi_entity_unit.append(result)
 
         for time in withTime:
-            #Possible alternative to keep one single entity:  meu.add_entity_from_dict(sentence_id, time)
+            #Possible alternative to keep one single entity:
+            # meu.add_entity_from_dict(sentence_id, time)
             multi_entity_unit.append(time)
 
         # TODO: add the spatial resolution from GeoNamesService, as per the example provided in the mainof GeoNames,
@@ -246,7 +262,8 @@ def multi_named_entity_recognition(count, db, self, sentences):
             "LOC"
         )
         for loc in locs:
-            #Possible alternative to keep one single entity:  meu.add_entity_from_dict(sentence_id, loc)
+            #Possible alternative to keep one single entity:
+            # meu.add_entity_from_dict(sentence_id, loc)
             multi_entity_unit.append(loc)
 
         # Get ConceptNet entities
@@ -257,7 +274,8 @@ def multi_named_entity_recognition(count, db, self, sentences):
             "ENTITY"
         )
         for net in concept_net:
-            #Possible alternative to keep one single entity: meu.add_entity_from_dict(sentence_id, net)
+            #Possible alternative to keep one single entity:
+            # meu.add_entity_from_dict(sentence_id, net)
             multi_entity_unit.append(net)
 
         # Loop through all entities and replace in sentence before passing to NLP server

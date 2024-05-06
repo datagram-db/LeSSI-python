@@ -1,0 +1,127 @@
+[
+    [
+        {
+            "id": 0,
+            "ell": [
+                "noun",
+                "root"
+            ],
+            "xi": [
+                "road"
+            ],
+            "properties": {
+                "begin": "7",
+                "end": "11",
+                "specification": "common",
+                "pos": "3.000000",
+                "number": "singular",
+                "det": "a",
+                "amod": "busy"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        }
+    ],
+    [
+        {
+            "id": 0,
+            "ell": [
+                "noun",
+                "root"
+            ],
+            "xi": [
+                "road"
+            ],
+            "properties": {
+                "begin": "5",
+                "end": "9",
+                "specification": "common",
+                "pos": "2.000000",
+                "number": "singular",
+                "amod": "busy"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        }
+    ],
+    [
+        {
+            "id": 0,
+            "ell": [
+                "noun",
+                "root"
+            ],
+            "xi": [
+                "elements"
+            ],
+            "properties": {
+                "begin": "4",
+                "end": "12",
+                "specification": "common",
+                "pos": "2.000000",
+                "lemma": "element",
+                "number": "plural"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        }
+    ],
+    [
+        {
+            "id": 0,
+            "ell": [
+                "noun",
+                "root"
+            ],
+            "xi": [
+                "opposition"
+            ],
+            "properties": {
+                "begin": "3",
+                "end": "13",
+                "specification": "common",
+                "pos": "2.000000",
+                "number": "singular"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        }
+    ],
+    [
+        {
+            "id": 0,
+            "ell": [
+                "noun",
+                "root"
+            ],
+            "xi": [
+                "traveller"
+            ],
+            "properties": {
+                "begin": "9",
+                "end": "18",
+                "specification": "common",
+                "pos": "3.000000",
+                "number": "singular",
+                "amod": "best"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        }
+    ]
+]

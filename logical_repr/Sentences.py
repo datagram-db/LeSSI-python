@@ -59,7 +59,7 @@ class FUnaryPredicate(Formula):
         return s
 
     def strippedByType(self):
-        return FUnaryPredicate(rel=self.rel, arg=stripArg(self.src), score=self.score, properties=stripFrozenProperties(self.properties))
+        return FUnaryPredicate(rel=self.rel, arg=stripArg(self.arg), score=self.score, properties=stripFrozenProperties(self.properties))
 
 
 @dataclass(order=True, frozen=True, eq=True)

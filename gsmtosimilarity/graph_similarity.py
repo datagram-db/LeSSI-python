@@ -13,7 +13,7 @@ from dataclasses import dataclass
 from typing import List
 from nltk.stem.wordnet import WordNetLemmatizer
 
-from graph_repr.internal_graph import to_internal_graph
+
 from gsmtosimilarity.string_similarity_factory import StringSimilarity
 from inference_engine.EntityRelationship import Relationship, Grouping, Singleton, NodeEntryPoint
 
@@ -228,6 +228,7 @@ def read_graph_from_file(result_json):
 def load_file_for_similarity(result_json, stanza_row, rejected_edges, non_verbs, do_rewrite, simplistic):
     with (open(result_json) as user_file):  # result.json from C++
         parsed_json = json.load(user_file)
+        from graph_repr.internal_graph import to_internal_graph
         g, a, b = to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rewrite, simplistic)
         return g
 

@@ -34,47 +34,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
 
     extra = extra.strip()  # Remove whitespace
 
-    if chosen_entity is None and not simplistic:
-        if extra != '':
-            name = extra
-            extra = ''
-        else:
-            name = "?"
-
-        # New properties for ? object
-        new_properties = {
-            "specification": "none",
-            "begin": str(sorted_entities[0].min),
-            "end": str(sorted_entities[len(sorted_entities) - 1].max),
-            "pos": str(dict(sorted_entities[0].properties)['pos']),
-            "number": "none",
-            "extra": extra
-        }
-
-        new_properties = new_properties | fusion_properties
-
-        new_item = Singleton(
-            named_entity=name,
-            properties=frozenset(new_properties.items()),
-            min=sorted_entities[0].min,
-            max=sorted_entities[len(sorted_entities) - 1].max,
-            type='None',
-            confidence=norm_confidence
-        )
-    elif chosen_entity is not None and not simplistic:
-        # Convert back from frozenset to append new "extra" attribute
-        new_properties = dict(chosen_entity.properties)
-        new_properties["extra"] = extra
-
-        new_item = Singleton(
-            named_entity=chosen_entity.named_entity,
-            properties=frozenset(new_properties.items()),
-            min=sorted_entities[0].min,
-            max=sorted_entities[len(sorted_entities) - 1].max,
-            type=chosen_entity.type,
-            confidence=norm_confidence
-        )
-    elif simplistic:
+    if simplistic:
         new_properties = {
             "specification": "none",
             "begin": str(sorted_entities[0].min),
@@ -99,6 +59,45 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
             type=type,  # TODO: What should this type be?
             confidence=norm_confidence
         )
+    elif chosen_entity is None: ## Not simplistic
+        if extra != '':
+            name = extra
+            extra = ''
+        else:
+            name = "?"
+        # New properties for ? object
+        new_properties = {
+            "specification": "none",
+            "begin": str(sorted_entities[0].min),
+            "end": str(sorted_entities[len(sorted_entities) - 1].max),
+            "pos": str(dict(sorted_entities[0].properties)['pos']),
+            "number": "none",
+            "extra": extra
+        }
+
+        new_properties = new_properties | fusion_properties
+
+        new_item = Singleton(
+            named_entity=name,
+            properties=frozenset(new_properties.items()),
+            min=sorted_entities[0].min,
+            max=sorted_entities[len(sorted_entities) - 1].max,
+            type='None',
+            confidence=norm_confidence
+        )
+    elif chosen_entity is not None: ## Not simplistic
+        # Convert back from frozenset to append new "extra" attribute
+        new_properties = dict(chosen_entity.properties)
+        new_properties["extra"] = extra
+
+        new_item = Singleton(
+            named_entity=chosen_entity.named_entity,
+            properties=frozenset(new_properties.items()),
+            min=sorted_entities[0].min,
+            max=sorted_entities[len(sorted_entities) - 1].max,
+            type=chosen_entity.type,
+            confidence=norm_confidence
+        )
     else:
         print("Error")
 
@@ -107,115 +106,203 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
     return nodes
 
 
-def assign_type_to_singleton(item, stanza_row, nodes, key):
-    associations = dict()
-
-    # TODO: merge the nodes together that belong to the same spatio-temporal entities,
-    #       or multi-named entities known from ConceptNet5
-
-    # Compare overlap of min begin and max end char from MEU and edges like "compound" etc.
-    meu_entities = []
-    entities = []
-
-    # Loop over Stanza MEU and GSM result and evaluate overlapping words from chars
-    for meu in stanza_row['multi_entity_unit']:
-        start_meu = meu['start_char']
-        end_meu = meu['end_char']
-
-        start_graph = item.min
-        end_graph = item.max
-
-        # https://scicomp.stackexchange.com/questions/26258/the-easiest-way-to-find-intersection-of-two-intervals/26260#26260
-        if start_graph > end_meu or start_meu > end_graph:
-            continue
+def associate_to_container(nodes_key, item, nbb):
+    if isinstance(nodes_key, SetOfSingletons):
+        if isinstance(item, SetOfSingletons):
+            set_item = item
         else:
-            # start_intersection = max(start_meu, start_graph)
-            # end_intersection = min(end_meu, end_graph)
-            if not (start_graph > end_meu or start_meu > end_graph):
-                if meu not in meu_entities:
-                    meu_entities.append(meu)
-                if item not in entities:
-                    entities.append(item)
+            new_set = []
+            confidence = 1
+            new_set = list(map(lambda x: associate_to_container(x, item, nbb), nodes_key.entities))
 
-            # if start_graph >= start_intersection and start_meu >= start_intersection and \
-            #         end_graph <= end_intersection and end_meu <= end_intersection:
-            #     if meu not in meu_entities:
-            #         meu_entities.append(meu)
-            #     if item not in entities:
-            #         entities.append(item)
+            for entity in new_set:# nodes_key.entities:
+                # if (entity.confidence < best_score or math.isnan(best_score)) and \
+                #         item.named_entity == entity.named_entity:  # Should this be == or in?
+                #     new_set.append(item)
+                #     confidence *= item.confidence
+                # else:
+                #     new_set.append(entity)
+                confidence *= entity.confidence
 
-    associations[item] = entities
+            set_item = SetOfSingletons(
+                type=Grouping.GROUPING,
+                entities=tuple(new_set),
+                min=nodes_key.min,
+                max=nodes_key.max,
+                confidence=confidence
+            )
+        return set_item
+        # nodes[key] = set_item
+        # return set_item.confidence
+    else:
+        best_score = nbb[item].confidence
+        if nodes_key.confidence < best_score or math.isnan(best_score):
+            # nodes[key] = item
+            return item
+        else:
+            # nodes[key] = association
+            return nbb[item]
 
-    # print(associations[item])
-    # print(meu_entities)
 
-    for association in associations[item]:
-        if len(meu_entities) > 0:
-            best_score = max(map(lambda y: y['confidence'], meu_entities))
-            best_items = [y for y in meu_entities if y['confidence'] == best_score]
-            best_type = None
-            if len(best_items) == 1:
-                best_item = best_items[0]
-                best_type = best_item['type']
+class AssignTypeToSingleton:
+    def __init__(self):
+        self.associations = set()
+        self.meu_entities = defaultdict(set)
+        self.final_assigment = dict()
+
+    def assign_type_to_singleton_1(self, item, stanza_row):
+        # Loop over Stanza MEU and GSM result and evaluate overlapping words from chars
+        for meu in stanza_row['multi_entity_unit']:
+            start_meu = meu['start_char']
+            end_meu = meu['end_char']
+            start_graph = item.min
+            end_graph = item.max
+            # https://scicomp.stackexchange.com/questions/26258/the-easiest-way-to-find-intersection-of-two-intervals/26260#26260
+            if start_graph > end_meu or start_meu > end_graph:
+                continue
             else:
-                best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
-                best_type = None
-                if len(best_types) == 1:
-                    best_type = best_types[0]
-                elif "LOC" in best_types and "GPE" in best_types:
-                    best_type = "LOC"
-                else:
-                    best_type = "None"
-            if isinstance(association, Singleton):
-                item = Singleton(
-                    named_entity=association.named_entity,
-                    properties=association.properties,
-                    min=association.min,
-                    max=association.max,
-                    type=best_type,
-                    confidence=best_score
-                )
-            else:
-                item = association
+                # start_intersection = max(start_meu, start_graph)
+                # end_intersection = min(end_meu, end_graph)
+                if not (start_graph > end_meu or start_meu > end_graph):
+                    self.meu_entities[item].add(frozenset(meu.items()))
+                    self.associations.add(item)
+                # if start_graph >= start_intersection and start_meu >= start_intersection and \
+                #         end_graph <= end_intersection and end_meu <= end_intersection:
+                #     if meu not in meu_entities:
+                #         meu_entities.append(meu)
+                #     if item not in entities:
+                #         entities.append(item)
+        # self.associations[item] = entities
+        # print(associations[item])
+        # print(meu_entities)
 
-            # Giacomo: This was a bug: you were discarding relevant AND/OR information!
-            if isinstance(nodes[key], SetOfSingletons):
-                if isinstance(item, SetOfSingletons):
-                    set_item = item
-                else:
-                    new_set = []
-                    confidence = 1
-                    for entity in nodes[key].entities:
-                        if (entity.confidence < best_score or math.isnan(best_score)) and \
-                                item.named_entity == entity.named_entity:  # Should this be == or in?
-                            new_set.append(item)
-                            confidence *= item.confidence
+    def assign_type_to_all_singletons(self):
+        if len(self.final_assigment)>0:
+            return self.final_assigment
+        for item in self.associations:
+            # for association in associations:
+                if len(self.meu_entities[item]) > 0:
+                    best_score = max(map(lambda y: dict(y)['confidence'], self.meu_entities[item]))
+                    best_items = [dict(y) for y in self.meu_entities[item] if dict(y)['confidence'] == best_score]
+                    best_type = None
+                    if len(best_items) == 1:
+                        best_item = best_items[0]
+                        best_type = best_item['type']
+                    else:
+                        best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
+                        best_type = None
+                        if len(best_types) == 1:
+                            best_type = best_types[0]
+                        ## TODO! type disambiguation, in future works, needs to take into account also the verb associated to it!
+                        elif "PERSON" in best_types:
+                            best_type = "PERSON"
+                        elif "LOC" in best_types and "GPE" in best_types:
+                            best_type = "LOC"
                         else:
-                            new_set.append(entity)
-                            confidence *= entity.confidence
-
-                    set_item = SetOfSingletons(
-                        type=Grouping.GROUPING,
-                        entities=tuple(new_set),
-                        min=nodes[key].min,
-                        max=nodes[key].max,
-                        confidence=confidence
+                            best_type = "None"
+                    self.final_assigment[item] = Singleton(
+                        named_entity=item.named_entity,
+                        properties=item.properties,
+                        min=item.min,
+                        max=item.max,
+                        type=best_type,
+                        confidence=best_score
                     )
-                nodes[key] = set_item
-            else:
-                if nodes[key].confidence < best_score or math.isnan(best_score):
-                    nodes[key] = item
-                else:
-                    nodes[key] = association
+                    # if isinstance(association, Singleton):
+                    #
+                    # else:
+                    #     self.final_assigment[item] = association
+        return self.final_assigment
 
-    return nodes
+
+atts_global = AssignTypeToSingleton()
+
+def assign_to_all():
+    return atts_global.assign_type_to_all_singletons()
+
+def assign_type_to_singleton(item, stanza_row, nodes, key):
+    atts_global.assign_type_to_singleton_1(item, stanza_row)
+    # associations = dict()
+    #
+    # # TODO: merge the nodes together that belong to the same spatio-temporal entities,
+    # #       or multi-named entities known from ConceptNet5
+    #
+    # # Compare overlap of min begin and max end char from MEU and edges like "compound" etc.
+    # meu_entities = []
+    # entities = []
+    #
+    # # Loop over Stanza MEU and GSM result and evaluate overlapping words from chars
+    # for meu in stanza_row['multi_entity_unit']:
+    #     start_meu = meu['start_char']
+    #     end_meu = meu['end_char']
+    #
+    #     start_graph = item.min
+    #     end_graph = item.max
+    #
+    #     # https://scicomp.stackexchange.com/questions/26258/the-easiest-way-to-find-intersection-of-two-intervals/26260#26260
+    #     if start_graph > end_meu or start_meu > end_graph:
+    #         continue
+    #     else:
+    #         # start_intersection = max(start_meu, start_graph)
+    #         # end_intersection = min(end_meu, end_graph)
+    #         if not (start_graph > end_meu or start_meu > end_graph):
+    #             if meu not in meu_entities:
+    #                 meu_entities.append(meu)
+    #             if item not in entities:
+    #                 entities.append(item)
+    #
+    #         # if start_graph >= start_intersection and start_meu >= start_intersection and \
+    #         #         end_graph <= end_intersection and end_meu <= end_intersection:
+    #         #     if meu not in meu_entities:
+    #         #         meu_entities.append(meu)
+    #         #     if item not in entities:
+    #         #         entities.append(item)
+    #
+    # associations[item] = entities
+    #
+    # # print(associations[item])
+    # # print(meu_entities)
+    #
+    # for association in associations[item]:
+    #     if len(meu_entities) > 0:
+    #         best_score = max(map(lambda y: y['confidence'], meu_entities))
+    #         best_items = [y for y in meu_entities if y['confidence'] == best_score]
+    #         best_type = None
+    #         if len(best_items) == 1:
+    #             best_item = best_items[0]
+    #             best_type = best_item['type']
+    #         else:
+    #             best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
+    #             best_type = None
+    #             if len(best_types) == 1:
+    #                 best_type = best_types[0]
+    #             elif "LOC" in best_types and "GPE" in best_types:
+    #                 best_type = "LOC"
+    #             else:
+    #                 best_type = "None"
+    #         if isinstance(association, Singleton):
+    #             item = Singleton(
+    #                 named_entity=association.named_entity,
+    #                 properties=association.properties,
+    #                 min=association.min,
+    #                 max=association.max,
+    #                 type=best_type,
+    #                 confidence=best_score
+    #             )
+    #         else:
+    #             item = association
+    #
+    #         # Giacomo: This was a bug: you were discarding relevant AND/OR information!
+    #         associate_to_container(nodes, key, item, best_score, association)
+    #
+    # return nodes
 
 
 def create_existential(edges, nodes):
     for key in nodes:
         node = nodes[key]
         for prop in dict(node.properties):
-            if 'kernel' in prop:
+            if 'kernel' in prop or len(nodes)==1:
                 edges.append(Relationship(
                     source=node,
                     target=Singleton(
@@ -354,7 +441,6 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
                 properties[type_key].append(edge.target)
 
     from gsmtosimilarity.stanza_pipeline import StanzaService
-
     el = " ".join(map(lambda y: y["lemma"], filter(lambda x: x["upos"] != "AUX", StanzaService().stNLP(lemmatizer.lemmatize(kernel.edgeLabel.named_entity, 'v')).to_dict()[0])))
     sentence = Sentence(
         kernel=Relationship(
@@ -449,8 +535,7 @@ def group_nodes(nodes, parsed_json):
             )
     # print("nodes", nodes)
 
-
-def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rewriting, is_rewriting_simplistic):
+def assign_singletons(parsed_json, stanza_row):
     nodes = {}
     group_nodes(nodes, parsed_json)
     print(nodes)
@@ -460,19 +545,27 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
     if stanza_row is not None:
         # Assign types to nodes
         for key in nodes:
-            item = nodes[key]
+            associate_type_to_item(nodes[key], key, nodes, stanza_row)
+    return nodes
 
-            # If key is SetOfSingletons, loop over each Singleton and make association to type
-            # Giacomo: FIX, but only if they are not logical predicates
-            if isinstance(item, SetOfSingletons) and ((nodes[key].type == Grouping.NONE) or (nodes[key].type == Grouping.GROUPING)):
-                for entity in item.entities:
-                    nodes = assign_type_to_singleton(entity, stanza_row, nodes, key)
-            else:
-                nodes = assign_type_to_singleton(item, stanza_row, nodes, key)
-
+def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rewriting, is_rewriting_simplistic, nodes):
+    # nodes = {}
+    # group_nodes(nodes, parsed_json)
+    # print(nodes)
+    # Loop over resulting graph again and create array of edges now we have all Singletons
+    edges = []
+    nbb = assign_to_all()
+    if stanza_row is not None:
+        # # Assign types to nodes
+        # for key in nodes:
+        #     associate_type_to_item(nodes[key], key, nodes, stanza_row)
+        # global_set = assign_to_all()
         # With types assigned, merge SetOfSingletons into Singleton
         for key in nodes:
             item = nodes[key]
+            # association = nbb[item]
+            # best_score = association.confidence
+            nodes[key] = associate_to_container(nodes[key], item, nbb)
 
             if isinstance(item, SetOfSingletons):
                 if item.type == Grouping.GROUPING:
@@ -562,3 +655,14 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
     # sentence = create_sentence_obj(cfg, edges, nodes)
     # print(json.dumps(sentence, cls=EnhancedJSONEncoder))
     return tuple([Graph(edges=edges), nodes, edges])
+
+
+def associate_type_to_item(item, key, nodes, stanza_row):
+    # If key is SetOfSingletons, loop over each Singleton and make association to type
+    # Giacomo: FIX, but only if they are not logical predicates
+    if isinstance(item,
+                  SetOfSingletons):  # and ((nodes[key].type == Grouping.NONE) or (nodes[key].type == Grouping.GROUPING)):
+        for entity in item.entities:
+            associate_type_to_item(entity, key, nodes, stanza_row)
+    else:
+        assign_type_to_singleton(item, stanza_row, nodes, key)

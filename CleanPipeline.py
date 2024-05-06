@@ -131,7 +131,7 @@ class CleanPipeline:
         sentences = self.getSentences()
         result = None
         if self.cfg['similarity'].startswith('IDEAS24'):
-            result = self.transformSentences(sentences)
+            result = self.transformation_pipeline(sentences)
         else:
             result = sentences
         f = self.getSimilarityFunction(result)
@@ -145,23 +145,46 @@ class CleanPipeline:
         M = np.array(M)
         return json.dumps({"similarity_matrix": M.tolist(), "sentences": sentences})
 
-    def apply_graph_grammar(self, gsm_dbs):
-        from gsmtosimilarity.graph_similarity import read_graph_from_file
-        directory = self.legacy_pipeline.graph_grammars_with_datagramdb(gsm_sentences=gsm_dbs)
-        graphs = []
+    def apply_graph_grammar(self, gsm_sentences):
+        gsmout_graphlist_file = self.cfg["hand_dataset"]+"_out_gsm.json"
         import os
-        for x in os.walk(directory):
-            graphs = [None for _ in range(len(x[1]))]
-            for result_folder in x[1]:
-                resultFile = os.path.join(x[0], result_folder, "result.json")
-                graphs[int(result_folder)] = read_graph_from_file(resultFile)
-            break  # // Skipping the remaining subfolder
+        if os.path.isfile(gsmout_graphlist_file) and not self.cfg['force_regenerate']:
+            with open(gsmout_graphlist_file) as f:
+                self.write_to_log("READING PREVIOUS COMPUTATION FOR: graphs")
+                graphs = json.load(f)
+        else:
+            from gsmtosimilarity.graph_similarity import read_graph_from_file
+            directory = self.legacy_pipeline.graph_grammars_with_datagramdb(gsm_sentences=gsm_sentences)
+            graphs = []
+            import os
+            for x in os.walk(directory):
+                graphs = [None for _ in range(len(x[1]))]
+                for result_folder in x[1]:
+                    resultFile = os.path.join(x[0], result_folder, "result.json")
+                    graphs[int(result_folder)] = read_graph_from_file(resultFile)
+                break  # // Skipping the remaining subfolder
+            with open(gsmout_graphlist_file, "w") as f:
+                json.dump(graphs, f, indent=4)
         return graphs
 
-    def doGraphOperations(self, graphs, stanza_db):
+
+    def semantic_transformation(self, graphs, stanza_db, dumpFile=None):
         # TODO: find a more explicative name
         from graph_repr.internal_graph import to_internal_graph
-        return [to_internal_graph(graph, stanza_row, self.rejected_edges, self.non_verbs, True, self.simplistic) for graph, stanza_row in zip(graphs, stanza_db)]
+        from graph_repr.internal_graph import assign_singletons
+        from graph_repr.internal_graph import assign_to_all
+        allNodes = []
+        for graph, stanza_row in zip(graphs, stanza_db):
+            allNodes.append(assign_singletons(graph, stanza_row))
+        assign_to_all()
+        graphs_r = [to_internal_graph(graph, stanza_row, self.rejected_edges, self.non_verbs, True, self.simplistic, nodes) for graph, stanza_row, nodes in zip(graphs, stanza_db, allNodes)]
+        if dumpFile is not None:
+            with open(dumpFile, "w") as f:
+                print(dumpFile)
+                import json
+                from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+                json.dump([graph[0] for graph in graphs_r], f, cls=EnhancedJSONEncoder)
+        return graphs_r
 
     def getLogicalRepresentation(self, graph_e_n_list):
         from graph_repr.internal_graph import create_sentence_obj
@@ -177,8 +200,27 @@ class CleanPipeline:
                 # sys.exit(101)
         return sentences
 
-    def transformSentences(self, sentences):
+    def transformation_pipeline(self, sentences):
         #Performing MultiNamedEntity Recognition
+        self.generate_MEUdb(sentences)
+
+        #Converting into the C++ format
+        gsm_sentences = self.generate_gsm_from_stanfordnlp(sentences)
+
+        #Running the Graph Grammar Rewriting
+        graphs = self.apply_graph_grammar(gsm_sentences)
+
+        #Perform the internal rewriting
+        graphs = self.semantic_transformation(graphs, self.stanza_db)
+
+        # TODO If transform into graphs, then return directly graphs
+        #      Otherwise, call getLogicalRepresentation and return those instead
+        if "graphs" in self.cfg['similarity']:
+            return [graph[0] for graph in graphs]
+        else:
+            return self.getLogicalRepresentation(graphs)
+
+    def generate_MEUdb(self, sentences):
         if 'crawl_to_gsm' in self.cfg and 'stanza_db' in self.cfg['crawl_to_gsm'] and \
                 os.path.isfile(self.cfg['crawl_to_gsm']['stanza_db']) and not self.cfg['force_regenerate']:
             with open(self.cfg['crawl_to_gsm']['stanza_db']) as f:
@@ -186,12 +228,8 @@ class CleanPipeline:
                 self.stanza_db = json.load(f)
         else:
             self.stanza_db = multi_named_entity_recognition(0, None, self.legacy_pipeline, sentences)
-        # with open("/home/giacomo/dumping_ground/stanzadb.json", "w") as f:
-        #     print("STANZADB.json")
-        #     import json
-        #     json.dump(stanza_db, f)
 
-        #Converting into the C++ format
+    def generate_gsm_from_stanfordnlp(self, sentences):
         gsm_dbs = ""
         filepath = ""
         if 'gsm_sentences' in self.cfg and os.path.isfile(self.cfg['gsm_sentences']) and not self.cfg[
@@ -201,42 +239,12 @@ class CleanPipeline:
                 self.write_to_log("READING PREVIOUS COMPUTATION FOR: gsm_dbs")
                 gsm_dbs = f.read()
         else:
-            gsm_dbs, filepath = stanford_nlp_to_gsm(self, sentences) #some strings
+            gsm_dbs, filepath = stanford_nlp_to_gsm(self, sentences)  # some strings
         # with open("/home/giacomo/dumping_ground/gsm.txt", "w") as f:
         #     print("gsm.txt")
         #     import json
         #     f.write(gsm_dbs)
-
-        #Running the Graph Grammar Rewriting
-
-        gsmout_graphlist_file = self.cfg["hand_dataset"]+"_out_gsm.json"
-        if os.path.isfile(gsmout_graphlist_file) and not self.cfg['force_regenerate']:
-            with open(gsmout_graphlist_file) as f:
-                self.write_to_log("READING PREVIOUS COMPUTATION FOR: graphs")
-                graphs = json.load(f)
-        else:
-            graphs = self.apply_graph_grammar(filepath)
-            with open(gsmout_graphlist_file, "w") as f:
-                json.dump(graphs, f, indent=4)
-        # with open("/home/giacomo/dumping_ground/after_graph_grammar.json", "w") as f:
-        #     print("gsm.txt")
-        #     import json
-        #     json.dump(graphs, f)
-
-        #Perform the internal rewriting
-        graphs = self.doGraphOperations(graphs, self.stanza_db)
-        # with open("/home/giacomo/dumping_ground/after_internal_rewriting.json", "w") as f:
-        #     print("gsm.txt")
-        #     import json
-        #     from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
-        #     json.dump([graph[0] for graph in graphs], f, cls=EnhancedJSONEncoder)
-
-        # TODO If transform into graphs, then return directly graphs
-        #      Otherwise, call getLogicalRepresentation and return those instead
-        if "graphs" in self.cfg['similarity']:
-            return [graph[0] for graph in graphs]
-        else:
-            return self.getLogicalRepresentation(graphs)
+        return filepath
 
     def getSimilarityFunction(self, sentences):
         if 'IDEAS24' in self.cfg['similarity']:
@@ -244,9 +252,6 @@ class CleanPipeline:
                 return self.legacy_pipeline.graph_with_logic_similarity
             else:
                 return SentenceExpansion(sentences, None)
-            # TODO If transform into graphs, then return self.legacy_pipeline.graph_similarity
-            #      Otherwise, return the new logical-based metric [TODO]
-
         else:
             return self.legacy_pipeline.sc.string_similarity
 
