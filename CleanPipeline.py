@@ -14,6 +14,7 @@ import numpy as np
 import stanza
 import yaml
 
+from Parmenides.paremenides import Parmenides
 from crawltogsm.LegacyPipeline import LegacyPipeline
 from crawltogsm.generate_gsm_cypher_db import load_sentences, stanford_nlp_to_gsm, multi_named_entity_recognition
 # from crawltogsm.write_to_log import write_to_log
@@ -96,21 +97,28 @@ class CleanPipeline:
         self.legacy_pipeline = LegacyPipeline(self.cfg)
         self.db = []
         self.sentences = []
-        if os.path.isfile(self.cfg['transitive_verbs']):
-            with open(self.cfg['transitive_verbs'], "r") as f:
-                self.transitive_verbs = set(map(lambda x: x.strip(), f.readlines()))
-        else:
-            self.transitive_verbs = set()
-        if os.path.isfile(self.cfg['rejected_edge_types']):
-            with open(self.cfg['rejected_edge_types'], 'r') as f:
-                self.rejected_edges = set(map(lambda x: x.strip(), f.readlines()))
-        else:
-            self.rejected_edges = set()
-        if os.path.isfile(self.cfg['non_verbs']):
-            with open(self.cfg['non_verbs'], "r") as f:
-                self.non_verbs = set(f.readlines())
-        else:
-            self.non_verbs = set()
+        self.transitive_verbs = set()
+        self.rejected_edges = set()
+        self.non_verbs = set()
+        if self.cfg['ontology']:
+            self.parmenides = Parmenides(self.cfg['ontology'])
+            self.transitive_verbs = set(self.parmenides.get_transitive_verbse())
+            self.rejected_edges = set(self.parmenides.get_rejected_edges())
+            self.non_verbs = set(self.parmenides.get_universal_dependencies())
+        # if os.path.isfile(self.cfg['transitive_verbs']):
+        #     with open(self.cfg['transitive_verbs'], "r") as f:
+        #         self.transitive_verbs = set(map(lambda x: x.strip(), f.readlines()))
+        # else:
+        #
+        # if os.path.isfile(self.cfg['rejected_edge_types']):
+        #     with open(self.cfg['rejected_edge_types'], 'r') as f:
+        #         self.rejected_edges = set(map(lambda x: x.strip(), f.readlines()))
+        # else:
+        #
+        # if os.path.isfile(self.cfg['non_verbs']):
+        #     with open(self.cfg['non_verbs'], "r") as f:
+        #         self.non_verbs = set(f.readlines())
+        # else:
         self.simplistic = self.cfg['rewriting_strategy'] == 'simplistic'
         return self
 
