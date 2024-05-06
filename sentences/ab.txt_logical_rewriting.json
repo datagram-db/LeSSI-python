@@ -3,14 +3,14 @@
         "rel": "play",
         "src": {
             "name": "Alice",
-            "type": "noun",
+            "type": "PERSON",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
         },
         "dst": {
             "name": "football",
-            "type": "noun",
+            "type": "ENTITY",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
@@ -23,14 +23,14 @@
         "rel": "play",
         "src": {
             "name": "Bob",
-            "type": "noun",
+            "type": "PERSON",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
         },
         "dst": {
             "name": "football",
-            "type": "noun",
+            "type": "ENTITY",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
@@ -45,14 +45,14 @@
                 "rel": "play",
                 "src": {
                     "name": "Alice",
-                    "type": "noun",
+                    "type": "PERSON",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
                 },
                 "dst": {
                     "name": "football",
-                    "type": "noun",
+                    "type": "ENTITY",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -65,14 +65,14 @@
                 "rel": "play",
                 "src": {
                     "name": "Bob",
-                    "type": "noun",
+                    "type": "PERSON",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
                 },
                 "dst": {
                     "name": "football",
-                    "type": "noun",
+                    "type": "ENTITY",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -90,14 +90,14 @@
                 "rel": "play",
                 "src": {
                     "name": "Bob",
-                    "type": "noun",
+                    "type": "PERSON",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
                 },
                 "dst": {
                     "name": "football",
-                    "type": "noun",
+                    "type": "ENTITY",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -110,14 +110,14 @@
                 "rel": "play",
                 "src": {
                     "name": "Alice",
-                    "type": "noun",
+                    "type": "PERSON",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
                 },
                 "dst": {
                     "name": "football",
-                    "type": "noun",
+                    "type": "ENTITY",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable"
@@ -134,14 +134,14 @@
             "rel": "play",
             "src": {
                 "name": "Alice",
-                "type": "noun",
+                "type": "PERSON",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
             },
             "dst": {
                 "name": "football",
-                "type": "noun",
+                "type": "ENTITY",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
@@ -157,14 +157,14 @@
             "rel": "play",
             "src": {
                 "name": "Bob",
-                "type": "noun",
+                "type": "PERSON",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
             },
             "dst": {
                 "name": "football",
-                "type": "noun",
+                "type": "ENTITY",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable"
@@ -179,14 +179,14 @@
         "rel": "play",
         "src": {
             "name": "Dan",
-            "type": "noun",
+            "type": "PERSON",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
         },
         "dst": {
             "name": "football",
-            "type": "noun",
+            "type": "ENTITY",
             "specification": null,
             "cop": null,
             "meta": "FVariable"
@@ -202,14 +202,14 @@
                     "rel": "play",
                     "src": {
                         "name": "Bob",
-                        "type": "noun",
+                        "type": "PERSON",
                         "specification": null,
                         "cop": null,
                         "meta": "FVariable"
                     },
                     "dst": {
                         "name": "football",
-                        "type": "noun",
+                        "type": "ENTITY",
                         "specification": null,
                         "cop": null,
                         "meta": "FVariable"
@@ -225,14 +225,14 @@
                     "rel": "play",
                     "src": {
                         "name": "Alice",
-                        "type": "noun",
+                        "type": "PERSON",
                         "specification": null,
                         "cop": null,
                         "meta": "FVariable"
                     },
                     "dst": {
                         "name": "football",
-                        "type": "noun",
+                        "type": "ENTITY",
                         "specification": null,
                         "cop": null,
                         "meta": "FVariable"

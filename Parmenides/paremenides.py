@@ -28,7 +28,7 @@ class Parmenides():
              ?a a parmenides:TransitiveVerb.
              ?a rdfs:label ?c .
          }"""
-         return self._single_unary_query(knows_query, lambda x: x.c)
+         return self._single_unary_query(knows_query, lambda x: str(x.c))
 
      def get_universal_dependencies(self):
          knows_query = """
@@ -37,7 +37,7 @@ class Parmenides():
              ?a a parmenides:dependency.
              ?a rdfs:label ?c .
          }"""
-         return self._single_unary_query(knows_query, lambda x: x.c)
+         return self._single_unary_query(knows_query, lambda x: str(x.c))
 
      def get_rejected_edges(self):
          knows_query = """
@@ -46,7 +46,7 @@ class Parmenides():
              ?a a parmenides:Rejectable.
              ?a rdfs:label ?c .
          }"""
-         return self._single_unary_query(knows_query, lambda x: x.c)
+         return self._single_unary_query(knows_query, lambda x: str(x.c))
 
 
 if __name__ == "__main__":

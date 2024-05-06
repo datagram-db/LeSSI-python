@@ -108,13 +108,12 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
 
 def associate_to_container(nodes_key, item, nbb):
     if isinstance(nodes_key, SetOfSingletons):
-        if isinstance(item, SetOfSingletons):
-            set_item = item
-        else:
-            new_set = []
+        # if isinstance(item, SetOfSingletons):
+        #     set_item = item
+        # else:
+        #     new_set = []
             confidence = 1
-            new_set = list(map(lambda x: associate_to_container(x, item, nbb), nodes_key.entities))
-
+            new_set = list(map(lambda x: associate_to_container(x, x, nbb), nodes_key.entities))
             for entity in new_set:# nodes_key.entities:
                 # if (entity.confidence < best_score or math.isnan(best_score)) and \
                 #         item.named_entity == entity.named_entity:  # Should this be == or in?
@@ -125,23 +124,28 @@ def associate_to_container(nodes_key, item, nbb):
                 confidence *= entity.confidence
 
             set_item = SetOfSingletons(
-                type=Grouping.GROUPING,
+                type=nodes_key.type,
                 entities=tuple(new_set),
                 min=nodes_key.min,
                 max=nodes_key.max,
                 confidence=confidence
             )
-        return set_item
+            return set_item
         # nodes[key] = set_item
         # return set_item.confidence
     else:
-        best_score = nbb[item].confidence
-        if nodes_key.confidence < best_score or math.isnan(best_score):
-            # nodes[key] = item
+        if item not in nbb:
+            nbb[item] = item
             return item
         else:
-            # nodes[key] = association
             return nbb[item]
+            # best_score = nbb[item].confidence
+            # if nodes_key.confidence > best_score or math.isnan(best_score):
+            #     # nodes[key] = item
+            #     return item
+            # else:
+            #     # nodes[key] = association
+            #     return nbb[item]
 
 
 class AssignTypeToSingleton:
@@ -182,24 +186,29 @@ class AssignTypeToSingleton:
         for item in self.associations:
             # for association in associations:
                 if len(self.meu_entities[item]) > 0:
-                    best_score = max(map(lambda y: dict(y)['confidence'], self.meu_entities[item]))
-                    best_items = [dict(y) for y in self.meu_entities[item] if dict(y)['confidence'] == best_score]
-                    best_type = None
-                    if len(best_items) == 1:
-                        best_item = best_items[0]
-                        best_type = best_item['type']
+                    if item.type == '∃':
+                        best_score = item.confidence
+                        best_items = [item]
+                        best_type = item.type
                     else:
-                        best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
+                        best_score = max(map(lambda y: dict(y)['confidence'], self.meu_entities[item]))
+                        best_items = [dict(y) for y in self.meu_entities[item] if dict(y)['confidence'] == best_score]
                         best_type = None
-                        if len(best_types) == 1:
-                            best_type = best_types[0]
-                        ## TODO! type disambiguation, in future works, needs to take into account also the verb associated to it!
-                        elif "PERSON" in best_types:
-                            best_type = "PERSON"
-                        elif "LOC" in best_types and "GPE" in best_types:
-                            best_type = "LOC"
+                        if len(best_items) == 1:
+                            best_item = best_items[0]
+                            best_type = best_item['type']
                         else:
-                            best_type = "None"
+                            best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
+                            best_type = None
+                            if len(best_types) == 1:
+                                best_type = best_types[0]
+                            ## TODO! type disambiguation, in future works, needs to take into account also the verb associated to it!
+                            elif "PERSON" in best_types:
+                                best_type = "PERSON"
+                            elif "LOC" in best_types and "GPE" in best_types:
+                                best_type = "LOC"
+                            else:
+                                best_type = "None"
                     self.final_assigment[item] = Singleton(
                         named_entity=item.named_entity,
                         properties=item.properties,
@@ -565,8 +574,18 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
             item = nodes[key]
             # association = nbb[item]
             # best_score = association.confidence
-            nodes[key] = associate_to_container(nodes[key], item, nbb)
+            if not isinstance(item, SetOfSingletons):
+                nodes[key] = associate_to_container(nodes[key], item, nbb)
 
+        for key in nodes:
+            item = nodes[key]
+            # association = nbb[item]
+            # best_score = association.confidence
+            if isinstance(item, SetOfSingletons):
+                nodes[key] = associate_to_container(nodes[key], item, nbb)
+
+        for key in nodes:
+            item = nodes[key]
             if isinstance(item, SetOfSingletons):
                 if item.type == Grouping.GROUPING:
                     if do_rewriting:

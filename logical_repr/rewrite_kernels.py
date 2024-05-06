@@ -73,6 +73,13 @@ def make_unary(rel, dst, score, prop):
             return make_unary(rel, dst.cop, score, prop)
     if "non_verb" in prop:
         prop.pop("non_verb")
+    s = set(prop.keys())
+    for x in s:
+        if isinstance(prop[x], list):
+            if len(prop[x]) == 0:
+                prop[x] = prop[x][0]
+            else:
+                prop[x] = tuple(prop[x])
     return FUnaryPredicate(rel=rel, arg=dst, score=score, properties=frozenset(prop.items()))
 
 def make_binary(rel, src, dst, score, prop):
@@ -84,6 +91,13 @@ def make_binary(rel, src, dst, score, prop):
             return make_unary("be", dst, score, prop)
     if "non_verb" in prop:
         prop.pop("non_verb")
+    s = set(prop.keys())
+    for x in s:
+        if isinstance(prop[x], list):
+            if len(prop[x]) == 0:
+                prop[x] = prop[x][0]
+            else:
+                prop[x] = tuple(prop[x])
     return FBinaryPredicate(rel=rel, src=src, dst=dst, score=score, properties=frozenset(prop.items()))
 
 def make_properties(p):
