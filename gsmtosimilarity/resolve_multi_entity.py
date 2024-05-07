@@ -52,7 +52,7 @@ class ResolveMultiNamedEntity:
                     self.result.append(j)
         else:
             next = current + " " + rest[0][0]
-            val = TwoGramSetSimilarity(next, v)
+            val = TwoGramSetSimilarity(next.lower(), v.lower())
             if val < k:
                 if k >= self.forinsert:
                     for j in build_loc_result(current, type, start, end, v, k, v):
@@ -71,7 +71,7 @@ class ResolveMultiNamedEntity:
                 for k, v in m.items():
                     for candidate in v:
                         # cand = s.get(candidate)
-                        newK = TwoGramSetSimilarity(ls[i][0], candidate)
+                        newK = TwoGramSetSimilarity(ls[i][0].lower(), candidate.lower())
                         if newK >= self.threshold:
                             self.test(ls[i][0], ls[i + 1:], newK, candidate, ls[i][1], ls[i][2], type)
         return self.result
