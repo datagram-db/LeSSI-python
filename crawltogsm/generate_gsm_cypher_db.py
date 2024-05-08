@@ -25,6 +25,7 @@ from crawltogsm.write_to_log import write_to_log
 # from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.geonames.GeoNames import GeoNamesService
 from gsmtosimilarity.conceptnet.ConceptNet5 import ConceptNetService
+from gsmtosimilarity.levenshtein import lev
 
 
 def create_node(id, name):
@@ -242,7 +243,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
                 "start_char": ent.start_char,
                 "end_char": ent.end_char,
                 "monad": monad,
-                "confidence": 1  # Used to be NaN
+                "confidence": lev(monad.lower(), ent.text.lower())  # Used to be NaN
             }
             multi_entity_unit.append(result)
 

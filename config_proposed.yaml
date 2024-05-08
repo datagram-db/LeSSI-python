@@ -38,7 +38,7 @@ ConceptNet5Numberbatch:
 
 resolve_params:
   recall_threshold: 0.1
-  precision_threshold: 0.6  # 0.7 doesn't detect Newcastle upon Tyne from 'Newcastle'
+  precision_threshold: 0.8  # 0.7 doesn't detect Newcastle upon Tyne from 'Newcastle'
 
 #'crawl_to_gsm':
 #  'stanza_db': 'final_gsm_stanza_db.json'

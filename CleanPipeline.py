@@ -102,7 +102,7 @@ class CleanPipeline:
         self.non_verbs = set()
         if self.cfg['ontology']:
             self.parmenides = Parmenides(self.cfg['ontology'])
-            self.transitive_verbs = set(self.parmenides.get_transitive_verbse())
+            self.transitive_verbs = set(self.parmenides.get_transitive_verbs())
             self.rejected_edges = set(self.parmenides.get_rejected_edges())
             self.non_verbs = set(self.parmenides.get_universal_dependencies())
         # if os.path.isfile(self.cfg['transitive_verbs']):
