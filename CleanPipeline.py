@@ -120,6 +120,9 @@ class CleanPipeline:
         #         self.non_verbs = set(f.readlines())
         # else:
         self.simplistic = self.cfg['rewriting_strategy'] == 'simplistic'
+
+        # TODO: Add check for if NLTK is downloaded
+
         return self
 
     def getSentences(self):
@@ -183,7 +186,7 @@ class CleanPipeline:
         from graph_repr.internal_graph import assign_to_all
         allNodes = []
         for graph, stanza_row in zip(graphs, stanza_db):
-            allNodes.append(assign_singletons(graph, stanza_row))
+            allNodes.append(assign_singletons(graph, stanza_row, self.simplistic))
         assign_to_all()
         graphs_r = [to_internal_graph(graph, stanza_row, self.rejected_edges, self.non_verbs, True, self.simplistic, nodes) for graph, stanza_row, nodes in zip(graphs, stanza_db, allNodes)]
         if dumpFile is not None:
@@ -209,16 +212,16 @@ class CleanPipeline:
         return sentences
 
     def transformation_pipeline(self, sentences):
-        #Performing MultiNamedEntity Recognition
+        # Performing MultiNamedEntity Recognition
         self.generate_MEUdb(sentences)
 
-        #Converting into the C++ format
+        # Converting into the C++ format
         gsm_sentences = self.generate_gsm_from_stanfordnlp(sentences)
 
-        #Running the Graph Grammar Rewriting
+        # Running the Graph Grammar Rewriting
         graphs = self.apply_graph_grammar(gsm_sentences)
 
-        #Perform the internal rewriting
+        # Perform the internal rewriting
         graphs = self.semantic_transformation(graphs, self.stanza_db)
 
         # TODO If transform into graphs, then return directly graphs

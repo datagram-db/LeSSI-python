@@ -5,16 +5,24 @@ import {ConfusionMatrix} from "react-confusion-matrix";
 
 // Data
 import {
-  CatSimIdeasData,
-  simIdeasData,
+  CatSimIdeasDataGraphsSimplistic,
+  simIdeasDataGraphsSimplistic,
   Log,
   CatSimMPNETData,
   CatSimL6Data,
-  CatSimLRobertaData,
-  NewcastleSimIdeasData,
+  CatSimRobertaData,
+  NewcastleSimIdeasDataGraphsSimplistic,
   NewcastleSimL6Data,
   NewcastleSimMPNETData,
-  NewcastleSimRobertaData, ABSimIdeasData, simL6Data, simMPNETData, simRobertaData, ABSimL6Data, ABSimMPNETData, ABSimRobertaData
+  NewcastleSimRobertaData,
+  ABSimIdeasDataGraphsSimplistic,
+  simL6Data,
+  simMPNETData,
+  simRobertaData,
+  ABSimL6Data,
+  ABSimMPNETData,
+  ABSimRobertaData,
+  CatSimIdeasDataGraphsLogical, CatSimIdeasDataLogicLogical, ABSimIdeasDataGraphsLogical, ABSimIdeasDataLogicLogical
 } from './results';
 
 function App() {
@@ -29,16 +37,22 @@ function App() {
 
   // Flask
   const [similarity, setSimilarity] = useState("IDEAS24_graphs") // Which similarity measure to pass to Flask
+  const [rewriting, setRewriting] = useState("simplistic");
   const [transformer, setTransformer] = useState("all-MiniLM-L6-v2") // Which similarity measure to pass to Flask
   const [outputText, setOutputText] = useState(['']) // Log text
   const [directory, setDirectory] = useState('')
 
   // Results
-  const [IDEASResults, setIDEASResults] = useState(<div></div>);
-  const [IDEASMatrix, setIDEASMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  const [IDEASGraphsSimplisticResults, setIDEASGraphsSimplisticResults] = useState(<div></div>);
+  const [IDEASGraphsLogicalResults, setIDEASGraphsLogicalResults] = useState(<div></div>);
+  const [IDEASLogicLogicalResults, setIDEASLogicLogicalResults] = useState(<div></div>);
+
+  const [IDEASGraphsSimplisticMatrix, setIDEASGraphsSimplisticMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  const [IDEASGraphsLogicalMatrix, setIDEASGraphsLogicalMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  const [IDEASLogicalLogicMatrix, setIDEASLogicalLogicMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
   const [L6Matrix, setL6Matrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
   const [MPNETMatrix, setMPNETMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
-  const [RobertaMatrix, setRobertaMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  // const [RobertaMatrix, setRobertaMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
 
   const inputs = inputSentences.map((v, i) =>
     <div>
@@ -74,7 +88,7 @@ function App() {
 
       // }
     }
-  }, [running, simIdeasData]);
+  }, [running, simIdeasDataGraphsSimplistic]);
 
   useEffect(() => {
     if (running && !outputText.includes("Finished")) {
@@ -157,7 +171,7 @@ function App() {
     })
   }
 
-  function loadResult(sentences, ideasData, l6Data, mpnetData, robertaData, path = 'dataset/') {
+  function loadResult(sentences, ideasGraphsSimplistic, ideasGraphsLogical, ideasLogicLogical, l6Data, mpnetData, path = 'dataset/') {
     // let desc = <div></div>;
     // if (sentences.includes("There is traffic in the Newcastle city centre")) {
     //   desc = <div>
@@ -201,16 +215,26 @@ function App() {
       </div>)
 
     // Round matricies
-    let tempIData = roundMatrix(ideasData, 4)
+    let tempIData = roundMatrix(ideasGraphsSimplistic, 4)
+    let tempI2Data = roundMatrix(ideasGraphsLogical, 4)
+    let tempI3Data = roundMatrix(ideasLogicLogical, 4)
     let tempL6Data = roundMatrix(l6Data, 4)
     let tempMPNETData = roundMatrix(mpnetData, 4)
-    let tempRobertaData = roundMatrix(robertaData, 4)
+    // let tempRobertaData = roundMatrix(robertaData, 4)
 
     const numbers = Array.from({ length: tempIData.sentences.length }, (_, index) => index + 1);
 
-    setIDEASResults(results)
-    setIDEASMatrix(<ConfusionMatrix
+    setIDEASGraphsSimplisticResults(results)
+    setIDEASGraphsSimplisticMatrix(<ConfusionMatrix
       data={tempIData.similarity_matrix}
+      labels={numbers}
+    />)
+    setIDEASGraphsLogicalMatrix(<ConfusionMatrix
+      data={tempI2Data.similarity_matrix}
+      labels={numbers}
+    />)
+    setIDEASLogicalLogicMatrix(<ConfusionMatrix
+      data={tempI3Data.similarity_matrix}
       labels={numbers}
     />)
     setL6Matrix(<ConfusionMatrix
@@ -221,10 +245,10 @@ function App() {
       data={tempMPNETData.similarity_matrix}
       labels={numbers}
     />)
-    setRobertaMatrix(<ConfusionMatrix
-      data={tempRobertaData.similarity_matrix}
-      labels={numbers}
-    />)
+    // setRobertaMatrix(<ConfusionMatrix
+    //   data={tempRobertaData.similarity_matrix}
+    //   labels={numbers}
+    // />)
 
     setLoadedSentences(sentences)
   }
@@ -242,23 +266,25 @@ function App() {
 
   const ExampleButton = (props) => {
     let name = props.name;
-    let ideasData = props.ideasData;
+    let ideasGraphsSimplistic = props.ideasGraphsSimplistic;
+    let ideasGraphsLogical = props.ideasGraphsLogical;
+    let ideasLogicLogical = props.ideasLogicLogical;
     let l6Data = props.l6Data;
     let mpnetData = props.mpnetData;
-    let robertaData = props.robertaData;
+    // let robertaData = props.robertaData;
     let path = props.path;
     let style = props.newStyle;
 
     return <button className={'buttonToolTip'} style={{
-      backgroundColor: (loadedSentences === ideasData.sentences ? '#5bae38' : '')
+      backgroundColor: (loadedSentences === ideasGraphsSimplistic.sentences ? '#5bae38' : '')
     }} onClick={() => {
-      loadResult(ideasData.sentences, ideasData, l6Data, mpnetData, robertaData, path);
-      setInputSentences(ideasData.sentences)
+      loadResult(ideasGraphsSimplistic.sentences, ideasGraphsSimplistic, ideasGraphsLogical, ideasLogicLogical, l6Data, mpnetData, path);
+      setInputSentences(ideasGraphsSimplistic.sentences)
       setDirectory(path)
     }}>{name}
       <span className={'toolTipText'} style={style}>
-        {ideasData.sentences.map((v, i) => {
-          return (i !== ideasData.sentences.length - 1) ? `[${i + 1}] ${v}\n\n` : `[${i + 1}] ${v}`
+        {ideasGraphsSimplistic.sentences.map((v, i) => {
+          return (i !== ideasGraphsSimplistic.sentences.length - 1) ? `[${i + 1}] ${v}\n\n` : `[${i + 1}] ${v}`
         })}
       </span>
     </button>
@@ -291,10 +317,10 @@ function App() {
               that our proposed approach improves upon.
             </div>
             <div className={'configButtons'}>
-              <ExampleButton name={'CAT AND MICE'} ideasData={CatSimIdeasData} l6Data={CatSimL6Data} mpnetData={CatSimMPNETData} robertaData={CatSimLRobertaData} path={'cat/'} newStyle={{marginLeft: '-35px'}}/>
-              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasData={NewcastleSimIdeasData} l6Data={NewcastleSimL6Data} mpnetData={NewcastleSimMPNETData} robertaData={NewcastleSimRobertaData} path={'newcastle/'} />
-              <ExampleButton name={'ALICE AND BOB'} ideasData={ABSimIdeasData} l6Data={ABSimL6Data} mpnetData={ABSimMPNETData} robertaData={ABSimRobertaData} path={'ab/'} />
-              <ExampleButton name={'PREVIOUS RESULTS'} ideasData={simIdeasData} l6Data={simL6Data} mpnetData={simMPNETData} robertaData={simRobertaData} path={''} newStyle={{marginLeft: '-175px'}} />
+              <ExampleButton name={'CAT AND MICE'} ideasGraphsSimplistic={CatSimIdeasDataGraphsSimplistic} ideasGraphsLogical={CatSimIdeasDataGraphsLogical} ideasLogicLogical={CatSimIdeasDataLogicLogical} l6Data={CatSimL6Data} mpnetData={CatSimMPNETData} path={'cat/'} newStyle={{marginLeft: '-35px'}}/>
+              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasGraphsSimplistic={NewcastleSimIdeasDataGraphsSimplistic} l6Data={NewcastleSimL6Data} mpnetData={NewcastleSimMPNETData} path={'newcastle/'} />
+              <ExampleButton name={'ALICE AND BOB'} ideasGraphsSimplistic={ABSimIdeasDataGraphsSimplistic} ideasGraphsLogical={ABSimIdeasDataGraphsLogical} ideasLogicLogical={ABSimIdeasDataLogicLogical} l6Data={ABSimL6Data} mpnetData={ABSimMPNETData} path={'ab/'} />
+              <ExampleButton name={'PREVIOUS RESULTS'} ideasGraphsSimplistic={simIdeasDataGraphsSimplistic} l6Data={simL6Data} mpnetData={simMPNETData} path={''} newStyle={{marginLeft: '-175px'}} />
               </div>
 
               {/*<h2>Config</h2>*/}
@@ -335,12 +361,31 @@ function App() {
             </div>
           <div className={'simBtns'}>
             <button style={{
-              backgroundColor: 'IDEAS24_graphs' === similarity ? '#5bae38' : '#3c3c3c',
+              backgroundColor: ('IDEAS24_graphs' === similarity && 'simplistic' === rewriting) ? '#5bae38' : '#3c3c3c',
               color: 'IDEAS24_graphs' === similarity ? '' : '#6d6d6d'
             }} onClick={() => {
               setSimilarity('IDEAS24_graphs')
+              setRewriting('simplistic')
               setTransformer('all-MiniLM-L6-v2')
-            }}>PROPOSED
+            }}>SIMPLISTIC GRAPHS
+            </button>
+            <button style={{
+              backgroundColor: ('IDEAS24_graphs' === similarity && 'logical' === rewriting) ? '#5bae38' : '#3c3c3c',
+              color: 'IDEAS24_graphs' === similarity ? '' : '#6d6d6d'
+            }} onClick={() => {
+              setSimilarity('IDEAS24_graphs')
+              setRewriting('logical')
+              setTransformer('all-MiniLM-L6-v2')
+            }}>SIMPLISTIC LOGIC
+            </button>
+            <button style={{
+              backgroundColor: ('IDEAS24_logic' === similarity && 'logical' === rewriting) ? '#5bae38' : '#3c3c3c',
+              color: 'IDEAS24_graphs' === similarity ? '' : '#6d6d6d'
+            }} onClick={() => {
+              setSimilarity('IDEAS24_logic')
+              setRewriting('logical')
+              setTransformer('all-MiniLM-L6-v2')
+            }}>LOGICAL LOGIC
             </button>
             <button style={{
               backgroundColor: (similarity === "SentenceTransformer" && 'all-MiniLM-L6-v2' === transformer) ? '#5bae38' : '#3c3c3c',
@@ -358,14 +403,14 @@ function App() {
               setTransformer('all-mpnet-base-v2')
             }}>all-mpnet-base-v2
             </button>
-            <button style={{
-              backgroundColor: 'all-roberta-large-v1' === transformer ? '#5bae38' : '#3c3c3c',
-              color: 'all-roberta-large-v1' === transformer ? '' : '#6d6d6d'
-            }} onClick={() => {
-              setSimilarity('SentenceTransformer')
-              setTransformer('all-roberta-large-v1')
-            }}>all-roberta-large-v1
-            </button>
+            {/*<button style={{*/}
+            {/*  backgroundColor: 'all-roberta-large-v1' === transformer ? '#5bae38' : '#3c3c3c',*/}
+            {/*  color: 'all-roberta-large-v1' === transformer ? '' : '#6d6d6d'*/}
+            {/*}} onClick={() => {*/}
+            {/*  setSimilarity('SentenceTransformer')*/}
+            {/*  setTransformer('all-roberta-large-v1')*/}
+            {/*}}>all-roberta-large-v1*/}
+            {/*</button>*/}
           </div>
           <br/>
           <button className={'runBtn'} onClick={submitSentences}>RUN</button>
@@ -385,37 +430,52 @@ function App() {
           </div>
           <div className={'resultsInnerDiv'}>
             <div>
-              <h3 className={'resultTitle'}>Simplistic Proposed</h3>
+              <h3 className={'resultTitle'}>Graphs Simplistic</h3>
               <div>
-                {IDEASMatrix}
+                {IDEASGraphsSimplisticMatrix}
               </div>
             </div>
+            <div>
+              <h3 className={'resultTitle'}>Graphs with Logic</h3>
+              <div>
+                {IDEASGraphsLogicalMatrix}
+              </div>
+            </div>
+            <div>
+              <h3 className={'resultTitle'}>Logical Representation</h3>
+              <div>
+                {IDEASLogicalLogicMatrix}
+              </div>
+            </div>
+          </div>
+          <div className={'resultsInnerDiv'}>
             <div>
               <h3 className={'resultTitle'}>all-MiniLM-L6-v2</h3>
               <div>
                 {L6Matrix}
               </div>
             </div>
-          </div>
-          <div className={'resultsInnerDiv'}>
             <div>
               <h3 className={'resultTitle'}>all-mpnet-base-v2</h3>
               <div>
                 {MPNETMatrix}
               </div>
             </div>
-            <div>
-              <h3 className={'resultTitle'}>all-roberta-Large-v1</h3>
-              <div>
-                {RobertaMatrix}
-              </div>
-            </div>
+          </div>
+          <div className={'resultsInnerDiv'}>
+
+            {/*<div>*/}
+            {/*  <h3 className={'resultTitle'}>all-roberta-Large-v1</h3>*/}
+            {/*  <div>*/}
+            {/*    {RobertaMatrix}*/}
+            {/*  </div>*/}
+            {/*</div>*/}
           </div>
 
           <div>
             <h2>Sentences</h2>
             <div className={'resultSentences'}>
-              {IDEASResults}
+              {IDEASGraphsSimplisticResults}
             </div>
 
             {selectedGraphUrl !== "" ?

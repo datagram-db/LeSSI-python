@@ -1,11 +1,11 @@
 'stanford_nlp_host': 'localhost'
 'stanford_nlp_port': '9998'
 db:
-  uname: giacomo #fox  # giacomo
-  pw: omocaig #password  # omocaig
+  uname: fox #fox  # giacomo
+  pw: password #password  # omocaig
   host: localhost
   port: 5432
-  db: conceptnet #ideas  # conceptnet
+  db: ideas #ideas  # conceptnet
 conceptnet: "/home/fox/PycharmProjects/news-crawler2/mini.h5_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt"
 geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
 
@@ -15,16 +15,16 @@ geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_inp
 #'should_generate_cypher_in_db': False
 #'should_run_datagram_db': True
 should_match_sentences: True
-hand_dataset: 'sentences/newcastle_sentences.txt'
+hand_dataset: 'sentences/ab.txt'
 ontology: 'Parmenides/parmenides.ttl'
 #non_verbs: 'gsmtosimilarity/non_verb_types.txt'
 #rejected_edge_types: 'gsmtosimilarity/rejected_edge_types.txt'
 #transitive_verbs: 'gsmtosimilarity/transitive_verbs.txt'
 force_regenerate: False
 
-rewriting_strategy: 'logic' # simplistic / logic
-'similarity': 'IDEAS24_logic' #IDEAS24 / SentenceTransformer
-'HuggingFace': 'sentence-transformers/all-MiniLM-L6-v2'
+rewriting_strategy: 'simplistic' # simplistic / logic
+'similarity': 'IDEAS24_graphs' #IDEAS24_graphs / #IDEAS24_logic / SentenceTransformer
+'HuggingFace': 'sentence-transformers/all-MiniLM-L6-v2' # all-MiniLM-L6-v2 / all-mpnet-base-v2
 'string_similarity': 'Prevailing'
 'string_similarity_prevailing': 'HuggingFace'
 'verb_similarity': 'Prevailing'
@@ -38,11 +38,11 @@ ConceptNet5Numberbatch:
 
 resolve_params:
   recall_threshold: 0.1
-  precision_threshold: 0.6  # 0.7 doesn't detect Newcastle upon Tyne from 'Newcastle'
+  precision_threshold: 0.8  # 0.7 doesn't detect Newcastle upon Tyne from 'Newcastle'
 
 #'crawl_to_gsm':
 #  'stanza_db': 'final_gsm_stanza_db.json'
 #'generate_final_db':
 #  'db_ph2': 'final_db.json' # JSON for crawled data
 
-'gsm_gsql_file_path': '/home/giacomo/projects/gsm2/' # '/home/fox/CLionProjects/gsm_gsql/' # '/home/giacomo/projects/gsm2/'
+'gsm_gsql_file_path': '/home/fox/CLionProjects/gsm_gsql/' # '/home/fox/CLionProjects/gsm_gsql/' # '/home/giacomo/projects/gsm2/'

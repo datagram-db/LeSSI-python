@@ -204,19 +204,19 @@ def src_make_prop(src, rel, negated, score,properties, dst):
     else:
         return make_prop(None, rel, negated, score,properties,dst)
 
-def rewrite_kernels(obj:Sentence)->Formula:
+
+def rewrite_kernels(obj: Sentence) -> Formula:
     main_pop = obj.kernel
     properties = obj.properties
     rel = main_pop.edgeLabel.named_entity
     negated = main_pop.isNegated
 
-    score = 1.0
     #TODO: @Olvier. this, at the end of the debugging, shall not be 0 (Giacomo)
-    # score = main_pop.edgeLabel.confidence
-    # if main_pop.source is not None:
-    #     score *= main_pop.source.confidence
-    # if main_pop.target is not None:
-    #     score *= main_pop.target.confidence
+    score = main_pop.edgeLabel.confidence
+    if main_pop.source is not None:
+        score *= main_pop.source.confidence
+    if main_pop.target is not None:
+        score *= main_pop.target.confidence
 
     return src_make_prop(main_pop.source, rel, negated, score, properties, main_pop.target)
 

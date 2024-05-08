@@ -5,17 +5,67 @@ __license__ = "GPL"
 __version__ = "2.0"
 __maintainer__ = "Oliver R. Fox, Giacomo Bergami"
 __status__ = "Production"
+
 import json
 import math
 from collections import defaultdict
 from copy import copy
 
+import numpy
+
 from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder, negations, lemmatizer, Graph
 from inference_engine.EntityRelationship import Singleton, SetOfSingletons, Grouping, Relationship, replaceNamed
 from inference_engine.Sentence import Sentence
 
+from allChunks import allChunks
+from itertools import repeat
 
-def merge_set_of_singletons(item, nodes, key, simplistic):
+
+def most_specific_type(types):
+    if "GPE" in types:
+        return "GPE"
+    elif "LOC" in types:
+        return "LOC"
+    elif "ORG" in types:
+        return "ORG"
+    elif "noun" in types:
+        return "noun"
+    elif "ENTITY" in types:
+        return "ENTITY"
+    else:
+        return "None"
+
+
+def score_from_meu(name, min_value, max_value, item_type, stanza_row):
+    # x = str(x).lower()
+    # y = lemmatizer.lemmatize(x, 'n')
+    # print(x, y)
+
+    # for meu in stanza_row['multi_entity_unit']:
+    #     if 'monad' in meu and x == str(meu['monad']).lower():
+    #         print(x, meu['confidence'])
+    #         return meu['confidence']
+
+    max_value = min_value + len(name)
+
+    matched_meus = []
+    objs = []
+
+    for meu in stanza_row['multi_entity_unit']:
+        start_meu = meu['start_char']
+        end_meu = meu['end_char']
+        if min_value == start_meu and end_meu == max_value:
+            if item_type == meu['type'] or item_type == "None":
+                objs.append(meu)
+                matched_meus.append(meu['confidence'])
+
+    if len(matched_meus) == 0:
+        return 0
+    else:
+        return max(matched_meus)
+
+
+def merge_set_of_singletons(item, nodes, key, simplistic, stanza_row):
     chosen_entity = None
     extra = ""
     norm_confidence = 1
@@ -23,11 +73,49 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
 
     # Sort entities based on word position to keep correct order
     sorted_entities = sorted(item.entities, key=lambda x: float(dict(x.properties)['pos']))
+
+    sorted_entity_names = list(map(getattr, sorted_entities, repeat('named_entity')))
+    d = dict(zip(range(len(sorted_entity_names)), sorted_entity_names))  # dictionary for storing the replacing elements
+    for x in allChunks(list(d.keys())):
+        if all(y in d for y in x):
+            exp = " ".join(map(lambda z: sorted_entity_names[z], x))
+            min_value = min(map(lambda z: sorted_entities[z].min, x))
+            # max_value = max(map(lambda z: sorted_entities[z].max, x))
+            max_value = min_value + len(exp)
+
+            all_types = [sorted_entities[z].type for z in x]
+            specific_type = most_specific_type(all_types)
+
+            # if (score_from_meu(exp, min_value, max_value, specific_type, stanza_row) >=
+            #         numpy.prod(list(map(lambda z: score_from_meu(sorted_entities[z].named_entity, sorted_entities[z].min, max_value, sorted_entities[z].type, stanza_row), x)))):
+            if score_from_meu(exp, min_value, max_value, specific_type, stanza_row) >= numpy.prod(list(map(lambda z: sorted_entities[z].confidence, x))):
+                candidate_delete = set()
+                for k, v in d.items():
+                    if isinstance(k, int):
+                        if k in x:
+                            candidate_delete.add(k)
+                    elif isinstance(k, tuple):
+                        if len(set(x).intersection(set(k))) > 0:
+                            candidate_delete.add(k)
+                for z in candidate_delete:
+                    d.pop(z)
+                d[x] = exp
+    print(d)
+
+    # for entity in sorted_entities:
+    #     norm_confidence *= entity.confidence
+    #     fusion_properties = fusion_properties | dict(entity.properties)  # TODO: Most properties are overwritten?
+    #     # Giacomo: then, we'd need to use a defaultdict(list) and merge them as https://stackoverflow.com/a/70689832/1376095
+    #     if entity.type != "ENTITY" and entity.type != 'noun' and not simplistic and chosen_entity is None:  # TODO: FIX CHOSEN ENTITY NOT NONE
+    #         chosen_entity = entity
+    #     else:
+    #         extra = " ".join((extra, entity.named_entity))  # Ensure there is no leading space
+
     for entity in sorted_entities:
         norm_confidence *= entity.confidence
         fusion_properties = fusion_properties | dict(entity.properties)  # TODO: Most properties are overwritten?
-        # Giacomo: then, we'd need to use a defaultdict(list) and merge them as https://stackoverflow.com/a/70689832/1376095
-        if entity.type != "ENTITY" and entity.type != 'noun' and not simplistic and chosen_entity is None:  # TODO: FIX CHOSEN ENTITY NOT NONE
+
+        if entity.named_entity == list(d.values())[0]:
             chosen_entity = entity
         else:
             extra = " ".join((extra, entity.named_entity))  # Ensure there is no leading space
@@ -41,7 +129,6 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
             "end": str(sorted_entities[len(sorted_entities) - 1].max),
             "pos": str(dict(sorted_entities[0].properties)['pos']),
             "number": "none"
-            # "extra": extra  # This attribute is used as named_entity so no longer needed in properties
         }
 
         new_properties = new_properties | fusion_properties
@@ -59,7 +146,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
             type=type,  # TODO: What should this type be?
             confidence=norm_confidence
         )
-    elif chosen_entity is None: ## Not simplistic
+    elif chosen_entity is None:  # Not simplistic
         if extra != '':
             name = extra
             extra = ''
@@ -85,7 +172,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic):
             type='None',
             confidence=norm_confidence
         )
-    elif chosen_entity is not None: ## Not simplistic
+    elif chosen_entity is not None:  # Not simplistic
         # Convert back from frozenset to append new "extra" attribute
         new_properties = dict(chosen_entity.properties)
         new_properties["extra"] = extra
@@ -112,27 +199,27 @@ def associate_to_container(nodes_key, item, nbb):
         #     set_item = item
         # else:
         #     new_set = []
-            confidence = 1
-            new_set = list(map(lambda x: associate_to_container(x, x, nbb), nodes_key.entities))
-            for entity in new_set:# nodes_key.entities:
-                # if (entity.confidence < best_score or math.isnan(best_score)) and \
-                #         item.named_entity == entity.named_entity:  # Should this be == or in?
-                #     new_set.append(item)
-                #     confidence *= item.confidence
-                # else:
-                #     new_set.append(entity)
-                confidence *= entity.confidence
+        confidence = 1.0
+        new_set = list(map(lambda x: associate_to_container(x, x, nbb), nodes_key.entities))
+        for entity in new_set:  # nodes_key.entities:
+            # if (entity.confidence < best_score or math.isnan(best_score)) and \
+            #         item.named_entity == entity.named_entity:  # Should this be == or in?
+            #     new_set.append(item)
+            #     confidence *= item.confidence
+            # else:
+            #     new_set.append(entity)
+            confidence *= entity.confidence
 
-            set_item = SetOfSingletons(
-                type=nodes_key.type,
-                entities=tuple(new_set),
-                min=nodes_key.min,
-                max=nodes_key.max,
-                confidence=confidence
-            )
-            return set_item
-        # nodes[key] = set_item
-        # return set_item.confidence
+        set_item = SetOfSingletons(
+            type=nodes_key.type,
+            entities=tuple(new_set),
+            min=nodes_key.min,
+            max=nodes_key.max,
+            confidence=confidence
+        )
+        return set_item
+    # nodes[key] = set_item
+    # return set_item.confidence
     else:
         if item not in nbb:
             nbb[item] = item
@@ -146,6 +233,7 @@ def associate_to_container(nodes_key, item, nbb):
             # else:
             #     # nodes[key] = association
             #     return nbb[item]
+
 
 
 class AssignTypeToSingleton:
@@ -181,46 +269,46 @@ class AssignTypeToSingleton:
         # print(meu_entities)
 
     def assign_type_to_all_singletons(self):
-        if len(self.final_assigment)>0:
+        if len(self.final_assigment) > 0:
             return self.final_assigment
         for item in self.associations:
             # for association in associations:
-                if len(self.meu_entities[item]) > 0:
-                    if item.type == '∃':
-                        best_score = item.confidence
-                        best_items = [item]
-                        best_type = item.type
+            if len(self.meu_entities[item]) > 0:
+                if item.type == '∃':
+                    best_score = item.confidence
+                    best_items = [item]
+                    best_type = item.type
+                else:
+                    best_score = max(map(lambda y: dict(y)['confidence'], self.meu_entities[item]))
+                    best_items = [dict(y) for y in self.meu_entities[item] if dict(y)['confidence'] == best_score]
+                    best_type = None
+                    if len(best_items) == 1:
+                        best_item = best_items[0]
+                        best_type = best_item['type']
                     else:
-                        best_score = max(map(lambda y: dict(y)['confidence'], self.meu_entities[item]))
-                        best_items = [dict(y) for y in self.meu_entities[item] if dict(y)['confidence'] == best_score]
+                        best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
                         best_type = None
-                        if len(best_items) == 1:
-                            best_item = best_items[0]
-                            best_type = best_item['type']
+                        if len(best_types) == 1:
+                            best_type = best_types[0]
+                        ## TODO! type disambiguation, in future works, needs to take into account also the verb associated to it!
+                        elif "PERSON" in best_types:
+                            best_type = "PERSON"
+                        elif "LOC" in best_types and "GPE" in best_types:
+                            best_type = "GPE"
                         else:
-                            best_types = list(set(map(lambda best_item: best_item['type'], best_items)))
-                            best_type = None
-                            if len(best_types) == 1:
-                                best_type = best_types[0]
-                            ## TODO! type disambiguation, in future works, needs to take into account also the verb associated to it!
-                            elif "PERSON" in best_types:
-                                best_type = "PERSON"
-                            elif "LOC" in best_types and "GPE" in best_types:
-                                best_type = "LOC"
-                            else:
-                                best_type = "None"
-                    self.final_assigment[item] = Singleton(
-                        named_entity=item.named_entity,
-                        properties=item.properties,
-                        min=item.min,
-                        max=item.max,
-                        type=best_type,
-                        confidence=best_score
-                    )
-                    # if isinstance(association, Singleton):
-                    #
-                    # else:
-                    #     self.final_assigment[item] = association
+                            best_type = "None"
+                self.final_assigment[item] = Singleton(
+                    named_entity=item.named_entity,
+                    properties=item.properties,
+                    min=item.min,
+                    max=item.max,
+                    type=best_type,
+                    confidence=best_score
+                )
+                # if isinstance(association, Singleton):
+                #
+                # else:
+                #     self.final_assigment[item] = association
         return self.final_assigment
 
 
@@ -228,6 +316,7 @@ atts_global = AssignTypeToSingleton()
 
 def assign_to_all():
     return atts_global.assign_type_to_all_singletons()
+
 
 def assign_type_to_singleton(item, stanza_row, nodes, key):
     atts_global.assign_type_to_singleton_1(item, stanza_row)
@@ -311,7 +400,7 @@ def create_existential(edges, nodes):
     for key in nodes:
         node = nodes[key]
         for prop in dict(node.properties):
-            if 'kernel' in prop or len(nodes)==1:
+            if 'kernel' in prop or len(nodes) == 1:
                 edges.append(Relationship(
                     source=node,
                     target=Singleton(
@@ -397,7 +486,6 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
                         break
 
             # If not a transitive verb, remove target as target reflects direct object
-            # Giacomo: You had to include lemmatization!!!!
             if len(legacy.lemmatize_sentence(edge.edgeLabel.named_entity).intersection(transitive_verbs)) == 0:
                 kernel = Relationship(
                     source=edge.source,
@@ -425,7 +513,7 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
         n = len(edges)
         create_existential(edges, nodes)
 
-        if n < len(edges):
+        if n <= len(edges):
             kernel = edges[-1]
     kernel_nodes = set()
     if kernel is not None:
@@ -450,7 +538,8 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
                 properties[type_key].append(edge.target)
 
     from gsmtosimilarity.stanza_pipeline import StanzaService
-    el = " ".join(map(lambda y: y["lemma"], filter(lambda x: x["upos"] != "AUX", StanzaService().stNLP(lemmatizer.lemmatize(kernel.edgeLabel.named_entity, 'v')).to_dict()[0])))
+    el = " ".join(map(lambda y: y["lemma"], filter(lambda x: x["upos"] != "AUX", StanzaService().stNLP(
+        lemmatizer.lemmatize(kernel.edgeLabel.named_entity, 'v')).to_dict()[0])))
     sentence = Sentence(
         kernel=Relationship(
             source=kernel.source,
@@ -461,12 +550,12 @@ def create_sentence_obj(cfg, edges, nodes, transitive_verbs, legacy):
         properties=dict(properties)
     )
     from logical_repr.rewrite_kernels import rewrite_kernels
-    final =  rewrite_kernels(sentence)
+    final = rewrite_kernels(sentence)
     print(json.dumps(final, cls=EnhancedJSONEncoder))
     return final
 
 
-def group_nodes(nodes, parsed_json):
+def group_nodes(nodes, parsed_json, simplsitic):
     # Get all nodes from resulting graph and create list of Singletons
     number_of_nodes = range(len(parsed_json))
     for row in number_of_nodes:
@@ -477,13 +566,13 @@ def group_nodes(nodes, parsed_json):
             minV = -1
             maxV = -1
             typeV = "None"
-            if len(item['xi']) > 0:  # xi might be empty?
+            if len(item['xi']) > 0:
                 name = item['xi'][0]
                 minV = int(item['properties']['begin'])
                 maxV = int(item['properties']['end'])
-                typeV = item['ell'][0] if len(item['ell'])>0 else "None"
+                typeV = item['ell'][0] if len(item['ell']) > 0 else "None"
             else:
-                name = '?'  # Yes, it might be empty if the node is invented, this is the only use case
+                name = '?'  # xi might be empty if the node is invented
 
             nodes[item['id']] = Singleton(
                 named_entity=name,
@@ -491,7 +580,7 @@ def group_nodes(nodes, parsed_json):
                 min=minV,
                 max=maxV,
                 type=typeV,
-                confidence=0
+                confidence=1.0
             )
     # Check if conjugation ('conj') exists and if true exists, merge into SetOfSingletons
     # Also if 'compound' relationship is present, merge parent and child nodes
@@ -500,6 +589,8 @@ def group_nodes(nodes, parsed_json):
         grouped_nodes = []
         has_conj = 'conj' in item['properties']
         is_compound = False
+        group_type = None
+        norm_confidence = 1.0
         if has_conj:
             conj = item['properties']['conj']
             if 'and' in conj:
@@ -512,14 +603,27 @@ def group_nodes(nodes, parsed_json):
                 group_type = Grouping.NONE
             for edge in item['phi']:
                 if 'orig' in edge['containment']:
-                    grouped_nodes.append(nodes[edge['content']])
+                    node = nodes[edge['content']]
+                    grouped_nodes.append(node)
+                    norm_confidence *= node.confidence
         else:
             for edge in item['phi']:
                 is_current_edge_compound = 'compound' in edge['containment']
                 if is_current_edge_compound:
                     is_compound = True
-                    grouped_nodes.append(nodes[edge['score']['child']])
+                    node = nodes[edge['score']['child']]
+                    grouped_nodes.append(node)
+                    norm_confidence *= node.confidence
 
+        # if simplsitic:
+
+            # sorted_entities = sorted(item['entities'], key=lambda x: float(dict(x.properties)['pos']))
+            # sorted_entity_names = list(map(getattr, sorted_entities, repeat('named_entity')))
+            # if group_type == Grouping.OR:
+            #     name = " or ".join(sorted_entity_names)
+            #
+            # nodes[item['id']] = Singleton()
+            #
         if has_conj:
             if group_type == Grouping.NEITHER:
                 grouped_nodes = [SetOfSingletons(type=Grouping.NOT, entities=tuple([x]), min=x.min, max=x.max,
@@ -527,11 +631,11 @@ def group_nodes(nodes, parsed_json):
                 grouped_nodes = tuple(grouped_nodes)
                 group_type = Grouping.AND
             nodes[item['id']] = SetOfSingletons(
-                    type=group_type,
-                    entities=tuple(grouped_nodes),
-                    min=min(grouped_nodes, key=lambda x: x.min).min,
-                    max=max(grouped_nodes, key=lambda x: x.max).max,
-                    confidence=-1
+                type=group_type,
+                entities=tuple(grouped_nodes),
+                min=min(grouped_nodes, key=lambda x: x.min).min,
+                max=max(grouped_nodes, key=lambda x: x.max).max,
+                confidence=norm_confidence
             )
         elif is_compound:
             grouped_nodes.insert(0, nodes[item['id']])
@@ -540,22 +644,20 @@ def group_nodes(nodes, parsed_json):
                 entities=tuple(grouped_nodes),
                 min=min(grouped_nodes, key=lambda x: x.min).min,
                 max=max(grouped_nodes, key=lambda x: x.max).max,
-                confidence=-1
+                confidence=norm_confidence
             )
-    # print("nodes", nodes)
 
-def assign_singletons(parsed_json, stanza_row):
+
+def assign_singletons(parsed_json, stanza_row, simplsitic):
     nodes = {}
-    group_nodes(nodes, parsed_json)
-    print(nodes)
+    group_nodes(nodes, parsed_json, simplsitic)
 
     # Loop over resulting graph again and create array of edges now we have all Singletons
-    edges = []
     if stanza_row is not None:
-        # Assign types to nodes
         for key in nodes:
-            associate_type_to_item(nodes[key], key, nodes, stanza_row)
+            associate_type_to_item(nodes[key], key, nodes, stanza_row)  # Assign types to nodes
     return nodes
+
 
 def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rewriting, is_rewriting_simplistic, nodes):
     # nodes = {}
@@ -569,7 +671,6 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
         # for key in nodes:
         #     associate_type_to_item(nodes[key], key, nodes, stanza_row)
         # global_set = assign_to_all()
-        # With types assigned, merge SetOfSingletons into Singleton
         for key in nodes:
             item = nodes[key]
             # association = nbb[item]
@@ -584,12 +685,13 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
             if isinstance(item, SetOfSingletons):
                 nodes[key] = associate_to_container(nodes[key], item, nbb)
 
+        # With types assigned, merge SetOfSingletons into Singleton
         for key in nodes:
             item = nodes[key]
             if isinstance(item, SetOfSingletons):
                 if item.type == Grouping.GROUPING:
                     if do_rewriting:
-                        nodes = merge_set_of_singletons(item, nodes, key, is_rewriting_simplistic)
+                        nodes = merge_set_of_singletons(item, nodes, key, is_rewriting_simplistic, stanza_row)
 
         # Check for negation in node 'xi' and 'properties
         for key in nodes:
@@ -619,7 +721,7 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
                                     entities=tuple(grouped_nodes),
                                     min=min(grouped_nodes, key=lambda x: x.min).min,
                                     max=max(grouped_nodes, key=lambda x: x.max).max,
-                                    confidence=-1
+                                    confidence=child.confidence
                                 )
                     elif is_prop_negated:
                         nodes[key] = SetOfSingletons(
@@ -627,50 +729,41 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
                             entities=tuple([sing_item]),
                             min=sing_item.min,
                             max=sing_item.max,
-                            confidence=-1
+                            confidence=sing_item.confidence
                         )
-
-        # print(nodes)
 
         for row in range(len(parsed_json)):
             item = parsed_json[row]
             for edge in item['phi']:
                 # Make sure current edge is not in list of rejected edges, e.g. 'compound'
-                # with open(cfg['rejected_edge_types'], 'r') as f:
-                #     rejected_edges = f.read()
                 if edge['containment'] not in rejected_edges:
-                        if 'orig' not in edge['containment']:
-                            x = edge['containment']  # Name of edge label
+                    if 'orig' not in edge['containment']:
+                        x = edge['containment']  # Name of edge label
 
-                            # Giacomo: the former code was not able to handle: "does not play"
-                            querywords = x.split()
-                            resultwords = [word for word in querywords if word.lower() not in negations]
-                            x = ' '.join(resultwords)
-                            # for name in negations:  # No / not
-                            #     x = re.sub("\b(" + name + ")\b", " ", x)
-                            # x = x.strip()  # Strip of leading/trailing whitespace
+                        # Giacomo: the former code was not able to handle: "does not play"
+                        querywords = x.split()
+                        resultwords = [word for word in querywords if word.lower() not in negations]
+                        x = ' '.join(resultwords)
 
-                            has_negations = any(map(lambda x: x in edge['containment'], negations))
+                        has_negations = any(map(lambda x: x in edge['containment'], negations))
 
-                            # Check if name of edge is in "non verbs"
-                            edge_type = "verb"
-                            # with open(cfg['non_verbs'], "r") as f:
-                            #     non_verbs = f.readlines()
-                            for non_verb in non_verbs:
-                                    if x == non_verb.strip():
-                                        edge_type = "non_verb"
-                                        break
+                        # Check if name of edge is in "non verbs"
+                        edge_type = "verb"
+                        for non_verb in non_verbs:
+                            if x == non_verb.strip():
+                                edge_type = "non_verb"
+                                break
 
-                            edges.append(Relationship(
-                                source=nodes[edge['score']['parent']],
-                                target=nodes[edge['score']['child']],
-                                edgeLabel=Singleton(named_entity=x, properties=frozenset(dict().items()),
-                                                    min=-1,
-                                                    max=-1, type=edge_type,
-                                                    confidence=nodes[item['id']].confidence),
-                                isNegated=has_negations
-                            ))
-    # print(json.dumps(Graph(edges=edges), cls=EnhancedJSONEncoder))
+                        edges.append(Relationship(
+                            source=nodes[edge['score']['parent']],
+                            target=nodes[edge['score']['child']],
+                            edgeLabel=Singleton(named_entity=x, properties=frozenset(dict().items()),
+                                                min=-1,
+                                                max=-1, type=edge_type,
+                                                confidence=nodes[item['id']].confidence),
+                            isNegated=has_negations
+                        ))
+    print(json.dumps(Graph(edges=edges), cls=EnhancedJSONEncoder))
     # sentence = create_sentence_obj(cfg, edges, nodes)
     # print(json.dumps(sentence, cls=EnhancedJSONEncoder))
     return tuple([Graph(edges=edges), nodes, edges])
