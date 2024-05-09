@@ -186,7 +186,7 @@ class FVariable(Formula):
             return self
         if self in map:
             return map[self]
-        if onObjectId and id(self) != map["obj"]:
+        if onObjectId and "obj" in map and id(self) != map["obj"]:
             name = self.name
             type = self.type
         else:
@@ -285,7 +285,7 @@ class FUnaryPredicate(Formula):
             return self
         if self in map:
             return map[self]
-        if onObjectId and id(self) != map["obj"]:
+        if onObjectId and "obj" in map and id(self) != map["obj"]:
             rel = self.rel
         else:
             onObjectId = False  # Forcing always the rewrite from now on
@@ -367,7 +367,7 @@ class FBinaryPredicate(Formula):
             return self
         if self in map:
             return map[self]
-        if onObjectId and id(self) != map["obj"]:
+        if onObjectId and "obj" in map and id(self) != map["obj"]:
             rel = self.rel
         else:
             onObjectId = False #Forcing always the rewrite from now on
@@ -554,7 +554,7 @@ class FNot(Formula):
             return self
         if self in map:
             return map[self]
-        if onObjectId and id(self) == map["obj"]:
+        if onObjectId and "obj" in map and id(self) == map["obj"]:
             onObjectId = False
         arg = replace_formula(self.arg, map, onObjectId, d, fugitive)
         var= FNot(arg=arg)
