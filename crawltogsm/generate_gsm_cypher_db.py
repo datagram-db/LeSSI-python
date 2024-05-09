@@ -263,7 +263,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
             self.cfg['resolve_params']['recall_threshold'],
             self.cfg['resolve_params']['precision_threshold'],
             sentence,
-            "LOC"
+            "GPE"
         )
         for loc in locs:
             #Possible alternative to keep one single entity:

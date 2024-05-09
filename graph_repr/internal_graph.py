@@ -46,23 +46,27 @@ def score_from_meu(name, min_value, max_value, item_type, stanza_row):
     #         print(x, meu['confidence'])
     #         return meu['confidence']
 
-    max_value = min_value + len(name)
+    max_value = max_value
 
     matched_meus = []
-    objs = []
+    # objs = []
 
     for meu in stanza_row['multi_entity_unit']:
         start_meu = meu['start_char']
         end_meu = meu['end_char']
         if min_value == start_meu and end_meu == max_value:
-            if item_type == meu['type'] or item_type == "None":
-                objs.append(meu)
-                matched_meus.append(meu['confidence'])
+            # TODO: mgu or its opposite...
+            if (most_specific_type([item_type, meu['type']]) == meu['type'] or
+                    item_type == meu['type'] or
+                    item_type == "None"):
+                # objs.append(meu)
+                matched_meus.append(meu)
 
     if len(matched_meus) == 0:
-        return 0
+        return 0, "None"
     else:
-        return max(matched_meus)
+        max_score = max(map(lambda x: x['confidence'], matched_meus))
+        return max_score, most_specific_type(list(map(lambda x: x['type'], filter(lambda x: x['confidence']==max_score, matched_meus))))
 
 
 def merge_set_of_singletons(item, nodes, key, simplistic, stanza_row):
@@ -80,15 +84,18 @@ def merge_set_of_singletons(item, nodes, key, simplistic, stanza_row):
         if all(y in d for y in x):
             exp = " ".join(map(lambda z: sorted_entity_names[z], x))
             min_value = min(map(lambda z: sorted_entities[z].min, x))
-            # max_value = max(map(lambda z: sorted_entities[z].max, x))
-            max_value = min_value + len(exp)
+            max_value = max(map(lambda z: sorted_entities[z].max, x))
+            # max_value = min_value + len(exp)
 
             all_types = [sorted_entities[z].type for z in x]
             specific_type = most_specific_type(all_types)
+            candidate_meu_score, candidate_meu_type = score_from_meu(exp, min_value, max_value, specific_type, stanza_row)
+            allProd = numpy.prod(list(map(lambda z: sorted_entities[z].confidence, x)))
 
             # if (score_from_meu(exp, min_value, max_value, specific_type, stanza_row) >=
             #         numpy.prod(list(map(lambda z: score_from_meu(sorted_entities[z].named_entity, sorted_entities[z].min, max_value, sorted_entities[z].type, stanza_row), x)))):
-            if score_from_meu(exp, min_value, max_value, specific_type, stanza_row) >= numpy.prod(list(map(lambda z: sorted_entities[z].confidence, x))):
+            if ((candidate_meu_score >= allProd) or
+                    ((specific_type != candidate_meu_type) and (most_specific_type([specific_type,candidate_meu_type]) ==candidate_meu_type))):
                 candidate_delete = set()
                 for k, v in d.items():
                     if isinstance(k, int):
@@ -114,7 +121,6 @@ def merge_set_of_singletons(item, nodes, key, simplistic, stanza_row):
     for entity in sorted_entities:
         norm_confidence *= entity.confidence
         fusion_properties = fusion_properties | dict(entity.properties)  # TODO: Most properties are overwritten?
-
         if entity.named_entity == list(d.values())[0]:
             chosen_entity = entity
         else:
@@ -293,8 +299,10 @@ class AssignTypeToSingleton:
                         ## TODO! type disambiguation, in future works, needs to take into account also the verb associated to it!
                         elif "PERSON" in best_types:
                             best_type = "PERSON"
-                        elif "LOC" in best_types and "GPE" in best_types:
+                        elif "GPE" in best_types:
                             best_type = "GPE"
+                        elif "LOC" in best_types:
+                            best_type = "LOC"
                         else:
                             best_type = "None"
                 self.final_assigment[item] = Singleton(
@@ -670,7 +678,7 @@ def to_internal_graph(parsed_json, stanza_row, rejected_edges, non_verbs, do_rew
         # # Assign types to nodes
         # for key in nodes:
         #     associate_type_to_item(nodes[key], key, nodes, stanza_row)
-        # global_set = assign_to_all()
+        global_set = assign_to_all()
         for key in nodes:
             item = nodes[key]
             # association = nbb[item]

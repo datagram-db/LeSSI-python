@@ -49,24 +49,24 @@ class ResolveMultiNamedEntity:
     def test(self, current, rest, k, v, start, end, type):
         if len(rest) == 0:
             if k >= self.forinsert:
-                for j in build_loc_result(current, type, start, start + len(v), v, k, v):
+                for j in build_loc_result(current, type, start, end, v, k, v):
                     self.result.append(j)
         else:
             next = current + " " + rest[0][0]
             val = lev(next.lower(), v.lower())
             if val < k:
                 if k >= self.forinsert:
-                    for j in build_loc_result(current, type, start, start + len(v), v, k, v):
+                    for j in build_loc_result(current, type, start, end, v, k, v):
                         self.result.append(j)
             else:
-                self.test(next, rest[1:], val, v, start, start + len(v), type)
+                self.test(next, rest[1:], val, v, start, rest[0][2], type)
 
     def start(self, stringa, s, fa, nlp, type):
         self.s = s
         self.fa = fa
         self.result.clear()
         for sentence in nlp(stringa).sentences:
-            ls = [(token.text, token.start_char, token.end_char-1) for token in sentence.tokens]
+            ls = [(token.text, token.start_char, token.end_char) for token in sentence.tokens]
             for i in range(len(ls)):
                 m = s.fuzzyMatch(self.threshold, ls[i][0])
                 for k, v in m.items():
