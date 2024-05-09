@@ -299,6 +299,8 @@ class AssignTypeToSingleton:
                         ## TODO! type disambiguation, in future works, needs to take into account also the verb associated to it!
                         elif "PERSON" in best_types:
                             best_type = "PERSON"
+                        elif "DATE" in best_types or "TIME" in best_types:
+                            best_type = "DATE"
                         elif "GPE" in best_types:
                             best_type = "GPE"
                         elif "LOC" in best_types:
