@@ -26,6 +26,7 @@ from crawltogsm.write_to_log import write_to_log
 from gsmtosimilarity.geonames.GeoNames import GeoNamesService
 from gsmtosimilarity.conceptnet.ConceptNet5 import ConceptNetService
 from gsmtosimilarity.levenshtein import lev
+from gsmtosimilarity.stanza_pipeline import StanzaService
 
 
 def create_node(id, name):
@@ -219,6 +220,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
         db = list()
     geo_names_service = GeoNamesService()
     concept_net_service = ConceptNetService()
+    stanza_service = StanzaService().nlp
     # meu = MultiEntityUnit()
     tp = send_time_parsing(self, sentences)
     sentence_id = -1
@@ -228,14 +230,15 @@ def multi_named_entity_recognition(count, db, self, sentences):
         multi_entity_unit = []
 
         # Add results from Stanza to MEU
-        results = self.nlp(sentence)
+        # results = self.nlp(sentence)
+        results = stanza_service(sentence)
         for ent in results.ents:
             # monad = ""
             entity = ent.text
             monad = entity.replace(" ", "")
             if ent.type == "ORG":  # Remove spaces to create one word 'ORG' entities
                 entities.append([entity, monad])
-            #Possible alternative to keep one single entity:
+            # Possible alternative to keep one single entity:
             # meu.add_entity(sentence_id, ent.text, ent.type, ent.start_char, ent.end_char, monad, 1)
             result = {
                 "text": ent.text,
@@ -243,7 +246,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
                 "start_char": ent.start_char,
                 "end_char": ent.end_char,
                 "monad": monad,
-                "confidence": lev(monad.lower(), ent.text.lower())  # Used to be NaN
+                "confidence": lev(monad.lower(), ent.text.lower())
             }
             multi_entity_unit.append(result)
 
@@ -260,7 +263,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
             self.cfg['resolve_params']['recall_threshold'],
             self.cfg['resolve_params']['precision_threshold'],
             sentence,
-            "LOC"
+            "GPE"
         )
         for loc in locs:
             #Possible alternative to keep one single entity:
@@ -288,6 +291,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
         write_to_log(None, f"MEU for '{sentence}' finished")
 
         count += 1
+        # Used for news crawler
         # total = int(self.cfg['iterations'])
         # if total is not None:
         #     if count >= total:

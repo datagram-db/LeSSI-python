@@ -7,7 +7,7 @@ db:
   port: 5432
   db: conceptnet #ideas  # conceptnet
 conceptnet: "/home/fox/PycharmProjects/news-crawler2/mini.h5_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt"
-geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
+geonames: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt" #"/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
 
 'iterations': 5 # Number of iterations for creating GSM output
 #'should_generate_final_stanza_db': False
@@ -23,8 +23,8 @@ ontology: 'Parmenides/parmenides.ttl'
 force_regenerate: False
 
 rewriting_strategy: 'logic' # simplistic / logic
-'similarity': 'IDEAS24_logic' #IDEAS24 / SentenceTransformer
-'HuggingFace': 'sentence-transformers/all-MiniLM-L6-v2'
+'similarity': 'IDEAS24_logic' #IDEAS24_graphs / #IDEAS24_logic / SentenceTransformer
+'HuggingFace': 'sentence-transformers/all-MiniLM-L6-v2' # all-MiniLM-L6-v2 / all-mpnet-base-v2
 'string_similarity': 'Prevailing'
 'string_similarity_prevailing': 'HuggingFace'
 'verb_similarity': 'Prevailing'
@@ -45,4 +45,4 @@ resolve_params:
 #'generate_final_db':
 #  'db_ph2': 'final_db.json' # JSON for crawled data
 
-'gsm_gsql_file_path': '/home/giacomo/projects/gsm2/' # '/home/fox/CLionProjects/gsm_gsql/' # '/home/giacomo/projects/gsm2/'
+'gsm_gsql_file_path': '/home/giacomo/projects/gsm2/' # '/home/fox/CLionProjects/gsm_gsql/' #

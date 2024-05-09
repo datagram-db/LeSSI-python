@@ -18,7 +18,7 @@ class StanzaService:
 
     nlp_token = None
     nlp = None
-    stNLP= None
+    stNLP = None
 
     def __init__(self):
         if self.nlp is None:

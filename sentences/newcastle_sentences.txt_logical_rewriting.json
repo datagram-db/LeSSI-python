@@ -1,0 +1,276 @@
+[
+    {
+        "arg": {
+            "rel": "be",
+            "arg": {
+                "name": "traffic",
+                "type": "GPE",
+                "specification": null,
+                "cop": null,
+                "meta": "FVariable"
+            },
+            "score": 1.0,
+            "properties": {
+                "GPE": [
+                    {
+                        "name": "Newcastle",
+                        "type": "GPE",
+                        "specification": "city centre",
+                        "cop": null,
+                        "meta": "FVariable"
+                    }
+                ]
+            },
+            "meta": "FUnaryPredicate"
+        },
+        "meta": "FNot"
+    },
+    {
+        "rel": "traffic",
+        "arg": {
+            "name": "?",
+            "type": "None",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": "city centre",
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "traffic",
+            "type": "GPE",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "arg": {
+                        "name": "Newcastle",
+                        "type": "GPE",
+                        "specification": "city centre",
+                        "cop": null,
+                        "meta": "FVariable"
+                    },
+                    "meta": "FNot"
+                },
+                {
+                    "name": "not",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "flow in",
+        "arg": {
+            "name": "traffic",
+            "type": "GPE",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "DATE": [
+                {
+                    "name": "Saturday",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ],
+            "GPE": [
+                {
+                    "name": "in",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "city centers",
+            "type": "None",
+            "specification": "",
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "DATE": [
+                {
+                    "name": "Saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ],
+            "GPE": [
+                {
+                    "name": "busy",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": {
+                        "name": "usually",
+                        "type": "JJ",
+                        "specification": null,
+                        "cop": null,
+                        "meta": "FVariable"
+                    },
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "DATE": [
+                {
+                    "name": "Saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ],
+            "ENTITY": [
+                {
+                    "name": "City",
+                    "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                },
+                {
+                    "name": "centers",
+                    "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
+    },
+    {
+        "rel": "have",
+        "src": {
+            "name": "City centres",
+            "type": "None",
+            "specification": "",
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "dst": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "DATE": [
+                {
+                    "name": "Saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FBinaryPredicate"
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "traffic",
+            "type": "GPE",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable"
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": "city centre",
+                    "cop": null,
+                    "meta": "FVariable"
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate"
+    }
+]

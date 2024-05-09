@@ -87,7 +87,6 @@ class LegacyPipeline:
     def bogus(self, x, y)->float:
         return -1.0
 
-
     def graph_with_logic_similarity(self, x, y)->float:
         dist = self.sc.graph_distance(x, y) * 1.0
         return 1.0 - dist #/ (1 + dist)
@@ -125,7 +124,7 @@ class LegacyPipeline:
 
     def getSimilarityMatrix(self):
         write_to_log(self.cfg, "Getting similarity matrix...")
-        if self.cfg['similarity'] == 'IDEAS24':
+        if 'IDEAS24' in self.cfg['similarity']:
             return self.ideas24Similarity()
         elif self.cfg['similarity'] == 'SentenceTransformer':
             return self.bertSimilarity()

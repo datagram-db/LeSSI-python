@@ -53,13 +53,13 @@ class ResolveMultiNamedEntity:
                     self.result.append(j)
         else:
             next = current + " " + rest[0][0]
-            val = TwoGramSetSimilarity(next.lower(), v.lower())
+            val = lev(next.lower(), v.lower())
             if val < k:
                 if k >= self.forinsert:
                     for j in build_loc_result(current, type, start, rest[0][1], v, k, v):
                         self.result.append(j)
             else:
-                self.test(next, rest[1:], val, v, start, rest[0][1], type)
+                self.test(next, rest[1:], val, v, start, rest[0][2], type)
 
     def start(self, stringa, s, fa, nlp, type):
         self.s = s

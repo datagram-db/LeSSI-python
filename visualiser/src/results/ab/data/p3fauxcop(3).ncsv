@@ -1,0 +1,4 @@
+p3fauxcop("V", "graph", "n_label", "n", "S", "A") {
+	[0, 4, "nsubj", "↑17", 4, 2]
+	[0, 5, "nsubj", "↑18", 4, 2]
+}

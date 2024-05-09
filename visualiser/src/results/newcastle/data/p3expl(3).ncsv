@@ -1,0 +1,11 @@
+p3expl("Z", "graph", "V", "n_label", "S", "l_label", "l", "A", "XC", "N", "T") {
+	[1, 0, 0, "nsubj", @S("S", "n", "NN") {
+		[2, "↑25", 3]
+}, "expl", "↑33", NULL, NULL, NULL, NULL]
+	[1, 2, 0, "nsubj", @S("S", "n", "NN") {
+		[2, "↑27", NULL]
+}, "expl", "↑35", NULL, 3, NULL, NULL]
+	[2, 1, 1, "nsubj", @S("S", "n", "NN") {
+		[3, "↑26", NULL]
+}, "expl", "↑34", NULL, NULL, NULL, NULL]
+}
