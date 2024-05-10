@@ -1101,3 +1101,95 @@ properties:
 phi:
 .
 
+~~
+id:0
+ell:
+CC
+.
+xi:
+and
+.
+properties:
+"pos"	"2"
+"end"	"13"
+"begin"	"10"
+.
+phi:
+.
+
+id:1
+ell:
+noun
+.
+xi:
+traffic
+.
+properties:
+"number"	"singular"
+"pos"	"5"
+"specification"	"common"
+"end"	"35"
+"begin"	"28"
+.
+phi:
+.
+
+id:2
+ell:
+verb
+root
+.
+xi:
+have
+.
+properties:
+"pos"	"4"
+"end"	"27"
+"begin"	"23"
+.
+phi:
+"obj"
+	1.0	1
+;"nsubj"
+	1.0	3
+	1.0	4
+;.
+
+id:4
+ell:
+noun
+.
+xi:
+Newcastle
+.
+properties:
+"number"	"singular"
+"pos"	"1"
+"specification"	"proper"
+"end"	"9"
+"begin"	"0"
+.
+phi:
+"conj"
+	1.0	3
+;.
+
+id:3
+ell:
+noun
+.
+xi:
+Brighton
+.
+properties:
+"number"	"singular"
+"pos"	"3"
+"specification"	"proper"
+"end"	"22"
+"begin"	"14"
+.
+phi:
+"cc"
+	1.0	0
+;.
+

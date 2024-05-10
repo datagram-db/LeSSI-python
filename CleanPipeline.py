@@ -6,6 +6,7 @@ __version__ = "2.0"
 __maintainer__ = "Giacomo Bergami"
 __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
+
 import json
 import os.path
 import sys
@@ -25,8 +26,10 @@ from gsmtosimilarity.stanza_pipeline import StanzaService
 from logical_repr.sentence_expansion import SentenceExpansion
 from newscrawl.NewsCrawl import NewsCrawl
 
+
 class CleanPipeline:
     _instance = None
+
     @classmethod
     def instance(cls):
         if cls._instance is None:
@@ -87,7 +90,8 @@ class CleanPipeline:
         ## DB Initialisation
         (FuzzyStringMatchDatabase
          .instance()
-         .init(self.cfg["db"]["db"], self.cfg["db"]["uname"], self.cfg["db"]["pw"], self.cfg["db"]["host"], self.cfg["db"]["port"]))
+         .init(self.cfg["db"]["db"], self.cfg["db"]["uname"], self.cfg["db"]["pw"], self.cfg["db"]["host"],
+               self.cfg["db"]["port"]))
         FuzzyStringMatchDatabase.instance().create("conceptnet", self.cfg["conceptnet"])
         FuzzyStringMatchDatabase.instance().create("geonames", self.cfg["geonames"])
         # global geo_names
@@ -157,7 +161,7 @@ class CleanPipeline:
         return json.dumps({"similarity_matrix": M.tolist(), "sentences": sentences})
 
     def apply_graph_grammar(self, gsm_sentences):
-        gsmout_graphlist_file = self.cfg["hand_dataset"]+"_out_gsm.json"
+        gsmout_graphlist_file = self.cfg["hand_dataset"] + "_out_gsm.json"
         import os
         if os.path.isfile(gsmout_graphlist_file) and not self.cfg['force_regenerate']:
             with open(gsmout_graphlist_file) as f:
@@ -178,7 +182,6 @@ class CleanPipeline:
                 json.dump(graphs, f, indent=4)
         return graphs
 
-
     def semantic_transformation(self, graphs, stanza_db, dumpFile=None):
         # TODO: find a more explicative name
         from graph_repr.internal_graph import to_internal_graph
@@ -188,7 +191,9 @@ class CleanPipeline:
         for graph, stanza_row in zip(graphs, stanza_db):
             allNodes.append(assign_singletons(graph, stanza_row, self.simplistic))
         assign_to_all()
-        graphs_r = [to_internal_graph(graph, stanza_row, self.rejected_edges, self.non_verbs, True, self.simplistic, nodes) for graph, stanza_row, nodes in zip(graphs, stanza_db, allNodes)]
+        graphs_r = [
+            to_internal_graph(graph, stanza_row, self.rejected_edges, self.non_verbs, True, self.simplistic, nodes) for
+            graph, stanza_row, nodes in zip(graphs, stanza_db, allNodes)]
         if dumpFile is not None:
             with open(dumpFile, "w") as f:
                 print(dumpFile)
@@ -200,7 +205,8 @@ class CleanPipeline:
     def getLogicalRepresentation(self, graph_e_n_list):
         from graph_repr.internal_graph import create_sentence_obj
         # graph, edges, nodes = graph_e_n
-        sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for graph, nodes, edges in graph_e_n_list]
+        sentences = [create_sentence_obj(self.cfg, graph.edges, nodes, self.transitive_verbs, self.legacy_pipeline) for
+                     graph, nodes, edges in graph_e_n_list]
         gsmout_graphlist_file = self.cfg["hand_dataset"] + "_logical_rewriting.json"
         if not os.path.isfile(gsmout_graphlist_file):
             with open(gsmout_graphlist_file, "w") as f:
@@ -243,8 +249,8 @@ class CleanPipeline:
     def generate_gsm_from_stanfordnlp(self, sentences):
         gsm_dbs = ""
         filepath = ""
-        if 'gsm_sentences' in self.cfg and os.path.isfile(self.cfg['gsm_sentences']) and not self.cfg[
-            'force_regenerate']:
+        if ('gsm_sentences' in self.cfg and os.path.isfile(self.cfg['gsm_sentences'])
+                and not self.cfg['force_regenerate']):
             filepath = os.path.abspath(self.cfg['gsm_sentences'])
             with open(filepath) as f:
                 self.write_to_log("READING PREVIOUS COMPUTATION FOR: gsm_dbs")
@@ -265,6 +271,3 @@ class CleanPipeline:
                 return SentenceExpansion(sentences, None)
         else:
             return self.legacy_pipeline.sc.string_similarity
-
-
-

@@ -36,20 +36,9 @@ def most_specific_type(types):
         return "None"
 
 
-def score_from_meu(name, min_value, max_value, item_type, stanza_row):
-    # x = str(x).lower()
-    # y = lemmatizer.lemmatize(x, 'n')
-    # print(x, y)
-
-    # for meu in stanza_row['multi_entity_unit']:
-    #     if 'monad' in meu and x == str(meu['monad']).lower():
-    #         print(x, meu['confidence'])
-    #         return meu['confidence']
-
+def score_from_meu(min_value, max_value, item_type, stanza_row):
     max_value = max_value
-
     matched_meus = []
-    # objs = []
 
     for meu in stanza_row['multi_entity_unit']:
         start_meu = meu['start_char']
@@ -59,7 +48,6 @@ def score_from_meu(name, min_value, max_value, item_type, stanza_row):
             if (most_specific_type([item_type, meu['type']]) == meu['type'] or
                     item_type == meu['type'] or
                     item_type == "None"):
-                # objs.append(meu)
                 matched_meus.append(meu)
 
     if len(matched_meus) == 0:
@@ -89,7 +77,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic, stanza_row):
 
             all_types = [sorted_entities[z].type for z in x]
             specific_type = most_specific_type(all_types)
-            candidate_meu_score, candidate_meu_type = score_from_meu(exp, min_value, max_value, specific_type, stanza_row)
+            candidate_meu_score, candidate_meu_type = score_from_meu(min_value, max_value, specific_type, stanza_row)
             allProd = numpy.prod(list(map(lambda z: sorted_entities[z].confidence, x)))
 
             # if (score_from_meu(exp, min_value, max_value, specific_type, stanza_row) >=
@@ -625,37 +613,54 @@ def group_nodes(nodes, parsed_json, simplsitic):
                     grouped_nodes.append(node)
                     norm_confidence *= node.confidence
 
-        # if simplsitic:
+        if simplsitic and len(grouped_nodes) > 0:
+            sorted_entities = sorted(grouped_nodes, key=lambda x: float(dict(x.properties)['pos']))
+            sorted_entity_names = list(map(getattr, sorted_entities, repeat('named_entity')))
 
-            # sorted_entities = sorted(item['entities'], key=lambda x: float(dict(x.properties)['pos']))
-            # sorted_entity_names = list(map(getattr, sorted_entities, repeat('named_entity')))
-            # if group_type == Grouping.OR:
-            #     name = " or ".join(sorted_entity_names)
-            #
-            # nodes[item['id']] = Singleton()
-            #
-        if has_conj:
-            if group_type == Grouping.NEITHER:
-                grouped_nodes = [SetOfSingletons(type=Grouping.NOT, entities=tuple([x]), min=x.min, max=x.max,
-                                                 confidence=x.confidence) for x in grouped_nodes]
-                grouped_nodes = tuple(grouped_nodes)
-                group_type = Grouping.AND
-            nodes[item['id']] = SetOfSingletons(
-                type=group_type,
-                entities=tuple(grouped_nodes),
+            all_types = list(map(getattr, sorted_entities, repeat('type')))
+            specific_type = most_specific_type(all_types)
+
+            if group_type == Grouping.OR:
+                name = " or ".join(sorted_entity_names)
+            elif group_type == Grouping.AND:
+                name = " and ".join(sorted_entity_names)
+            elif group_type == Grouping.NEITHER:
+                name = " nor ".join(sorted_entity_names)
+                name = f"neither {name}"
+            else:
+                name = " ".join(sorted_entity_names)
+
+            nodes[item['id']] = Singleton(
+                named_entity=name,
+                properties=frozenset(item['properties'].items()),
                 min=min(grouped_nodes, key=lambda x: x.min).min,
                 max=max(grouped_nodes, key=lambda x: x.max).max,
+                type=specific_type,
                 confidence=norm_confidence
             )
-        elif is_compound:
-            grouped_nodes.insert(0, nodes[item['id']])
-            nodes[item['id']] = SetOfSingletons(
-                type=Grouping.GROUPING,
-                entities=tuple(grouped_nodes),
-                min=min(grouped_nodes, key=lambda x: x.min).min,
-                max=max(grouped_nodes, key=lambda x: x.max).max,
-                confidence=norm_confidence
-            )
+        elif not simplsitic:
+            if has_conj:
+                if group_type == Grouping.NEITHER:
+                    grouped_nodes = [SetOfSingletons(type=Grouping.NOT, entities=tuple([x]), min=x.min, max=x.max,
+                                                     confidence=x.confidence) for x in grouped_nodes]
+                    grouped_nodes = tuple(grouped_nodes)
+                    group_type = Grouping.AND
+                nodes[item['id']] = SetOfSingletons(
+                    type=group_type,
+                    entities=tuple(grouped_nodes),
+                    min=min(grouped_nodes, key=lambda x: x.min).min,
+                    max=max(grouped_nodes, key=lambda x: x.max).max,
+                    confidence=norm_confidence
+                )
+            elif is_compound:
+                grouped_nodes.insert(0, nodes[item['id']])
+                nodes[item['id']] = SetOfSingletons(
+                    type=Grouping.GROUPING,
+                    entities=tuple(grouped_nodes),
+                    min=min(grouped_nodes, key=lambda x: x.min).min,
+                    max=max(grouped_nodes, key=lambda x: x.max).max,
+                    confidence=norm_confidence
+                )
 
 
 def assign_singletons(parsed_json, stanza_row, simplsitic):

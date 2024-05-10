@@ -1152,5 +1152,135 @@
                 "object": 1
             }
         }
+    ],
+    [
+        {
+            "id": 5,
+            "ell": [],
+            "xi": [
+                "Brighton Newcastle"
+            ],
+            "properties": {
+                "kernel": "Brighton Newcastle",
+                "conj": "and"
+            },
+            "phi": [
+                {
+                    "containment": "    have ",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "    have ",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "dep",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "dep",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 3,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "orig",
+                        "child": 3,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "orig",
+                    "content": 4,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 5,
+                        "label": "orig",
+                        "child": 4,
+                        "id": 2
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 5
+            }
+        },
+        {
+            "id": 1,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "traffic"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "28",
+                "end": "35",
+                "number": "singular",
+                "pos": "5.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 1
+            }
+        },
+        {
+            "id": 4,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Newcastle"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "0",
+                "end": "9",
+                "number": "singular",
+                "pos": "1.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 4
+            }
+        },
+        {
+            "id": 3,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Brighton"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "14",
+                "end": "22",
+                "number": "singular",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 3
+            }
+        }
     ]
 ]

@@ -6,6 +6,7 @@ __version__ = "2.0"
 __maintainer__ = "Giacomo Bergami"
 __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
+
 from collections import defaultdict
 from enum import Enum
 from functools import reduce
@@ -19,11 +20,11 @@ import pandas
 
 from logical_repr.Sentences import Formula
 
+
 class PairwiseCases(Enum):
     NonImplying = 0
     Implying = 1
     MutuallyExclusive = 2
-
 
 
 class CountingDictionary:
@@ -48,23 +49,26 @@ class CountingDictionary:
             return -1
         return self.counter[x]
 
+
 def with_variables_from(f, l, cd: CountingDictionary, fn, selection=False):
-    pdf = reduce(lambda x,y: x.merge(y, how="cross"),[pandas.DataFrame({str(x): [1,0]}) for x in l])
+    pdf = reduce(lambda x, y: x.merge(y, how="cross"), [pandas.DataFrame({str(x): [1, 0]}) for x in l])
     L = []
     for x in pdf.to_dict(orient='records'):
         d = dict()
-        for k,v in x.items():
+        for k, v in x.items():
             d[cd.fromId(int(k))] = v
         x[fn] = f.semantic(d)
-        if not selection or x[fn]>0.0:
+        if not selection or x[fn] > 0.0:
             L.append(x)
     return pandas.DataFrame(L)
+
 
 def with_true_variables_from(l):
     return pandas.DataFrame({str(x): [1] for x in l})
 
+
 class SentenceExpansion:
-    def __init__(self, sentence_list:List[Formula], kb):
+    def __init__(self, sentence_list: List[Formula], kb):
         self.sentence_list = []
         self.sentence_to_id = dict()
         for idx in range(len(sentence_list)):
@@ -76,7 +80,7 @@ class SentenceExpansion:
         self.d = defaultdict(set)
         self.buildup = False
 
-    def expand_sentence(self, sentence_id)->List[Formula]:
+    def expand_sentence(self, sentence_id) -> List[Formula]:
         # TODO: use the Knowledge Base to expand the interpretations
         return self.sentence_list[sentence_id].getAtoms()
 
@@ -92,15 +96,15 @@ class SentenceExpansion:
         test = self.get_mutual_truth(i, j)
         # relation = Relation()
         # relation.add_attributes([str(i), str(j)])
-        if (test == PairwiseCases.NonImplying):
-            return pandas.DataFrame({str(i): [0,0,1,1],
-                     str(j): [0,1,0,1]})
-        elif (test == PairwiseCases.Implying):
+        if test == PairwiseCases.NonImplying:
+            return pandas.DataFrame({str(i): [0, 0, 1, 1],
+                                     str(j): [0, 1, 0, 1]})
+        elif test == PairwiseCases.Implying:
             return pandas.DataFrame({str(i): [0, 0, 1],
-                            str(j): [0, 1, 1]  })
-        elif (test == PairwiseCases.MutuallyExclusive):
+                                     str(j): [0, 1, 1]})
+        elif test == PairwiseCases.MutuallyExclusive:
             return pandas.DataFrame({str(i): [0, 1],
-                           str(j): [1,0]})
+                                     str(j): [1, 0]})
 
     def universal_truth(self):
         L = list()
@@ -109,7 +113,7 @@ class SentenceExpansion:
             # relation = Relation(name="R")
             return pandas.DataFrame({})
         if N == 1:
-            return pandas.DataFrame({"T":[0,1]})
+            return pandas.DataFrame({"T": [0, 1]})
         else:
             for i in range(N):
                 for j in range(N):
@@ -134,12 +138,10 @@ class SentenceExpansion:
 
     def get_straightforward_id_similarity(self, i, j):
         self.build_up_truth_table()
-        Ri = with_variables_from(self.sentence_list[i], self.d[i], self.minimal_constituents, "R"+str(i), True)
-        Rj = with_variables_from(self.sentence_list[j], self.d[j], self.minimal_constituents, "R"+str(j))
-        result = self.U.merge(Ri).merge(Rj)[list(set(Ri.columns).union(set(Rj.columns)))].drop_duplicates()[["R"+str(j)]].prod(axis=1)
-        total = result.sum(axis=0)/len(result)
+        Ri = with_variables_from(self.sentence_list[i], self.d[i], self.minimal_constituents, "R" + str(i), True)
+        Rj = with_variables_from(self.sentence_list[j], self.d[j], self.minimal_constituents, "R" + str(j))
+        result = self.U.merge(Ri).merge(Rj)[list(set(Ri.columns).union(set(Rj.columns)))].drop_duplicates()[
+            ["R" + str(j)]].prod(axis=1)
+        total = result.sum(axis=0) / len(result)
         # print(f"{i}~{j} := {total}")
         return total
-
-
-
