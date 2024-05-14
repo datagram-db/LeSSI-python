@@ -107,7 +107,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic, stanza_row):
                 for z in candidate_delete:
                     d.pop(z)
                 d[x] = exp
-    print(d)
+    # print(d)
 
     # for entity in sorted_entities:
     #     norm_confidence *= entity.confidence
@@ -280,7 +280,11 @@ class AssignTypeToSingleton:
         for item in self.associations:
             # for association in associations:
             if len(self.meu_entities[item]) > 0:
-                if item.type == '∃':
+                if (item.type == '∃' or
+                        item.type == "IN" or
+                        item.type == "NOT" or
+                        item.type == "NEG" or
+                        item.type.startswith("JJ")):
                     best_score = item.confidence
                     best_items = [item]
                     best_type = item.type
