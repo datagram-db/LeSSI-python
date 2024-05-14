@@ -58,7 +58,7 @@ def score_from_meu(name, min_value, max_value, item_type, stanza_row):
             # TODO: mgu or its opposite...
             if (most_specific_type([item_type, meu['type']]) == meu['type'] or
                     item_type == meu['type'] or
-                    item_type == "None"):
+                    item_type == "None" or item_type.lower() == "entity"):
                 # objs.append(meu)
                 matched_meus.append(meu)
 

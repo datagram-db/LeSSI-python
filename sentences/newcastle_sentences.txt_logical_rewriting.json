@@ -148,8 +148,16 @@
         "matched": false
     },
     {
-        "rel": "be",
-        "arg": {
+        "rel": "have",
+        "src": {
+            "name": "city centers",
+            "type": "None",
+            "specification": "",
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "dst": {
             "name": "busy",
             "type": "JJ",
             "specification": null,
@@ -168,19 +176,9 @@
                     "meta": "FVariable",
                     "matched": false
                 }
-            ],
-            "GPE": [
-                {
-                    "name": "city",
-                    "type": "GPE",
-                    "specification": "centers",
-                    "cop": null,
-                    "meta": "FVariable",
-                    "matched": false
-                }
             ]
         },
-        "meta": "FUnaryPredicate",
+        "meta": "FBinaryPredicate",
         "matched": false
     },
     {
@@ -195,25 +193,7 @@
         },
         "score": 1.0,
         "properties": {
-            "DATE": [
-                {
-                    "name": "Saturdays",
-                    "type": "DATE",
-                    "specification": null,
-                    "cop": null,
-                    "meta": "FVariable",
-                    "matched": false
-                }
-            ],
             "ENTITY": [
-                {
-                    "name": "City",
-                    "type": "ENTITY",
-                    "specification": null,
-                    "cop": null,
-                    "meta": "FVariable",
-                    "matched": false
-                },
                 {
                     "name": "centers",
                     "type": "ENTITY",
@@ -221,6 +201,24 @@
                     "cop": null,
                     "meta": "FVariable",
                     "matched": false
+                },
+                {
+                    "name": "City",
+                    "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ],
+            "DATE": [
+                {
+                    "name": "Saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
                 }
             ]
         },
@@ -228,25 +226,36 @@
         "matched": false
     },
     {
-        "rel": "nmod",
+        "rel": "have",
         "src": {
-            "name": "City",
-            "type": "ENTITY",
-            "specification": "centres",
+            "name": "City centres",
+            "type": "None",
+            "specification": "",
             "cop": null,
             "meta": "FVariable",
             "matched": false
         },
         "dst": {
-            "name": "Saturdays",
-            "type": "DATE",
+            "name": "busy",
+            "type": "JJ",
             "specification": null,
             "cop": null,
             "meta": "FVariable",
             "matched": false
         },
         "score": 1.0,
-        "properties": {},
+        "properties": {
+            "DATE": [
+                {
+                    "name": "Saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ]
+        },
         "meta": "FBinaryPredicate",
         "matched": false
     },

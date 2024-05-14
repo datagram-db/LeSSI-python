@@ -56,7 +56,7 @@ class ResolveMultiNamedEntity:
             val = lev(next.lower(), v.lower())
             if val < k:
                 if k >= self.forinsert:
-                    for j in build_loc_result(current, type, start, rest[0][1], v, k, v):
+                    for j in build_loc_result(current, type, start, end, v, k, v):
                         self.result.append(j)
             else:
                 self.test(next, rest[1:], val, v, start, rest[0][2], type)
@@ -66,7 +66,7 @@ class ResolveMultiNamedEntity:
         self.fa = fa
         self.result.clear()
         for sentence in nlp(stringa).sentences:
-            ls = [(token.text, token.start_char, token.end_char-1) for token in sentence.tokens]
+            ls = [(token.text, token.start_char, token.end_char) for token in sentence.tokens]
             for i in range(len(ls)):
                 m = s.fuzzyMatch(self.threshold, ls[i][0])
                 for k, v in m.items():
