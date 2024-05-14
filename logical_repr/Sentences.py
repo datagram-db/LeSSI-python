@@ -26,13 +26,19 @@ class Formula:
     def collectIds(self):
         yield id(self)
 
-    def replaceWith(self,map, onObjectId=False, d=None, fugitive=None):
+    def replaceWith(self,map, onObjectId=False, d=None, fugitive=None, forAllProperties=None):
         return self
+
+    def getFlattenedProperties(self):
+        return frozenset(set())
+
+    def getProperties(self):
+        return frozenset(set())
 
     def updateWithProperties(self, toFrozenSet):
         return self
 
-    def removePropertiesFrom(self, coll):
+    def removePropertiesFrom(self, coll, onMatch=False):
         return self
 
 def replace_string(s:str, map:dict):
@@ -43,22 +49,22 @@ def replace_string(s:str, map:dict):
     else:
         return s
 
-def replace_formula(s:Formula, map:dict, onObjectId, d, fugitive):
+def replace_formula(s:Formula, map:dict, onObjectId, d, fugitive, forAllProperties):
     if s is None or map is None or len(map) == 0:
         return s
     else:
-        return s.replaceWith(map, onObjectId, d, fugitive)
+        return s.replaceWith(map, onObjectId, d, fugitive, forAllProperties)
 
-def replace_frozenset(fs: frozenset, map: dict, onObjectId, d, fugitive):
+def replace_frozenset(fs: frozenset, map: dict, onObjectId, d, fugitive, forAllProperties):
     if fs is None or map is None or len(map) == 0:
         return fs
     else:
         result = dict()
         for x,y in fs:
-            result[x] = tuple([query_replace(z, map, onObjectId, d, fugitive) for z in y])
+            result[x] = tuple([query_replace(z, map, onObjectId, d, fugitive, forAllProperties) for z in y])
         return frozenset(result.items())
 
-def query_replace(x, map: dict, id1, d, fugitive):
+def query_replace(x, map: dict, id1, d, fugitive, forAllProperties):
     if map is None or len(map) == 0:
         return x
     elif x in map:
@@ -66,9 +72,9 @@ def query_replace(x, map: dict, id1, d, fugitive):
     elif isinstance(x, str):
         return replace_string(x, map)
     elif isinstance(x, Formula):
-        return replace_formula(x, map, id1, d, fugitive)
+        return replace_formula(x, map, id1, d, fugitive, forAllProperties)
     elif isinstance(x, frozenset):
-        return replace_frozenset(x, map, id1, d, fugitive)
+        return replace_frozenset(x, map, id1, d, fugitive, forAllProperties)
     else:
         raise ValueError("Unsupported type for: "+str(x))
 
@@ -148,8 +154,13 @@ class FVariable(Formula):
     meta: str = field(default_factory=lambda : "FVariable")
     matched: bool = field(default_factory=lambda : False)
 
-    def removePropertiesFrom(self, coll):
-        return self
+    def getFlattenedProperties(self):
+        if self.cop is not None:
+            return self.cop.getFlattenedProperties()
+        return super().getFlattenedProperties()
+
+    def removePropertiesFrom(self, coll, onMatch=False):
+        return FVariable(self.name, self.type, self.specification, self.cop.removePropertiesFrom(coll, onMatch) if self.cop is not None else None, matched=self.matched)
 
     def isUnresolved(self):
         if self.matched: return False
@@ -189,7 +200,7 @@ class FVariable(Formula):
     def updateWithProperties(self, toFrozenSet):
         return self
 
-    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None):
+    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None, forAllProperties=None):
         if map is None or len(map) == 0:
             return self
         if self in map:
@@ -202,7 +213,7 @@ class FVariable(Formula):
             name = replace_string(self.name, map)
             type = replace_string(self.type, map)
         specification = replace_string(self.specification, map)
-        cop = replace_formula(self.cop, map, onObjectId, d, fugitive)
+        cop = replace_formula(self.cop, map, onObjectId, d, fugitive, forAllProperties)
         var = FVariable(name=name, type=type, specification=specification, cop=cop, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
@@ -293,8 +304,25 @@ class FUnaryPredicate(Formula):
     meta: str = field(default_factory=lambda : "FUnaryPredicate")
     matched: bool = field(default_factory=lambda : False)
 
-    def removePropertiesFrom(self, coll):
-        return FUnaryPredicate(self.rel, self.arg, self.score, remove_properties_from(self.properties, coll), matched=self.matched)
+    def getFlattenedProperties(self):
+        if self.arg is not None:
+            props = {x:set(y) for x,y in self.arg.getFlattenedProperties()}
+        else:
+            props = defaultdict(set)
+        if self.properties is not None:
+            for x, y in self.properties:
+                props[x].union(set(y))
+        return frozenset({x: tuple(y) for x,y in props.items()}.items())
+
+    def getProperties(self):
+        return self.properties
+
+    def removePropertiesFrom(self, coll, onMatch=False):
+        if (not onMatch) or (self.matched):
+            return FUnaryPredicate(self.rel, self.arg.removePropertiesFrom(coll, onMatch) if self.arg is not None else None, self.score, remove_properties_from(self.properties, coll), matched=self.matched)
+        else:
+            return FUnaryPredicate(self.rel, self.arg.removePropertiesFrom(coll, onMatch) if self.arg is not None else None, self.score, self.properties, matched=self.matched)
+
 
     def isUnresolved(self):
         if self.matched: return False
@@ -337,7 +365,7 @@ class FUnaryPredicate(Formula):
         r = {k:tuple(v) for k,v in toFrozenSet.items()}
         return FUnaryPredicate(rel=self.rel, arg=self.arg, score=self.score, properties=frozenset(r.items()), matched=self.matched)
 
-    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None):
+    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None, forAllProperties=None):
         if map is None or len(map) == 0:
             return self
         if self in map:
@@ -347,8 +375,16 @@ class FUnaryPredicate(Formula):
         else:
             onObjectId = False  # Forcing always the rewrite from now on
             rel = replace_string(self.rel, map)
-        arg = replace_formula(self.arg, map, onObjectId, d, fugitive)
-        properties = replace_frozenset(self.properties, map, onObjectId, d, fugitive)
+        arg = replace_formula(self.arg, map, onObjectId, d, fugitive, forAllProperties)
+        properties = replace_frozenset(self.properties, map, onObjectId, d, fugitive, forAllProperties)
+        if forAllProperties is not None and self in forAllProperties:
+            properties = {x:set(y) for x,y in properties}
+            for x, y in forAllProperties[self].getFlattenedProperties():
+                if x in properties:
+                    properties[x].union(set(y))
+                else:
+                    properties[x] = set(y)
+            properties = frozenset({x:tuple(y) for x,y in properties.items()}.items())
         var = FUnaryPredicate(rel=rel, arg=arg, score=self.score, properties=properties, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
@@ -375,8 +411,41 @@ class FBinaryPredicate(Formula):
     meta: str = field(default_factory=lambda : "FBinaryPredicate")
     matched: bool = field(default_factory=lambda : False)
 
-    def removePropertiesFrom(self, coll):
-        return FBinaryPredicate(self.rel, self.src, self.dst, self.score, remove_properties_from(self.properties, coll), matched=self.matched)
+    def removePropertiesFrom(self, coll, onMatch=False):
+        if (not onMatch) or (self.matched):
+            return FBinaryPredicate(self.rel,
+                                   self.src.removePropertiesFrom(coll, onMatch) if self.src is not None else None,
+                                   self.dst.removePropertiesFrom(coll, onMatch) if self.dst is not None else None,
+                                   self.score, remove_properties_from(self.properties, coll), matched=self.matched)
+        else:
+            return FBinaryPredicate(self.rel,
+                                   self.src.removePropertiesFrom(coll, onMatch) if self.src is not None else None,
+                                   self.dst.removePropertiesFrom(coll, onMatch) if self.dst is not None else None,
+                                   self.score, self.properties, matched=self.matched)
+
+    def getFlattenedProperties(self):
+        flattenedSuperSet = defaultdict(set)
+        if self.src is not None:
+            for x, y in self.src.getFlattenedProperties():
+                if x not in flattenedSuperSet:
+                    flattenedSuperSet[x] = set(y)
+                else:
+                    flattenedSuperSet[x].union(set(y))
+        if self.dst is not None:
+            for x, y in self.dst.getFlattenedProperties():
+                if x not in flattenedSuperSet:
+                    flattenedSuperSet[x] = set(y)
+                else:
+                    flattenedSuperSet[x].union(set(y))
+        if self.properties is not None:
+            for x, y in self.properties:
+                flattenedSuperSet[x].union(set(y))
+        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()})
+
+
+    def getProperties(self):
+        return self.properties
+
 
     def isUnresolved(self):
         if self.matched: return False
@@ -424,7 +493,7 @@ class FBinaryPredicate(Formula):
         r = {k:tuple(v) for k,v in toFrozenSet.items()}
         return FBinaryPredicate(rel=self.rel, src=self.src, dst=self.dst, score=self.score, properties=frozenset(r.items()), matched=self.matched)
 
-    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None):
+    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None, forAllProperties=None):
         if map is None or len(map) == 0:
             return self
         if self in map:
@@ -434,9 +503,17 @@ class FBinaryPredicate(Formula):
         else:
             onObjectId = False #Forcing always the rewrite from now on
             rel = replace_string(self.rel, map)
-        src = replace_formula(self.src, map, onObjectId, d, fugitive)
-        dst = replace_formula(self.dst, map, onObjectId, d, fugitive)
-        properties = replace_frozenset(self.properties, map, onObjectId, d, fugitive)
+        src = replace_formula(self.src, map, onObjectId, d, fugitive, forAllProperties)
+        dst = replace_formula(self.dst, map, onObjectId, d, fugitive, forAllProperties)
+        properties = replace_frozenset(self.properties, map, onObjectId, d, fugitive, forAllProperties)
+        if forAllProperties is not None and self in forAllProperties:
+            properties = {x:set(y) for x,y in properties}
+            for x, y in forAllProperties[self].getFlattenedProperties():
+                if x in properties:
+                    properties[x].union(set(y))
+                else:
+                    properties[x] = set(y)
+            properties = frozenset({x:tuple(y) for x,y in properties.items()}.items())
         var = FBinaryPredicate(rel=rel, src=src, dst=dst, score=self.score, properties=properties, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
@@ -457,6 +534,22 @@ class FAnd(Formula):
     args: Tuple[Formula]
     meta: str = field(default_factory=lambda : "FAnd")
     matched: bool = field(default_factory=lambda : False)
+
+    def removePropertiesFrom(self, coll, onMatch=False):
+        return FAnd(args=tuple([x.removePropertiesFrom(coll, onMatch) if x is not None else None for x in self.args]), matched=self.matched)
+
+    def getFlattenedProperties(self):
+        flattenedSuperSet = defaultdict(set)
+        keys = set()
+        for arg in self.args:
+            if arg is not None:
+                for x,y in arg.getFlattenedProperties():
+                    if x not in flattenedSuperSet:
+                        flattenedSuperSet[x] = set(y)
+                    else:
+                        flattenedSuperSet[x].union(set(y))
+        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()})
+
 
     def updateWithProperties(self, toFrozenSet):
         return self
@@ -496,14 +589,14 @@ class FAnd(Formula):
             ancestor = None
         return FAnd(args=tuple(map(lambda x: match_formula(x, f, d, ancestor, fugitive), self.args)))
 
-    def replaceWith(self, m, onObjectId=False, d=None, fugitive=None):
+    def replaceWith(self, m, onObjectId=False, d=None, fugitive=None, forAllProperties=None):
         if m is None or len(m) == 0:
             return self
         if self in m:
             return m[self]
         if onObjectId and id(self) == m["obj"]:
             onObjectId = False
-        var = FAnd(args=tuple(map(lambda x: replace_formula(x, m, onObjectId, d, fugitive), self.args)), matched=self.matched)
+        var = FAnd(args=tuple(map(lambda x: replace_formula(x, m, onObjectId, d, fugitive, forAllProperties), self.args)), matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 
@@ -525,6 +618,22 @@ class FOr(Formula):
     args: Tuple[Formula]
     meta: str = field(default_factory=lambda : "FOr")
     matched: bool = field(default_factory=lambda : False)
+
+    def removePropertiesFrom(self, coll, onMatch=False):
+        return FOr(args=tuple([x.removePropertiesFrom(coll, onMatch) if x is not None else None for x in self.args]), matched=self.matched)
+
+
+    def getFlattenedProperties(self):
+        flattenedSuperSet = defaultdict(set)
+        keys = set()
+        for arg in self.args:
+            if arg is not None:
+                for x,y in arg.getFlattenedProperties():
+                    if x not in flattenedSuperSet:
+                        flattenedSuperSet[x] = set(y)
+                    else:
+                        flattenedSuperSet[x].union(set(y))
+        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()})
 
     def updateWithProperties(self, toFrozenSet):
         return self
@@ -564,14 +673,14 @@ class FOr(Formula):
             ancestor = None
         return FOr(args=tuple(map(lambda x: match_formula(x, f, d, ancestor, fugitive), self.args)))
 
-    def replaceWith(self, m, onObjectId=False, d=None, fugitive=None):
+    def replaceWith(self, m, onObjectId=False, d=None, fugitive=None, forAllProperties=None):
         if m is None or len(m) == 0:
             return self
         if self in m:
             return m[self]
         if onObjectId and id(self) == m["obj"]:
             onObjectId = False
-        var= FOr(args=tuple(map(lambda x: replace_formula(x, m, onObjectId,d, fugitive), self.args)), matched=self.matched)
+        var= FOr(args=tuple(map(lambda x: replace_formula(x, m, onObjectId,d, fugitive,forAllProperties), self.args)), matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 
@@ -592,6 +701,14 @@ class FNot(Formula):
     arg: Formula
     meta: str = field(default_factory=lambda : "FNot")
     matched: bool = field(default_factory=lambda : False)
+
+    def removePropertiesFrom(self, coll, onMatch=False):
+        return FNot(arg=self.arg.removePropertiesFrom(coll, onMatch) if self.arg is not None else None, matched=self.matched)
+
+    def getFlattenedProperties(self):
+        if self.arg is not None:
+            return self.arg.getFlattenedProperties()
+        return super().getFlattenedProperties()
 
     def updateWithProperties(self, toFrozenSet):
         return self
@@ -626,14 +743,14 @@ class FNot(Formula):
             ancestor = None
         return FNot(arg=match_formula(self.arg, f, d, ancestor, fugitive))
 
-    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None):
+    def replaceWith(self, map, onObjectId=False, d=None, fugitive=None, forAllProperties=None):
         if map is None or len(map) == 0:
             return self
         if self in map:
             return map[self]
         if onObjectId and "obj" in map and id(self) == map["obj"]:
             onObjectId = False
-        arg = replace_formula(self.arg, map, onObjectId, d, fugitive)
+        arg = replace_formula(self.arg, map, onObjectId, d, fugitive, forAllProperties)
         var= FNot(arg=arg, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var

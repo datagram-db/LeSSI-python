@@ -3,6 +3,7 @@ import json
 from antlr4 import *
 
 from Parmenides.TBox.SentenceMatch import RWVariable
+from logical_repr.Sentences import Formula
 from parmenides_tboxParser import parmenides_tboxParser
 from parmenides_tboxLexer import parmenides_tboxLexer
 from parmenides_tboxVisitor import parmenides_tboxVisitor
@@ -27,11 +28,16 @@ class CommonComponents:
         self.ontology_query = ontology_query
 
 class UpdateOperation:
+    cc:CommonComponents
+    formula:Formula
     def __init__(self, formula, cc:CommonComponents):
         self.cc = cc
         self.formula = formula
 
 class RewriteOperation:
+    cc:CommonComponents
+    match:Formula
+    rewrite:Formula
     def __init__(self, match, rewrite, cc:CommonComponents):
         self.cc = cc
         self.match = match
@@ -159,6 +165,13 @@ class TBoxVisitor(parmenides_tboxVisitor):
 
     def visitNone(self, ctx: parmenides_tboxParser.NoneContext):
         return None
+
+def parse_query(s):
+    lexer = parmenides_tboxLexer(InputStream(s))
+    stream = CommonTokenStream(lexer)
+    parser = parmenides_tboxParser(stream)
+    v = TBoxVisitor()
+    return v.visit(parser.parmenides_tbox())
 
 
 if __name__ == "__main__":

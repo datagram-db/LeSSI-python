@@ -2,9 +2,10 @@ import copy
 import json
 from typing import List
 
+from Parmenides.TBox.TBoxParse import UpdateOperation, parse_query
 from Parmenides.paremenides import Parmenides
 from logical_repr.Sentences import formula_from_dict, FBinaryPredicate, make_variable, make_name, FUnaryPredicate, \
-    PostProcessingOperations, RemovePropertiesFromResult
+    PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties
 
 
 def object_magic(id):
@@ -76,11 +77,17 @@ def transitive_closure(a):
 
 
 class DoMatchRec:
-    def __init__(self, onto_query, p, ORIG):
+    def __init__(self, onto_query, p, ORIG, rewritings):
         self.onto_query = onto_query
         self.p = p
         self.ORIG = ORIG
         self.result = []
+        if rewritings is not None:
+            self.inherit_properties_from = len(list(filter(lambda x : isinstance(x, InheritProperties), rewritings)))>0
+            self.del_rewritings = set(map(lambda x: x.ofField, filter(lambda x : isinstance(x, RemovePropertiesFromResult), rewritings)))
+        else:
+            self.del_rewritings = set()
+            self.inherit_properties_from = False
 
 
     def do_expansion_match_iterative(self, N, struct_dict_dd, expansion):
@@ -98,7 +105,10 @@ class DoMatchRec:
                         merged_morphism_ddd["@" + str(k)] = v
                 rw_2_dis = expansion.replaceWith(merged_morphism_ddd, True, None, None)
                 if not rw_2_dis.isUnresolved():
-                    self.result.append(rw_2_dis)
+                    if len(self.del_rewritings) > 0:
+                        self.result.append(rw_2_dis.removePropertiesFrom(self.del_rewritings, True))
+                    else:
+                        self.result.append(rw_2_dis)
 
     def do_replacement_match_rec(self, i, d, fugitive_init, rw_2):
         """
@@ -129,9 +139,18 @@ class DoMatchRec:
             ORIG = {x[1] for x in TCL}.intersection(self.ORIG)
             finalReplacement = dict({object_magic(x[0]): object_magic(x[1]) for x in TCL if
                                      (x[0] in DST and object_magic(x[0]).isUnresolved()) and x[1] in ORIG})
+            forAllProperties = None
+            if self.inherit_properties_from:
+                forAllProperties = dict({object_magic(x[0]): object_magic(x[1]) for x in TCL if
+                                         (x[0] in DST and (not object_magic(x[0]).isUnresolved())) and x[1] in ORIG})
+                if len(forAllProperties) == 0:
+                    forAllProperties = None
             if len(finalReplacement) > 0:
-                rw_2 = rw_2.replaceWith(finalReplacement)
-            self.result.append(rw_2)
+                rw_2 = rw_2.replaceWith(finalReplacement, forAllProperties=forAllProperties)
+            if len(self.del_rewritings)>0:
+                self.result.append(rw_2.removePropertiesFrom(self.del_rewritings, True))
+            else:
+                self.result.append(rw_2)
         else:
             from Parmenides.TBox.SentenceMatch import structure_dictionary
             dd = structure_dictionary(d)
@@ -159,15 +178,15 @@ class DoMatchRec:
             else:
                 self.do_replacement_match_rec(i - 1, d, fugitive_init, rw_2)
 
-def do_match(formula, qq, onto_query, p, replacement_map,
+def do_match(datum, toMatch, onto_query, p, replacement_map,
              value_invention=None, sentence_transformations:List[PostProcessingOperations]=None):
     from collections import defaultdict
     from Parmenides.TBox.SentenceMatch import structure_dictionary
     if sentence_transformations is None:
         sentence_transformations = []
-    else:
-        if value_invention is not None:
-            raise ValueError("ERROR: if I have a value invention, then it makes no sense to also have a sentence transformation")
+    # else:
+    #     if value_invention is not None:
+    #         raise ValueError("ERROR: if I have a value invention, then it makes no sense to also have a sentence transformation")
     d_orig = defaultdict(list)
     fugitive_init = dict()
     # for x in match(formula, q):
@@ -175,10 +194,26 @@ def do_match(formula, qq, onto_query, p, replacement_map,
 
     struct_dict_dd = None
 
+    ## Preparation:
+    if value_invention is None:
+        ## Generation. Still, if I want to then add data, I might still perform
+        ## value invention in some sense. So, I might boild down this to the latter
+        value_invention = copy.deepcopy(datum)
+
+    if value_invention is not None:
+        ## Update
+        properties = dict(datum.getProperties())
+        for sentence in sentence_transformations:
+            if isinstance(sentence, AddPropertyFromResult):
+                if sentence.ofField in sentence:
+                    d_orig[sentence.ofField] = d_orig[sentence.ofField] + (sentence.toAddInFields,)
+                else:
+                    d_orig[sentence.ofField] = tuple([sentence.toAddInFields])
+
     ## 0. Preserving the original ids
-    ORIG = set(formula.collectIds())
+    ORIG = set(datum.collectIds())
     ## 1. Matching the query with the data
-    rw_1 = formula.matchWith(qq, d_orig, None, fugitive_init)
+    rw_1 = datum.matchWith(toMatch, d_orig, None, fugitive_init)
     if value_invention is None:
         ## 2. Within the data, I'm applying the substitution required by the matching and rewriting semantics
         dtr = copy.deepcopy(d_orig)
@@ -198,6 +233,25 @@ def do_match(formula, qq, onto_query, p, replacement_map,
     else:
         qRec.do_expansion_match_iterative(N, struct_dict_dd, value_invention)
     return qRec.result
+
+def do_actual_match(datum, Q, g:Parmenides):
+    if Q is None:
+        print("WARNING: Q IS NONE!")
+        return datum
+    elif datum is None:
+        return datum
+    elif isinstance(Q, str):
+        return do_actual_match(datum, parse_query(Q), g)
+    else:
+        assert hasattr(Q, "cc")
+        assert Q.cc is not None
+        from Parmenides.TBox.TBoxParse import RewriteOperation
+        if isinstance(Q, RewriteOperation):
+            return do_match(datum, Q.match, Q.cc.ontology_query, g, Q.cc.replacement_pair, Q.rewrite, Q.cc.operations)
+        elif isinstance(Q, UpdateOperation):
+            return do_match(datum, Q.formula, Q.cc.ontology_query, g, Q.cc.replacement_pair, None, Q.cc.operations)
+        else:
+            raise ValueError("ERROR: Unexpected value of Q, "+str(Q))
 
 
 q1 = """        {
