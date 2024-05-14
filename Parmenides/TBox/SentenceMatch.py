@@ -19,23 +19,23 @@ class RWVariable(Formula):
     name: str
 
 
-@dataclasses.dataclass(order=True, frozen=True, eq=True)
-class FieldMatch:
-    action: str
-    n: int  #argn
-    fields: Tuple[str] #fields navigation
-    attr: str
-    with_value: str
-    as_name: str
-    to_name: str
+# @dataclasses.dataclass(order=True, frozen=True, eq=True)
+# class FieldMatch:
+#     action: str
+#     n: int  #argn
+#     fields: Tuple[str] #fields navigation
+#     attr: str
+#     with_value: str
+#     as_name: str
+#     to_name: str
 
-@dataclasses.dataclass(order=True, frozen=True, eq=True)
-class SentenceMatch:
-    relname: str
-    n: int
-    fields: Tuple[FieldMatch]
-    as_name: str
-    parents: int
+# @dataclasses.dataclass(order=True, frozen=True, eq=True)
+# class SentenceMatch:
+#     relname: str
+#     n: int
+#     fields: Tuple[FieldMatch]
+#     as_name: str
+#     parents: int
 
 def sanity_check2(query):
     if query is None:

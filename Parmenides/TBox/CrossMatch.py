@@ -1,8 +1,10 @@
 import copy
 import json
+from typing import List
 
 from Parmenides.paremenides import Parmenides
-from logical_repr.Sentences import formula_from_dict, FBinaryPredicate, make_variable, make_name, FUnaryPredicate
+from logical_repr.Sentences import formula_from_dict, FBinaryPredicate, make_variable, make_name, FUnaryPredicate, \
+    PostProcessingOperations, RemovePropertiesFromResult
 
 
 def object_magic(id):
@@ -157,30 +159,42 @@ class DoMatchRec:
             else:
                 self.do_replacement_match_rec(i - 1, d, fugitive_init, rw_2)
 
-def do_match(formula, qq, onto_query, p, replacement_map, value_invention=None):
-    # Lz = []
+def do_match(formula, qq, onto_query, p, replacement_map,
+             value_invention=None, sentence_transformations:List[PostProcessingOperations]=None):
     from collections import defaultdict
     from Parmenides.TBox.SentenceMatch import structure_dictionary
-    d = defaultdict(list)
+    if sentence_transformations is None:
+        sentence_transformations = []
+    else:
+        if value_invention is not None:
+            raise ValueError("ERROR: if I have a value invention, then it makes no sense to also have a sentence transformation")
+    d_orig = defaultdict(list)
     fugitive_init = dict()
     # for x in match(formula, q):
     # print(formula)
 
+    struct_dict_dd = None
+
     ## 0. Preserving the original ids
     ORIG = set(formula.collectIds())
     ## 1. Matching the query with the data
-    rw_1 = formula.matchWith(qq, d, None, fugitive_init)
+    rw_1 = formula.matchWith(qq, d_orig, None, fugitive_init)
     if value_invention is None:
         ## 2. Within the data, I'm applying the substitution required by the matching and rewriting semantics
-        rw_init = rw_1.replaceWith(replacement_map, d=d, fugitive=fugitive_init)
+        dtr = copy.deepcopy(d_orig)
+        rw_init = rw_1.replaceWith(replacement_map, d=dtr, fugitive=fugitive_init)
+        matched = filter(lambda x: x.matched, map(object_magic, rw_init.collectIds()))
+        struct_dict_dd = structure_dictionary(dtr)
+    else:
+        struct_dict_dd = structure_dictionary(d_orig)
 
     ## 3. Defining the correspondences across the same variable object and across matchings
-    struct_dict_dd = structure_dictionary(d)
+
     N = len(struct_dict_dd)
     qRec = DoMatchRec(onto_query, p, ORIG)
 
     if value_invention is None:
-        qRec.do_replacement_match_rec(N - 1, d, fugitive_init, rw_init)
+        qRec.do_replacement_match_rec(N - 1, dtr, fugitive_init, rw_init)
     else:
         qRec.do_expansion_match_iterative(N, struct_dict_dd, value_invention)
     return qRec.result

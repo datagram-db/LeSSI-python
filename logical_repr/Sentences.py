@@ -32,6 +32,9 @@ class Formula:
     def updateWithProperties(self, toFrozenSet):
         return self
 
+    def removePropertiesFrom(self, coll):
+        return self
+
 def replace_string(s:str, map:dict):
     if s is None or map is None or len(map) == 0:
         return s
@@ -143,8 +146,13 @@ class FVariable(Formula):
     specification: str #extra
     cop: Formula
     meta: str = field(default_factory=lambda : "FVariable")
+    matched: bool = field(default_factory=lambda : False)
+
+    def removePropertiesFrom(self, coll):
+        return self
 
     def isUnresolved(self):
+        if self.matched: return False
         if is_string_unresolved(self.name): return True
         if is_string_unresolved(self.type): return True
         if is_string_unresolved(self.specification): return True
@@ -169,7 +177,7 @@ class FVariable(Formula):
                 for k,y in dd.items():
                     d[k] = y
                 cop = match_formula(self.cop, f.cop, d, ancestor, fugitive)
-                var = FVariable(name_value, type_value, spec_value, cop=cop)
+                var = FVariable(name_value, type_value, spec_value, cop=cop, matched=True)
                 if isAncestorNone:
                     retaliate_dd(d, self, var, fugitive)
                 return var
@@ -195,12 +203,12 @@ class FVariable(Formula):
             type = replace_string(self.type, map)
         specification = replace_string(self.specification, map)
         cop = replace_formula(self.cop, map, onObjectId, d, fugitive)
-        var = FVariable(name=name, type=type, specification=specification, cop=cop)
+        var = FVariable(name=name, type=type, specification=specification, cop=cop, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 
     def strippedByType(self):
-        return FVariable(name=self.name, type="TODO", specification=self.specification, cop=stripArg(self.cop))
+        return FVariable(name=self.name, type="TODO", specification=self.specification, cop=stripArg(self.cop), matched=self.matched)
 
 def make_variable(var, type=None, spec=None, cop:Formula=None):
     return FVariable(name="@"+str(var), type=type, specification=spec, cop=cop)
@@ -231,6 +239,50 @@ def remove_properties_from(coll, var):
         return frozenset({x:y for x, y in coll if x not in var}.items())
 
 
+class PostProcessingOperations():
+    pass
+
+@dataclass(order=True, frozen=True, eq=True)
+class RemovePropertiesFromResult(PostProcessingOperations):
+    ofField: str
+    meta_op: str = field(default_factory=lambda: "RemovePropertiesFromResult")
+
+@dataclass(order=True, frozen=True, eq=True)
+class AddPropertyFromResult(PostProcessingOperations):
+    ofField: str
+    toAddInFields: Formula
+    meta_op: str = field(default_factory=lambda: "RemovePropertiesFromResult")
+
+@dataclass(order=True, frozen=True, eq=True)
+class InheritProperties(PostProcessingOperations):
+    meta_op: str = field(default_factory=lambda: "InheritProperties")
+
+def applyOperation(formula:Formula, operation:PostProcessingOperations):
+    if not isinstance(operation, PostProcessingOperations):
+        raise ValueError("ERROR: operation shouild be a PostProcessingOperations")
+    if isinstance(operation, RemovePropertiesFromResult):
+        return formula.removePropertiesFrom(operation.ofField)
+    elif isinstance(operation, AddPropertyFromResult):
+        properties = frozenset()
+        if hasattr(formula, "properties"):
+            properties = dict()
+            wasFound = False
+            for x,y in formula.properties:
+                if x == operation.ofField:
+                    wasFound = True
+                    tmp = list(y)
+                    tmp.append(operation.toAddInFields)
+                    properties[x] = tuple(tmp)
+                else:
+                    properties[x] = y
+            if not wasFound:
+                properties[operation.ofField] = tuple([operation.toAddInFields])
+            properties = frozenset(properties.items())
+        return formula.updateWithProperties(properties)
+    else:
+        raise ValueError("ERROR: unexpected operation case!")
+
+
 
 @dataclass(order=True, frozen=True, eq=True)
 class FUnaryPredicate(Formula):
@@ -239,8 +291,13 @@ class FUnaryPredicate(Formula):
     score: float
     properties: frozenset
     meta: str = field(default_factory=lambda : "FUnaryPredicate")
+    matched: bool = field(default_factory=lambda : False)
+
+    def removePropertiesFrom(self, coll):
+        return FUnaryPredicate(self.rel, self.arg, self.score, remove_properties_from(self.properties, coll), matched=self.matched)
 
     def isUnresolved(self):
+        if self.matched: return False
         if is_formula_unresolved(self.arg): return True
         if is_frozenset_unresolved(self.properties): return True
         return is_string_unresolved(self.rel)
@@ -267,7 +324,7 @@ class FUnaryPredicate(Formula):
                 for k,y in dd.items():
                     d[k] = y
                 arg = match_formula(self.arg, f.arg, d, ancestor, fugitive)
-                var = FUnaryPredicate(rel_value, arg, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive))
+                var = FUnaryPredicate(rel_value, arg, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive), matched=True)
                 if isAncestorNone:
                     retaliate_dd(d, self, var, fugitive)
                 return var
@@ -278,7 +335,7 @@ class FUnaryPredicate(Formula):
 
     def updateWithProperties(self, toFrozenSet):
         r = {k:tuple(v) for k,v in toFrozenSet.items()}
-        return FUnaryPredicate(rel=self.rel, arg=self.arg, score=self.score, properties=frozenset(r.items()))
+        return FUnaryPredicate(rel=self.rel, arg=self.arg, score=self.score, properties=frozenset(r.items()), matched=self.matched)
 
     def replaceWith(self, map, onObjectId=False, d=None, fugitive=None):
         if map is None or len(map) == 0:
@@ -292,7 +349,7 @@ class FUnaryPredicate(Formula):
             rel = replace_string(self.rel, map)
         arg = replace_formula(self.arg, map, onObjectId, d, fugitive)
         properties = replace_frozenset(self.properties, map, onObjectId, d, fugitive)
-        var = FUnaryPredicate(rel=rel, arg=arg, score=self.score, properties=properties)
+        var = FUnaryPredicate(rel=rel, arg=arg, score=self.score, properties=properties, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 
@@ -316,8 +373,13 @@ class FBinaryPredicate(Formula):
     score: float
     properties: frozenset
     meta: str = field(default_factory=lambda : "FBinaryPredicate")
+    matched: bool = field(default_factory=lambda : False)
+
+    def removePropertiesFrom(self, coll):
+        return FBinaryPredicate(self.rel, self.src, self.dst, self.score, remove_properties_from(self.properties, coll), matched=self.matched)
 
     def isUnresolved(self):
+        if self.matched: return False
         if is_formula_unresolved(self.src): return True
         if is_formula_unresolved(self.dst): return True
         if is_frozenset_unresolved(self.properties): return True
@@ -348,7 +410,7 @@ class FBinaryPredicate(Formula):
                     d[k] = y
                 src = match_formula(self.src, f.src, d, ancestor, fugitive)
                 dst = match_formula(self.dst, f.dst, d, ancestor, fugitive)
-                var = FBinaryPredicate(rel_value, src, dst, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive))
+                var = FBinaryPredicate(rel_value, src, dst, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive), matched=True)
                 if isAncestorNone:
                     retaliate_dd(d, self, var, fugitive)
                 return var
@@ -360,7 +422,7 @@ class FBinaryPredicate(Formula):
 
     def updateWithProperties(self, toFrozenSet):
         r = {k:tuple(v) for k,v in toFrozenSet.items()}
-        return FBinaryPredicate(rel=self.rel, src=self.src, dst=self.dst, score=self.score, properties=frozenset(r.items()))
+        return FBinaryPredicate(rel=self.rel, src=self.src, dst=self.dst, score=self.score, properties=frozenset(r.items()), matched=self.matched)
 
     def replaceWith(self, map, onObjectId=False, d=None, fugitive=None):
         if map is None or len(map) == 0:
@@ -375,7 +437,7 @@ class FBinaryPredicate(Formula):
         src = replace_formula(self.src, map, onObjectId, d, fugitive)
         dst = replace_formula(self.dst, map, onObjectId, d, fugitive)
         properties = replace_frozenset(self.properties, map, onObjectId, d, fugitive)
-        var = FBinaryPredicate(rel=rel, src=src, dst=dst, score=self.score, properties=properties)
+        var = FBinaryPredicate(rel=rel, src=src, dst=dst, score=self.score, properties=properties, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 
@@ -394,8 +456,13 @@ class FBinaryPredicate(Formula):
 class FAnd(Formula):
     args: Tuple[Formula]
     meta: str = field(default_factory=lambda : "FAnd")
+    matched: bool = field(default_factory=lambda : False)
+
+    def updateWithProperties(self, toFrozenSet):
+        return self
 
     def isUnresolved(self):
+        if self.matched: return False
         return any(map(is_formula_unresolved, self.args))
 
     def collectIds(self):
@@ -421,7 +488,7 @@ class FAnd(Formula):
             if ancestor == self:
                 for x, y in dd.items():
                     d[x] = y
-                var = FAnd(args=tuple(L))
+                var = FAnd(args=tuple(L), matched=True)
                 if isAncestorNone:
                     retaliate_dd(d, self, var, fugitive)
                 return var
@@ -436,7 +503,7 @@ class FAnd(Formula):
             return m[self]
         if onObjectId and id(self) == m["obj"]:
             onObjectId = False
-        var = FAnd(args=tuple(map(lambda x: replace_formula(x, m, onObjectId, d, fugitive), self.args)))
+        var = FAnd(args=tuple(map(lambda x: replace_formula(x, m, onObjectId, d, fugitive), self.args)), matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 
@@ -457,8 +524,13 @@ class FAnd(Formula):
 class FOr(Formula):
     args: Tuple[Formula]
     meta: str = field(default_factory=lambda : "FOr")
+    matched: bool = field(default_factory=lambda : False)
+
+    def updateWithProperties(self, toFrozenSet):
+        return self
 
     def isUnresolved(self):
+        if self.matched: return False
         return any(map(is_formula_unresolved, self.args))
 
     def collectIds(self):
@@ -484,7 +556,7 @@ class FOr(Formula):
             if ancestor == self:
                 for x, y in dd.items():
                     d[x] = y
-                var = FOr(args=tuple(L))
+                var = FOr(args=tuple(L), matched=True)
                 if isAncestorNone:
                     retaliate_dd(d, self, var, fugitive)
                 return var
@@ -499,7 +571,7 @@ class FOr(Formula):
             return m[self]
         if onObjectId and id(self) == m["obj"]:
             onObjectId = False
-        var= FOr(args=tuple(map(lambda x: replace_formula(x, m, onObjectId,d, fugitive), self.args)))
+        var= FOr(args=tuple(map(lambda x: replace_formula(x, m, onObjectId,d, fugitive), self.args)), matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 
@@ -519,8 +591,13 @@ class FOr(Formula):
 class FNot(Formula):
     arg: Formula
     meta: str = field(default_factory=lambda : "FNot")
+    matched: bool = field(default_factory=lambda : False)
+
+    def updateWithProperties(self, toFrozenSet):
+        return self
 
     def isUnresolved(self):
+        if self.matched: return False
         return is_formula_unresolved(self.arg)
 
     def collectIds(self):
@@ -539,7 +616,7 @@ class FNot(Formula):
             if z != self.arg:
                 for x, y in dd.items():
                     d[x] = y
-                var = FNot(arg=z)
+                var = FNot(arg=z, matched=True)
                 if isAncestorNone:
                     retaliate_dd(d, self, var, fugitive)
                 return var
@@ -557,7 +634,7 @@ class FNot(Formula):
         if onObjectId and "obj" in map and id(self) == map["obj"]:
             onObjectId = False
         arg = replace_formula(self.arg, map, onObjectId, d, fugitive)
-        var= FNot(arg=arg)
+        var= FNot(arg=arg, matched=self.matched)
         retaliate_dd(d, self, var, fugitive)
         return var
 

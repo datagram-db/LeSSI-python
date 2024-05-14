@@ -161,3 +161,4 @@ zipp==3.17.0
 zope.interface==6.1
 psycopg2
 rdflib
+antlr4-python3-runtime==4.13.1
