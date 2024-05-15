@@ -10,18 +10,14 @@ import {
   Log,
   CatSimMPNETData,
   CatSimL6Data,
-  CatSimRobertaData,
   NewcastleSimIdeasDataGraphsSimplistic,
   NewcastleSimL6Data,
   NewcastleSimMPNETData,
-  NewcastleSimRobertaData,
   ABSimIdeasDataGraphsSimplistic,
   simL6Data,
   simMPNETData,
-  simRobertaData,
   ABSimL6Data,
   ABSimMPNETData,
-  ABSimRobertaData,
   CatSimIdeasDataGraphsLogical, CatSimIdeasDataLogicLogical, ABSimIdeasDataGraphsLogical, ABSimIdeasDataLogicLogical
 } from './results';
 import {elementToSVG, inlineResources} from "dom-to-svg";
@@ -246,10 +242,6 @@ function App() {
       data={tempMPNETData.similarity_matrix}
       labels={numbers}
     />)
-    // setRobertaMatrix(<ConfusionMatrix
-    //   data={tempRobertaData.similarity_matrix}
-    //   labels={numbers}
-    // />)
 
     setLoadedSentences(sentences)
   }
@@ -404,14 +396,6 @@ function App() {
               setTransformer('all-mpnet-base-v2')
             }}>all-mpnet-base-v2
             </button>
-            {/*<button style={{*/}
-            {/*  backgroundColor: 'all-roberta-large-v1' === transformer ? '#5bae38' : '#3c3c3c',*/}
-            {/*  color: 'all-roberta-large-v1' === transformer ? '' : '#6d6d6d'*/}
-            {/*}} onClick={() => {*/}
-            {/*  setSimilarity('SentenceTransformer')*/}
-            {/*  setTransformer('all-roberta-large-v1')*/}
-            {/*}}>all-roberta-large-v1*/}
-            {/*</button>*/}
           </div>
           <br/>
           <button className={'runBtn'} onClick={submitSentences}>RUN</button>
