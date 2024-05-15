@@ -163,14 +163,18 @@ input:focus{
 
 /* Matrix styling */
 td {
-  font-size: 0.75rem;
-  width: 15px !important;
-  height: 15px !important;
+  font-size: 1.25rem;
+  width: 10px !important;
+  height: 10px !important;
   padding: 0;
+}
+tr td {
+  padding: 5px !important;
 }
 .css-1jb5lza {
   /*writing-mode: vertical-rl;*/
-  padding: 0;
+  height: 6px !important;
+  padding: 0 !important;
   transform: rotate(0deg) !important;
   -webkit-writing-mode: inherit !important;
 }

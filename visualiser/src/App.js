@@ -24,6 +24,7 @@ import {
   ABSimRobertaData,
   CatSimIdeasDataGraphsLogical, CatSimIdeasDataLogicLogical, ABSimIdeasDataGraphsLogical, ABSimIdeasDataLogicLogical
 } from './results';
+import {elementToSVG, inlineResources} from "dom-to-svg";
 
 function App() {
   // Config
@@ -215,11 +216,11 @@ function App() {
       </div>)
 
     // Round matricies
-    let tempIData = roundMatrix(ideasGraphsSimplistic, 4)
-    let tempI2Data = roundMatrix(ideasGraphsLogical, 4)
-    let tempI3Data = roundMatrix(ideasLogicLogical, 4)
-    let tempL6Data = roundMatrix(l6Data, 4)
-    let tempMPNETData = roundMatrix(mpnetData, 4)
+    let tempIData = roundMatrix(ideasGraphsSimplistic)
+    let tempI2Data = roundMatrix(ideasGraphsLogical)
+    let tempI3Data = roundMatrix(ideasLogicLogical)
+    let tempL6Data = roundMatrix(l6Data)
+    let tempMPNETData = roundMatrix(mpnetData)
     // let tempRobertaData = roundMatrix(robertaData, 4)
 
     const numbers = Array.from({ length: tempIData.sentences.length }, (_, index) => index + 1);
@@ -422,46 +423,59 @@ function App() {
           </div>
         </div>
 
+        {/* Download SVG */}
+        {/*<button onClick={async () => {*/}
+        {/*  const svgDocument = elementToSVG(document.querySelector('.resultsContainer'))*/}
+        {/*  await inlineResources(svgDocument.documentElement)*/}
+
+        {/*  // Get SVG string*/}
+        {/*  const svgString = new XMLSerializer().serializeToString(svgDocument)*/}
+        {/*  console.log(svgString)*/}
+        {/*}}></button>*/}
+
 
         <div className={'rightSide'}>
           <h1>Results</h1>
           <div>
             {resultDescription}
           </div>
-          <div className={'resultsInnerDiv'}>
-            <div>
-              <h3 className={'resultTitle'}>Graphs Simplistic</h3>
+          <div className={'resultsContainer'} style={{backgroundColor:"white"}}>
+            <div className={'resultsInnerDiv'}>
               <div>
-                {IDEASGraphsSimplisticMatrix}
+                <h3 className={'resultTitle'}>Graphs Simplistic</h3>
+                <div>
+                  {IDEASGraphsSimplisticMatrix}
+                </div>
+              </div>
+              <div>
+                <h3 className={'resultTitle'}>Graphs with Logic</h3>
+                <div>
+                  {IDEASGraphsLogicalMatrix}
+                </div>
+              </div>
+              <div>
+                <h3 className={'resultTitle'}>Logical Representation</h3>
+                <div>
+                  {IDEASLogicalLogicMatrix}
+                </div>
               </div>
             </div>
-            <div>
-              <h3 className={'resultTitle'}>Graphs with Logic</h3>
+            <div className={'resultsInnerDiv'}>
               <div>
-                {IDEASGraphsLogicalMatrix}
+                <h3 className={'resultTitle'}>all-MiniLM-L6-v2</h3>
+                <div>
+                  {L6Matrix}
+                </div>
               </div>
-            </div>
-            <div>
-              <h3 className={'resultTitle'}>Logical Representation</h3>
               <div>
-                {IDEASLogicalLogicMatrix}
+                <h3 className={'resultTitle'}>all-mpnet-base-v2</h3>
+                <div>
+                  {MPNETMatrix}
+                </div>
               </div>
             </div>
           </div>
-          <div className={'resultsInnerDiv'}>
-            <div>
-              <h3 className={'resultTitle'}>all-MiniLM-L6-v2</h3>
-              <div>
-                {L6Matrix}
-              </div>
-            </div>
-            <div>
-              <h3 className={'resultTitle'}>all-mpnet-base-v2</h3>
-              <div>
-                {MPNETMatrix}
-              </div>
-            </div>
-          </div>
+
           <div className={'resultsInnerDiv'}>
 
             {/*<div>*/}
