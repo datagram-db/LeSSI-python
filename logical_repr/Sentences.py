@@ -17,6 +17,10 @@ from typing import Tuple, Dict, Union
 
 
 class Formula:
+
+    def isOntoUnmatched(self):
+        return False
+
     def matchWith(self, f, d, ancestor, fugitive):
         return self
 
@@ -145,6 +149,14 @@ def is_frozenset_unresolved(fs):
                 if is_formula_unresolved(x): return True
         return False
 
+def isStringUnresolved(s):
+    if s is None:
+        return False
+    elif s.startswith("@"):
+        return True
+    else:
+        return False
+
 @dataclass(order=True, frozen=True, eq=True)
 class FVariable(Formula):
     name: str
@@ -153,6 +165,13 @@ class FVariable(Formula):
     cop: Formula
     meta: str = field(default_factory=lambda : "FVariable")
     matched: bool = field(default_factory=lambda : False)
+
+    def isOntoUnmatched(self):
+        if isStringUnresolved(self.name): return True
+        if isStringUnresolved(self.type): return True
+        if isStringUnresolved(self.specification): return True
+        if self.cop is not None and self.cop.isOntoUnmatched(): return True
+        return False
 
     def getFlattenedProperties(self):
         if self.cop is not None:
@@ -304,6 +323,14 @@ class FUnaryPredicate(Formula):
     meta: str = field(default_factory=lambda : "FUnaryPredicate")
     matched: bool = field(default_factory=lambda : False)
 
+    def isOntoUnmatched(self):
+        if isStringUnresolved(self.rel): return True
+        if self.arg is not None and self.arg.isOntoUnmatched(): return True
+        for x,y in self.properties:
+            for z in y:
+                if z is not None and z.isOntoUnmatched(): return True
+        return False
+
     def getFlattenedProperties(self):
         if self.arg is not None:
             props = {x:set(y) for x,y in self.arg.getFlattenedProperties()}
@@ -410,6 +437,15 @@ class FBinaryPredicate(Formula):
     properties: frozenset
     meta: str = field(default_factory=lambda : "FBinaryPredicate")
     matched: bool = field(default_factory=lambda : False)
+
+    def isOntoUnmatched(self):
+        if isStringUnresolved(self.rel): return True
+        if self.src is not None and self.src.isOntoUnmatched(): return True
+        if self.dst is not None and self.dst.isOntoUnmatched(): return True
+        for x,y in self.properties:
+            for z in y:
+                if z is not None and z.isOntoUnmatched(): return True
+        return False
 
     def removePropertiesFrom(self, coll, onMatch=False):
         if (not onMatch) or (self.matched):
@@ -535,6 +571,9 @@ class FAnd(Formula):
     meta: str = field(default_factory=lambda : "FAnd")
     matched: bool = field(default_factory=lambda : False)
 
+    def isOntoUnmatched(self):
+        return any(map(lambda x: x is not None and x.isOntoUnmatched(), self.args))
+
     def removePropertiesFrom(self, coll, onMatch=False):
         return FAnd(args=tuple([x.removePropertiesFrom(coll, onMatch) if x is not None else None for x in self.args]), matched=self.matched)
 
@@ -619,6 +658,9 @@ class FOr(Formula):
     meta: str = field(default_factory=lambda : "FOr")
     matched: bool = field(default_factory=lambda : False)
 
+    def isOntoUnmatched(self):
+        return any(map(lambda x: x is not None and x.isOntoUnmatched(), self.args))
+
     def removePropertiesFrom(self, coll, onMatch=False):
         return FOr(args=tuple([x.removePropertiesFrom(coll, onMatch) if x is not None else None for x in self.args]), matched=self.matched)
 
@@ -702,6 +744,9 @@ class FNot(Formula):
     meta: str = field(default_factory=lambda : "FNot")
     matched: bool = field(default_factory=lambda : False)
 
+    def isOntoUnmatched(self):
+        return self.arg is not None and self.arg.isOntoUnmatched()
+
     def removePropertiesFrom(self, coll, onMatch=False):
         return FNot(arg=self.arg.removePropertiesFrom(coll, onMatch) if self.arg is not None else None, matched=self.matched)
 
@@ -766,6 +811,10 @@ class FNot(Formula):
 
 
 def formula_from_dict(f:Union[dict,str]):
+    """
+    Loading a json file in its object-dictionary rerpesentation into formulaes.
+    This is mainly used to run the pipeline from one point at a time.
+    """
     if f is None:
         return None
     if isinstance(f, str):

@@ -2,10 +2,11 @@ import copy
 import json
 from typing import List
 
-from Parmenides.TBox.TBoxParse import UpdateOperation, parse_query
+from Parmenides.TBox.SimpleDataMatch import boolean_simple_data_match
+from Parmenides.TBox.TBoxParse import UpdateOperation, parse_query, RewriteOperation
 from Parmenides.paremenides import Parmenides
 from logical_repr.Sentences import formula_from_dict, FBinaryPredicate, make_variable, make_name, FUnaryPredicate, \
-    PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties
+    PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties, Formula
 
 
 def object_magic(id):
@@ -147,10 +148,11 @@ class DoMatchRec:
                     forAllProperties = None
             if len(finalReplacement) > 0:
                 rw_2 = rw_2.replaceWith(finalReplacement, forAllProperties=forAllProperties)
-            if len(self.del_rewritings)>0:
-                self.result.append(rw_2.removePropertiesFrom(self.del_rewritings, True))
-            else:
-                self.result.append(rw_2)
+            if not rw_2.isOntoUnmatched():
+                if len(self.del_rewritings)>0:
+                    self.result.append(rw_2.removePropertiesFrom(self.del_rewritings, True))
+                else:
+                    self.result.append(rw_2)
         else:
             from Parmenides.TBox.SentenceMatch import structure_dictionary
             dd = structure_dictionary(d)
@@ -179,7 +181,7 @@ class DoMatchRec:
                 self.do_replacement_match_rec(i - 1, d, fugitive_init, rw_2)
 
 def do_match(datum, toMatch, onto_query, p, replacement_map,
-             value_invention=None, sentence_transformations:List[PostProcessingOperations]=None):
+             value_invention=None, sentence_transformations:List[PostProcessingOperations]=None, where_cond=None):
     from collections import defaultdict
     from Parmenides.TBox.SentenceMatch import structure_dictionary
     if sentence_transformations is None:
@@ -192,10 +194,10 @@ def do_match(datum, toMatch, onto_query, p, replacement_map,
     # for x in match(formula, q):
     # print(formula)
 
-    struct_dict_dd = None
-
     ## Preparation:
-    if value_invention is None:
+    if (value_invention is None and
+            len(sentence_transformations)>0 and
+            any(map(lambda x: isinstance(x, AddPropertyFromResult), sentence_transformations))):
         ## Generation. Still, if I want to then add data, I might still perform
         ## value invention in some sense. So, I might boild down this to the latter
         value_invention = copy.deepcopy(datum)
@@ -214,19 +216,32 @@ def do_match(datum, toMatch, onto_query, p, replacement_map,
     ORIG = set(datum.collectIds())
     ## 1. Matching the query with the data
     rw_1 = datum.matchWith(toMatch, d_orig, None, fugitive_init)
+    matched = list(map(object_magic, set(fugitive_init.values())))
     if value_invention is None:
+        # assert len(d_orig) == 0 ## ASSERZIONE: QQQ
         ## 2. Within the data, I'm applying the substitution required by the matching and rewriting semantics
-        dtr = copy.deepcopy(d_orig)
+        dtr = copy.deepcopy(d_orig) ## DA RIAGGIUNGERE SE NON VALE QQQ
+        # dtr = None ## DA RIMUOVERE SE NON VALE QQQ
         rw_init = rw_1.replaceWith(replacement_map, d=dtr, fugitive=fugitive_init)
-        matched = filter(lambda x: x.matched, map(object_magic, rw_init.collectIds()))
         struct_dict_dd = structure_dictionary(dtr)
+        # matched = filter(lambda x: x.matched, map(object_magic, rw_init.collectIds()))
     else:
         struct_dict_dd = structure_dictionary(d_orig)
+        # matched = filter(lambda x: x.matched, map(object_magic, rw_1.collectIds()))
+    # matched = list(matched)
+
+    if (where_cond is not None) and len(where_cond) > 0:
+        # matched = list(map(object_magic, set(fugitive_init.values())))
+        if len(matched) == 0:
+            return []
+        for obj in matched:
+            for matchQ in where_cond:
+                if not boolean_simple_data_match(obj, matchQ):
+                    return []
 
     ## 3. Defining the correspondences across the same variable object and across matchings
-
     N = len(struct_dict_dd)
-    qRec = DoMatchRec(onto_query, p, ORIG)
+    qRec = DoMatchRec(onto_query, p, ORIG, sentence_transformations)
 
     if value_invention is None:
         qRec.do_replacement_match_rec(N - 1, dtr, fugitive_init, rw_init)
@@ -247,11 +262,36 @@ def do_actual_match(datum, Q, g:Parmenides):
         assert Q.cc is not None
         from Parmenides.TBox.TBoxParse import RewriteOperation
         if isinstance(Q, RewriteOperation):
-            return do_match(datum, Q.match, Q.cc.ontology_query, g, Q.cc.replacement_pair, Q.rewrite, Q.cc.operations)
+            return do_match(datum, Q.match, Q.cc.ontology_query, g, Q.cc.replacement_pair, Q.rewrite, Q.cc.operations, Q.cc.where_theta)
         elif isinstance(Q, UpdateOperation):
-            return do_match(datum, Q.formula, Q.cc.ontology_query, g, Q.cc.replacement_pair, None, Q.cc.operations)
+            return do_match(datum, Q.formula, Q.cc.ontology_query, g, Q.cc.replacement_pair, None, Q.cc.operations, Q.cc.where_theta)
         else:
             raise ValueError("ERROR: Unexpected value of Q, "+str(Q))
+
+
+class DoExpand:
+    def __init__(self, parmenides_file:str, tbox_file:str):
+        from Parmenides.TBox.TBoxParse import load_tbox_rules
+        self.q_list = load_tbox_rules(tbox_file)
+        self.g = Parmenides(parmenides_file)
+
+    def __call__(self, formula:Formula):
+        stack = [formula]
+        visited = set()
+        while len(stack)>0:
+            f = stack.pop()
+            if f in visited:
+                continue
+            visited.add(f)
+            for Q in self.q_list:
+                for f2 in do_actual_match(f, Q, self.g):
+                    if f2 not in visited:
+                        stack.append(f2)
+        if len(visited)>1:
+            visited.remove(formula)
+        return visited
+
+
 
 
 q1 = """        {
@@ -409,5 +449,13 @@ def query3():
         print(x)
 
 if __name__ == "__main__":
-    query3()
+    de = DoExpand("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/turtle.ttl",
+             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file.txt")
+    with open("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/sentences/newcastle_sentences.txt_logical_rewriting.json", "r") as f:
+        list_json = json.load(f)
+        list_json = formula_from_dict(list_json)
+        s1 = de(list_json[5])
+        print(list_json[5])
+        s2 = de(list_json[7])
+        print(list_json[7])
     #query1(q1bis) #q1bis

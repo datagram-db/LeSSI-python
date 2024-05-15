@@ -1,2 +1,4 @@
-UPDATE ( "have" ( "x" none none , "y" none none ) 1.0 {} ) over "^x" "partOf" "@y"  replace "x" -> "y";
-INVENT from
+UPDATE ( "have" ( "@x" none none , "@y" none none ) 1.0 {} )
+   where "have" 2 with < 1 : attr "type" withval "JJ" > as "obj_t" withparents 0
+   over "@x" "partOf" "^z"
+   replace "x" -> "z";

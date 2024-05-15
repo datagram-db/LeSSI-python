@@ -64,6 +64,21 @@ class parmenides_tboxVisitor(ParseTreeVisitor):
         return self.visitChildren(ctx)
 
 
+    # Visit a parse tree produced by parmenides_tboxParser#sentence_match.
+    def visitSentence_match(self, ctx:parmenides_tboxParser.Sentence_matchContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by parmenides_tboxParser#field_match.
+    def visitField_match(self, ctx:parmenides_tboxParser.Field_matchContext):
+        return self.visitChildren(ctx)
+
+
+    # Visit a parse tree produced by parmenides_tboxParser#data_match_path.
+    def visitData_match_path(self, ctx:parmenides_tboxParser.Data_match_pathContext):
+        return self.visitChildren(ctx)
+
+
     # Visit a parse tree produced by parmenides_tboxParser#remove.
     def visitRemove(self, ctx:parmenides_tboxParser.RemoveContext):
         return self.visitChildren(ctx)

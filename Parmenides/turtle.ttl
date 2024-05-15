@@ -145,8 +145,20 @@ parmenides:chill a parmenides:TransitiveVerb ;
     parmenides:hasAdjective parmenides:center ;
     parmenides:partOf parmenides:city .
 
+<https://lo-ds.github.io/parmenides#city+centers> a parmenides:LOC ;
+    rdfs:label "city centers"^^xsd:string ;
+    parmenides:entryPoint parmenides:city ;
+    parmenides:hasAdjective parmenides:center ;
+    parmenides:partOf parmenides:city .
+
 <https://lo-ds.github.io/parmenides#city+centre> a parmenides:LOC ;
     rdfs:label "city centre"^^xsd:string ;
+    parmenides:entryPoint parmenides:city ;
+    parmenides:hasAdjective parmenides:centre ;
+    parmenides:partOf parmenides:city .
+
+<https://lo-ds.github.io/parmenides#city+centres> a parmenides:LOC ;
+    rdfs:label "city centres"^^xsd:string ;
     parmenides:entryPoint parmenides:city ;
     parmenides:hasAdjective parmenides:centre ;
     parmenides:partOf parmenides:city .
@@ -1320,16 +1332,6 @@ parmenides:busy a parmenides:Adjective ;
     parmenides:hasProperty parmenides:city ;
     parmenides:relatedTo parmenides:crowd%23n .
 
-parmenides:center a parmenides:Adjective ;
-    rdfs:label "center"^^xsd:string ;
-    parmenides:entryPoint parmenides:center ;
-    parmenides:eqTo parmenides:centre .
-
-parmenides:centre a parmenides:Adjective ;
-    rdfs:label "centre"^^xsd:string ;
-    parmenides:entryPoint parmenides:centre ;
-    parmenides:eqTo parmenides:center .
-
 parmenides:congestion a parmenides:Noun ;
     rdfs:label "congestion"^^xsd:string ;
     parmenides:entryPoint parmenides:congestion ;
@@ -1346,6 +1348,16 @@ parmenides:flow%23v a parmenides:Verb ;
     parmenides:entryPoint parmenides:flow%23v ;
     parmenides:relatedTo <https://lo-ds.github.io/parmenides#flow+fast> .
 
+parmenides:center a parmenides:Adjective ;
+    rdfs:label "center"^^xsd:string ;
+    parmenides:entryPoint parmenides:center ;
+    parmenides:eqTo parmenides:centre .
+
+parmenides:centre a parmenides:Adjective ;
+    rdfs:label "centre"^^xsd:string ;
+    parmenides:entryPoint parmenides:centre ;
+    parmenides:eqTo parmenides:center .
+
 parmenides:crowd%23n a parmenides:Noun ;
     rdfs:label "crowd"^^xsd:string ;
     parmenides:entryPoint parmenides:crowd%23n ;
@@ -1356,9 +1368,6 @@ parmenides:crowd%23n a parmenides:Noun ;
 parmenides:GrammaticalFunction a owl:Class ;
     rdfs:subClassOf parmenides:MetaGrammaticalFunction .
 
-parmenides:LOC a owl:Class ;
-    rdfs:subClassOf parmenides:Dimensions .
-
 parmenides:Adjective a owl:Class ;
     rdfs:subClassOf parmenides:GrammaticalFunction .
 
@@ -1368,6 +1377,9 @@ parmenides:Verb a owl:Class ;
 parmenides:traffic%23n a parmenides:Noun ;
     rdfs:label "traffic"^^xsd:string ;
     parmenides:entryPoint parmenides:traffic%23n .
+
+parmenides:LOC a owl:Class ;
+    rdfs:subClassOf parmenides:Dimensions .
 
 parmenides:Noun a owl:Class ;
     rdfs:subClassOf parmenides:GrammaticalFunction .

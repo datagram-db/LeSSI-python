@@ -2,8 +2,8 @@ grammar parmenides_tbox;
 // java -jar antlr-4.13.1-complete.jar  -Dlanguage=Python3 -visitor  Parmenides/TBox/parmenides_tbox.g4
 parmenides_tbox: (rule ';')+;
 
-rule: 'UPDATE' formula 'over' ontology_query ('replace' replacement_pair+)? operations* #substitutions
-    | 'INVENT' 'from' formula 'as' formula 'over' ontology_query ('replace' replacement_pair+)? operations* #invention
+rule: 'UPDATE' formula ('where' (sentence_match 'and')* sentence_match )? 'over' ontology_query ('replace' replacement_pair+)? operations* #substitutions
+    | 'INVENT' 'from' formula ('where' (sentence_match 'and')* sentence_match )? 'as' formula 'over' ontology_query ('replace' replacement_pair+)? operations* #invention
     ;
 
 formula: '(' formula ')'  #fparen
@@ -15,6 +15,10 @@ formula: '(' formula ')'  #fparen
        | 'OR' formula formula+                                                           #or
        | 'NOT' formula                                                                   #not
        ;
+
+sentence_match: relname=STRING n=INTEGER ('with' '<' (field_match 'and')* field_match '>')? 'as' as_name=STRING 'withparents' parents=INTEGER;
+field_match: n=INTEGER ':' data_match_path? ('attr' attr=STRING)? ('withval' withval=STRING)? ('asname' asname=STRING)?;
+data_match_path : ('/' STRING)+ ;
 
 operations: 'rem' STRING              #remove
           | 'add' formula 'to' STRING #add
@@ -36,8 +40,8 @@ opt_string : STRING #value
 
 STRING : '"' (~[\\"] | '\\' [\\"])* '"';
 NULL: 'none';
-NUMBER : [-]? DecimalFloatingConstant | [-]? DIGIT;
 INTEGER : [-]? DIGIT;
+NUMBER : [-]? DecimalFloatingConstant | [-]? DIGIT;
 SPACE : [ \t\r\n]+ -> skip;
 COMMENT
     : '/*' .*? '*/' -> skip
@@ -47,7 +51,7 @@ LINE_COMMENT
     : '#' ~[\r\n]* -> skip
 ;
 
-fragment
+
 DecimalFloatingConstant
     :   [0-9]* '.' DIGIT
         |   DIGIT '.'
@@ -55,15 +59,17 @@ DecimalFloatingConstant
     |   DIGIT ExponentPart
     ;
 
-fragment
+
 FractionalConstant
     :   [0-9]* '.' DIGIT
     |   DIGIT '.'
     ;
 
-fragment
+
 ExponentPart
     :   [eE] [-]? DIGIT
     ;
 
-fragment DIGIT : [0-9]+;
+
+ DIGIT : [0-9]+;
+

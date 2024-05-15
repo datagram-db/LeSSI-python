@@ -51,6 +51,8 @@ def make_arg(entity):
         cop = tuple(coplist)
     named_entity = props["named_entity"] if isinstance(entity, dict) else entity.named_entity
     type = props["type"] if isinstance(entity, dict) else entity.type
+    if type != "GPE":
+        named_entity = named_entity.lower()
     return FVariable(name=named_entity, type=type, specification=specification, cop=cop)
 
 def make_and(entities):

@@ -107,6 +107,33 @@ class parmenides_tboxListener(ParseTreeListener):
         pass
 
 
+    # Enter a parse tree produced by parmenides_tboxParser#sentence_match.
+    def enterSentence_match(self, ctx:parmenides_tboxParser.Sentence_matchContext):
+        pass
+
+    # Exit a parse tree produced by parmenides_tboxParser#sentence_match.
+    def exitSentence_match(self, ctx:parmenides_tboxParser.Sentence_matchContext):
+        pass
+
+
+    # Enter a parse tree produced by parmenides_tboxParser#field_match.
+    def enterField_match(self, ctx:parmenides_tboxParser.Field_matchContext):
+        pass
+
+    # Exit a parse tree produced by parmenides_tboxParser#field_match.
+    def exitField_match(self, ctx:parmenides_tboxParser.Field_matchContext):
+        pass
+
+
+    # Enter a parse tree produced by parmenides_tboxParser#data_match_path.
+    def enterData_match_path(self, ctx:parmenides_tboxParser.Data_match_pathContext):
+        pass
+
+    # Exit a parse tree produced by parmenides_tboxParser#data_match_path.
+    def exitData_match_path(self, ctx:parmenides_tboxParser.Data_match_pathContext):
+        pass
+
+
     # Enter a parse tree produced by parmenides_tboxParser#remove.
     def enterRemove(self, ctx:parmenides_tboxParser.RemoveContext):
         pass

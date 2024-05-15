@@ -22,10 +22,11 @@ def unfold_string(d):
 
 
 class CommonComponents:
-    def __init__(self, ontology_query, replacement_pair, operations):
+    def __init__(self, ontology_query, replacement_pair, operations, where_theta):
         self.operations = operations
         self.replacement_pair = replacement_pair
         self.ontology_query = ontology_query
+        self.where_theta = where_theta
 
 class UpdateOperation:
     cc:CommonComponents
@@ -45,20 +46,58 @@ class RewriteOperation:
 
 class TBoxVisitor(parmenides_tboxVisitor):
 
-
     def visit(self, tree):
         if tree is None:
             return None
         else:
             return super().visit(tree)
 
+    def visitSentence_match(self, ctx: parmenides_tboxParser.Sentence_matchContext):
+        from Parmenides.TBox.SimpleDataMatch import SentenceMatch
+        if ctx is None:
+            return None
+        relname = unfold_string(ctx.relname)
+        n = int(ctx.n.text)
+        fields = []
+        for x in ctx.field_match():
+            fields.append(self.visitField_match(x))
+        fields = tuple(fields)
+        asname = unfold_string(ctx.as_name)
+        parents = int(ctx.parents.text)
+        return SentenceMatch(relname, n, fields, asname, parents)
+
+    def visitField_match(self, ctx: parmenides_tboxParser.Field_matchContext):
+        from Parmenides.TBox.SimpleDataMatch import FieldMatch
+        n = int(ctx.n.text)
+        path = tuple([])
+        attr = None
+        with_value = None
+        as_name = None
+
+        if ctx.data_match_path():
+            path = self.visit(ctx.data_match_path())
+        if ctx.attr is not None:
+            attr = unfold_string(ctx.attr)
+        if ctx.withval is not None:
+            with_value = unfold_string(ctx.withval)
+        if ctx.asname is not None:
+            as_name = unfold_string(ctx.asname)
+
+        return FieldMatch("MATCH", n, path, attr, with_value, as_name)
+
+    def visitData_match_path(self, ctx: parmenides_tboxParser.Data_match_pathContext):
+        if ctx is None:
+            return tuple([])
+        return tuple([unfold_string(x) for x in ctx.STRING()])
+
     def common_class_expand(self, ctx):
         if ctx is None:
             return None
         ontology_query = self.visit(ctx.ontology_query())
-        replacement_pair = [self.visit(x) for x in ctx.replacement_pair()]
+        replacement_pair = dict([self.visit(x) for x in ctx.replacement_pair()])
         operations = [self.visit(x) for x in ctx.operations()]
-        return CommonComponents(ontology_query, replacement_pair, operations)
+        sentence_match = [] if ctx.sentence_match() is None else [self.visit(x) for x in ctx.sentence_match()]
+        return CommonComponents(ontology_query, replacement_pair, operations, sentence_match)
 
     def visitParmenides_tbox(self, ctx: parmenides_tboxParser.Parmenides_tboxContext):
         return [self.visit(x) for x in ctx.rule_()]
@@ -151,7 +190,7 @@ class TBoxVisitor(parmenides_tboxVisitor):
         if ctx is None:
             return tuple([None, None])
         else:
-            return tuple([unfold_string(ctx.src), unfold_string(ctx.dst)])
+            return tuple(["@"+unfold_string(ctx.src), "@"+unfold_string(ctx.dst)])
 
 
     def visitKey_values(self, ctx: parmenides_tboxParser.Key_valuesContext):
@@ -173,14 +212,12 @@ def parse_query(s):
     v = TBoxVisitor()
     return v.visit(parser.parmenides_tbox())
 
+def load_tbox_rules(filename:str):
+    input_text = ""
+    with open(filename) as f:
+        input_text = f.read()
+    return parse_query(input_text)
 
 if __name__ == "__main__":
-    input_text = ""
-    with open("file.txt") as f:
-        input_text = f.read()
-    lexer = parmenides_tboxLexer(InputStream(input_text))
-    stream = CommonTokenStream(lexer)
-    parser = parmenides_tboxParser(stream)
-    v = TBoxVisitor()
-    obj = v.visit(parser.parmenides_tbox())
+    obj = load_tbox_rules("file.txt")
     print(obj)
