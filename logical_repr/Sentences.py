@@ -521,9 +521,9 @@ class FBinaryPredicate(Formula):
                 return var
         if isAncestorNone:
             ancestor = None
-        src = match_formula(self.src, f.src, d, ancestor, fugitive)
-        dst = match_formula(self.dst, f.dst, d, ancestor, fugitive)
-        return FBinaryPredicate(self.rel, src, dst, self.score, match_frozen_set(self.properties, f.properties, d, fugitive))
+        src = match_formula(self.src, f, d, ancestor, fugitive)
+        dst = match_formula(self.dst, f, d, ancestor, fugitive)
+        return FBinaryPredicate(self.rel, src, dst, self.score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive))
 
     def updateWithProperties(self, toFrozenSet):
         r = {k:tuple(v) for k,v in toFrozenSet.items()}

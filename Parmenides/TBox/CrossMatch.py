@@ -470,7 +470,7 @@ if __name__ == "__main__":
         list_json = formula_from_dict(list_json)
         for x in list_json:
             s1 = de(x)
-            print(x)
+            print(s1)
         # s2 = de(list_json[7])
         # print(list_json[7])
     #query1(q1bis) #q1bis

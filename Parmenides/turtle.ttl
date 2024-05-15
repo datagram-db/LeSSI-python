@@ -1306,17 +1306,9 @@ parmenides:crowd%23v a parmenides:Verb ;
     parmenides:entryPoint parmenides:crowd%23v ;
     parmenides:relatedTo parmenides:crowded .
 
-parmenides:fast a parmenides:Adjective ;
-    rdfs:label "fast"^^xsd:string ;
-    parmenides:entryPoint parmenides:fast .
-
 parmenides:jam a parmenides:Noun ;
     rdfs:label "jam"^^xsd:string ;
     parmenides:entryPoint parmenides:jam .
-
-parmenides:slow%23adj a parmenides:Adjective ;
-    rdfs:label "slow"^^xsd:string ;
-    parmenides:entryPoint parmenides:slow%23adj .
 
 <https://lo-ds.github.io/parmenides#traffic+jam> a parmenides:Noun ;
     rdfs:label "traffic jam"^^xsd:string ;
@@ -1343,10 +1335,20 @@ parmenides:crowded a parmenides:Adjective ;
     parmenides:relatedTo parmenides:crowd%23n,
         parmenides:crowd%23v .
 
+parmenides:fast a parmenides:Adjective ;
+    rdfs:label "fast"^^xsd:string ;
+    parmenides:entryPoint parmenides:fast ;
+    parmenides:neqTo parmenides:slow%23adj .
+
 parmenides:flow%23v a parmenides:Verb ;
     rdfs:label "flow"^^xsd:string ;
     parmenides:entryPoint parmenides:flow%23v ;
     parmenides:relatedTo <https://lo-ds.github.io/parmenides#flow+fast> .
+
+parmenides:slow%23adj a parmenides:Adjective ;
+    rdfs:label "slow"^^xsd:string ;
+    parmenides:entryPoint parmenides:slow%23adj ;
+    parmenides:neqTo parmenides:fast .
 
 parmenides:center a parmenides:Adjective ;
     rdfs:label "center"^^xsd:string ;

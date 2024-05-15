@@ -179,6 +179,7 @@ def make_ontology_from_raw():
     p.create_concept("slow#adj", "Adjective", entity_name="slow")
     p.create_concept("slow#v", "Verb", entity_name="slow")
     p.create_relationship("slow#v", "adjectivalForm", "slow#adj")
+    p.create_relationship("slow#adj", "neqTo", "fast", True)
     p.create_concept("crowd#n", "Noun", entity_name="crowd")
     p.create_concept("crowd#v", "Verb", entity_name="crowd")
     p.create_relationship("busy", "relatedTo", "crowd#n", True)

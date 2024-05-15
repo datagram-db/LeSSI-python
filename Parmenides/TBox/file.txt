@@ -1,12 +1,36 @@
+# 1. If x has y and x is part of z, then also z has y
 UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
    over "@x" "partOf" "^z"
    replace "x" -> "z";
 
-UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
-   over "@x" "isA" "^z"
-   replace "x" -> "z";
-
+# 2. If x has a property y which is an adjective, then x exists with such a property
 INVENT
   from ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
-  as ( "be" ( "@x" none none ) 1.0 { "COP" : "@y" "JJ" none . })
+  as ( "be" ( "@x" none none  ( "@y" "JJ" none ) ) 1.0 {  } )
   with-properties;
+
+# 3. If x has a property y and y is equivalent to z, then x has also z
+UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
+   over "@y" "eqTo" "^z"
+   replace "y" -> "z";
+
+# 3. If x exists with y and y is equivalent to z, then x exists with z
+UPDATE ( "be" ( "@x" none none  ( "@y" "JJ" none ) ) 1.0 {  } )
+   over "@y" "eqTo" "^z"
+   replace "y" -> "z";
+
+# 4. If x has a property y and y is opposite to z, then x has not z
+INVENT
+  from ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
+  as ( NOT ( "have" ( "@x" none none , "@z" "JJ" none ) 1.0 {} ) )
+  over "@y" "neqTo" "^z"
+  replace "y" -> "z"
+  with-properties;
+
+# 4. If x exists with y and y is opposite to z, then x does not exists with z
+INVENT
+   from ( "be" ( "@x" none none  ( "@y" "JJ" none ) ) 1.0 {  } )
+   as ( NOT ( "be" ( "@x" none none  ( "@y" "JJ" none ) ) 1.0 {  } ) )
+   over "@y" "neqTo" "^z"
+   replace "y" -> "z"
+   with-properties;
