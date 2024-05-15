@@ -40,17 +40,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Therh",
-                "monad": "Therh",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thera",
-                "monad": "Thera",
+                "id": "Theru",
+                "monad": "Theru",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -67,17 +58,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Theru",
-                "monad": "Theru",
+                "id": "Therh",
+                "monad": "Therh",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
             },
             {
-                "confidence": 0.8333333333333334,
+                "confidence": 0.8,
                 "end_char": 5,
-                "id": "Tehere",
-                "monad": "Tehere",
+                "id": "Thera",
+                "monad": "Thera",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -87,6 +78,15 @@
                 "end_char": 5,
                 "id": "Tahere",
                 "monad": "Tahere",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Tehere",
+                "monad": "Tehere",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -121,26 +121,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thepe",
-                "monad": "Thepe",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thure",
-                "monad": "Thure",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thare",
-                "monad": "Thare",
+                "id": "Khere",
+                "monad": "Khere",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -166,8 +148,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Tiere",
-                "monad": "Tiere",
+                "id": "Here",
+                "monad": "Here",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -175,8 +157,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Khere",
-                "monad": "Khere",
+                "id": "Theri",
+                "monad": "Theri",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -193,8 +175,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thore",
-                "monad": "Thore",
+                "id": "Thehe",
+                "monad": "Thehe",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -202,8 +184,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Theke",
-                "monad": "Theke",
+                "id": "Thebe",
+                "monad": "Thebe",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thore",
+                "monad": "Thore",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -220,8 +211,35 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thete",
-                "monad": "Thete",
+                "id": "Tiere",
+                "monad": "Tiere",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thure",
+                "monad": "Thure",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thare",
+                "monad": "Thare",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Theke",
+                "monad": "Theke",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -247,35 +265,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Ahere",
-                "monad": "Ahere",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Theri",
-                "monad": "Theri",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thebe",
-                "monad": "Thebe",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Theme",
-                "monad": "Theme",
+                "id": "Thete",
+                "monad": "Thete",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -292,8 +283,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Here",
-                "monad": "Here",
+                "id": "Theme",
+                "monad": "Theme",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -301,8 +292,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thehe",
-                "monad": "Thehe",
+                "id": "Ahere",
+                "monad": "Ahere",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thepe",
+                "monad": "Thepe",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -345,24 +345,6 @@
             },
             {
                 "confidence": 1.0,
-                "end_char": 19,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 12,
-                "text": "traffic",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 19,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 12,
-                "text": "traffic",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
                 "end_char": 22,
                 "id": "In",
                 "monad": "In",
@@ -389,37 +371,10 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 36,
-                "id": "Newcastle",
-                "monad": "Newcastle",
-                "start_char": 27,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.9,
                 "end_char": 36,
                 "id": "New Castle",
                 "monad": "New Castle",
-                "start_char": 27,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 36,
-                "id": "New Castle",
-                "monad": "New Castle",
-                "start_char": 27,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 36,
-                "id": "Newcastle",
-                "monad": "Newcastle",
                 "start_char": 27,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -447,6 +402,42 @@
                 "end_char": 36,
                 "id": "Newcastle",
                 "monad": "Newcastle",
+                "start_char": 27,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 36,
+                "id": "New Castle",
+                "monad": "New Castle",
+                "start_char": 27,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 36,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 27,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 36,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 27,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 36,
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 27,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -456,15 +447,6 @@
                 "end_char": 36,
                 "id": "Bewcastle",
                 "monad": "Bewcastle",
-                "start_char": 27,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 36,
-                "id": "New Castle",
-                "monad": "New Castle",
                 "start_char": 27,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -524,19 +506,19 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8,
+                "confidence": 0.9,
                 "end_char": 36,
-                "id": "Dew Castle",
-                "monad": "Dew Castle",
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 27,
                 "text": "Newcastle",
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
+                "confidence": 0.8,
                 "end_char": 36,
-                "id": "New Castle",
-                "monad": "New Castle",
+                "id": "Dew Castle",
+                "monad": "Dew Castle",
                 "start_char": 27,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -571,8 +553,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 41,
-                "id": "Citry",
-                "monad": "Citry",
+                "id": "Coity",
+                "monad": "Coity",
                 "start_char": 37,
                 "text": "city",
                 "type": "GPE"
@@ -580,8 +562,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 41,
-                "id": "Coity",
-                "monad": "Coity",
+                "id": "Citry",
+                "monad": "Citry",
                 "start_char": 37,
                 "text": "city",
                 "type": "GPE"
@@ -607,8 +589,17 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 48,
-                "id": "Centru",
-                "monad": "Centru",
+                "id": "Centrs",
+                "monad": "Centrs",
+                "start_char": 42,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 48,
+                "id": "Centri",
+                "monad": "Centri",
                 "start_char": 42,
                 "text": "centre",
                 "type": "GPE"
@@ -625,6 +616,33 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 48,
+                "id": "Centru",
+                "monad": "Centru",
+                "start_char": 42,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 48,
+                "id": "Centra",
+                "monad": "Centra",
+                "start_char": 42,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 48,
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 42,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 48,
                 "id": "Centro",
                 "monad": "Centro",
                 "start_char": 42,
@@ -641,42 +659,6 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8333333333333334,
-                "end_char": 48,
-                "id": "Centrs",
-                "monad": "Centrs",
-                "start_char": 42,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 48,
-                "id": "Centra",
-                "monad": "Centra",
-                "start_char": 42,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 48,
-                "id": "Centri",
-                "monad": "Centri",
-                "start_char": 42,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 48,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 42,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
                 "confidence": 1.0,
                 "end_char": 48,
                 "id": "Centre",
@@ -706,8 +688,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 48,
-                "id": "Entre",
-                "monad": "Entre",
+                "id": "Cente",
+                "monad": "Cente",
                 "start_char": 42,
                 "text": "centre",
                 "type": "GPE"
@@ -724,8 +706,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 48,
-                "id": "Cente",
-                "monad": "Cente",
+                "id": "Entre",
+                "monad": "Entre",
                 "start_char": 42,
                 "text": "centre",
                 "type": "GPE"
@@ -744,33 +726,6 @@
                 "end_char": 48,
                 "id": "Centro",
                 "monad": "Centro",
-                "start_char": 42,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 48,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 42,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 48,
-                "id": "Jentre",
-                "monad": "Jentre",
-                "start_char": 42,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 48,
-                "id": "Contre",
-                "monad": "Contre",
                 "start_char": 42,
                 "text": "centre",
                 "type": "GPE"
@@ -805,8 +760,35 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 48,
+                "id": "Jentre",
+                "monad": "Jentre",
+                "start_char": 42,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 48,
+                "id": "Contre",
+                "monad": "Contre",
+                "start_char": 42,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 48,
                 "id": "Pentre",
                 "monad": "Pentre",
+                "start_char": 42,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 48,
+                "id": "Centre",
+                "monad": "Centre",
                 "start_char": 42,
                 "text": "centre",
                 "type": "GPE"
@@ -904,17 +886,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "thera",
-                "monad": "thera",
-                "start_char": 0,
-                "text": "There",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "therm",
-                "monad": "therm",
+                "id": "thern",
+                "monad": "thern",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -931,8 +904,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "thern",
-                "monad": "thern",
+                "id": "thera",
+                "monad": "thera",
+                "start_char": 0,
+                "text": "There",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "therm",
+                "monad": "therm",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -994,24 +976,6 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "where",
-                "monad": "where",
-                "start_char": 0,
-                "text": "There",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "twere",
-                "monad": "twere",
-                "start_char": 0,
-                "text": "There",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
                 "id": "shere",
                 "monad": "shere",
                 "start_char": 0,
@@ -1021,8 +985,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "thebe",
-                "monad": "thebe",
+                "id": "chere",
+                "monad": "chere",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -1039,8 +1003,26 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "chere",
-                "monad": "chere",
+                "id": "where",
+                "monad": "where",
+                "start_char": 0,
+                "text": "There",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "thebe",
+                "monad": "thebe",
+                "start_char": 0,
+                "text": "There",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "twere",
+                "monad": "twere",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -1093,8 +1075,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 19,
-                "id": "traffics",
-                "monad": "traffics",
+                "id": "traffick",
+                "monad": "traffick",
                 "start_char": 12,
                 "text": "traffic",
                 "type": "ENTITY"
@@ -1102,8 +1084,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 19,
-                "id": "traffick",
-                "monad": "traffick",
+                "id": "traffics",
+                "monad": "traffics",
                 "start_char": 12,
                 "text": "traffic",
                 "type": "ENTITY"
@@ -1257,37 +1239,10 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 9,
-                "id": "Newcastle",
-                "monad": "Newcastle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.9,
                 "end_char": 9,
                 "id": "New Castle",
                 "monad": "New Castle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 9,
-                "id": "New Castle",
-                "monad": "New Castle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 9,
-                "id": "Newcastle",
-                "monad": "Newcastle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -1315,6 +1270,42 @@
                 "end_char": 9,
                 "id": "Newcastle",
                 "monad": "Newcastle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 9,
+                "id": "New Castle",
+                "monad": "New Castle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 9,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 9,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 9,
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -1324,15 +1315,6 @@
                 "end_char": 9,
                 "id": "Bewcastle",
                 "monad": "Bewcastle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 9,
-                "id": "New Castle",
-                "monad": "New Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -1392,19 +1374,19 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8,
+                "confidence": 0.9,
                 "end_char": 9,
-                "id": "Dew Castle",
-                "monad": "Dew Castle",
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
+                "confidence": 0.8,
                 "end_char": 9,
-                "id": "New Castle",
-                "monad": "New Castle",
+                "id": "Dew Castle",
+                "monad": "Dew Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -1439,8 +1421,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Citry",
-                "monad": "Citry",
+                "id": "Coity",
+                "monad": "Coity",
                 "start_char": 10,
                 "text": "city",
                 "type": "GPE"
@@ -1448,8 +1430,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Coity",
-                "monad": "Coity",
+                "id": "Citry",
+                "monad": "Citry",
                 "start_char": 10,
                 "text": "city",
                 "type": "GPE"
@@ -1466,15 +1448,6 @@
             {
                 "confidence": 0.8,
                 "end_char": 24,
-                "id": "Centre Inn",
-                "monad": "Centre Inn",
-                "start_char": 15,
-                "text": "centre is",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 24,
                 "id": "Centre Est",
                 "monad": "Centre Est",
                 "start_char": 15,
@@ -1482,39 +1455,12 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
+                "confidence": 0.8,
+                "end_char": 24,
+                "id": "Centre Inn",
+                "monad": "Centre Inn",
                 "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "Centru",
-                "monad": "Centru",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "centra",
-                "monad": "centra",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "Centro",
-                "monad": "Centro",
-                "start_char": 15,
-                "text": "centre",
+                "text": "centre is",
                 "type": "GPE"
             },
             {
@@ -1538,15 +1484,6 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Centra",
-                "monad": "Centra",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
                 "id": "Centri",
                 "monad": "Centri",
                 "start_char": 15,
@@ -1554,37 +1491,10 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
+                "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
+                "id": "centra",
+                "monad": "centra",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -1592,8 +1502,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Entre",
-                "monad": "Entre",
+                "id": "Centru",
+                "monad": "Centru",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -1601,17 +1511,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Cenre",
-                "monad": "Cenre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "Cente",
-                "monad": "Cente",
+                "id": "Centra",
+                "monad": "Centra",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -1644,10 +1545,28 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8333333333333334,
+                "confidence": 1.0,
                 "end_char": 21,
-                "id": "Jentre",
-                "monad": "Jentre",
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -1655,8 +1574,44 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Contre",
-                "monad": "Contre",
+                "id": "Cente",
+                "monad": "Cente",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Cenre",
+                "monad": "Cenre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Entre",
+                "monad": "Entre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Centro",
+                "monad": "Centro",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -1691,8 +1646,35 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
+                "id": "Jentre",
+                "monad": "Jentre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Contre",
+                "monad": "Contre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
                 "id": "Pentre",
                 "monad": "Pentre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -1947,17 +1929,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Therh",
-                "monad": "Therh",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thera",
-                "monad": "Thera",
+                "id": "Theru",
+                "monad": "Theru",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -1974,17 +1947,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Theru",
-                "monad": "Theru",
+                "id": "Therh",
+                "monad": "Therh",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
             },
             {
-                "confidence": 0.8333333333333334,
+                "confidence": 0.8,
                 "end_char": 5,
-                "id": "Tehere",
-                "monad": "Tehere",
+                "id": "Thera",
+                "monad": "Thera",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -1994,6 +1967,15 @@
                 "end_char": 5,
                 "id": "Tahere",
                 "monad": "Tahere",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Tehere",
+                "monad": "Tehere",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2028,26 +2010,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thepe",
-                "monad": "Thepe",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thure",
-                "monad": "Thure",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thare",
-                "monad": "Thare",
+                "id": "Khere",
+                "monad": "Khere",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2073,8 +2037,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Tiere",
-                "monad": "Tiere",
+                "id": "Here",
+                "monad": "Here",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2082,8 +2046,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Khere",
-                "monad": "Khere",
+                "id": "Theri",
+                "monad": "Theri",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2100,8 +2064,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thore",
-                "monad": "Thore",
+                "id": "Thehe",
+                "monad": "Thehe",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2109,8 +2073,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Theke",
-                "monad": "Theke",
+                "id": "Thebe",
+                "monad": "Thebe",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thore",
+                "monad": "Thore",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2127,8 +2100,35 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thete",
-                "monad": "Thete",
+                "id": "Tiere",
+                "monad": "Tiere",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thure",
+                "monad": "Thure",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thare",
+                "monad": "Thare",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Theke",
+                "monad": "Theke",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2154,35 +2154,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Ahere",
-                "monad": "Ahere",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Theri",
-                "monad": "Theri",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Thebe",
-                "monad": "Thebe",
-                "start_char": 0,
-                "text": "There",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "Theme",
-                "monad": "Theme",
+                "id": "Thete",
+                "monad": "Thete",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2199,8 +2172,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Here",
-                "monad": "Here",
+                "id": "Theme",
+                "monad": "Theme",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2208,8 +2181,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "Thehe",
-                "monad": "Thehe",
+                "id": "Ahere",
+                "monad": "Ahere",
+                "start_char": 0,
+                "text": "There",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Thepe",
+                "monad": "Thepe",
                 "start_char": 0,
                 "text": "There",
                 "type": "GPE"
@@ -2239,24 +2221,6 @@
                 "monad": "Is",
                 "start_char": 6,
                 "text": "is",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 16,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 9,
-                "text": "traffic",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 16,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 9,
-                "text": "traffic",
                 "type": "GPE"
             },
             {
@@ -2314,37 +2278,10 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 41,
-                "id": "Newcastle",
-                "monad": "Newcastle",
-                "start_char": 32,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.9,
                 "end_char": 41,
                 "id": "New Castle",
                 "monad": "New Castle",
-                "start_char": 32,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 41,
-                "id": "New Castle",
-                "monad": "New Castle",
-                "start_char": 32,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 41,
-                "id": "Newcastle",
-                "monad": "Newcastle",
                 "start_char": 32,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -2372,6 +2309,42 @@
                 "end_char": 41,
                 "id": "Newcastle",
                 "monad": "Newcastle",
+                "start_char": 32,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 41,
+                "id": "New Castle",
+                "monad": "New Castle",
+                "start_char": 32,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 41,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 32,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 41,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 32,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 41,
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 32,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -2381,15 +2354,6 @@
                 "end_char": 41,
                 "id": "Bewcastle",
                 "monad": "Bewcastle",
-                "start_char": 32,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 41,
-                "id": "New Castle",
-                "monad": "New Castle",
                 "start_char": 32,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -2449,19 +2413,19 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8,
+                "confidence": 0.9,
                 "end_char": 41,
-                "id": "Dew Castle",
-                "monad": "Dew Castle",
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 32,
                 "text": "Newcastle",
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
+                "confidence": 0.8,
                 "end_char": 41,
-                "id": "New Castle",
-                "monad": "New Castle",
+                "id": "Dew Castle",
+                "monad": "Dew Castle",
                 "start_char": 32,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -2496,8 +2460,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 46,
-                "id": "Citry",
-                "monad": "Citry",
+                "id": "Coity",
+                "monad": "Coity",
                 "start_char": 42,
                 "text": "city",
                 "type": "GPE"
@@ -2505,8 +2469,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 46,
-                "id": "Coity",
-                "monad": "Coity",
+                "id": "Citry",
+                "monad": "Citry",
                 "start_char": 42,
                 "text": "city",
                 "type": "GPE"
@@ -2532,8 +2496,17 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 53,
-                "id": "Centru",
-                "monad": "Centru",
+                "id": "Centrs",
+                "monad": "Centrs",
+                "start_char": 47,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 53,
+                "id": "Centri",
+                "monad": "Centri",
                 "start_char": 47,
                 "text": "centre",
                 "type": "GPE"
@@ -2550,6 +2523,33 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 53,
+                "id": "Centru",
+                "monad": "Centru",
+                "start_char": 47,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 53,
+                "id": "Centra",
+                "monad": "Centra",
+                "start_char": 47,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 53,
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 47,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 53,
                 "id": "Centro",
                 "monad": "Centro",
                 "start_char": 47,
@@ -2566,42 +2566,6 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8333333333333334,
-                "end_char": 53,
-                "id": "Centrs",
-                "monad": "Centrs",
-                "start_char": 47,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 53,
-                "id": "Centra",
-                "monad": "Centra",
-                "start_char": 47,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 53,
-                "id": "Centri",
-                "monad": "Centri",
-                "start_char": 47,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 53,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 47,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
                 "confidence": 1.0,
                 "end_char": 53,
                 "id": "Centre",
@@ -2631,8 +2595,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 53,
-                "id": "Entre",
-                "monad": "Entre",
+                "id": "Cente",
+                "monad": "Cente",
                 "start_char": 47,
                 "text": "centre",
                 "type": "GPE"
@@ -2649,8 +2613,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 53,
-                "id": "Cente",
-                "monad": "Cente",
+                "id": "Entre",
+                "monad": "Entre",
                 "start_char": 47,
                 "text": "centre",
                 "type": "GPE"
@@ -2669,33 +2633,6 @@
                 "end_char": 53,
                 "id": "Centro",
                 "monad": "Centro",
-                "start_char": 47,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 53,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 47,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 53,
-                "id": "Jentre",
-                "monad": "Jentre",
-                "start_char": 47,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 53,
-                "id": "Contre",
-                "monad": "Contre",
                 "start_char": 47,
                 "text": "centre",
                 "type": "GPE"
@@ -2730,8 +2667,35 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 53,
+                "id": "Jentre",
+                "monad": "Jentre",
+                "start_char": 47,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 53,
+                "id": "Contre",
+                "monad": "Contre",
+                "start_char": 47,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 53,
                 "id": "Pentre",
                 "monad": "Pentre",
+                "start_char": 47,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 53,
+                "id": "Centre",
+                "monad": "Centre",
                 "start_char": 47,
                 "text": "centre",
                 "type": "GPE"
@@ -2829,17 +2793,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "thera",
-                "monad": "thera",
-                "start_char": 0,
-                "text": "There",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "therm",
-                "monad": "therm",
+                "id": "thern",
+                "monad": "thern",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -2856,8 +2811,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "thern",
-                "monad": "thern",
+                "id": "thera",
+                "monad": "thera",
+                "start_char": 0,
+                "text": "There",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "therm",
+                "monad": "therm",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -2919,24 +2883,6 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "where",
-                "monad": "where",
-                "start_char": 0,
-                "text": "There",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
-                "id": "twere",
-                "monad": "twere",
-                "start_char": 0,
-                "text": "There",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 5,
                 "id": "shere",
                 "monad": "shere",
                 "start_char": 0,
@@ -2946,8 +2892,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "thebe",
-                "monad": "thebe",
+                "id": "chere",
+                "monad": "chere",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -2964,8 +2910,26 @@
             {
                 "confidence": 0.8,
                 "end_char": 5,
-                "id": "chere",
-                "monad": "chere",
+                "id": "where",
+                "monad": "where",
+                "start_char": 0,
+                "text": "There",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "thebe",
+                "monad": "thebe",
+                "start_char": 0,
+                "text": "There",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "twere",
+                "monad": "twere",
                 "start_char": 0,
                 "text": "There",
                 "type": "ENTITY"
@@ -3000,8 +2964,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 16,
-                "id": "traffics",
-                "monad": "traffics",
+                "id": "traffick",
+                "monad": "traffick",
                 "start_char": 9,
                 "text": "traffic",
                 "type": "ENTITY"
@@ -3009,8 +2973,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 16,
-                "id": "traffick",
-                "monad": "traffick",
+                "id": "traffics",
+                "monad": "traffics",
                 "start_char": 9,
                 "text": "traffic",
                 "type": "ENTITY"
@@ -3200,37 +3164,10 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 12,
-                "id": "Newcastle",
-                "monad": "Newcastle",
-                "start_char": 3,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.9,
                 "end_char": 12,
                 "id": "New Castle",
                 "monad": "New Castle",
-                "start_char": 3,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 12,
-                "id": "New Castle",
-                "monad": "New Castle",
-                "start_char": 3,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 12,
-                "id": "Newcastle",
-                "monad": "Newcastle",
                 "start_char": 3,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -3258,6 +3195,42 @@
                 "end_char": 12,
                 "id": "Newcastle",
                 "monad": "Newcastle",
+                "start_char": 3,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 12,
+                "id": "New Castle",
+                "monad": "New Castle",
+                "start_char": 3,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 12,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 3,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 12,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 3,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 12,
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 3,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -3308,19 +3281,19 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
+                "confidence": 0.8181818181818182,
                 "end_char": 12,
-                "id": "New Castle",
-                "monad": "New Castle",
+                "id": "New Castile",
+                "monad": "New Castile",
                 "start_char": 3,
                 "text": "Newcastle",
                 "type": "GPE"
             },
             {
-                "confidence": 0.8181818181818182,
+                "confidence": 0.9,
                 "end_char": 12,
-                "id": "New Castile",
-                "monad": "New Castile",
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 3,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -3332,33 +3305,6 @@
                 "monad": "Dew Castle",
                 "start_char": 3,
                 "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 12,
-                "id": "New Castle",
-                "monad": "New Castle",
-                "start_char": 3,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 14,
-                "text": "traffic",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 14,
-                "text": "traffic",
                 "type": "GPE"
             },
             {
@@ -3445,8 +3391,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 21,
-                "id": "traffics",
-                "monad": "traffics",
+                "id": "traffick",
+                "monad": "traffick",
                 "start_char": 14,
                 "text": "traffic",
                 "type": "ENTITY"
@@ -3454,8 +3400,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 21,
-                "id": "traffick",
-                "monad": "traffick",
+                "id": "traffics",
+                "monad": "traffics",
                 "start_char": 14,
                 "text": "traffic",
                 "type": "ENTITY"
@@ -3499,15 +3445,6 @@
             {
                 "confidence": 0.8571428571428571,
                 "end_char": 32,
-                "id": "glowing",
-                "monad": "glowing",
-                "start_char": 25,
-                "text": "flowing",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8571428571428571,
-                "end_char": 32,
                 "id": "blowing",
                 "monad": "blowing",
                 "start_char": 25,
@@ -3517,8 +3454,8 @@
             {
                 "confidence": 0.8571428571428571,
                 "end_char": 32,
-                "id": "plowing",
-                "monad": "plowing",
+                "id": "slowing",
+                "monad": "slowing",
                 "start_char": 25,
                 "text": "flowing",
                 "type": "ENTITY"
@@ -3526,8 +3463,17 @@
             {
                 "confidence": 0.8571428571428571,
                 "end_char": 32,
-                "id": "slowing",
-                "monad": "slowing",
+                "id": "glowing",
+                "monad": "glowing",
+                "start_char": 25,
+                "text": "flowing",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 32,
+                "id": "plowing",
+                "monad": "plowing",
                 "start_char": 25,
                 "text": "flowing",
                 "type": "ENTITY"
@@ -3555,11 +3501,11 @@
             },
             {
                 "confidence": 1.0,
-                "endDate": "May 11, 2024, 12:00:00 AM",
+                "endDate": "May 18, 2024, 12:00:00 AM",
                 "end_char": 37,
-                "startDate": "May 11, 2024, 12:00:00 AM",
+                "startDate": "May 18, 2024, 12:00:00 AM",
                 "start_char": 29,
-                "text": "2024-05-11",
+                "text": "2024-05-18",
                 "type": "DATE"
             },
             {
@@ -3610,17 +3556,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 10,
-                "id": "Busby",
-                "monad": "Busby",
-                "start_char": 6,
-                "text": "busy",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 10,
-                "id": "Butsy",
-                "monad": "Butsy",
+                "id": "Bursy",
+                "monad": "Bursy",
                 "start_char": 6,
                 "text": "busy",
                 "type": "GPE"
@@ -3637,8 +3574,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 10,
-                "id": "Busay",
-                "monad": "Busay",
+                "id": "Bushy",
+                "monad": "Bushy",
                 "start_char": 6,
                 "text": "busy",
                 "type": "GPE"
@@ -3655,8 +3592,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 10,
-                "id": "Bursy",
-                "monad": "Bursy",
+                "id": "Busby",
+                "monad": "Busby",
                 "start_char": 6,
                 "text": "busy",
                 "type": "GPE"
@@ -3664,8 +3601,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 10,
-                "id": "Bushy",
-                "monad": "Bushy",
+                "id": "Busay",
+                "monad": "Busay",
+                "start_char": 6,
+                "text": "busy",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 10,
+                "id": "Butsy",
+                "monad": "Butsy",
                 "start_char": 6,
                 "text": "busy",
                 "type": "GPE"
@@ -3689,19 +3635,19 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
+                "confidence": 0.9,
                 "end_char": 23,
-                "id": "Newcastle",
-                "monad": "Newcastle",
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 14,
                 "text": "Newcastle",
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
+                "confidence": 1.0,
                 "end_char": 23,
-                "id": "New Castle",
-                "monad": "New Castle",
+                "id": "Newcastle",
+                "monad": "Newcastle",
                 "start_char": 14,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -3716,21 +3662,21 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8571428571428571,
-                "end_char": 26,
-                "id": "Newcastle Pond",
-                "monad": "Newcastle Pond",
-                "start_char": 14,
-                "text": "Newcastle on",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.9,
                 "end_char": 23,
                 "id": "New Castle",
                 "monad": "New Castle",
                 "start_char": 14,
                 "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 26,
+                "id": "Newcastle Pond",
+                "monad": "Newcastle Pond",
+                "start_char": 14,
+                "text": "Newcastle on",
                 "type": "GPE"
             },
             {
@@ -3752,15 +3698,6 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 23,
-                "id": "Newcastle",
-                "monad": "Newcastle",
-                "start_char": 14,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.9,
                 "end_char": 23,
                 "id": "New Castle",
@@ -3774,6 +3711,24 @@
                 "end_char": 23,
                 "id": "Newcastle",
                 "monad": "Newcastle",
+                "start_char": 14,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 23,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 14,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 23,
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 14,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -3824,15 +3779,6 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
-                "end_char": 23,
-                "id": "New Castle",
-                "monad": "New Castle",
-                "start_char": 14,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.8181818181818182,
                 "end_char": 23,
                 "id": "New Castile",
@@ -3842,19 +3788,19 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8,
+                "confidence": 0.9,
                 "end_char": 23,
-                "id": "Dew Castle",
-                "monad": "Dew Castle",
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 14,
                 "text": "Newcastle",
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
+                "confidence": 0.8,
                 "end_char": 23,
-                "id": "New Castle",
-                "monad": "New Castle",
+                "id": "Dew Castle",
+                "monad": "Dew Castle",
                 "start_char": 14,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -3943,8 +3889,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 10,
-                "id": "bushy",
-                "monad": "bushy",
+                "id": "bugsy",
+                "monad": "bugsy",
                 "start_char": 6,
                 "text": "busy",
                 "type": "ENTITY"
@@ -3961,8 +3907,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 10,
-                "id": "bugsy",
-                "monad": "bugsy",
+                "id": "busby",
+                "monad": "busby",
                 "start_char": 6,
                 "text": "busy",
                 "type": "ENTITY"
@@ -3970,8 +3916,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 10,
-                "id": "busby",
-                "monad": "busby",
+                "id": "bushy",
+                "monad": "bushy",
                 "start_char": 6,
                 "text": "busy",
                 "type": "ENTITY"
@@ -4118,15 +4064,6 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Haven",
-                "monad": "Haven",
-                "start_char": 10,
-                "text": "have",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 14,
                 "id": "Haved",
                 "monad": "Haved",
                 "start_char": 10,
@@ -4136,26 +4073,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Haver",
-                "monad": "Haver",
-                "start_char": 10,
-                "text": "have",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 14,
-                "id": "Havet",
-                "monad": "Havet",
-                "start_char": 10,
-                "text": "have",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 14,
-                "id": "Havea",
-                "monad": "Havea",
+                "id": "Haveh",
+                "monad": "Haveh",
                 "start_char": 10,
                 "text": "have",
                 "type": "GPE"
@@ -4172,8 +4091,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Haveh",
-                "monad": "Haveh",
+                "id": "Haver",
+                "monad": "Haver",
                 "start_char": 10,
                 "text": "have",
                 "type": "GPE"
@@ -4199,8 +4118,26 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Hlave",
-                "monad": "Hlave",
+                "id": "Haven",
+                "monad": "Haven",
+                "start_char": 10,
+                "text": "have",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 14,
+                "id": "Havea",
+                "monad": "Havea",
+                "start_char": 10,
+                "text": "have",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 14,
+                "id": "Havet",
+                "monad": "Havet",
                 "start_char": 10,
                 "text": "have",
                 "type": "GPE"
@@ -4217,17 +4154,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Havre",
-                "monad": "Havre",
-                "start_char": 10,
-                "text": "have",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 14,
-                "id": "Shave",
-                "monad": "Shave",
+                "id": "Hlave",
+                "monad": "Hlave",
                 "start_char": 10,
                 "text": "have",
                 "type": "GPE"
@@ -4244,8 +4172,26 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
+                "id": "Shave",
+                "monad": "Shave",
+                "start_char": 10,
+                "text": "have",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 14,
                 "id": "Chave",
                 "monad": "Chave",
+                "start_char": 10,
+                "text": "have",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 14,
+                "id": "Havre",
+                "monad": "Havre",
                 "start_char": 10,
                 "text": "have",
                 "type": "GPE"
@@ -4298,17 +4244,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 27,
-                "id": "Busby",
-                "monad": "Busby",
-                "start_char": 23,
-                "text": "busy",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 27,
-                "id": "Butsy",
-                "monad": "Butsy",
+                "id": "Bursy",
+                "monad": "Bursy",
                 "start_char": 23,
                 "text": "busy",
                 "type": "GPE"
@@ -4325,8 +4262,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 27,
-                "id": "Busay",
-                "monad": "Busay",
+                "id": "Bushy",
+                "monad": "Bushy",
                 "start_char": 23,
                 "text": "busy",
                 "type": "GPE"
@@ -4343,8 +4280,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 27,
-                "id": "Bursy",
-                "monad": "Bursy",
+                "id": "Busby",
+                "monad": "Busby",
                 "start_char": 23,
                 "text": "busy",
                 "type": "GPE"
@@ -4352,8 +4289,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 27,
-                "id": "Bushy",
-                "monad": "Bushy",
+                "id": "Busay",
+                "monad": "Busay",
+                "start_char": 23,
+                "text": "busy",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 27,
+                "id": "Butsy",
+                "monad": "Butsy",
                 "start_char": 23,
                 "text": "busy",
                 "type": "GPE"
@@ -4379,8 +4325,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 32,
-                "id": "Citry",
-                "monad": "Citry",
+                "id": "Coity",
+                "monad": "Coity",
                 "start_char": 28,
                 "text": "city",
                 "type": "GPE"
@@ -4388,8 +4334,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 32,
-                "id": "Coity",
-                "monad": "Coity",
+                "id": "Citry",
+                "monad": "Citry",
                 "start_char": 28,
                 "text": "city",
                 "type": "GPE"
@@ -4433,8 +4379,8 @@
             {
                 "confidence": 0.8571428571428571,
                 "end_char": 40,
-                "id": "Conters",
-                "monad": "Conters",
+                "id": "Center",
+                "monad": "Center",
                 "start_char": 33,
                 "text": "centers",
                 "type": "GPE"
@@ -4444,6 +4390,15 @@
                 "end_char": 40,
                 "id": "Venters",
                 "monad": "Venters",
+                "start_char": 33,
+                "text": "centers",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 40,
+                "id": "Conters",
+                "monad": "Conters",
                 "start_char": 33,
                 "text": "centers",
                 "type": "GPE"
@@ -4496,8 +4451,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "havea",
-                "monad": "havea",
+                "id": "havel",
+                "monad": "havel",
                 "start_char": 10,
                 "text": "have",
                 "type": "ENTITY"
@@ -4523,8 +4478,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "havel",
-                "monad": "havel",
+                "id": "havea",
+                "monad": "havea",
                 "start_char": 10,
                 "text": "have",
                 "type": "ENTITY"
@@ -4541,26 +4496,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "ihave",
-                "monad": "ihave",
-                "start_char": 10,
-                "text": "have",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 14,
-                "id": "halve",
-                "monad": "halve",
-                "start_char": 10,
-                "text": "have",
-                "type": "ENTITY"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 14,
-                "id": "shave",
-                "monad": "shave",
+                "id": "heave",
+                "monad": "heave",
                 "start_char": 10,
                 "text": "have",
                 "type": "ENTITY"
@@ -4577,8 +4514,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "harve",
-                "monad": "harve",
+                "id": "ihave",
+                "monad": "ihave",
                 "start_char": 10,
                 "text": "have",
                 "type": "ENTITY"
@@ -4586,8 +4523,26 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "heave",
-                "monad": "heave",
+                "id": "shave",
+                "monad": "shave",
+                "start_char": 10,
+                "text": "have",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 14,
+                "id": "halve",
+                "monad": "halve",
+                "start_char": 10,
+                "text": "have",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 14,
+                "id": "harve",
+                "monad": "harve",
                 "start_char": 10,
                 "text": "have",
                 "type": "ENTITY"
@@ -4622,8 +4577,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 27,
-                "id": "bushy",
-                "monad": "bushy",
+                "id": "bugsy",
+                "monad": "bugsy",
                 "start_char": 23,
                 "text": "busy",
                 "type": "ENTITY"
@@ -4640,8 +4595,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 27,
-                "id": "bugsy",
-                "monad": "bugsy",
+                "id": "busby",
+                "monad": "busby",
                 "start_char": 23,
                 "text": "busy",
                 "type": "ENTITY"
@@ -4649,8 +4604,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 27,
-                "id": "busby",
-                "monad": "busby",
+                "id": "bushy",
+                "monad": "bushy",
                 "start_char": 23,
                 "text": "busy",
                 "type": "ENTITY"
@@ -4761,8 +4716,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 4,
-                "id": "Citry",
-                "monad": "Citry",
+                "id": "Coity",
+                "monad": "Coity",
                 "start_char": 0,
                 "text": "City",
                 "type": "GPE"
@@ -4770,8 +4725,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 4,
-                "id": "Coity",
-                "monad": "Coity",
+                "id": "Citry",
+                "monad": "Citry",
                 "start_char": 0,
                 "text": "City",
                 "type": "GPE"
@@ -4786,6 +4741,15 @@
                 "type": "GPE"
             },
             {
+                "confidence": 0.8333333333333334,
+                "end_char": 12,
+                "id": "Citycenter",
+                "monad": "Citycenter",
+                "start_char": 0,
+                "text": "City centers",
+                "type": "GPE"
+            },
+            {
                 "confidence": 0.8666666666666667,
                 "end_char": 15,
                 "id": "City Center One",
@@ -4795,12 +4759,12 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8333333333333334,
+                "confidence": 0.8571428571428571,
                 "end_char": 12,
-                "id": "Citycenter",
-                "monad": "Citycenter",
-                "start_char": 0,
-                "text": "City centers",
+                "id": "Center",
+                "monad": "Center",
+                "start_char": 5,
+                "text": "centers",
                 "type": "GPE"
             },
             {
@@ -4815,15 +4779,6 @@
             {
                 "confidence": 0.8571428571428571,
                 "end_char": 12,
-                "id": "Center",
-                "monad": "Center",
-                "start_char": 5,
-                "text": "centers",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8571428571428571,
-                "end_char": 12,
                 "id": "Centrs",
                 "monad": "Centrs",
                 "start_char": 5,
@@ -4833,8 +4788,8 @@
             {
                 "confidence": 0.8571428571428571,
                 "end_char": 12,
-                "id": "Conters",
-                "monad": "Conters",
+                "id": "Center",
+                "monad": "Center",
                 "start_char": 5,
                 "text": "centers",
                 "type": "GPE"
@@ -4844,6 +4799,15 @@
                 "end_char": 12,
                 "id": "Venters",
                 "monad": "Venters",
+                "start_char": 5,
+                "text": "centers",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 12,
+                "id": "Conters",
+                "monad": "Conters",
                 "start_char": 5,
                 "text": "centers",
                 "type": "GPE"
@@ -4968,17 +4932,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Busby",
-                "monad": "Busby",
-                "start_char": 30,
-                "text": "busy",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 34,
-                "id": "Butsy",
-                "monad": "Butsy",
+                "id": "Bursy",
+                "monad": "Bursy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -4995,8 +4950,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Busay",
-                "monad": "Busay",
+                "id": "Bushy",
+                "monad": "Bushy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -5013,8 +4968,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Bursy",
-                "monad": "Bursy",
+                "id": "Busby",
+                "monad": "Busby",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -5022,8 +4977,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Bushy",
-                "monad": "Bushy",
+                "id": "Busay",
+                "monad": "Busay",
+                "start_char": 30,
+                "text": "busy",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 34,
+                "id": "Butsy",
+                "monad": "Butsy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -5139,8 +5103,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "bushy",
-                "monad": "bushy",
+                "id": "bugsy",
+                "monad": "bugsy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "ENTITY"
@@ -5157,8 +5121,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "bugsy",
-                "monad": "bugsy",
+                "id": "busby",
+                "monad": "busby",
                 "start_char": 30,
                 "text": "busy",
                 "type": "ENTITY"
@@ -5166,8 +5130,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "busby",
-                "monad": "busby",
+                "id": "bushy",
+                "monad": "bushy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "ENTITY"
@@ -5233,8 +5197,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 4,
-                "id": "Citry",
-                "monad": "Citry",
+                "id": "Coity",
+                "monad": "Coity",
                 "start_char": 0,
                 "text": "City",
                 "type": "GPE"
@@ -5242,8 +5206,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 4,
-                "id": "Coity",
-                "monad": "Coity",
+                "id": "Citry",
+                "monad": "Citry",
                 "start_char": 0,
                 "text": "City",
                 "type": "GPE"
@@ -5285,24 +5249,6 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8,
-                "end_char": 15,
-                "id": "Centreton",
-                "monad": "Centreton",
-                "start_char": 5,
-                "text": "centres on",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8571428571428571,
-                "end_char": 12,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 5,
-                "text": "centres",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.8571428571428571,
                 "end_char": 12,
                 "id": "Centrs",
@@ -5312,12 +5258,12 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8571428571428571,
-                "end_char": 12,
-                "id": "Cestres",
-                "monad": "Cestres",
+                "confidence": 0.8,
+                "end_char": 15,
+                "id": "Centreton",
+                "monad": "Centreton",
                 "start_char": 5,
-                "text": "centres",
+                "text": "centres on",
                 "type": "GPE"
             },
             {
@@ -5343,6 +5289,24 @@
                 "end_char": 12,
                 "id": "Contres",
                 "monad": "Contres",
+                "start_char": 5,
+                "text": "centres",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 12,
+                "id": "Cestres",
+                "monad": "Cestres",
+                "start_char": 5,
+                "text": "centres",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 12,
+                "id": "Centre",
+                "monad": "Centre",
                 "start_char": 5,
                 "text": "centres",
                 "type": "GPE"
@@ -5521,17 +5485,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Busby",
-                "monad": "Busby",
-                "start_char": 30,
-                "text": "busy",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8,
-                "end_char": 34,
-                "id": "Butsy",
-                "monad": "Butsy",
+                "id": "Bursy",
+                "monad": "Bursy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -5548,8 +5503,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Busay",
-                "monad": "Busay",
+                "id": "Bushy",
+                "monad": "Bushy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -5566,8 +5521,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Bursy",
-                "monad": "Bursy",
+                "id": "Busby",
+                "monad": "Busby",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -5575,8 +5530,17 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "Bushy",
-                "monad": "Bushy",
+                "id": "Busay",
+                "monad": "Busay",
+                "start_char": 30,
+                "text": "busy",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 34,
+                "id": "Butsy",
+                "monad": "Butsy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "GPE"
@@ -5683,8 +5647,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "bushy",
-                "monad": "bushy",
+                "id": "bugsy",
+                "monad": "bugsy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "ENTITY"
@@ -5701,8 +5665,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "bugsy",
-                "monad": "bugsy",
+                "id": "busby",
+                "monad": "busby",
                 "start_char": 30,
                 "text": "busy",
                 "type": "ENTITY"
@@ -5710,8 +5674,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 34,
-                "id": "busby",
-                "monad": "busby",
+                "id": "bushy",
+                "monad": "bushy",
                 "start_char": 30,
                 "text": "busy",
                 "type": "ENTITY"
@@ -5739,37 +5703,10 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 9,
-                "id": "Newcastle",
-                "monad": "Newcastle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
                 "confidence": 0.9,
                 "end_char": 9,
                 "id": "New Castle",
                 "monad": "New Castle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 9,
-                "id": "New Castle",
-                "monad": "New Castle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 9,
-                "id": "Newcastle",
-                "monad": "Newcastle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -5797,6 +5734,42 @@
                 "end_char": 9,
                 "id": "Newcastle",
                 "monad": "Newcastle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 9,
+                "id": "New Castle",
+                "monad": "New Castle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 9,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 9,
+                "id": "Newcastle",
+                "monad": "Newcastle",
+                "start_char": 0,
+                "text": "Newcastle",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.9,
+                "end_char": 9,
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -5806,15 +5779,6 @@
                 "end_char": 9,
                 "id": "Bewcastle",
                 "monad": "Bewcastle",
-                "start_char": 0,
-                "text": "Newcastle",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.9,
-                "end_char": 9,
-                "id": "New Castle",
-                "monad": "New Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -5874,19 +5838,19 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8,
+                "confidence": 0.9,
                 "end_char": 9,
-                "id": "Dew Castle",
-                "monad": "Dew Castle",
+                "id": "New Castle",
+                "monad": "New Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
             },
             {
-                "confidence": 0.9,
+                "confidence": 0.8,
                 "end_char": 9,
-                "id": "New Castle",
-                "monad": "New Castle",
+                "id": "Dew Castle",
+                "monad": "Dew Castle",
                 "start_char": 0,
                 "text": "Newcastle",
                 "type": "GPE"
@@ -5921,8 +5885,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Citry",
-                "monad": "Citry",
+                "id": "Coity",
+                "monad": "Coity",
                 "start_char": 10,
                 "text": "city",
                 "type": "GPE"
@@ -5930,8 +5894,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 14,
-                "id": "Coity",
-                "monad": "Coity",
+                "id": "Citry",
+                "monad": "Citry",
                 "start_char": 10,
                 "text": "city",
                 "type": "GPE"
@@ -5948,8 +5912,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 25,
-                "id": "Centre Dam",
-                "monad": "Centre Dam",
+                "id": "Centre Bay",
+                "monad": "Centre Bay",
                 "start_char": 15,
                 "text": "centre has",
                 "type": "GPE"
@@ -5957,8 +5921,8 @@
             {
                 "confidence": 0.8,
                 "end_char": 25,
-                "id": "Centre Bay",
-                "monad": "Centre Bay",
+                "id": "Centre Dam",
+                "monad": "Centre Dam",
                 "start_char": 15,
                 "text": "centre has",
                 "type": "GPE"
@@ -5975,15 +5939,6 @@
             {
                 "confidence": 0.8181818181818182,
                 "end_char": 25,
-                "id": "Centre Pass",
-                "monad": "Centre Pass",
-                "start_char": 15,
-                "text": "centre has",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8181818181818182,
-                "end_char": 25,
                 "id": "Centre Hall",
                 "monad": "Centre Hall",
                 "start_char": 15,
@@ -5991,39 +5946,12 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
+                "confidence": 0.8181818181818182,
+                "end_char": 25,
+                "id": "Centre Pass",
+                "monad": "Centre Pass",
                 "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "Centru",
-                "monad": "Centru",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "centra",
-                "monad": "centra",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "Centro",
-                "monad": "Centro",
-                "start_char": 15,
-                "text": "centre",
+                "text": "centre has",
                 "type": "GPE"
             },
             {
@@ -6047,15 +5975,6 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Centra",
-                "monad": "Centra",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
                 "id": "Centri",
                 "monad": "Centri",
                 "start_char": 15,
@@ -6063,37 +5982,10 @@
                 "type": "GPE"
             },
             {
-                "confidence": 1.0,
+                "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 21,
-                "id": "Centre",
-                "monad": "Centre",
+                "id": "centra",
+                "monad": "centra",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -6101,8 +5993,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Entre",
-                "monad": "Entre",
+                "id": "Centru",
+                "monad": "Centru",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -6110,17 +6002,8 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Cenre",
-                "monad": "Cenre",
-                "start_char": 15,
-                "text": "centre",
-                "type": "GPE"
-            },
-            {
-                "confidence": 0.8333333333333334,
-                "end_char": 21,
-                "id": "Cente",
-                "monad": "Cente",
+                "id": "Centra",
+                "monad": "Centra",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -6153,10 +6036,28 @@
                 "type": "GPE"
             },
             {
-                "confidence": 0.8333333333333334,
+                "confidence": 1.0,
                 "end_char": 21,
-                "id": "Jentre",
-                "monad": "Jentre",
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -6164,8 +6065,44 @@
             {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
-                "id": "Contre",
-                "monad": "Contre",
+                "id": "Cente",
+                "monad": "Cente",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Cenre",
+                "monad": "Cenre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Entre",
+                "monad": "Entre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Centro",
+                "monad": "Centro",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -6193,6 +6130,24 @@
                 "end_char": 21,
                 "id": "Cestre",
                 "monad": "Cestre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Jentre",
+                "monad": "Jentre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 21,
+                "id": "Contre",
+                "monad": "Contre",
                 "start_char": 15,
                 "text": "centre",
                 "type": "GPE"
@@ -6243,6 +6198,15 @@
                 "type": "GPE"
             },
             {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Centre",
+                "monad": "Centre",
+                "start_char": 15,
+                "text": "centre",
+                "type": "GPE"
+            },
+            {
                 "confidence": 0.8333333333333334,
                 "end_char": 21,
                 "id": "Centro",
@@ -6267,24 +6231,6 @@
                 "monad": "Has",
                 "start_char": 22,
                 "text": "has",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 33,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 26,
-                "text": "traffic",
-                "type": "GPE"
-            },
-            {
-                "confidence": 1.0,
-                "end_char": 33,
-                "id": "Traffic",
-                "monad": "Traffic",
-                "start_char": 26,
-                "text": "traffic",
                 "type": "GPE"
             },
             {
@@ -6416,8 +6362,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 33,
-                "id": "traffics",
-                "monad": "traffics",
+                "id": "traffick",
+                "monad": "traffick",
                 "start_char": 26,
                 "text": "traffic",
                 "type": "ENTITY"
@@ -6425,8 +6371,8 @@
             {
                 "confidence": 0.875,
                 "end_char": 33,
-                "id": "traffick",
-                "monad": "traffick",
+                "id": "traffics",
+                "monad": "traffics",
                 "start_char": 26,
                 "text": "traffic",
                 "type": "ENTITY"

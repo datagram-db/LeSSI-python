@@ -1,1 +1,2 @@
-UPDATE ( "have" ( "x" none none , "y" none none ) 1.0 {} ) over "^x" "partOf" "@y" replace "x" -> "y";
+UPDATE ( "have" ( "x" none none , "y" none none ) 1.0 {} ) over "^x" "partOf" "@y"  replace "x" -> "y";
+INVENT from

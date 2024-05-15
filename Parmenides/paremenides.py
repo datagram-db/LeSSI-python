@@ -180,6 +180,8 @@ if __name__ == "__main__":
         print(hasEdge)
     for outcome in g.isA("flow", "^t"):
         print(outcome)
+    for outcome in g.isA("busy", "Adjective"):
+        print(outcome)
     # print(g.typeOf("Newcastle"))
     # print(g.typeOf("city"))
     # print(g.typeOf("flow"))

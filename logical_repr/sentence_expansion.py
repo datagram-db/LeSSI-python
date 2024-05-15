@@ -23,6 +23,7 @@ class PairwiseCases(Enum):
     NonImplying = 0
     Implying = 1
     MutuallyExclusive = 2
+    Equivalent = 3
 
 
 
@@ -101,6 +102,9 @@ class SentenceExpansion:
         elif (test == PairwiseCases.MutuallyExclusive):
             return pandas.DataFrame({str(i): [0, 1],
                            str(j): [1,0]})
+        elif (test == PairwiseCases.Equivalent):
+            return pandas.DataFrame({str(i): [0, 1],
+                           str(j): [0,1]})
 
     def universal_truth(self):
         L = list()

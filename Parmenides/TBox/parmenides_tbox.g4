@@ -3,7 +3,7 @@ grammar parmenides_tbox;
 parmenides_tbox: (rule ';')+;
 
 rule: 'UPDATE' formula 'over' ontology_query ('replace' replacement_pair+)? operations* #substitutions
-    | 'INVENT' formula 'from' formula 'over' ontology_query ('replace' replacement_pair+)? operations* #invention
+    | 'INVENT' 'from' formula 'as' formula 'over' ontology_query ('replace' replacement_pair+)? operations* #invention
     ;
 
 formula: '(' formula ')'  #fparen
@@ -23,7 +23,7 @@ operations: 'rem' STRING              #remove
 
 ontology_query: src=STRING edge=STRING dst=STRING #edge_match
               | 'isa' src=STRING dst=STRING       #isa_match
-              | 'all' '[' ontology_query* ']'     #all_queries
+              | 'all' '[' (ontology_query ',')* ontology_query? ']'     #all_queries
               ;
 
 replacement_pair: src=STRING '->' dst=STRING;

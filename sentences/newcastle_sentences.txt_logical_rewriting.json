@@ -4,7 +4,7 @@
             "rel": "be",
             "arg": {
                 "name": "traffic",
-                "type": "GPE",
+                "type": "ENTITY",
                 "specification": null,
                 "cop": null,
                 "meta": "FVariable",
@@ -59,7 +59,7 @@
         "rel": "be",
         "arg": {
             "name": "traffic",
-            "type": "GPE",
+            "type": "ENTITY",
             "specification": null,
             "cop": null,
             "meta": "FVariable",
@@ -79,6 +79,14 @@
                     },
                     "meta": "FNot",
                     "matched": false
+                },
+                {
+                    "name": "not",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
                 }
             ]
         },
@@ -89,7 +97,7 @@
         "rel": "flow in",
         "arg": {
             "name": "traffic",
-            "type": "GPE",
+            "type": "ENTITY",
             "specification": null,
             "cop": null,
             "meta": "FVariable",
@@ -123,20 +131,28 @@
         },
         "score": 1.0,
         "properties": {
-            "DATE": [
+            "GPE": [
                 {
-                    "name": "Saturday",
-                    "type": "DATE",
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                },
+                {
+                    "name": "in",
+                    "type": "GPE",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable",
                     "matched": false
                 }
             ],
-            "GPE": [
+            "DATE": [
                 {
-                    "name": "Newcastle",
-                    "type": "GPE",
+                    "name": "Saturday",
+                    "type": "DATE",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable",
@@ -148,8 +164,8 @@
         "matched": false
     },
     {
-        "rel": "have",
-        "src": {
+        "rel": "be",
+        "arg": {
             "name": "city centers",
             "type": "None",
             "specification": "",
@@ -157,16 +173,25 @@
             "meta": "FVariable",
             "matched": false
         },
-        "dst": {
-            "name": "busy",
-            "type": "JJ",
-            "specification": null,
-            "cop": null,
-            "meta": "FVariable",
-            "matched": false
-        },
         "score": 1.0,
         "properties": {
+            "GPE": [
+                {
+                    "name": "busy",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": {
+                        "name": "usually",
+                        "type": "JJ",
+                        "specification": null,
+                        "cop": null,
+                        "meta": "FVariable",
+                        "matched": false
+                    },
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ],
             "DATE": [
                 {
                     "name": "Saturdays",
@@ -178,7 +203,7 @@
                 }
             ]
         },
-        "meta": "FBinaryPredicate",
+        "meta": "FUnaryPredicate",
         "matched": false
     },
     {
@@ -195,7 +220,7 @@
         "properties": {
             "ENTITY": [
                 {
-                    "name": "centers",
+                    "name": "City",
                     "type": "ENTITY",
                     "specification": null,
                     "cop": null,
@@ -203,7 +228,7 @@
                     "matched": false
                 },
                 {
-                    "name": "City",
+                    "name": "centers",
                     "type": "ENTITY",
                     "specification": null,
                     "cop": null,
@@ -263,7 +288,7 @@
         "rel": "be",
         "arg": {
             "name": "traffic",
-            "type": "GPE",
+            "type": "ENTITY",
             "specification": null,
             "cop": null,
             "meta": "FVariable",
