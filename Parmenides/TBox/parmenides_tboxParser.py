@@ -10,95 +10,97 @@ else:
 
 def serializedATN():
     return [
-        4,1,48,253,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
+        4,1,48,257,2,0,7,0,2,1,7,1,2,2,7,2,2,3,7,3,2,4,7,4,2,5,7,5,2,6,7,
         6,2,7,7,7,2,8,7,8,2,9,7,9,2,10,7,10,1,0,1,0,1,0,4,0,26,8,0,11,0,
         12,0,27,1,1,1,1,1,1,1,1,1,1,1,1,5,1,36,8,1,10,1,12,1,39,9,1,1,1,
-        3,1,42,8,1,1,1,1,1,1,1,1,1,4,1,48,8,1,11,1,12,1,49,3,1,52,8,1,1,
-        1,5,1,55,8,1,10,1,12,1,58,9,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,5,1,67,
-        8,1,10,1,12,1,70,9,1,1,1,3,1,73,8,1,1,1,1,1,1,1,1,1,1,1,1,1,4,1,
-        81,8,1,11,1,12,1,82,3,1,85,8,1,1,1,5,1,88,8,1,10,1,12,1,91,9,1,3,
-        1,93,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,3,2,105,8,2,1,2,
-        1,2,1,2,1,2,1,2,1,2,1,2,5,2,114,8,2,10,2,12,2,117,9,2,1,2,1,2,1,
-        2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,5,2,130,8,2,10,2,12,2,133,9,2,
-        1,2,1,2,1,2,1,2,1,2,4,2,140,8,2,11,2,12,2,141,1,2,1,2,1,2,4,2,147,
-        8,2,11,2,12,2,148,1,2,1,2,3,2,153,8,2,1,3,1,3,1,3,1,3,1,3,1,3,1,
-        3,5,3,162,8,3,10,3,12,3,165,9,3,1,3,1,3,1,3,3,3,170,8,3,1,3,1,3,
-        1,3,1,3,1,3,1,4,1,4,1,4,3,4,180,8,4,1,4,1,4,3,4,184,8,4,1,4,1,4,
-        3,4,188,8,4,1,4,1,4,3,4,192,8,4,1,5,1,5,4,5,196,8,5,11,5,12,5,197,
-        1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,3,6,208,8,6,1,7,1,7,1,7,1,7,1,7,
-        1,7,1,7,1,7,1,7,1,7,1,7,5,7,221,8,7,10,7,12,7,224,9,7,1,7,3,7,227,
-        8,7,1,7,3,7,230,8,7,1,8,1,8,1,8,1,8,1,9,1,9,1,9,1,9,1,9,5,9,241,
-        8,9,10,9,12,9,244,9,9,1,9,1,9,1,9,1,10,1,10,3,10,251,8,10,1,10,0,
-        0,11,0,2,4,6,8,10,12,14,16,18,20,0,0,280,0,25,1,0,0,0,2,92,1,0,0,
-        0,4,152,1,0,0,0,6,154,1,0,0,0,8,176,1,0,0,0,10,195,1,0,0,0,12,207,
-        1,0,0,0,14,229,1,0,0,0,16,231,1,0,0,0,18,235,1,0,0,0,20,250,1,0,
-        0,0,22,23,3,2,1,0,23,24,5,1,0,0,24,26,1,0,0,0,25,22,1,0,0,0,26,27,
-        1,0,0,0,27,25,1,0,0,0,27,28,1,0,0,0,28,1,1,0,0,0,29,30,5,2,0,0,30,
-        41,3,4,2,0,31,37,5,3,0,0,32,33,3,6,3,0,33,34,5,4,0,0,34,36,1,0,0,
-        0,35,32,1,0,0,0,36,39,1,0,0,0,37,35,1,0,0,0,37,38,1,0,0,0,38,40,
-        1,0,0,0,39,37,1,0,0,0,40,42,3,6,3,0,41,31,1,0,0,0,41,42,1,0,0,0,
-        42,43,1,0,0,0,43,44,5,5,0,0,44,51,3,14,7,0,45,47,5,6,0,0,46,48,3,
-        16,8,0,47,46,1,0,0,0,48,49,1,0,0,0,49,47,1,0,0,0,49,50,1,0,0,0,50,
-        52,1,0,0,0,51,45,1,0,0,0,51,52,1,0,0,0,52,56,1,0,0,0,53,55,3,12,
-        6,0,54,53,1,0,0,0,55,58,1,0,0,0,56,54,1,0,0,0,56,57,1,0,0,0,57,93,
-        1,0,0,0,58,56,1,0,0,0,59,60,5,7,0,0,60,61,5,8,0,0,61,72,3,4,2,0,
-        62,68,5,3,0,0,63,64,3,6,3,0,64,65,5,4,0,0,65,67,1,0,0,0,66,63,1,
-        0,0,0,67,70,1,0,0,0,68,66,1,0,0,0,68,69,1,0,0,0,69,71,1,0,0,0,70,
-        68,1,0,0,0,71,73,3,6,3,0,72,62,1,0,0,0,72,73,1,0,0,0,73,74,1,0,0,
-        0,74,75,5,9,0,0,75,76,3,4,2,0,76,77,5,5,0,0,77,84,3,14,7,0,78,80,
-        5,6,0,0,79,81,3,16,8,0,80,79,1,0,0,0,81,82,1,0,0,0,82,80,1,0,0,0,
-        82,83,1,0,0,0,83,85,1,0,0,0,84,78,1,0,0,0,84,85,1,0,0,0,85,89,1,
-        0,0,0,86,88,3,12,6,0,87,86,1,0,0,0,88,91,1,0,0,0,89,87,1,0,0,0,89,
-        90,1,0,0,0,90,93,1,0,0,0,91,89,1,0,0,0,92,29,1,0,0,0,92,59,1,0,0,
-        0,93,3,1,0,0,0,94,95,5,10,0,0,95,96,3,4,2,0,96,97,5,11,0,0,97,153,
-        1,0,0,0,98,99,5,38,0,0,99,153,5,12,0,0,100,101,3,20,10,0,101,102,
-        3,20,10,0,102,104,3,20,10,0,103,105,3,4,2,0,104,103,1,0,0,0,104,
-        105,1,0,0,0,105,153,1,0,0,0,106,107,3,20,10,0,107,108,5,10,0,0,108,
-        109,3,4,2,0,109,110,5,11,0,0,110,111,5,41,0,0,111,115,5,13,0,0,112,
-        114,3,18,9,0,113,112,1,0,0,0,114,117,1,0,0,0,115,113,1,0,0,0,115,
-        116,1,0,0,0,116,118,1,0,0,0,117,115,1,0,0,0,118,119,5,14,0,0,119,
-        153,1,0,0,0,120,121,3,20,10,0,121,122,5,10,0,0,122,123,3,4,2,0,123,
-        124,5,15,0,0,124,125,3,4,2,0,125,126,5,11,0,0,126,127,5,41,0,0,127,
-        131,5,13,0,0,128,130,3,18,9,0,129,128,1,0,0,0,130,133,1,0,0,0,131,
-        129,1,0,0,0,131,132,1,0,0,0,132,134,1,0,0,0,133,131,1,0,0,0,134,
-        135,5,14,0,0,135,153,1,0,0,0,136,137,5,16,0,0,137,139,3,4,2,0,138,
-        140,3,4,2,0,139,138,1,0,0,0,140,141,1,0,0,0,141,139,1,0,0,0,141,
-        142,1,0,0,0,142,153,1,0,0,0,143,144,5,17,0,0,144,146,3,4,2,0,145,
-        147,3,4,2,0,146,145,1,0,0,0,147,148,1,0,0,0,148,146,1,0,0,0,148,
-        149,1,0,0,0,149,153,1,0,0,0,150,151,5,18,0,0,151,153,3,4,2,0,152,
-        94,1,0,0,0,152,98,1,0,0,0,152,100,1,0,0,0,152,106,1,0,0,0,152,120,
-        1,0,0,0,152,136,1,0,0,0,152,143,1,0,0,0,152,150,1,0,0,0,153,5,1,
-        0,0,0,154,155,5,38,0,0,155,169,5,40,0,0,156,157,5,19,0,0,157,163,
-        5,20,0,0,158,159,3,8,4,0,159,160,5,4,0,0,160,162,1,0,0,0,161,158,
-        1,0,0,0,162,165,1,0,0,0,163,161,1,0,0,0,163,164,1,0,0,0,164,166,
-        1,0,0,0,165,163,1,0,0,0,166,167,3,8,4,0,167,168,5,21,0,0,168,170,
-        1,0,0,0,169,156,1,0,0,0,169,170,1,0,0,0,170,171,1,0,0,0,171,172,
-        5,9,0,0,172,173,5,38,0,0,173,174,5,22,0,0,174,175,5,40,0,0,175,7,
-        1,0,0,0,176,177,5,40,0,0,177,179,5,23,0,0,178,180,3,10,5,0,179,178,
-        1,0,0,0,179,180,1,0,0,0,180,183,1,0,0,0,181,182,5,24,0,0,182,184,
-        5,38,0,0,183,181,1,0,0,0,183,184,1,0,0,0,184,187,1,0,0,0,185,186,
-        5,25,0,0,186,188,5,38,0,0,187,185,1,0,0,0,187,188,1,0,0,0,188,191,
-        1,0,0,0,189,190,5,26,0,0,190,192,5,38,0,0,191,189,1,0,0,0,191,192,
-        1,0,0,0,192,9,1,0,0,0,193,194,5,27,0,0,194,196,5,38,0,0,195,193,
-        1,0,0,0,196,197,1,0,0,0,197,195,1,0,0,0,197,198,1,0,0,0,198,11,1,
-        0,0,0,199,200,5,28,0,0,200,208,5,38,0,0,201,202,5,29,0,0,202,203,
-        3,4,2,0,203,204,5,30,0,0,204,205,5,38,0,0,205,208,1,0,0,0,206,208,
-        5,31,0,0,207,199,1,0,0,0,207,201,1,0,0,0,207,206,1,0,0,0,208,13,
-        1,0,0,0,209,210,5,38,0,0,210,211,5,38,0,0,211,230,5,38,0,0,212,213,
-        5,32,0,0,213,214,5,38,0,0,214,230,5,38,0,0,215,216,5,33,0,0,216,
-        222,5,34,0,0,217,218,3,14,7,0,218,219,5,15,0,0,219,221,1,0,0,0,220,
-        217,1,0,0,0,221,224,1,0,0,0,222,220,1,0,0,0,222,223,1,0,0,0,223,
-        226,1,0,0,0,224,222,1,0,0,0,225,227,3,14,7,0,226,225,1,0,0,0,226,
-        227,1,0,0,0,227,228,1,0,0,0,228,230,5,35,0,0,229,209,1,0,0,0,229,
-        212,1,0,0,0,229,215,1,0,0,0,230,15,1,0,0,0,231,232,5,38,0,0,232,
-        233,5,36,0,0,233,234,5,38,0,0,234,17,1,0,0,0,235,236,5,38,0,0,236,
-        242,5,23,0,0,237,238,3,4,2,0,238,239,5,15,0,0,239,241,1,0,0,0,240,
-        237,1,0,0,0,241,244,1,0,0,0,242,240,1,0,0,0,242,243,1,0,0,0,243,
-        245,1,0,0,0,244,242,1,0,0,0,245,246,3,4,2,0,246,247,5,37,0,0,247,
-        19,1,0,0,0,248,251,5,38,0,0,249,251,5,39,0,0,250,248,1,0,0,0,250,
-        249,1,0,0,0,251,21,1,0,0,0,31,27,37,41,49,51,56,68,72,82,84,89,92,
-        104,115,131,141,148,152,163,169,179,183,187,191,197,207,222,226,
-        229,242,250
+        3,1,42,8,1,1,1,1,1,3,1,46,8,1,1,1,1,1,4,1,50,8,1,11,1,12,1,51,3,
+        1,54,8,1,1,1,5,1,57,8,1,10,1,12,1,60,9,1,1,1,1,1,1,1,1,1,1,1,1,1,
+        1,1,5,1,69,8,1,10,1,12,1,72,9,1,1,1,3,1,75,8,1,1,1,1,1,1,1,1,1,3,
+        1,81,8,1,1,1,1,1,4,1,85,8,1,11,1,12,1,86,3,1,89,8,1,1,1,5,1,92,8,
+        1,10,1,12,1,95,9,1,3,1,97,8,1,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,
+        2,1,2,3,2,109,8,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,5,2,118,8,2,10,2,12,
+        2,121,9,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,1,2,5,2,134,8,
+        2,10,2,12,2,137,9,2,1,2,1,2,1,2,1,2,1,2,4,2,144,8,2,11,2,12,2,145,
+        1,2,1,2,1,2,4,2,151,8,2,11,2,12,2,152,1,2,1,2,3,2,157,8,2,1,3,1,
+        3,1,3,1,3,1,3,1,3,1,3,5,3,166,8,3,10,3,12,3,169,9,3,1,3,1,3,1,3,
+        3,3,174,8,3,1,3,1,3,1,3,1,3,1,3,1,4,1,4,1,4,3,4,184,8,4,1,4,1,4,
+        3,4,188,8,4,1,4,1,4,3,4,192,8,4,1,4,1,4,3,4,196,8,4,1,5,1,5,4,5,
+        200,8,5,11,5,12,5,201,1,6,1,6,1,6,1,6,1,6,1,6,1,6,1,6,3,6,212,8,
+        6,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,1,7,5,7,225,8,7,10,7,12,
+        7,228,9,7,1,7,3,7,231,8,7,1,7,3,7,234,8,7,1,8,1,8,1,8,1,8,1,9,1,
+        9,1,9,1,9,1,9,5,9,245,8,9,10,9,12,9,248,9,9,1,9,1,9,1,9,1,10,1,10,
+        3,10,255,8,10,1,10,0,0,11,0,2,4,6,8,10,12,14,16,18,20,0,0,286,0,
+        25,1,0,0,0,2,96,1,0,0,0,4,156,1,0,0,0,6,158,1,0,0,0,8,180,1,0,0,
+        0,10,199,1,0,0,0,12,211,1,0,0,0,14,233,1,0,0,0,16,235,1,0,0,0,18,
+        239,1,0,0,0,20,254,1,0,0,0,22,23,3,2,1,0,23,24,5,1,0,0,24,26,1,0,
+        0,0,25,22,1,0,0,0,26,27,1,0,0,0,27,25,1,0,0,0,27,28,1,0,0,0,28,1,
+        1,0,0,0,29,30,5,2,0,0,30,41,3,4,2,0,31,37,5,3,0,0,32,33,3,6,3,0,
+        33,34,5,4,0,0,34,36,1,0,0,0,35,32,1,0,0,0,36,39,1,0,0,0,37,35,1,
+        0,0,0,37,38,1,0,0,0,38,40,1,0,0,0,39,37,1,0,0,0,40,42,3,6,3,0,41,
+        31,1,0,0,0,41,42,1,0,0,0,42,45,1,0,0,0,43,44,5,5,0,0,44,46,3,14,
+        7,0,45,43,1,0,0,0,45,46,1,0,0,0,46,53,1,0,0,0,47,49,5,6,0,0,48,50,
+        3,16,8,0,49,48,1,0,0,0,50,51,1,0,0,0,51,49,1,0,0,0,51,52,1,0,0,0,
+        52,54,1,0,0,0,53,47,1,0,0,0,53,54,1,0,0,0,54,58,1,0,0,0,55,57,3,
+        12,6,0,56,55,1,0,0,0,57,60,1,0,0,0,58,56,1,0,0,0,58,59,1,0,0,0,59,
+        97,1,0,0,0,60,58,1,0,0,0,61,62,5,7,0,0,62,63,5,8,0,0,63,74,3,4,2,
+        0,64,70,5,3,0,0,65,66,3,6,3,0,66,67,5,4,0,0,67,69,1,0,0,0,68,65,
+        1,0,0,0,69,72,1,0,0,0,70,68,1,0,0,0,70,71,1,0,0,0,71,73,1,0,0,0,
+        72,70,1,0,0,0,73,75,3,6,3,0,74,64,1,0,0,0,74,75,1,0,0,0,75,76,1,
+        0,0,0,76,77,5,9,0,0,77,80,3,4,2,0,78,79,5,5,0,0,79,81,3,14,7,0,80,
+        78,1,0,0,0,80,81,1,0,0,0,81,88,1,0,0,0,82,84,5,6,0,0,83,85,3,16,
+        8,0,84,83,1,0,0,0,85,86,1,0,0,0,86,84,1,0,0,0,86,87,1,0,0,0,87,89,
+        1,0,0,0,88,82,1,0,0,0,88,89,1,0,0,0,89,93,1,0,0,0,90,92,3,12,6,0,
+        91,90,1,0,0,0,92,95,1,0,0,0,93,91,1,0,0,0,93,94,1,0,0,0,94,97,1,
+        0,0,0,95,93,1,0,0,0,96,29,1,0,0,0,96,61,1,0,0,0,97,3,1,0,0,0,98,
+        99,5,10,0,0,99,100,3,4,2,0,100,101,5,11,0,0,101,157,1,0,0,0,102,
+        103,5,38,0,0,103,157,5,12,0,0,104,105,3,20,10,0,105,106,3,20,10,
+        0,106,108,3,20,10,0,107,109,3,4,2,0,108,107,1,0,0,0,108,109,1,0,
+        0,0,109,157,1,0,0,0,110,111,3,20,10,0,111,112,5,10,0,0,112,113,3,
+        4,2,0,113,114,5,11,0,0,114,115,5,41,0,0,115,119,5,13,0,0,116,118,
+        3,18,9,0,117,116,1,0,0,0,118,121,1,0,0,0,119,117,1,0,0,0,119,120,
+        1,0,0,0,120,122,1,0,0,0,121,119,1,0,0,0,122,123,5,14,0,0,123,157,
+        1,0,0,0,124,125,3,20,10,0,125,126,5,10,0,0,126,127,3,4,2,0,127,128,
+        5,15,0,0,128,129,3,4,2,0,129,130,5,11,0,0,130,131,5,41,0,0,131,135,
+        5,13,0,0,132,134,3,18,9,0,133,132,1,0,0,0,134,137,1,0,0,0,135,133,
+        1,0,0,0,135,136,1,0,0,0,136,138,1,0,0,0,137,135,1,0,0,0,138,139,
+        5,14,0,0,139,157,1,0,0,0,140,141,5,16,0,0,141,143,3,4,2,0,142,144,
+        3,4,2,0,143,142,1,0,0,0,144,145,1,0,0,0,145,143,1,0,0,0,145,146,
+        1,0,0,0,146,157,1,0,0,0,147,148,5,17,0,0,148,150,3,4,2,0,149,151,
+        3,4,2,0,150,149,1,0,0,0,151,152,1,0,0,0,152,150,1,0,0,0,152,153,
+        1,0,0,0,153,157,1,0,0,0,154,155,5,18,0,0,155,157,3,4,2,0,156,98,
+        1,0,0,0,156,102,1,0,0,0,156,104,1,0,0,0,156,110,1,0,0,0,156,124,
+        1,0,0,0,156,140,1,0,0,0,156,147,1,0,0,0,156,154,1,0,0,0,157,5,1,
+        0,0,0,158,159,5,38,0,0,159,173,5,40,0,0,160,161,5,19,0,0,161,167,
+        5,20,0,0,162,163,3,8,4,0,163,164,5,4,0,0,164,166,1,0,0,0,165,162,
+        1,0,0,0,166,169,1,0,0,0,167,165,1,0,0,0,167,168,1,0,0,0,168,170,
+        1,0,0,0,169,167,1,0,0,0,170,171,3,8,4,0,171,172,5,21,0,0,172,174,
+        1,0,0,0,173,160,1,0,0,0,173,174,1,0,0,0,174,175,1,0,0,0,175,176,
+        5,9,0,0,176,177,5,38,0,0,177,178,5,22,0,0,178,179,5,40,0,0,179,7,
+        1,0,0,0,180,181,5,40,0,0,181,183,5,23,0,0,182,184,3,10,5,0,183,182,
+        1,0,0,0,183,184,1,0,0,0,184,187,1,0,0,0,185,186,5,24,0,0,186,188,
+        5,38,0,0,187,185,1,0,0,0,187,188,1,0,0,0,188,191,1,0,0,0,189,190,
+        5,25,0,0,190,192,5,38,0,0,191,189,1,0,0,0,191,192,1,0,0,0,192,195,
+        1,0,0,0,193,194,5,26,0,0,194,196,5,38,0,0,195,193,1,0,0,0,195,196,
+        1,0,0,0,196,9,1,0,0,0,197,198,5,27,0,0,198,200,5,38,0,0,199,197,
+        1,0,0,0,200,201,1,0,0,0,201,199,1,0,0,0,201,202,1,0,0,0,202,11,1,
+        0,0,0,203,204,5,28,0,0,204,212,5,38,0,0,205,206,5,29,0,0,206,207,
+        3,4,2,0,207,208,5,30,0,0,208,209,5,38,0,0,209,212,1,0,0,0,210,212,
+        5,31,0,0,211,203,1,0,0,0,211,205,1,0,0,0,211,210,1,0,0,0,212,13,
+        1,0,0,0,213,214,5,38,0,0,214,215,5,38,0,0,215,234,5,38,0,0,216,217,
+        5,32,0,0,217,218,5,38,0,0,218,234,5,38,0,0,219,220,5,33,0,0,220,
+        226,5,34,0,0,221,222,3,14,7,0,222,223,5,15,0,0,223,225,1,0,0,0,224,
+        221,1,0,0,0,225,228,1,0,0,0,226,224,1,0,0,0,226,227,1,0,0,0,227,
+        230,1,0,0,0,228,226,1,0,0,0,229,231,3,14,7,0,230,229,1,0,0,0,230,
+        231,1,0,0,0,231,232,1,0,0,0,232,234,5,35,0,0,233,213,1,0,0,0,233,
+        216,1,0,0,0,233,219,1,0,0,0,234,15,1,0,0,0,235,236,5,38,0,0,236,
+        237,5,36,0,0,237,238,5,38,0,0,238,17,1,0,0,0,239,240,5,38,0,0,240,
+        246,5,23,0,0,241,242,3,4,2,0,242,243,5,15,0,0,243,245,1,0,0,0,244,
+        241,1,0,0,0,245,248,1,0,0,0,246,244,1,0,0,0,246,247,1,0,0,0,247,
+        249,1,0,0,0,248,246,1,0,0,0,249,250,3,4,2,0,250,251,5,37,0,0,251,
+        19,1,0,0,0,252,255,5,38,0,0,253,255,5,39,0,0,254,252,1,0,0,0,254,
+        253,1,0,0,0,255,21,1,0,0,0,33,27,37,41,45,51,53,58,70,74,80,86,88,
+        93,96,108,119,135,145,152,156,167,173,183,187,191,195,201,211,226,
+        230,233,246,254
     ]
 
 class parmenides_tboxParser ( Parser ):
@@ -297,14 +299,14 @@ class parmenides_tboxParser ( Parser ):
         def formula(self):
             return self.getTypedRuleContext(parmenides_tboxParser.FormulaContext,0)
 
-        def ontology_query(self):
-            return self.getTypedRuleContext(parmenides_tboxParser.Ontology_queryContext,0)
-
         def sentence_match(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(parmenides_tboxParser.Sentence_matchContext)
             else:
                 return self.getTypedRuleContext(parmenides_tboxParser.Sentence_matchContext,i)
+
+        def ontology_query(self):
+            return self.getTypedRuleContext(parmenides_tboxParser.Ontology_queryContext,0)
 
         def operations(self, i:int=None):
             if i is None:
@@ -346,14 +348,14 @@ class parmenides_tboxParser ( Parser ):
             else:
                 return self.getTypedRuleContext(parmenides_tboxParser.FormulaContext,i)
 
-        def ontology_query(self):
-            return self.getTypedRuleContext(parmenides_tboxParser.Ontology_queryContext,0)
-
         def sentence_match(self, i:int=None):
             if i is None:
                 return self.getTypedRuleContexts(parmenides_tboxParser.Sentence_matchContext)
             else:
                 return self.getTypedRuleContext(parmenides_tboxParser.Sentence_matchContext,i)
+
+        def ontology_query(self):
+            return self.getTypedRuleContext(parmenides_tboxParser.Ontology_queryContext,0)
 
         def operations(self, i:int=None):
             if i is None:
@@ -390,7 +392,7 @@ class parmenides_tboxParser ( Parser ):
         self.enterRule(localctx, 2, self.RULE_rule)
         self._la = 0 # Token type
         try:
-            self.state = 92
+            self.state = 96
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [2]:
@@ -423,23 +425,29 @@ class parmenides_tboxParser ( Parser ):
                     self.sentence_match()
 
 
-                self.state = 43
-                self.match(parmenides_tboxParser.T__4)
-                self.state = 44
-                self.ontology_query()
-                self.state = 51
+                self.state = 45
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                if _la==5:
+                    self.state = 43
+                    self.match(parmenides_tboxParser.T__4)
+                    self.state = 44
+                    self.ontology_query()
+
+
+                self.state = 53
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==6:
-                    self.state = 45
+                    self.state = 47
                     self.match(parmenides_tboxParser.T__5)
-                    self.state = 47 
+                    self.state = 49 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     while True:
-                        self.state = 46
+                        self.state = 48
                         self.replacement_pair()
-                        self.state = 49 
+                        self.state = 51 
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
                         if not (_la==38):
@@ -447,13 +455,13 @@ class parmenides_tboxParser ( Parser ):
 
 
 
-                self.state = 56
+                self.state = 58
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la) & ~0x3f) == 0 and ((1 << _la) & 2952790016) != 0):
-                    self.state = 53
+                    self.state = 55
                     self.operations()
-                    self.state = 58
+                    self.state = 60
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -461,56 +469,62 @@ class parmenides_tboxParser ( Parser ):
             elif token in [7]:
                 localctx = parmenides_tboxParser.InventionContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 59
-                self.match(parmenides_tboxParser.T__6)
-                self.state = 60
-                self.match(parmenides_tboxParser.T__7)
                 self.state = 61
+                self.match(parmenides_tboxParser.T__6)
+                self.state = 62
+                self.match(parmenides_tboxParser.T__7)
+                self.state = 63
                 self.formula()
-                self.state = 72
+                self.state = 74
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==3:
-                    self.state = 62
+                    self.state = 64
                     self.match(parmenides_tboxParser.T__2)
-                    self.state = 68
+                    self.state = 70
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,6,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
                     while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                         if _alt==1:
-                            self.state = 63
+                            self.state = 65
                             self.sentence_match()
-                            self.state = 64
+                            self.state = 66
                             self.match(parmenides_tboxParser.T__3) 
-                        self.state = 70
+                        self.state = 72
                         self._errHandler.sync(self)
-                        _alt = self._interp.adaptivePredict(self._input,6,self._ctx)
+                        _alt = self._interp.adaptivePredict(self._input,7,self._ctx)
 
-                    self.state = 71
+                    self.state = 73
                     self.sentence_match()
 
 
-                self.state = 74
-                self.match(parmenides_tboxParser.T__8)
-                self.state = 75
-                self.formula()
                 self.state = 76
-                self.match(parmenides_tboxParser.T__4)
+                self.match(parmenides_tboxParser.T__8)
                 self.state = 77
-                self.ontology_query()
-                self.state = 84
+                self.formula()
+                self.state = 80
+                self._errHandler.sync(self)
+                _la = self._input.LA(1)
+                if _la==5:
+                    self.state = 78
+                    self.match(parmenides_tboxParser.T__4)
+                    self.state = 79
+                    self.ontology_query()
+
+
+                self.state = 88
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if _la==6:
-                    self.state = 78
+                    self.state = 82
                     self.match(parmenides_tboxParser.T__5)
-                    self.state = 80 
+                    self.state = 84 
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
                     while True:
-                        self.state = 79
+                        self.state = 83
                         self.replacement_pair()
-                        self.state = 82 
+                        self.state = 86 
                         self._errHandler.sync(self)
                         _la = self._input.LA(1)
                         if not (_la==38):
@@ -518,13 +532,13 @@ class parmenides_tboxParser ( Parser ):
 
 
 
-                self.state = 89
+                self.state = 93
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while (((_la) & ~0x3f) == 0 and ((1 << _la) & 2952790016) != 0):
-                    self.state = 86
+                    self.state = 90
                     self.operations()
-                    self.state = 91
+                    self.state = 95
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
@@ -812,43 +826,43 @@ class parmenides_tboxParser ( Parser ):
         self.enterRule(localctx, 4, self.RULE_formula)
         self._la = 0 # Token type
         try:
-            self.state = 152
+            self.state = 156
             self._errHandler.sync(self)
-            la_ = self._interp.adaptivePredict(self._input,17,self._ctx)
+            la_ = self._interp.adaptivePredict(self._input,19,self._ctx)
             if la_ == 1:
                 localctx = parmenides_tboxParser.FparenContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 94
+                self.state = 98
                 self.match(parmenides_tboxParser.T__9)
-                self.state = 95
+                self.state = 99
                 self.formula()
-                self.state = 96
+                self.state = 100
                 self.match(parmenides_tboxParser.T__10)
                 pass
 
             elif la_ == 2:
                 localctx = parmenides_tboxParser.Rw_variableContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 98
+                self.state = 102
                 self.match(parmenides_tboxParser.STRING)
-                self.state = 99
+                self.state = 103
                 self.match(parmenides_tboxParser.T__11)
                 pass
 
             elif la_ == 3:
                 localctx = parmenides_tboxParser.VariableContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 100
-                localctx.name = self.opt_string()
-                self.state = 101
-                localctx.type_ = self.opt_string()
-                self.state = 102
-                localctx.specification = self.opt_string()
                 self.state = 104
+                localctx.name = self.opt_string()
+                self.state = 105
+                localctx.type_ = self.opt_string()
+                self.state = 106
+                localctx.specification = self.opt_string()
+                self.state = 108
                 self._errHandler.sync(self)
-                la_ = self._interp.adaptivePredict(self._input,12,self._ctx)
+                la_ = self._interp.adaptivePredict(self._input,14,self._ctx)
                 if la_ == 1:
-                    self.state = 103
+                    self.state = 107
                     localctx.cop = self.formula()
 
 
@@ -857,117 +871,117 @@ class parmenides_tboxParser ( Parser ):
             elif la_ == 4:
                 localctx = parmenides_tboxParser.Unary_predicateContext(self, localctx)
                 self.enterOuterAlt(localctx, 4)
-                self.state = 106
-                localctx.rel = self.opt_string()
-                self.state = 107
-                self.match(parmenides_tboxParser.T__9)
-                self.state = 108
-                localctx.arg = self.formula()
-                self.state = 109
-                self.match(parmenides_tboxParser.T__10)
                 self.state = 110
-                localctx.score = self.match(parmenides_tboxParser.NUMBER)
+                localctx.rel = self.opt_string()
                 self.state = 111
-                self.match(parmenides_tboxParser.T__12)
+                self.match(parmenides_tboxParser.T__9)
+                self.state = 112
+                localctx.arg = self.formula()
+                self.state = 113
+                self.match(parmenides_tboxParser.T__10)
+                self.state = 114
+                localctx.score = self.match(parmenides_tboxParser.NUMBER)
                 self.state = 115
+                self.match(parmenides_tboxParser.T__12)
+                self.state = 119
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==38:
-                    self.state = 112
+                    self.state = 116
                     self.key_values()
-                    self.state = 117
+                    self.state = 121
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 118
+                self.state = 122
                 self.match(parmenides_tboxParser.T__13)
                 pass
 
             elif la_ == 5:
                 localctx = parmenides_tboxParser.Binary_predicateContext(self, localctx)
                 self.enterOuterAlt(localctx, 5)
-                self.state = 120
-                localctx.rel = self.opt_string()
-                self.state = 121
-                self.match(parmenides_tboxParser.T__9)
-                self.state = 122
-                localctx.src = self.formula()
-                self.state = 123
-                self.match(parmenides_tboxParser.T__14)
                 self.state = 124
-                localctx.dst = self.formula()
+                localctx.rel = self.opt_string()
                 self.state = 125
-                self.match(parmenides_tboxParser.T__10)
+                self.match(parmenides_tboxParser.T__9)
                 self.state = 126
-                localctx.score = self.match(parmenides_tboxParser.NUMBER)
+                localctx.src = self.formula()
                 self.state = 127
-                self.match(parmenides_tboxParser.T__12)
+                self.match(parmenides_tboxParser.T__14)
+                self.state = 128
+                localctx.dst = self.formula()
+                self.state = 129
+                self.match(parmenides_tboxParser.T__10)
+                self.state = 130
+                localctx.score = self.match(parmenides_tboxParser.NUMBER)
                 self.state = 131
+                self.match(parmenides_tboxParser.T__12)
+                self.state = 135
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 while _la==38:
-                    self.state = 128
+                    self.state = 132
                     self.key_values()
-                    self.state = 133
+                    self.state = 137
                     self._errHandler.sync(self)
                     _la = self._input.LA(1)
 
-                self.state = 134
+                self.state = 138
                 self.match(parmenides_tboxParser.T__13)
                 pass
 
             elif la_ == 6:
                 localctx = parmenides_tboxParser.AndContext(self, localctx)
                 self.enterOuterAlt(localctx, 6)
-                self.state = 136
+                self.state = 140
                 self.match(parmenides_tboxParser.T__15)
-                self.state = 137
+                self.state = 141
                 self.formula()
-                self.state = 139 
+                self.state = 143 
                 self._errHandler.sync(self)
                 _alt = 1
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
-                        self.state = 138
+                        self.state = 142
                         self.formula()
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 141 
+                    self.state = 145 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,15,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,17,self._ctx)
 
                 pass
 
             elif la_ == 7:
                 localctx = parmenides_tboxParser.OrContext(self, localctx)
                 self.enterOuterAlt(localctx, 7)
-                self.state = 143
+                self.state = 147
                 self.match(parmenides_tboxParser.T__16)
-                self.state = 144
+                self.state = 148
                 self.formula()
-                self.state = 146 
+                self.state = 150 
                 self._errHandler.sync(self)
                 _alt = 1
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt == 1:
-                        self.state = 145
+                        self.state = 149
                         self.formula()
 
                     else:
                         raise NoViableAltException(self)
-                    self.state = 148 
+                    self.state = 152 
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,16,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
 
                 pass
 
             elif la_ == 8:
                 localctx = parmenides_tboxParser.NotContext(self, localctx)
                 self.enterOuterAlt(localctx, 8)
-                self.state = 150
+                self.state = 154
                 self.match(parmenides_tboxParser.T__17)
-                self.state = 151
+                self.state = 155
                 self.formula()
                 pass
 
@@ -1038,44 +1052,44 @@ class parmenides_tboxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 154
+            self.state = 158
             localctx.relname = self.match(parmenides_tboxParser.STRING)
-            self.state = 155
+            self.state = 159
             localctx.n = self.match(parmenides_tboxParser.INTEGER)
-            self.state = 169
+            self.state = 173
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             if _la==19:
-                self.state = 156
+                self.state = 160
                 self.match(parmenides_tboxParser.T__18)
-                self.state = 157
+                self.state = 161
                 self.match(parmenides_tboxParser.T__19)
-                self.state = 163
+                self.state = 167
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
-                        self.state = 158
+                        self.state = 162
                         self.field_match()
-                        self.state = 159
+                        self.state = 163
                         self.match(parmenides_tboxParser.T__3) 
-                    self.state = 165
+                    self.state = 169
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,18,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,20,self._ctx)
 
-                self.state = 166
+                self.state = 170
                 self.field_match()
-                self.state = 167
+                self.state = 171
                 self.match(parmenides_tboxParser.T__20)
 
 
-            self.state = 171
+            self.state = 175
             self.match(parmenides_tboxParser.T__8)
-            self.state = 172
+            self.state = 176
             localctx.as_name = self.match(parmenides_tboxParser.STRING)
-            self.state = 173
+            self.state = 177
             self.match(parmenides_tboxParser.T__21)
-            self.state = 174
+            self.state = 178
             localctx.parents = self.match(parmenides_tboxParser.INTEGER)
         except RecognitionException as re:
             localctx.exception = re
@@ -1137,45 +1151,45 @@ class parmenides_tboxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 176
+            self.state = 180
             localctx.n = self.match(parmenides_tboxParser.INTEGER)
-            self.state = 177
+            self.state = 181
             self.match(parmenides_tboxParser.T__22)
-            self.state = 179
-            self._errHandler.sync(self)
-            _la = self._input.LA(1)
-            if _la==27:
-                self.state = 178
-                self.data_match_path()
-
-
             self.state = 183
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==24:
-                self.state = 181
-                self.match(parmenides_tboxParser.T__23)
+            if _la==27:
                 self.state = 182
-                localctx.attr = self.match(parmenides_tboxParser.STRING)
+                self.data_match_path()
 
 
             self.state = 187
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==25:
+            if _la==24:
                 self.state = 185
-                self.match(parmenides_tboxParser.T__24)
+                self.match(parmenides_tboxParser.T__23)
                 self.state = 186
-                localctx.withval = self.match(parmenides_tboxParser.STRING)
+                localctx.attr = self.match(parmenides_tboxParser.STRING)
 
 
             self.state = 191
             self._errHandler.sync(self)
             _la = self._input.LA(1)
-            if _la==26:
+            if _la==25:
                 self.state = 189
-                self.match(parmenides_tboxParser.T__25)
+                self.match(parmenides_tboxParser.T__24)
                 self.state = 190
+                localctx.withval = self.match(parmenides_tboxParser.STRING)
+
+
+            self.state = 195
+            self._errHandler.sync(self)
+            _la = self._input.LA(1)
+            if _la==26:
+                self.state = 193
+                self.match(parmenides_tboxParser.T__25)
+                self.state = 194
                 localctx.asname = self.match(parmenides_tboxParser.STRING)
 
 
@@ -1228,15 +1242,15 @@ class parmenides_tboxParser ( Parser ):
         self._la = 0 # Token type
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 195 
+            self.state = 199 
             self._errHandler.sync(self)
             _la = self._input.LA(1)
             while True:
-                self.state = 193
+                self.state = 197
                 self.match(parmenides_tboxParser.T__26)
-                self.state = 194
+                self.state = 198
                 self.match(parmenides_tboxParser.STRING)
-                self.state = 197 
+                self.state = 201 
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if not (_la==27):
@@ -1347,33 +1361,33 @@ class parmenides_tboxParser ( Parser ):
         localctx = parmenides_tboxParser.OperationsContext(self, self._ctx, self.state)
         self.enterRule(localctx, 12, self.RULE_operations)
         try:
-            self.state = 207
+            self.state = 211
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [28]:
                 localctx = parmenides_tboxParser.RemoveContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 199
+                self.state = 203
                 self.match(parmenides_tboxParser.T__27)
-                self.state = 200
+                self.state = 204
                 self.match(parmenides_tboxParser.STRING)
                 pass
             elif token in [29]:
                 localctx = parmenides_tboxParser.AddContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 201
+                self.state = 205
                 self.match(parmenides_tboxParser.T__28)
-                self.state = 202
+                self.state = 206
                 self.formula()
-                self.state = 203
+                self.state = 207
                 self.match(parmenides_tboxParser.T__29)
-                self.state = 204
+                self.state = 208
                 self.match(parmenides_tboxParser.STRING)
                 pass
             elif token in [31]:
                 localctx = parmenides_tboxParser.All_propertiesContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 206
+                self.state = 210
                 self.match(parmenides_tboxParser.T__30)
                 pass
             else:
@@ -1499,58 +1513,58 @@ class parmenides_tboxParser ( Parser ):
         self.enterRule(localctx, 14, self.RULE_ontology_query)
         self._la = 0 # Token type
         try:
-            self.state = 229
+            self.state = 233
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [38]:
                 localctx = parmenides_tboxParser.Edge_matchContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 209
+                self.state = 213
                 localctx.src = self.match(parmenides_tboxParser.STRING)
-                self.state = 210
+                self.state = 214
                 localctx.edge = self.match(parmenides_tboxParser.STRING)
-                self.state = 211
+                self.state = 215
                 localctx.dst = self.match(parmenides_tboxParser.STRING)
                 pass
             elif token in [32]:
                 localctx = parmenides_tboxParser.Isa_matchContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 212
+                self.state = 216
                 self.match(parmenides_tboxParser.T__31)
-                self.state = 213
+                self.state = 217
                 localctx.src = self.match(parmenides_tboxParser.STRING)
-                self.state = 214
+                self.state = 218
                 localctx.dst = self.match(parmenides_tboxParser.STRING)
                 pass
             elif token in [33]:
                 localctx = parmenides_tboxParser.All_queriesContext(self, localctx)
                 self.enterOuterAlt(localctx, 3)
-                self.state = 215
+                self.state = 219
                 self.match(parmenides_tboxParser.T__32)
-                self.state = 216
+                self.state = 220
                 self.match(parmenides_tboxParser.T__33)
-                self.state = 222
+                self.state = 226
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,26,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,28,self._ctx)
                 while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                     if _alt==1:
-                        self.state = 217
+                        self.state = 221
                         self.ontology_query()
-                        self.state = 218
+                        self.state = 222
                         self.match(parmenides_tboxParser.T__14) 
-                    self.state = 224
+                    self.state = 228
                     self._errHandler.sync(self)
-                    _alt = self._interp.adaptivePredict(self._input,26,self._ctx)
+                    _alt = self._interp.adaptivePredict(self._input,28,self._ctx)
 
-                self.state = 226
+                self.state = 230
                 self._errHandler.sync(self)
                 _la = self._input.LA(1)
                 if (((_la) & ~0x3f) == 0 and ((1 << _la) & 287762808832) != 0):
-                    self.state = 225
+                    self.state = 229
                     self.ontology_query()
 
 
-                self.state = 228
+                self.state = 232
                 self.match(parmenides_tboxParser.T__34)
                 pass
             else:
@@ -1606,11 +1620,11 @@ class parmenides_tboxParser ( Parser ):
         self.enterRule(localctx, 16, self.RULE_replacement_pair)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 231
+            self.state = 235
             localctx.src = self.match(parmenides_tboxParser.STRING)
-            self.state = 232
+            self.state = 236
             self.match(parmenides_tboxParser.T__35)
-            self.state = 233
+            self.state = 237
             localctx.dst = self.match(parmenides_tboxParser.STRING)
         except RecognitionException as re:
             localctx.exception = re
@@ -1664,26 +1678,26 @@ class parmenides_tboxParser ( Parser ):
         self.enterRule(localctx, 18, self.RULE_key_values)
         try:
             self.enterOuterAlt(localctx, 1)
-            self.state = 235
+            self.state = 239
             self.match(parmenides_tboxParser.STRING)
-            self.state = 236
+            self.state = 240
             self.match(parmenides_tboxParser.T__22)
-            self.state = 242
+            self.state = 246
             self._errHandler.sync(self)
-            _alt = self._interp.adaptivePredict(self._input,29,self._ctx)
+            _alt = self._interp.adaptivePredict(self._input,31,self._ctx)
             while _alt!=2 and _alt!=ATN.INVALID_ALT_NUMBER:
                 if _alt==1:
-                    self.state = 237
+                    self.state = 241
                     self.formula()
-                    self.state = 238
+                    self.state = 242
                     self.match(parmenides_tboxParser.T__14) 
-                self.state = 244
+                self.state = 248
                 self._errHandler.sync(self)
-                _alt = self._interp.adaptivePredict(self._input,29,self._ctx)
+                _alt = self._interp.adaptivePredict(self._input,31,self._ctx)
 
-            self.state = 245
+            self.state = 249
             self.formula()
-            self.state = 246
+            self.state = 250
             self.match(parmenides_tboxParser.T__36)
         except RecognitionException as re:
             localctx.exception = re
@@ -1765,19 +1779,19 @@ class parmenides_tboxParser ( Parser ):
         localctx = parmenides_tboxParser.Opt_stringContext(self, self._ctx, self.state)
         self.enterRule(localctx, 20, self.RULE_opt_string)
         try:
-            self.state = 250
+            self.state = 254
             self._errHandler.sync(self)
             token = self._input.LA(1)
             if token in [38]:
                 localctx = parmenides_tboxParser.ValueContext(self, localctx)
                 self.enterOuterAlt(localctx, 1)
-                self.state = 248
+                self.state = 252
                 self.match(parmenides_tboxParser.STRING)
                 pass
             elif token in [39]:
                 localctx = parmenides_tboxParser.NoneContext(self, localctx)
                 self.enterOuterAlt(localctx, 2)
-                self.state = 249
+                self.state = 253
                 self.match(parmenides_tboxParser.NULL)
                 pass
             else:

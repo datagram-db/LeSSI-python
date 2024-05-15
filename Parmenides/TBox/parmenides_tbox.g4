@@ -2,8 +2,8 @@ grammar parmenides_tbox;
 // java -jar antlr-4.13.1-complete.jar  -Dlanguage=Python3 -visitor  Parmenides/TBox/parmenides_tbox.g4
 parmenides_tbox: (rule ';')+;
 
-rule: 'UPDATE' formula ('where' (sentence_match 'and')* sentence_match )? 'over' ontology_query ('replace' replacement_pair+)? operations* #substitutions
-    | 'INVENT' 'from' formula ('where' (sentence_match 'and')* sentence_match )? 'as' formula 'over' ontology_query ('replace' replacement_pair+)? operations* #invention
+rule: 'UPDATE' formula ('where' (sentence_match 'and')* sentence_match )? ('over' ontology_query)? ('replace' replacement_pair+)? operations* #substitutions
+    | 'INVENT' 'from' formula ('where' (sentence_match 'and')* sentence_match )? 'as' formula ('over' ontology_query)? ('replace' replacement_pair+)? operations* #invention
     ;
 
 formula: '(' formula ')'  #fparen

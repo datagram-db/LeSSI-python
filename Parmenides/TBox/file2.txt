@@ -1,0 +1,4 @@
+INVENT
+  from ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
+  as ( "be" ( "@x" none none ) 1.0 { "COP" : "@y" "JJ" none . })
+  with-properties;

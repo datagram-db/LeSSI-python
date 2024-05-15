@@ -121,7 +121,9 @@ class Parmenides():
 
      @staticmethod
      def instantiate_query_with_map(Q, m):
-         if isinstance(Q, list):
+         if Q is None:
+             return None
+         elif isinstance(Q, list):
              if len(Q)==2 or len(Q)==3:
                  return list(map(lambda x: m.get(x[1:], "") if x.startswith("@") else x, Q))
              else:
@@ -133,7 +135,10 @@ class Parmenides():
 
 
      def multiple_queries(self, Q):
-         if isinstance(Q, list):
+         if Q is None:
+             yield from []
+             return
+         elif isinstance(Q, list):
              if len(Q)==2:
                  yield from self.isA(Q[0], Q[1])
              elif len(Q)==3:

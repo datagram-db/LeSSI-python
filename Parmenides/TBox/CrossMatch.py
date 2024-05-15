@@ -98,10 +98,22 @@ class DoMatchRec:
             ## 5. Using this to instantiate the parametrized ontology query using the matched data
             QInst = Parmenides.instantiate_query_with_map(self.onto_query, data_match_morphism)
             Ly = list(self.p.multiple_queries(QInst))
-            for ontology_navigation_morphism in Ly:
-                merged_morphism = data_match_morphism | ontology_navigation_morphism
+            if len(Ly) > 0:
+                for ontology_navigation_morphism in Ly:
+                    merged_morphism = data_match_morphism | ontology_navigation_morphism
+                    merged_morphism_ddd = dict()
+                    for k, v in merged_morphism.items():
+                        if k != "obj":
+                            merged_morphism_ddd["@" + str(k)] = v
+                    rw_2_dis = expansion.replaceWith(merged_morphism_ddd, True, None, None)
+                    if not rw_2_dis.isUnresolved():
+                        if len(self.del_rewritings) > 0:
+                            self.result.append(rw_2_dis.removePropertiesFrom(self.del_rewritings, True))
+                        else:
+                            self.result.append(rw_2_dis)
+            else:
                 merged_morphism_ddd = dict()
-                for k, v in merged_morphism.items():
+                for k, v in data_match_morphism.items():
                     if k != "obj":
                         merged_morphism_ddd["@" + str(k)] = v
                 rw_2_dis = expansion.replaceWith(merged_morphism_ddd, True, None, None)

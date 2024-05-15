@@ -137,7 +137,7 @@ class TBoxVisitor(parmenides_tboxVisitor):
             return None
         rel = unfold_string(ctx.rel)
         src = self.visit(ctx.arg)
-        score = float(ctx.score)
+        score = float(ctx.score.text)
         properties = frozenset(dict([self.visit(x) for x in ctx.key_values()]).items())
         from logical_repr.Sentences import FBinaryPredicate
         from logical_repr.Sentences import FUnaryPredicate
@@ -197,7 +197,7 @@ class TBoxVisitor(parmenides_tboxVisitor):
         if ctx is None:
             return tuple([None, None])
         else:
-            return tuple([unfold_string(ctx.STRING()), [self.visit(x) for x in ctx.formula()]])
+            return tuple([unfold_string(ctx.STRING()), tuple([self.visit(x) for x in ctx.formula()])])
 
     def visitValue(self, ctx: parmenides_tboxParser.ValueContext):
         return unfold_string(ctx.STRING())
