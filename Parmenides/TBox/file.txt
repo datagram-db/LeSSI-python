@@ -1,4 +1,17 @@
-UPDATE ( "have" ( "@x" none none , "@y" none none ) 1.0 {} )
+/*UPDATE ( "have" ( "@x" none none , "@y" none none ) 1.0 {} )
    where "have" 2 with < 1 : attr "type" withval "JJ" > as "obj_t" withparents 0
    over "@x" "partOf" "^z"
+   replace "x" -> "z";
+
+UPDATE ( "have" ( "@x" none none , "@y" none none ) 1.0 {} )
+   where "have" 2 with < 1 : attr "type" withval "JJ" > as "obj_t" withparents 0
+   over "@x" "isA" "^z"
+   replace "x" -> "z";*/
+
+ UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
+   over "@x" "partOf" "^z"
+   replace "x" -> "z";
+
+  UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
+   over "@x" "isA" "^z"
    replace "x" -> "z";

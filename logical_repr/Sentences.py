@@ -764,9 +764,8 @@ class FNot(Formula):
 
     def collectIds(self):
         yield id(self)
-        for arg in self.args:
-            if arg is not None and isinstance(arg, Formula):
-                yield from arg.collectIds()
+        if self.arg is not None and isinstance(self.arg, Formula):
+                yield from self.arg.collectIds()
 
     def matchWith(self, f, d, ancestor, fugitive):
         isAncestorNone = ancestor is None

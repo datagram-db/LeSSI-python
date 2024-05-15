@@ -217,6 +217,8 @@ def do_match(datum, toMatch, onto_query, p, replacement_map,
     ## 1. Matching the query with the data
     rw_1 = datum.matchWith(toMatch, d_orig, None, fugitive_init)
     matched = list(map(object_magic, set(fugitive_init.values())))
+    if len(matched) == 0:
+        return []
     if value_invention is None:
         # assert len(d_orig) == 0 ## ASSERZIONE: QQQ
         ## 2. Within the data, I'm applying the substitution required by the matching and rewriting semantics
@@ -287,8 +289,8 @@ class DoExpand:
                 for f2 in do_actual_match(f, Q, self.g):
                     if f2 not in visited:
                         stack.append(f2)
-        if len(visited)>1:
-            visited.remove(formula)
+        # if len(visited)>1:
+        visited.remove(formula)
         return visited
 
 
@@ -454,8 +456,9 @@ if __name__ == "__main__":
     with open("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/sentences/newcastle_sentences.txt_logical_rewriting.json", "r") as f:
         list_json = json.load(f)
         list_json = formula_from_dict(list_json)
-        s1 = de(list_json[5])
-        print(list_json[5])
-        s2 = de(list_json[7])
-        print(list_json[7])
+        for x in list_json:
+            s1 = de(x)
+            print(x)
+        # s2 = de(list_json[7])
+        # print(list_json[7])
     #query1(q1bis) #q1bis
