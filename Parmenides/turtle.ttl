@@ -6,10 +6,6 @@
 parmenides:Adverb a owl:Class ;
     rdfs:subClassOf parmenides:GrammaticalFunction .
 
-parmenides:GPE a owl:Class ;
-    rdfs:subClassOf parmenides:Dimensions,
-        parmenides:LOC .
-
 parmenides:IntransitiveVerb a owl:Class ;
     rdfs:subClassOf parmenides:Verb .
 
@@ -1249,15 +1245,25 @@ parmenides:wreck a parmenides:TransitiveVerb ;
 parmenides:xcomp a parmenides:dependency ;
     rdfs:label "xcomp"^^xsd:string .
 
+parmenides:GPE a owl:Class ;
+    rdfs:subClassOf parmenides:Dimensions,
+        parmenides:LOC .
+
 parmenides:GraphParse a owl:Class .
 
-parmenides:Newcastle a parmenides:LOC ;
+parmenides:Newcastle a parmenides:GPE ;
     rdfs:label "Newcastle"^^xsd:string ;
     parmenides:entryPoint parmenides:Newcastle ;
     parmenides:isA parmenides:city .
 
 parmenides:Rejectable a owl:Class ;
     rdfs:subClassOf parmenides:GraphParse .
+
+<https://lo-ds.github.io/parmenides#busy+city> a parmenides:Noun ;
+    rdfs:label "busy city"^^xsd:string ;
+    parmenides:entryPoint parmenides:city ;
+    parmenides:hasAdjective parmenides:busy ;
+    parmenides:relatedTo parmenides:crowd%23n .
 
 parmenides:flow%23n a parmenides:Noun ;
     rdfs:label "flow"^^xsd:string ;
@@ -1281,13 +1287,6 @@ parmenides:traffic%23v a parmenides:Verb ;
     rdfs:label "traffic"^^xsd:string ;
     parmenides:entryPoint parmenides:traffic%23v .
 
-<https://lo-ds.github.io/parmenides#traffic+congestion> a parmenides:Noun ;
-    rdfs:label "traffic congestion"^^xsd:string ;
-    parmenides:composite_form_with parmenides:congestion,
-        parmenides:traffic%23n ;
-    parmenides:entryPoint parmenides:traffic%23n ;
-    parmenides:eqTo <https://lo-ds.github.io/parmenides#traffic+jam> .
-
 <https://lo-ds.github.io/parmenides#traffic+jam+can+slow+traffic> a parmenides:CompoundForm ;
     rdfs:label "traffic jam can slow traffic"^^xsd:string ;
     parmenides:d_object parmenides:traffic%23n ;
@@ -1310,6 +1309,14 @@ parmenides:jam a parmenides:Noun ;
     rdfs:label "jam"^^xsd:string ;
     parmenides:entryPoint parmenides:jam .
 
+<https://lo-ds.github.io/parmenides#traffic+congestion> a parmenides:Noun ;
+    rdfs:label "traffic congestion"^^xsd:string ;
+    parmenides:composite_form_with parmenides:congestion,
+        parmenides:traffic%23n ;
+    parmenides:entryPoint parmenides:traffic%23n ;
+    parmenides:eqTo <https://lo-ds.github.io/parmenides#traffic+jam> ;
+    parmenides:relatedTo parmenides:congestion .
+
 <https://lo-ds.github.io/parmenides#traffic+jam> a parmenides:Noun ;
     rdfs:label "traffic jam"^^xsd:string ;
     parmenides:capableOf <https://lo-ds.github.io/parmenides#traffic+jam+can+slow+traffic> ;
@@ -1317,17 +1324,6 @@ parmenides:jam a parmenides:Noun ;
         parmenides:traffic%23n ;
     parmenides:entryPoint parmenides:traffic%23n ;
     parmenides:eqTo <https://lo-ds.github.io/parmenides#traffic+congestion> .
-
-parmenides:busy a parmenides:Adjective ;
-    rdfs:label "busy"^^xsd:string ;
-    parmenides:entryPoint parmenides:busy ;
-    parmenides:hasProperty parmenides:city ;
-    parmenides:relatedTo parmenides:crowd%23n .
-
-parmenides:congestion a parmenides:Noun ;
-    rdfs:label "congestion"^^xsd:string ;
-    parmenides:entryPoint parmenides:congestion ;
-    parmenides:relatedTo parmenides:crowd%23n .
 
 parmenides:crowded a parmenides:Adjective ;
     rdfs:label "crowded"^^xsd:string ;
@@ -1350,6 +1346,12 @@ parmenides:slow%23adj a parmenides:Adjective ;
     parmenides:entryPoint parmenides:slow%23adj ;
     parmenides:neqTo parmenides:fast .
 
+parmenides:busy a parmenides:Adjective ;
+    rdfs:label "busy"^^xsd:string ;
+    parmenides:entryPoint parmenides:busy ;
+    parmenides:hasProperty parmenides:city ;
+    parmenides:relatedTo parmenides:crowd%23n .
+
 parmenides:center a parmenides:Adjective ;
     rdfs:label "center"^^xsd:string ;
     parmenides:entryPoint parmenides:center ;
@@ -1360,18 +1362,28 @@ parmenides:centre a parmenides:Adjective ;
     parmenides:entryPoint parmenides:centre ;
     parmenides:eqTo parmenides:center .
 
-parmenides:crowd%23n a parmenides:Noun ;
-    rdfs:label "crowd"^^xsd:string ;
-    parmenides:entryPoint parmenides:crowd%23n ;
-    parmenides:relatedTo parmenides:busy,
-        parmenides:congestion,
-        parmenides:crowded .
+parmenides:congestion a parmenides:Noun ;
+    rdfs:label "congestion"^^xsd:string ;
+    parmenides:entryPoint parmenides:congestion ;
+    parmenides:relatedTo parmenides:crowd%23n,
+        <https://lo-ds.github.io/parmenides#traffic+congestion> .
 
 parmenides:GrammaticalFunction a owl:Class ;
     rdfs:subClassOf parmenides:MetaGrammaticalFunction .
 
+parmenides:crowd%23n a parmenides:Noun ;
+    rdfs:label "crowd"^^xsd:string ;
+    parmenides:entryPoint parmenides:crowd%23n ;
+    parmenides:relatedTo parmenides:busy,
+        <https://lo-ds.github.io/parmenides#busy+city>,
+        parmenides:congestion,
+        parmenides:crowded .
+
 parmenides:Adjective a owl:Class ;
     rdfs:subClassOf parmenides:GrammaticalFunction .
+
+parmenides:LOC a owl:Class ;
+    rdfs:subClassOf parmenides:Dimensions .
 
 parmenides:Verb a owl:Class ;
     rdfs:subClassOf parmenides:GrammaticalFunction .
@@ -1379,9 +1391,6 @@ parmenides:Verb a owl:Class ;
 parmenides:traffic%23n a parmenides:Noun ;
     rdfs:label "traffic"^^xsd:string ;
     parmenides:entryPoint parmenides:traffic%23n .
-
-parmenides:LOC a owl:Class ;
-    rdfs:subClassOf parmenides:Dimensions .
 
 parmenides:Noun a owl:Class ;
     rdfs:subClassOf parmenides:GrammaticalFunction .
