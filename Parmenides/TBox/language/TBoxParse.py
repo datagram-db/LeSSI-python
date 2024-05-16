@@ -3,10 +3,9 @@ import json
 from antlr4 import *
 
 from Parmenides.TBox.SentenceMatch import RWVariable
+from Parmenides.TBox.language.parmenides_tboxParser import parmenides_tboxParser
+from Parmenides.TBox.language.parmenides_tboxVisitor import parmenides_tboxVisitor
 from logical_repr.Sentences import Formula
-from parmenides_tboxParser import parmenides_tboxParser
-from parmenides_tboxLexer import parmenides_tboxLexer
-from parmenides_tboxVisitor import parmenides_tboxVisitor
 
 def unfold_string(d):
     if hasattr(d, "text"):
@@ -206,6 +205,7 @@ class TBoxVisitor(parmenides_tboxVisitor):
         return None
 
 def parse_query(s):
+    from Parmenides.TBox.language.parmenides_tboxLexer import parmenides_tboxLexer
     lexer = parmenides_tboxLexer(InputStream(s))
     stream = CommonTokenStream(lexer)
     parser = parmenides_tboxParser(stream)
@@ -219,5 +219,5 @@ def load_tbox_rules(filename:str):
     return parse_query(input_text)
 
 if __name__ == "__main__":
-    obj = load_tbox_rules("file.txt")
+    obj = load_tbox_rules("../file.txt")
     print(obj)

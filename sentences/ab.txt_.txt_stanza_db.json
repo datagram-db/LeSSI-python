@@ -1,0 +1,5188 @@
+[
+    {
+        "first_sentence": "Alice plays football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Alicel",
+                "monad": "Alicel",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8181818181818182,
+                "end_char": 11,
+                "id": "Alice Pass",
+                "monad": "Alice Pass",
+                "start_char": 0,
+                "text": "Alice plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8181818181818182,
+                "end_char": 11,
+                "id": "Alice Peaks",
+                "monad": "Alice Peaks",
+                "start_char": 0,
+                "text": "Alice plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alico",
+                "monad": "Alico",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alici",
+                "monad": "Alici",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Salice",
+                "monad": "Salice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Malice",
+                "monad": "Malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Palice",
+                "monad": "Palice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Calice",
+                "monad": "Calice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Balice",
+                "monad": "Balice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Kalice",
+                "monad": "Kalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Valice",
+                "monad": "Valice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Galice",
+                "monad": "Galice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Lice",
+                "monad": "Lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alie",
+                "monad": "Alie",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alige",
+                "monad": "Alige",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alize",
+                "monad": "Alize",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alipe",
+                "monad": "Alipe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alibe",
+                "monad": "Alibe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Apice",
+                "monad": "Apice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Elice",
+                "monad": "Elice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Amice",
+                "monad": "Amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alife",
+                "monad": "Alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alije",
+                "monad": "Alije",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Adice",
+                "monad": "Adice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aline",
+                "monad": "Aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alile",
+                "monad": "Alile",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "\u00dalice",
+                "monad": "\u00dalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ulice",
+                "monad": "Ulice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aliwe",
+                "monad": "Aliwe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alike",
+                "monad": "Alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alime",
+                "monad": "Alime",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alire",
+                "monad": "Alire",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alide",
+                "monad": "Alide",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alihe",
+                "monad": "Alihe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Klice",
+                "monad": "Klice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ilice",
+                "monad": "Ilice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "Platys",
+                "monad": "Platys",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Plats",
+                "monad": "Plats",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Lays",
+                "monad": "Lays",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Plas",
+                "monad": "Plas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Plass",
+                "monad": "Plass",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Plaus",
+                "monad": "Plaus",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Plaas",
+                "monad": "Plaas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Plans",
+                "monad": "Plans",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "Plats",
+                "monad": "Plats",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "alice",
+                "monad": "alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "malice",
+                "monad": "malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "lice",
+                "monad": "lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "amice",
+                "monad": "amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "slice",
+                "monad": "slice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alike",
+                "monad": "alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alife",
+                "monad": "alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "anice",
+                "monad": "anice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "avice",
+                "monad": "avice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "aline",
+                "monad": "aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alise",
+                "monad": "alise",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alive",
+                "monad": "alive",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alyce",
+                "monad": "alyce",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 11,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "play",
+                "monad": "play",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 11,
+                "id": "playas",
+                "monad": "playas",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "lays",
+                "monad": "lays",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "pays",
+                "monad": "pays",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "ploys",
+                "monad": "ploys",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "plans",
+                "monad": "plans",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "slays",
+                "monad": "slays",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "prays",
+                "monad": "prays",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 11,
+                "id": "clays",
+                "monad": "clays",
+                "start_char": 6,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 20,
+                "id": "football",
+                "monad": "football",
+                "start_char": 12,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 20,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 12,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 20,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 12,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 20,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 12,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 20,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 12,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 20,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 12,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 20,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 12,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    },
+    {
+        "first_sentence": "Bob plays football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "monad": "Bob",
+                "start_char": 0,
+                "text": "Bob",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "Bob",
+                "monad": "Bob",
+                "start_char": 0,
+                "text": "Bob",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Platys",
+                "monad": "Platys",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plats",
+                "monad": "Plats",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Lays",
+                "monad": "Lays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plas",
+                "monad": "Plas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plass",
+                "monad": "Plass",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plaus",
+                "monad": "Plaus",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plaas",
+                "monad": "Plaas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plans",
+                "monad": "Plans",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plats",
+                "monad": "Plats",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "bob",
+                "monad": "bob",
+                "start_char": 0,
+                "text": "Bob",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 9,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "play",
+                "monad": "play",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "playas",
+                "monad": "playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "lays",
+                "monad": "lays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "pays",
+                "monad": "pays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "ploys",
+                "monad": "ploys",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "plans",
+                "monad": "plans",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "slays",
+                "monad": "slays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "prays",
+                "monad": "prays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "clays",
+                "monad": "clays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 18,
+                "id": "football",
+                "monad": "football",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 18,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    },
+    {
+        "first_sentence": "Alice and Bob play football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "monad": "Bob",
+                "start_char": 10,
+                "text": "Bob",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Alicel",
+                "monad": "Alicel",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Alice Pond",
+                "monad": "Alice Pond",
+                "start_char": 0,
+                "text": "Alice and",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Alice Tank",
+                "monad": "Alice Tank",
+                "start_char": 0,
+                "text": "Alice and",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alico",
+                "monad": "Alico",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alici",
+                "monad": "Alici",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Salice",
+                "monad": "Salice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Malice",
+                "monad": "Malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Palice",
+                "monad": "Palice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Calice",
+                "monad": "Calice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Balice",
+                "monad": "Balice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Kalice",
+                "monad": "Kalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Valice",
+                "monad": "Valice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Galice",
+                "monad": "Galice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Lice",
+                "monad": "Lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alie",
+                "monad": "Alie",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alige",
+                "monad": "Alige",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alize",
+                "monad": "Alize",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alipe",
+                "monad": "Alipe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alibe",
+                "monad": "Alibe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Apice",
+                "monad": "Apice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Elice",
+                "monad": "Elice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Amice",
+                "monad": "Amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alife",
+                "monad": "Alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alije",
+                "monad": "Alije",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Adice",
+                "monad": "Adice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aline",
+                "monad": "Aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alile",
+                "monad": "Alile",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "\u00dalice",
+                "monad": "\u00dalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ulice",
+                "monad": "Ulice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aliwe",
+                "monad": "Aliwe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alike",
+                "monad": "Alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alime",
+                "monad": "Alime",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alire",
+                "monad": "Alire",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alide",
+                "monad": "Alide",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alihe",
+                "monad": "Alihe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Klice",
+                "monad": "Klice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ilice",
+                "monad": "Ilice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "id": "Bob",
+                "monad": "Bob",
+                "start_char": 10,
+                "text": "Bob",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 18,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plavy",
+                "monad": "Plavy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Pulay",
+                "monad": "Pulay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Palay",
+                "monad": "Palay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plazy",
+                "monad": "Plazy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Pilay",
+                "monad": "Pilay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Pelay",
+                "monad": "Pelay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plany",
+                "monad": "Plany",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Polay",
+                "monad": "Polay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plasy",
+                "monad": "Plasy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "P\u0101lay",
+                "monad": "P\u0101lay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Placy",
+                "monad": "Placy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "alice",
+                "monad": "alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "malice",
+                "monad": "malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "lice",
+                "monad": "lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "amice",
+                "monad": "amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "slice",
+                "monad": "slice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alike",
+                "monad": "alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alife",
+                "monad": "alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "anice",
+                "monad": "anice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "avice",
+                "monad": "avice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "aline",
+                "monad": "aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alise",
+                "monad": "alise",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alive",
+                "monad": "alive",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alyce",
+                "monad": "alyce",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 9,
+                "id": "and",
+                "monad": "and",
+                "start_char": 6,
+                "text": "and",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "id": "bob",
+                "monad": "bob",
+                "start_char": 10,
+                "text": "Bob",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 18,
+                "id": "play",
+                "monad": "play",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "uplay",
+                "monad": "uplay",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "platy",
+                "monad": "platy",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "splay",
+                "monad": "splay",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 27,
+                "id": "football",
+                "monad": "football",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 27,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 27,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    },
+    {
+        "first_sentence": "Alice or Bob play football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 12,
+                "monad": "Bob",
+                "start_char": 9,
+                "text": "Bob",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Alicel",
+                "monad": "Alicel",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 8,
+                "id": "Alice Bore",
+                "monad": "Alice Bore",
+                "start_char": 0,
+                "text": "Alice or",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alico",
+                "monad": "Alico",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alici",
+                "monad": "Alici",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Salice",
+                "monad": "Salice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Malice",
+                "monad": "Malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Palice",
+                "monad": "Palice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Calice",
+                "monad": "Calice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Balice",
+                "monad": "Balice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Kalice",
+                "monad": "Kalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Valice",
+                "monad": "Valice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Galice",
+                "monad": "Galice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Lice",
+                "monad": "Lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alie",
+                "monad": "Alie",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alige",
+                "monad": "Alige",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alize",
+                "monad": "Alize",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alipe",
+                "monad": "Alipe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alibe",
+                "monad": "Alibe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Apice",
+                "monad": "Apice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Elice",
+                "monad": "Elice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Amice",
+                "monad": "Amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alife",
+                "monad": "Alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alije",
+                "monad": "Alije",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Adice",
+                "monad": "Adice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aline",
+                "monad": "Aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alile",
+                "monad": "Alile",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "\u00dalice",
+                "monad": "\u00dalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ulice",
+                "monad": "Ulice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aliwe",
+                "monad": "Aliwe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alike",
+                "monad": "Alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alime",
+                "monad": "Alime",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alire",
+                "monad": "Alire",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alide",
+                "monad": "Alide",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alihe",
+                "monad": "Alihe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Klice",
+                "monad": "Klice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ilice",
+                "monad": "Ilice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 8,
+                "id": "Or",
+                "monad": "Or",
+                "start_char": 6,
+                "text": "or",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 8,
+                "id": "Or",
+                "monad": "Or",
+                "start_char": 6,
+                "text": "or",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 12,
+                "id": "Bob",
+                "monad": "Bob",
+                "start_char": 9,
+                "text": "Bob",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 17,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Plavy",
+                "monad": "Plavy",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Pulay",
+                "monad": "Pulay",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Palay",
+                "monad": "Palay",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Plazy",
+                "monad": "Plazy",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Pilay",
+                "monad": "Pilay",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Pelay",
+                "monad": "Pelay",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Plany",
+                "monad": "Plany",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Polay",
+                "monad": "Polay",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Plasy",
+                "monad": "Plasy",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "P\u0101lay",
+                "monad": "P\u0101lay",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Placy",
+                "monad": "Placy",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 13,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "alice",
+                "monad": "alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "malice",
+                "monad": "malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "lice",
+                "monad": "lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "amice",
+                "monad": "amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "slice",
+                "monad": "slice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alike",
+                "monad": "alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alife",
+                "monad": "alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "anice",
+                "monad": "anice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "avice",
+                "monad": "avice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "aline",
+                "monad": "aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alise",
+                "monad": "alise",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alive",
+                "monad": "alive",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alyce",
+                "monad": "alyce",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 8,
+                "id": "or",
+                "monad": "or",
+                "start_char": 6,
+                "text": "or",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 12,
+                "id": "bob",
+                "monad": "bob",
+                "start_char": 9,
+                "text": "Bob",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 17,
+                "id": "play",
+                "monad": "play",
+                "start_char": 13,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 13,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 13,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "uplay",
+                "monad": "uplay",
+                "start_char": 13,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "platy",
+                "monad": "platy",
+                "start_char": 13,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "splay",
+                "monad": "splay",
+                "start_char": 13,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 26,
+                "id": "football",
+                "monad": "football",
+                "start_char": 18,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 26,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 18,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 18,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 26,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 18,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 26,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 18,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 26,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 18,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 26,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 18,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    },
+    {
+        "first_sentence": "Alice doesn't play football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Alicel",
+                "monad": "Alicel",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alico",
+                "monad": "Alico",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alici",
+                "monad": "Alici",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Salice",
+                "monad": "Salice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Malice",
+                "monad": "Malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Palice",
+                "monad": "Palice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Calice",
+                "monad": "Calice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Balice",
+                "monad": "Balice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Kalice",
+                "monad": "Kalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Valice",
+                "monad": "Valice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "Galice",
+                "monad": "Galice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Lice",
+                "monad": "Lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alie",
+                "monad": "Alie",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alige",
+                "monad": "Alige",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alize",
+                "monad": "Alize",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alipe",
+                "monad": "Alipe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alibe",
+                "monad": "Alibe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Apice",
+                "monad": "Apice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Elice",
+                "monad": "Elice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Amice",
+                "monad": "Amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alife",
+                "monad": "Alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alije",
+                "monad": "Alije",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Adice",
+                "monad": "Adice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aline",
+                "monad": "Aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alile",
+                "monad": "Alile",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "\u00dalice",
+                "monad": "\u00dalice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ulice",
+                "monad": "Ulice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Aliwe",
+                "monad": "Aliwe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alike",
+                "monad": "Alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alime",
+                "monad": "Alime",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alire",
+                "monad": "Alire",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alide",
+                "monad": "Alide",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Alihe",
+                "monad": "Alihe",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Klice",
+                "monad": "Klice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "Ilice",
+                "monad": "Ilice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 18,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plavy",
+                "monad": "Plavy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Pulay",
+                "monad": "Pulay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Palay",
+                "monad": "Palay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plazy",
+                "monad": "Plazy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Pilay",
+                "monad": "Pilay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Pelay",
+                "monad": "Pelay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plany",
+                "monad": "Plany",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Polay",
+                "monad": "Polay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Plasy",
+                "monad": "Plasy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "P\u0101lay",
+                "monad": "P\u0101lay",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Placy",
+                "monad": "Placy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 14,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 5,
+                "id": "alice",
+                "monad": "alice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 5,
+                "id": "malice",
+                "monad": "malice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "lice",
+                "monad": "lice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "amice",
+                "monad": "amice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "slice",
+                "monad": "slice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alike",
+                "monad": "alike",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alife",
+                "monad": "alife",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "anice",
+                "monad": "anice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "avice",
+                "monad": "avice",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "aline",
+                "monad": "aline",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alise",
+                "monad": "alise",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alive",
+                "monad": "alive",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 5,
+                "id": "alyce",
+                "monad": "alyce",
+                "start_char": 0,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "id": "doesn't",
+                "monad": "doesn't",
+                "start_char": 6,
+                "text": "doesn't",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 18,
+                "id": "play",
+                "monad": "play",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "uplay",
+                "monad": "uplay",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "platy",
+                "monad": "platy",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "splay",
+                "monad": "splay",
+                "start_char": 14,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 27,
+                "id": "football",
+                "monad": "football",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 27,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 27,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 27,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 19,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    },
+    {
+        "first_sentence": "Bob doesn't play football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "monad": "Bob",
+                "start_char": 0,
+                "text": "Bob",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "Bob",
+                "monad": "Bob",
+                "start_char": 0,
+                "text": "Bob",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 16,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Plavy",
+                "monad": "Plavy",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Pulay",
+                "monad": "Pulay",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Palay",
+                "monad": "Palay",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Plazy",
+                "monad": "Plazy",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Pilay",
+                "monad": "Pilay",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Pelay",
+                "monad": "Pelay",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Plany",
+                "monad": "Plany",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Polay",
+                "monad": "Polay",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Plasy",
+                "monad": "Plasy",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "P\u0101lay",
+                "monad": "P\u0101lay",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Placy",
+                "monad": "Placy",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 12,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "bob",
+                "monad": "bob",
+                "start_char": 0,
+                "text": "Bob",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 11,
+                "id": "doesn't",
+                "monad": "doesn't",
+                "start_char": 4,
+                "text": "doesn't",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 16,
+                "id": "play",
+                "monad": "play",
+                "start_char": 12,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 12,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 12,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "uplay",
+                "monad": "uplay",
+                "start_char": 12,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "platy",
+                "monad": "platy",
+                "start_char": 12,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 16,
+                "id": "splay",
+                "monad": "splay",
+                "start_char": 12,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 25,
+                "id": "football",
+                "monad": "football",
+                "start_char": 17,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 25,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 17,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 25,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 17,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 25,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 17,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 25,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 17,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 25,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 17,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 25,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 17,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    },
+    {
+        "first_sentence": "Dan plays football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "monad": "Dan",
+                "start_char": 0,
+                "text": "Dan",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "Dan",
+                "monad": "Dan",
+                "start_char": 0,
+                "text": "Dan",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "Dan",
+                "monad": "Dan",
+                "start_char": 0,
+                "text": "Dan",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "Dan",
+                "monad": "Dan",
+                "start_char": 0,
+                "text": "Dan",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "Dan",
+                "monad": "Dan",
+                "start_char": 0,
+                "text": "Dan",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Platys",
+                "monad": "Platys",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plats",
+                "monad": "Plats",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Lays",
+                "monad": "Lays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plas",
+                "monad": "Plas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plass",
+                "monad": "Plass",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plaus",
+                "monad": "Plaus",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plaas",
+                "monad": "Plaas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plans",
+                "monad": "Plans",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "Plats",
+                "monad": "Plats",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "Playas",
+                "monad": "Playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 3,
+                "id": "dan",
+                "monad": "dan",
+                "start_char": 0,
+                "text": "Dan",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 9,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "play",
+                "monad": "play",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 9,
+                "id": "playas",
+                "monad": "playas",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "lays",
+                "monad": "lays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "pays",
+                "monad": "pays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "ploys",
+                "monad": "ploys",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "plans",
+                "monad": "plans",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "slays",
+                "monad": "slays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "prays",
+                "monad": "prays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 9,
+                "id": "clays",
+                "monad": "clays",
+                "start_char": 4,
+                "text": "plays",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 18,
+                "id": "football",
+                "monad": "football",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 18,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 18,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 18,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 10,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    },
+    {
+        "first_sentence": "Neither Alice nor Bob play football",
+        "multi_entity_unit": [
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "monad": "Alice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "monad": "Bob",
+                "start_char": 18,
+                "text": "Bob",
+                "type": "PERSON"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 7,
+                "id": "Nither",
+                "monad": "Nither",
+                "start_char": 0,
+                "text": "Neither",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Alicel",
+                "monad": "Alicel",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 17,
+                "id": "Alice Bore",
+                "monad": "Alice Bore",
+                "start_char": 8,
+                "text": "Alice nor",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alico",
+                "monad": "Alico",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alici",
+                "monad": "Alici",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Salice",
+                "monad": "Salice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Malice",
+                "monad": "Malice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Palice",
+                "monad": "Palice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Calice",
+                "monad": "Calice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Balice",
+                "monad": "Balice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Kalice",
+                "monad": "Kalice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alica",
+                "monad": "Alica",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Valice",
+                "monad": "Valice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "Galice",
+                "monad": "Galice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "id": "Alice",
+                "monad": "Alice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Lice",
+                "monad": "Lice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alie",
+                "monad": "Alie",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alige",
+                "monad": "Alige",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alize",
+                "monad": "Alize",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alipe",
+                "monad": "Alipe",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alibe",
+                "monad": "Alibe",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Apice",
+                "monad": "Apice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Elice",
+                "monad": "Elice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Amice",
+                "monad": "Amice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alife",
+                "monad": "Alife",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alije",
+                "monad": "Alije",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Adice",
+                "monad": "Adice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Aline",
+                "monad": "Aline",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alile",
+                "monad": "Alile",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "\u00dalice",
+                "monad": "\u00dalice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Ulice",
+                "monad": "Ulice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Aliwe",
+                "monad": "Aliwe",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alike",
+                "monad": "Alike",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alime",
+                "monad": "Alime",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alire",
+                "monad": "Alire",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alide",
+                "monad": "Alide",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Alihe",
+                "monad": "Alihe",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Klice",
+                "monad": "Klice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "Ilice",
+                "monad": "Ilice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 17,
+                "id": "Nor",
+                "monad": "Nor",
+                "start_char": 14,
+                "text": "nor",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 17,
+                "id": "Nor",
+                "monad": "Nor",
+                "start_char": 14,
+                "text": "nor",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 17,
+                "id": "Nor",
+                "monad": "Nor",
+                "start_char": 14,
+                "text": "nor",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 17,
+                "id": "Nor",
+                "monad": "Nor",
+                "start_char": 14,
+                "text": "nor",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "Bob",
+                "monad": "Bob",
+                "start_char": 18,
+                "text": "Bob",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 26,
+                "id": "Play",
+                "monad": "Play",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Play\u00e9",
+                "monad": "Play\u00e9",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Playa",
+                "monad": "Playa",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Plavy",
+                "monad": "Plavy",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Pulay",
+                "monad": "Pulay",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Palay",
+                "monad": "Palay",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Plazy",
+                "monad": "Plazy",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Pilay",
+                "monad": "Pilay",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Pelay",
+                "monad": "Pelay",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Plany",
+                "monad": "Plany",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Polay",
+                "monad": "Polay",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Plasy",
+                "monad": "Plasy",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "P\u0101lay",
+                "monad": "P\u0101lay",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Placy",
+                "monad": "Placy",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "Platy",
+                "monad": "Platy",
+                "start_char": 22,
+                "text": "play",
+                "type": "GPE"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 7,
+                "id": "neither",
+                "monad": "neither",
+                "start_char": 0,
+                "text": "Neither",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 7,
+                "id": "either",
+                "monad": "either",
+                "start_char": 0,
+                "text": "Neither",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8571428571428571,
+                "end_char": 7,
+                "id": "nether",
+                "monad": "nether",
+                "start_char": 0,
+                "text": "Neither",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 13,
+                "id": "alice",
+                "monad": "alice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8333333333333334,
+                "end_char": 13,
+                "id": "malice",
+                "monad": "malice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "lice",
+                "monad": "lice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "amice",
+                "monad": "amice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "slice",
+                "monad": "slice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "alike",
+                "monad": "alike",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "alife",
+                "monad": "alife",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "anice",
+                "monad": "anice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "avice",
+                "monad": "avice",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "aline",
+                "monad": "aline",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "alise",
+                "monad": "alise",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "alive",
+                "monad": "alive",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 13,
+                "id": "alyce",
+                "monad": "alyce",
+                "start_char": 8,
+                "text": "Alice",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 17,
+                "id": "nor",
+                "monad": "nor",
+                "start_char": 14,
+                "text": "nor",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 21,
+                "id": "bob",
+                "monad": "bob",
+                "start_char": 18,
+                "text": "Bob",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 26,
+                "id": "play",
+                "monad": "play",
+                "start_char": 22,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "plays",
+                "monad": "plays",
+                "start_char": 22,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "playa",
+                "monad": "playa",
+                "start_char": 22,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "uplay",
+                "monad": "uplay",
+                "start_char": 22,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "platy",
+                "monad": "platy",
+                "start_char": 22,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 26,
+                "id": "splay",
+                "monad": "splay",
+                "start_char": 22,
+                "text": "play",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 1.0,
+                "end_char": 35,
+                "id": "football",
+                "monad": "football",
+                "start_char": 27,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8888888888888888,
+                "end_char": 35,
+                "id": "footballs",
+                "monad": "footballs",
+                "start_char": 27,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.8,
+                "end_char": 35,
+                "id": "footballer",
+                "monad": "footballer",
+                "start_char": 27,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 35,
+                "id": "footwall",
+                "monad": "footwall",
+                "start_char": 27,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 35,
+                "id": "foosball",
+                "monad": "foosball",
+                "start_char": 27,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 35,
+                "id": "footfall",
+                "monad": "footfall",
+                "start_char": 27,
+                "text": "football",
+                "type": "ENTITY"
+            },
+            {
+                "confidence": 0.875,
+                "end_char": 35,
+                "id": "rootball",
+                "monad": "rootball",
+                "start_char": 27,
+                "text": "football",
+                "type": "ENTITY"
+            }
+        ]
+    }
+]

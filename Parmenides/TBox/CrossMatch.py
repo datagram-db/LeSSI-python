@@ -3,7 +3,7 @@ import json
 from typing import List
 
 from Parmenides.TBox.SimpleDataMatch import boolean_simple_data_match
-from Parmenides.TBox.TBoxParse import UpdateOperation, parse_query, RewriteOperation
+from Parmenides.TBox.language.TBoxParse import UpdateOperation, parse_query
 from Parmenides.paremenides import Parmenides
 from logical_repr.Sentences import formula_from_dict, FBinaryPredicate, make_variable, make_name, FUnaryPredicate, \
     PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties, Formula
@@ -92,7 +92,6 @@ class DoMatchRec:
 
 
     def do_expansion_match_iterative(self, N, struct_dict_dd, expansion):
-        from Parmenides.TBox.SentenceMatch import structure_dictionary
         for i in range(N):
             data_match_morphism = struct_dict_dd.to_dict('records')[i]
             ## 5. Using this to instantiate the parametrized ontology query using the matched data
@@ -276,7 +275,7 @@ def do_actual_match(datum, Q, g:Parmenides):
     else:
         assert hasattr(Q, "cc")
         assert Q.cc is not None
-        from Parmenides.TBox.TBoxParse import RewriteOperation
+        from Parmenides.TBox.language.TBoxParse import RewriteOperation
         if isinstance(Q, RewriteOperation):
             return do_match(datum, Q.match, Q.cc.ontology_query, g, Q.cc.replacement_pair, Q.rewrite, Q.cc.operations, Q.cc.where_theta)
         elif isinstance(Q, UpdateOperation):
@@ -287,8 +286,10 @@ def do_actual_match(datum, Q, g:Parmenides):
 
 class DoExpand:
     def __init__(self, parmenides_file:str, tbox_file:str):
-        from Parmenides.TBox.TBoxParse import load_tbox_rules
+        from Parmenides.TBox.language.TBoxParse import load_tbox_rules
+        print("Loading TBox Rules...")
         self.q_list = load_tbox_rules(tbox_file)
+        print("Loading ABox Data...")
         self.g = Parmenides(parmenides_file)
 
     def __call__(self, formula:Formula):

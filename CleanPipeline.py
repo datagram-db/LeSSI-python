@@ -262,7 +262,10 @@ class CleanPipeline:
             if 'graphs' in self.cfg['similarity']:
                 return self.legacy_pipeline.graph_with_logic_similarity
             else:
-                return SentenceExpansion(sentences, None)
+                from Parmenides.TBox.CrossMatch import DoExpand
+                doexp = DoExpand(self.cfg['ontology'], self.cfg['TBox'])
+
+                return SentenceExpansion(sentences, doexp)
         else:
             return self.legacy_pipeline.sc.string_similarity
 

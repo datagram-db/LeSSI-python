@@ -38,6 +38,9 @@ class CountingDictionary:
             self.counter[x] = len(self.counter)
         return self.counter[x]
 
+    def getAllObjects(self):
+        return list(map(self.fromId, range(len(self.counter))))
+
     def __len__(self):
         return len(self.counter)
 
@@ -66,6 +69,7 @@ def with_true_variables_from(l):
 
 class SentenceExpansion:
     def __init__(self, sentence_list:List[Formula], kb):
+        from Parmenides.TBox.ExpandConstituents import ExpandConstituents
         self.sentence_list = []
         self.sentence_to_id = dict()
         for idx in range(len(sentence_list)):
@@ -76,9 +80,9 @@ class SentenceExpansion:
         self.U = None
         self.d = defaultdict(set)
         self.buildup = False
+        self.ec = None
 
-    def expand_sentence(self, sentence_id)->List[Formula]:
-        # TODO: use the Knowledge Base to expand the interpretations
+    def getSentenceAtomsFromId(self, sentence_id)->List[Formula]:
         return self.sentence_list[sentence_id].getAtoms()
 
     def get_mutual_truth(self, i, j):
@@ -123,13 +127,15 @@ class SentenceExpansion:
 
     def collect_sentence_constituents(self, sentence_id):
         for i in range(len(self.sentence_list)):
-            for x in self.expand_sentence(sentence_id):
+            for x in self.getSentenceAtomsFromId(sentence_id):
                 self.d[sentence_id].add(self.minimal_constituents.add(x))
 
     def build_up_truth_table(self):
         if not self.buildup:
+            from Parmenides.TBox.ExpandConstituents import ExpandConstituents
             for i in range(len(self.sentence_list)):
                 self.collect_sentence_constituents(i)
+            self.ec = ExpandConstituents(self.kb, self.minimal_constituents.getAllObjects())
             self.U = self.universal_truth()
             self.buildup = True
 

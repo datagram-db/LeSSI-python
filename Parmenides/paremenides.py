@@ -25,6 +25,28 @@ class Parmenides():
          self.g = rdflib.Graph()
          self.g.parse(filename)
 
+     def name_eq(self, src, dst):
+         from Parmenides.TBox.ExpandConstituents import CasusHappening
+         if (src == dst):
+             return CasusHappening.EQUIVALENT
+         elif src is None:
+             raise ValueError("src is None: NOT IMPLEMENTED YET!!!")
+             pass
+         elif dst is None:
+             raise ValueError("dst is None: NOT IMPLEMENTED YET!!!")
+             pass
+         else:
+             resolveTypeFromOntologyLHS = self.typeOf(src)
+             resolveTypeFromOntologyRHS = self.typeOf(dst)
+             if len(resolveTypeFromOntologyLHS) == 0:
+                 return CasusHappening.INDIFFERENT
+             elif len(resolveTypeFromOntologyRHS) == 0:
+                 return CasusHappening.INDIFFERENT
+             else:
+                 print("Good, both ")
+                 raise ValueError("both as ontology types: NOT IMPLEMENTED YET!!!")
+
+
      def _single_unary_query(self, knows_query, f):
          qres = self.g.query(knows_query)
          for row in qres:
