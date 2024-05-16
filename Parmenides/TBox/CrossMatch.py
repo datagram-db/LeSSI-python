@@ -228,6 +228,8 @@ def do_match(datum, toMatch, onto_query, p, replacement_map,
     ORIG = set(datum.collectIds())
     ## 1. Matching the query with the data
     rw_1 = datum.matchWith(toMatch, d_orig, None, fugitive_init)
+    if not rw_1.matched:
+        return []
     matched = list(map(object_magic, set(fugitive_init.values())))
     if len(matched) == 0:
         return []

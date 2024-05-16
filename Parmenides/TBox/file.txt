@@ -60,6 +60,13 @@ UPDATE ( "have" ( "@x" none none , "@z" none none ) 1.0 {} )
    over "@z" "eqTo" "^y"
    replace "z" -> "y";
 
+UPDATE ( "@y" ( "@x" none none , "@z" none none ) 1.0 {} )
+   over "@y" "eqTo" "^t"
+   replace "y" -> "t";
+
+UPDATE ( "@y" ( "@x" none none  ) 1.0 {} )
+   over "@y" "eqTo" "^t"
+   replace "y" -> "t";
 
 # 8.
 INVENT
@@ -72,6 +79,12 @@ INVENT
 INVENT
    from ( "@y" ( "@x" none none  , "@z" none none ) 1.0 {} )
    as ( "have" ( "@z" none none  , "@f" "JJ" none ) 1.0 {} )
+   over "@y" "adjectivalForm" "^f"
+   with-properties;
+
+INVENT
+   from ( "@y" ( "@x" none none   ) 1.0 {} )
+   as ( "be" ( "@x" none none  ( "@f" "JJ" none ) ) 1.0 {} )
    over "@y" "adjectivalForm" "^f"
    with-properties;
 

@@ -419,6 +419,11 @@ parmenides:flick a parmenides:TransitiveVerb ;
 parmenides:flip a parmenides:TransitiveVerb ;
     rdfs:label "flip"^^xsd:string .
 
+<https://lo-ds.github.io/parmenides#flow+fast> a parmenides:CompoundForm ;
+    rdfs:label "flow fast"^^xsd:string ;
+    parmenides:entryPoint parmenides:flow%23v ;
+    parmenides:hasAdjective parmenides:fast .
+
 parmenides:follow a parmenides:TransitiveVerb ;
     rdfs:label "follow"^^xsd:string .
 
@@ -1269,12 +1274,6 @@ parmenides:flow%23n a parmenides:Noun ;
     rdfs:label "flow"^^xsd:string ;
     parmenides:entryPoint parmenides:flow%23n .
 
-<https://lo-ds.github.io/parmenides#flow+fast> a parmenides:CompoundForm ;
-    rdfs:label "flow fast"^^xsd:string ;
-    parmenides:entryPoint parmenides:flow%23v ;
-    parmenides:hasAdjective parmenides:fast ;
-    parmenides:relatedTo parmenides:flow%23v .
-
 parmenides:slow a parmenides:TransitiveVerb ;
     rdfs:label "slow"^^xsd:string .
 
@@ -1305,6 +1304,11 @@ parmenides:crowd%23v a parmenides:Verb ;
     parmenides:entryPoint parmenides:crowd%23v ;
     parmenides:relatedTo parmenides:crowded .
 
+<https://lo-ds.github.io/parmenides#flow+in> a parmenides:Verb ;
+    rdfs:label "flow in"^^xsd:string ;
+    parmenides:entryPoint <https://lo-ds.github.io/parmenides#flow+in> ;
+    parmenides:eqTo parmenides:flow%23v .
+
 parmenides:jam a parmenides:Noun ;
     rdfs:label "jam"^^xsd:string ;
     parmenides:entryPoint parmenides:jam .
@@ -1331,15 +1335,11 @@ parmenides:crowded a parmenides:Adjective ;
     parmenides:relatedTo parmenides:crowd%23n,
         parmenides:crowd%23v .
 
-parmenides:fast a parmenides:Adjective ;
-    rdfs:label "fast"^^xsd:string ;
-    parmenides:entryPoint parmenides:fast ;
-    parmenides:neqTo parmenides:slow%23adj .
-
 parmenides:flow%23v a parmenides:Verb ;
     rdfs:label "flow"^^xsd:string ;
+    parmenides:adjectivalForm parmenides:fast ;
     parmenides:entryPoint parmenides:flow%23v ;
-    parmenides:relatedTo <https://lo-ds.github.io/parmenides#flow+fast> .
+    parmenides:eqTo <https://lo-ds.github.io/parmenides#flow+in> .
 
 parmenides:slow%23adj a parmenides:Adjective ;
     rdfs:label "slow"^^xsd:string ;
@@ -1368,6 +1368,11 @@ parmenides:congestion a parmenides:Noun ;
     parmenides:relatedTo parmenides:crowd%23n,
         <https://lo-ds.github.io/parmenides#traffic+congestion> .
 
+parmenides:fast a parmenides:Adjective ;
+    rdfs:label "fast"^^xsd:string ;
+    parmenides:entryPoint parmenides:fast ;
+    parmenides:neqTo parmenides:slow%23adj .
+
 parmenides:GrammaticalFunction a owl:Class ;
     rdfs:subClassOf parmenides:MetaGrammaticalFunction .
 
@@ -1385,12 +1390,12 @@ parmenides:Adjective a owl:Class ;
 parmenides:LOC a owl:Class ;
     rdfs:subClassOf parmenides:Dimensions .
 
-parmenides:Verb a owl:Class ;
-    rdfs:subClassOf parmenides:GrammaticalFunction .
-
 parmenides:traffic%23n a parmenides:Noun ;
     rdfs:label "traffic"^^xsd:string ;
     parmenides:entryPoint parmenides:traffic%23n .
+
+parmenides:Verb a owl:Class ;
+    rdfs:subClassOf parmenides:GrammaticalFunction .
 
 parmenides:Noun a owl:Class ;
     rdfs:subClassOf parmenides:GrammaticalFunction .
