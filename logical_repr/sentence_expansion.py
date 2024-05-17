@@ -86,12 +86,9 @@ class SentenceExpansion:
         return self.sentence_list[sentence_id].getAtoms()
 
     def get_mutual_truth(self, i, j):
-        # TODO: if i mutual exclusive from j, then this should have been
-        # Inferred at the expansion phase by explicitly stating so
-        # If i entails j, we should have used an appropriate table
-        # Otherwise, i and j are not mutually implying each other.
-        # This is what is returned at the moment
-        return PairwiseCases.NonImplying
+        val = self.ec.determine(i, j)
+        # assert (i == j) or (val == PairwiseCases.NonImplying)
+        return val
 
     def mutual_truth(self, i, j):
         test = self.get_mutual_truth(i, j)

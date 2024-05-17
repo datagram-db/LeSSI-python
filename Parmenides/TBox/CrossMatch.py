@@ -467,7 +467,7 @@ def query3():
 
 if __name__ == "__main__":
     de = DoExpand("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/turtle.ttl",
-             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file.txt")
+             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file2.txt")
     with open("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/sentences/newcastle_sentences.txt_logical_rewriting.json", "r") as f:
         list_json = json.load(f)
         list_json = formula_from_dict(list_json)

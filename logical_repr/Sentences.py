@@ -106,10 +106,10 @@ def match_frozen_set(self_fs, match_fs, d, ancestor, fugitive):
             else:
                 ## Otherwise, I need to guarantee that the match has one single possible interpretation
                 assert len(tmp_matchfs[x]) == 1
-                final_result[x] = tuple(map(lambda x: x.matchWith(list(tmp_matchfs[x])[0], d, ancestor, fugitive), y))
+                final_result[x] = tuple(map(lambda z: z.matchWith(list(tmp_matchfs[x])[0], d, ancestor, fugitive), y))
     elif isinstance(match_fs, Formula):
         for x, y in self_fs:
-            final_result[x] = tuple(map(lambda x: x.matchWith(match_fs, d, ancestor, fugitive), y))
+            final_result[x] = tuple(map(lambda z: z.matchWith(match_fs, d, ancestor, fugitive), y))
     return frozenset(final_result.items())
 
 def match_formula(formula, match_fs, d, ancestor, fugitive):

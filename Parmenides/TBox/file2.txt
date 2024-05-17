@@ -1,4 +1,5 @@
-UPDATE ( "@y" ( "@x" none none  ) 1.0 {} )
-   over "@y" "eqTo" "^t"
-   replace "y" -> "t";
-
+INVENT
+  from ( "be" ( "@x" "JJ" none  ) 1.0 { "GPE" : "@y" "@t" "@s" . } )
+  as ( ( "have" ( "@y" "@t" "@s" , "@x" "JJ" none ) 1.0 {} ) )
+  with-properties
+  rem "GPE" ;

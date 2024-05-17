@@ -8,6 +8,7 @@ __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
 
 import re
+from collections import defaultdict
 from functools import reduce
 from string import Template
 
@@ -21,39 +22,68 @@ from rdflib.namespace import OWL, RDF, RDFS, FOAF
 def instantiateWithMap(s:str, m:dict):
     return Template(s.replace("@","$")).safe_substitute(m)
 
+
 class Parmenides():
      parmenides_ns = Namespace("https://lo-ds.github.io/parmenides#")
 
      def __init__(self, filename):
          self.g = rdflib.Graph()
          self.g.parse(filename)
+         self.trcl = defaultdict(set)
+
+     def extractPureHierarchy(self, t, flip=False):
+         ye = list(self.single_edge("^src", t, "^dst"))
+         if len(ye)==0:
+             return set()
+         elif flip:
+             return {(x["dst"], x["src"]) for x in ye}
+         else:
+             return {(x["src"], x["dst"]) for x in ye}
+
+     def getAllEntitiesBuyImmediateType(self, t):
+         ye = list(self.isA("^x", str(t)))
+         if len(ye) == 0:
+             return set()
+         else:
+             return {x["x"] for x in ye}
+
+     def getTransitiveClosureHier(self, t):
+         from Parmenides.TBox.CrossMatch import transitive_closure
+         if t not in self.trcl:
+             s = self.extractPureHierarchy("isA", True) | self.extractPureHierarchy("partOf", False)
+             self.trcl[t] = transitive_closure(s)
+         return self.trcl[t]
 
      def name_eq(self, src, dst):
          from Parmenides.TBox.ExpandConstituents import CasusHappening
          if (src == dst):
              return CasusHappening.EQUIVALENT
          elif src is None:
-             raise ValueError("src is None: NOT IMPLEMENTED YET!!!")
-             pass
+             return CasusHappening.INDIFFERENT
          elif dst is None:
-             raise ValueError("dst is None: NOT IMPLEMENTED YET!!!")
-             pass
+             return CasusHappening.IMPLICATION
          else:
-             resolveTypeFromOntologyLHS = self.typeOf(src)
-             resolveTypeFromOntologyRHS = self.typeOf(dst)
+             resolveTypeFromOntologyLHS = set(self.typeOf(src))
+             resolveTypeFromOntologyRHS = set(self.typeOf(dst))
+             isect = resolveTypeFromOntologyLHS.intersection(resolveTypeFromOntologyRHS)
              if len(resolveTypeFromOntologyLHS) == 0:
                  return CasusHappening.INDIFFERENT
              elif len(resolveTypeFromOntologyRHS) == 0:
                  return CasusHappening.INDIFFERENT
+             elif len(isect) == 0:
+                 return CasusHappening.INDIFFERENT
              else:
-                 print("Good, both ")
-                 raise ValueError("both as ontology types: NOT IMPLEMENTED YET!!!")
+                 for k in isect:
+                    if (src, dst) in self.getTransitiveClosureHier(k):
+                        return CasusHappening.IMPLICATION
+                 return CasusHappening.INDIFFERENT
 
 
      def _single_unary_query(self, knows_query, f):
          qres = self.g.query(knows_query)
          for row in qres:
              yield f(row)
+
      def get_transitive_verbs(self):
          knows_query = """
          SELECT DISTINCT ?c
@@ -340,6 +370,13 @@ class Parmenides():
                  raise ValueError(Q[0]+" is unexpected")
          else:
             raise ValueError("Cases error: a list will identify base queries, while a tuple will identify compound constructions")
+
+     def multiple_queries(self, Q):
+         result = self.old_multiple_queries(Q)
+         if result is not None:
+             return result.to_dict('records')
+         else:
+             return []
 
      def get_rejected_edges(self):
          knows_query = """

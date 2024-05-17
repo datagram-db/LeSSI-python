@@ -3,7 +3,9 @@ UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
    over "@x" "partOf" "^z"
    replace "x" -> "z";
 
-
+UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
+   over "^z" "isA" "@x"
+   replace "x" -> "z";
 
 # 2. If x has a property y which is an adjective, then x exists with such a property
 INVENT
@@ -94,3 +96,10 @@ INVENT
    as ( "be" ( "@z" none none  ("@f" "JJ" none) ) 1.0 {} )
    over "@y" "adjectivalForm" "^f"
    with-properties;
+
+# 10.
+INVENT
+  from ( "be" ( "@x" "JJ" none  ) 1.0 { "GPE" : "@y" "@t" "@s" . } )
+  as ( ( "have" ( "@y" "@t" "@s" , "@x" "JJ" none ) 1.0 {} ) )
+  with-properties
+  rem "GPE" ;

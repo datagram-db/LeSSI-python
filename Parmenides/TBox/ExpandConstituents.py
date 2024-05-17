@@ -52,15 +52,46 @@ def compare_variable(d, lhs, rhs, kb):
     assert isinstance(lhs, FVariable)
     assert isinstance(rhs, FVariable)
     nameEQ = kb.name_eq(lhs.name, rhs.name)
-    if (rhs.specification is None) and (lhs.specification is None):
-        d[cp] = CasusHappening.INDIFFERENT
-    else:
-        nameSpecEQ = kb.name_eq(lhs.name, rhs.specification)
-        nameSpec2EQ = kb.name_eq(lhs.specification, rhs.specification)
-        copCompare = compare_variable(d, lhs.cop, rhs.cop, kb)
-        raise ValueError("More refined comparison in ExpandConstituents::compare_variable: YET TO BE IMPLEMENTED!")
-    d[cp] = CasusHappening.INDIFFERENT
+    specEQ = kb.name_eq(lhs.specification, rhs.specification)
+    copCompare = compare_variable(d, lhs.cop, rhs.cop, kb)
+    val = CasusHappening.INDIFFERENT
+    if (nameEQ == specEQ) and (specEQ == copCompare):
+        return specEQ
+    if nameEQ == CasusHappening.INDIFFERENT:
+        nameAgainstSpec = kb.name_eq(lhs.name, rhs.specification)
+        if nameAgainstSpec == CasusHappening.EQUIVALENT:
+            val = CasusHappening.IMPLICATION
+    elif nameEQ == CasusHappening.EQUIVALENT:
+        if (specEQ == copCompare):
+            val = specEQ
+        elif (specEQ == CasusHappening.EQUIVALENT):
+            val = copCompare
+        else:
+            val = specEQ
+    elif nameEQ == CasusHappening.EXCLUSIVES:
+        if (specEQ == copCompare) and (specEQ == CasusHappening.EQUIVALENT):
+            val = CasusHappening.EXCLUSIVES
+    # if (rhs.specification is None) and (lhs.specification is None):
+    #     d[cp] = CasusHappening.INDIFFERENT
+    # else:
+    #     nameSpecEQ = kb.name_eq(lhs.name, rhs.specification)
+    #     nameSpec2EQ = kb.name_eq(lhs.specification, rhs.specification)
+    #
+    #     raise ValueError("More refined comparison in ExpandConstituents::compare_variable: YET TO BE IMPLEMENTED!")
+    d[cp] = val
     return d[cp]
+
+def simplifyConstituents(constituentCollection):
+    if isinstance(constituentCollection, CasusHappening):
+        return constituentCollection
+    elif CasusHappening.EXCLUSIVES in constituentCollection:
+        return CasusHappening.EXCLUSIVES
+    elif CasusHappening.EQUIVALENT in constituentCollection:
+        return CasusHappening.EQUIVALENT
+    elif CasusHappening.IMPLICATION in constituentCollection:
+        return CasusHappening.IMPLICATION
+    else:
+        return CasusHappening.INDIFFERENT
 
 def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None):
     val = CasusHappening.NONE
@@ -99,22 +130,45 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None):
                     keyCmp[key].add(CasusHappening.INDIFFERENT)
                 else:
                     keyCmp[key].add(CasusHappening.IMPLICATION)
-
+            keyCmpElements = CasusHappening.EQUIVALENT
+            if len(keyCmp)>0:
+                keyCmpElements = simplifyConstituents({simplifyConstituents(keyCmp[key]) for key in keyCmp })
             if isinstance(x,FBinaryPredicate) and isinstance(y,FBinaryPredicate):
                 if (x.rel != y.rel):
                     val = CasusHappening.INDIFFERENT
                 else:
                     srcCmp = compare_variable(d, x.src, y.src, kb)
                     dstCmp = compare_variable(d, x.dst, y.dst, kb)
-                    pass
+                    if (srcCmp == CasusHappening.EXCLUSIVES) and (dstCmp == CasusHappening.EXCLUSIVES):
+                        val = CasusHappening.INDIFFERENT
+                    elif (srcCmp == CasusHappening.EXCLUSIVES) and (dstCmp != CasusHappening.INDIFFERENT):
+                        val = CasusHappening.EXCLUSIVES
+                    elif (dstCmp == CasusHappening.EXCLUSIVES) and (srcCmp != CasusHappening.INDIFFERENT):
+                        val = CasusHappening.EXCLUSIVES
+                    elif srcCmp == CasusHappening.EQUIVALENT:
+                        val = dstCmp
+                    elif dstCmp == CasusHappening.EQUIVALENT:
+                        val = srcCmp
+                    else:
+                        val = simplifyConstituents({srcCmp, dstCmp})
             elif isinstance(y,FUnaryPredicate) and isinstance(x, FUnaryPredicate):
                 if (x.rel != y.rel):
                     val = CasusHappening.INDIFFERENT
                 else:
-                    argCmp = compare_variable(d, x.arg, y.arg, kb)
-                    pass
+                    val = compare_variable(d, x.arg, y.arg, kb)
             else:
                 raise ValueError("Unexpected comparison between "+str(x)+" and"+str(y))
+            if val != CasusHappening.INDIFFERENT:
+                if val == CasusHappening.EQUIVALENT:
+                    val = keyCmpElements
+                elif val == CasusHappening.IMPLICATION:
+                    if keyCmpElements != CasusHappening.EQUIVALENT:
+                        val = keyCmpElements
+                elif val == CasusHappening.EXCLUSIVES:
+                    if keyCmpElements == CasusHappening.INDIFFERENT:
+                        val = CasusHappening.INDIFFERENT
+                    elif keyCmpElements == CasusHappening.EXCLUSIVES:
+                        val = CasusHappening.INDIFFERENT
     if store:
         d[(x, y)] = val
     return val
