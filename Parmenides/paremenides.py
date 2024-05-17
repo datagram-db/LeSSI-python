@@ -8,7 +8,10 @@ __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
 
 import re
+from functools import reduce
 from string import Template
+
+import pandas
 import rdflib
 from rdflib.graph import Graph, ConjunctiveGraph
 from rdflib import Graph, URIRef, BNode, Literal, XSD
@@ -321,29 +324,18 @@ class Parmenides():
             raise ValueError("Cases error: a list will identify base queries, while a tuple will identify compound constructions")
 
 
-     def multiple_queries(self, Q):
+     def old_multiple_queries(self, Q):
          if Q is None:
-             yield from []
-             return
+             return pandas.DataFrame()
          elif isinstance(Q, list):
              if len(Q)==2:
-                 yield from self.isA(Q[0], Q[1])
+                 return pandas.DataFrame(self.isA(Q[0], Q[1]))
              elif len(Q)==3:
-                 yield from self.single_edge(Q[0], Q[1], Q[2])
-             else:
-                 yield from []
+                 return pandas.DataFrame( self.single_edge(Q[0], Q[1], Q[2]))
          elif isinstance(Q, tuple):
              assert len(Q)==2
              if Q[0].lower() == "and":
-                 d = dict()
-                 for x in Q[1]:
-                     for x in self.multiple_queries(x):
-                         d = d | x
-                 yield d
-                 return True
-             # elif Q[0].lower() == "or":
-             #     for x in Q[1]:
-             #         yield from self.multiple_queries(x)
+                 return reduce(lambda x,y: x.merge(y), map(self.old_multiple_queries, Q[1]))
              else:
                  raise ValueError(Q[0]+" is unexpected")
          else:
@@ -368,7 +360,7 @@ if __name__ == "__main__":
     #     ?a rdfs:label ?c .
     # }"""
     # qres = g.query(knows_query)
-    g.multiple_queries(tuple(["and", [["city", "hasProperty", "busy"], ["city"]]]))
+    w = g.old_multiple_queries(tuple(["and", [["^x", "^y", "^z"], ["^a", "^b", "^z"]]]))
     for hasEdge in g.single_edge("city center", "partOf", "^var"):
         print(hasEdge)
     for outcome in g.isA("flow", "^t"):
