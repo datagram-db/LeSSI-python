@@ -188,6 +188,11 @@ class ExpandConstituents:
             if len(s) == 0:
                 s.add(rule)
             self.expansion_dictionary[rule] = s
+        with open("/home/giacomo/dump.json", "w") as f:
+            from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+            import json
+            json.dump({str(k):[str(x) for x in v] for k,v in self.expansion_dictionary.items()}, f, cls=EnhancedJSONEncoder, indent=4)
+            exit(1)
         self.result_cache = dict()
         self.constituents = set()
         for y in self.expansion_dictionary.values():

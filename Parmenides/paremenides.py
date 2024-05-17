@@ -299,9 +299,11 @@ class Parmenides():
          m = re.match(r"(?P<main>[^\(]+)\((?P<subj>[^\,)]+),(?P<obj>[^\)]+)\)", dst)
          if m:
              yield from self.single_edge_dst_binary_capability(src, edge_type, m.group('main'), m.group('subj'), m.group('obj'))
+             return
          m = re.match(r"(?P<main>[^\(]+)\((?P<subj>[^\)]+)\)", dst)
          if m:
              yield from self.single_edge_dst_unary_capability(src, edge_type, m.group('main'), m.group('subj'))
+             return
          knows_query = """
          SELECT DISTINCT ?src ?edge_type ?dst ?src_label ?dst_label
          WHERE {

@@ -16,6 +16,7 @@ from nltk.stem.wordnet import WordNetLemmatizer
 
 from gsmtosimilarity.string_similarity_factory import StringSimilarity
 from inference_engine.EntityRelationship import Relationship, Grouping, Singleton, NodeEntryPoint
+from logical_repr.Sentences import Formula
 
 negations = {'not', 'no', 'but'}
 location_types = {'GPE', 'LOC'}
@@ -25,14 +26,33 @@ lemmatizer = WordNetLemmatizer()
 class Graph:
     edges: List[Relationship]  # A graph is defined as a collection of edges
 
+def isGoodKey(x):
+    return x is None or isinstance(x, str) or isinstance(x, int) or isinstance(x, float) or isinstance(x, bool)
+
 class EnhancedJSONEncoder(json.JSONEncoder):
     def default(self, o):
         if o is None:
             return None
-        if isinstance(o, list):
-            return super().default([self.default(x) for x in o])
-        if dataclasses.is_dataclass(o):
-            return dataclasses.asdict(o)
+        if isinstance(o, defaultdict):
+            if not all(map(isGoodKey, o.keys())):
+                return {str(k): self.default(v) for k, v in o.items()}
+            else:
+                return {k: self.default(v) for k, v in o.items()}
+        elif isinstance(o, dict):
+            if not all(map(isGoodKey, o.keys())):
+                return {str(k): self.default(v) for k, v in o.items()}
+            else:
+                return {k: self.default(v) for k, v in o.items()}
+        elif isinstance(o, str) or isinstance(o, int) or isinstance(o, float) or isinstance(o, dict):
+            return o
+        elif isinstance(o, list) or isinstance(o, set) or isinstance(o, tuple):
+            L = [self.default(x) for x in o]
+            try:
+                return super().default(L)
+            except:
+                return L
+        elif dataclasses.is_dataclass(o):
+            return self.default(dataclasses.asdict(o))
         elif isinstance(o, frozenset):
             return dict(o)
         elif isinstance(o, Grouping):

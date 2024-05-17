@@ -69,14 +69,6 @@
         "properties": {
             "GPE": [
                 {
-                    "name": "not",
-                    "type": "GPE",
-                    "specification": null,
-                    "cop": null,
-                    "meta": "FVariable",
-                    "matched": false
-                },
-                {
                     "arg": {
                         "name": "Newcastle",
                         "type": "GPE",
@@ -86,6 +78,14 @@
                         "matched": false
                     },
                     "meta": "FNot",
+                    "matched": false
+                },
+                {
+                    "name": "not",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
                     "matched": false
                 }
             ]
@@ -221,7 +221,7 @@
             ],
             "ENTITY": [
                 {
-                    "name": "centers",
+                    "name": "city",
                     "type": "ENTITY",
                     "specification": null,
                     "cop": null,
@@ -229,7 +229,7 @@
                     "matched": false
                 },
                 {
-                    "name": "city",
+                    "name": "centers",
                     "type": "ENTITY",
                     "specification": null,
                     "cop": null,

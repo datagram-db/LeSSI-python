@@ -6,8 +6,8 @@ from Parmenides.TBox.SimpleDataMatch import boolean_simple_data_match
 from Parmenides.TBox.language.TBoxParse import UpdateOperation, parse_query
 from Parmenides.paremenides import Parmenides
 from logical_repr.Sentences import formula_from_dict, FBinaryPredicate, make_variable, make_name, FUnaryPredicate, \
-    PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties, Formula
-
+    PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties, Formula, FNot
+import math
 
 def object_magic(id):
     import ctypes
@@ -77,12 +77,31 @@ def transitive_closure(a):
 #     return rw_2 ## Returning the variable instantiation for both the ontology match as well as the node match
 
 
+# def jjj(fugitive_init, rw_2, self_ORIG, self_inherit_properties_from):
+#     TCL = transitive_closure(fugitive_init.items())
+#     ## Determining actually all the sub-expressions associated to the final rewritten object
+#     DST = set(rw_2.collectIds())
+#     ## Determining which objects from the origin and the end actually appear in the matches thorugh
+#     ## the transitive closure and matching
+#     DST = {x[0] for x in TCL}.intersection(DST)
+#     ORIG = {x[1] for x in TCL}.intersection(self_ORIG)
+#     finalReplacement = dict({object_magic(x[0]): object_magic(x[1]) for x in TCL if
+#                              (x[0] in DST and object_magic(x[0]).isUnresolved()) and x[1] in ORIG})
+#     forAllProperties = None
+#     if self_inherit_properties_from:
+#         forAllProperties = dict({object_magic(x[0]): object_magic(x[1]) for x in TCL if
+#                                  (x[0] in DST and (not object_magic(x[0]).isUnresolved())) and x[1] in ORIG})
+#         if len(forAllProperties) == 0:
+#             forAllProperties = None
+#     return (TCL, DST, ORIG, finalReplacement, forAllProperties)
+
 class DoMatchRec:
-    def __init__(self, onto_query, p, ORIG, rewritings):
+    def __init__(self, onto_query, p, ORIG, rewritings, original):
         self.onto_query = onto_query
         self.p = p
         self.ORIG = ORIG
         self.result = []
+        self.original = original
         if rewritings is not None:
             self.inherit_properties_from = len(list(filter(lambda x : isinstance(x, InheritProperties), rewritings)))>0
             self.del_rewritings = set(map(lambda x: x.ofField, filter(lambda x : isinstance(x, RemovePropertiesFromResult), rewritings)))
@@ -104,23 +123,28 @@ class DoMatchRec:
                     for k, v in merged_morphism.items():
                         if k != "obj":
                             merged_morphism_ddd["@" + str(k)] = v
-                    rw_2_dis = expansion.replaceWith(merged_morphism_ddd, True, None, None)
+                    forAllProperties = None if not self.inherit_properties_from else {expansion.arg if isinstance(expansion, FNot) else expansion:self.original}
+                    rw_2_dis = expansion.replaceWith(merged_morphism_ddd, True, forAllProperties=forAllProperties)
                     if not rw_2_dis.isUnresolved():
                         if len(self.del_rewritings) > 0:
-                            self.result.append(rw_2_dis.removePropertiesFrom(self.del_rewritings, True))
+                            res = rw_2_dis.removePropertiesFrom(self.del_rewritings, True)
                         else:
-                            self.result.append(rw_2_dis)
+                            res = rw_2_dis
+                        self.result.append(res)
             else:
                 merged_morphism_ddd = dict()
                 for k, v in data_match_morphism.items():
                     if k != "obj":
                         merged_morphism_ddd["@" + str(k)] = v
-                rw_2_dis = expansion.replaceWith(merged_morphism_ddd, True, None, None)
+                forAllProperties = None if not self.inherit_properties_from else {expansion.arg if isinstance(expansion, FNot) else expansion: self.original}
+                rw_2_dis = expansion.replaceWith(merged_morphism_ddd, True, forAllProperties=forAllProperties)
                 if not rw_2_dis.isUnresolved():
                     if len(self.del_rewritings) > 0:
-                        self.result.append(rw_2_dis.removePropertiesFrom(self.del_rewritings, True))
+                        res = rw_2_dis.removePropertiesFrom(self.del_rewritings, True)
                     else:
-                        self.result.append(rw_2_dis)
+                        res = rw_2_dis
+                    self.result.append(res)
+                    expansion.replaceWith(merged_morphism_ddd, True, forAllProperties=forAllProperties)
 
     def do_replacement_match_rec(self, i, d, fugitive_init, rw_2):
         """
@@ -161,9 +185,10 @@ class DoMatchRec:
                 rw_2 = rw_2.replaceWith(finalReplacement, forAllProperties=forAllProperties)
             if not rw_2.isOntoUnmatched():
                 if len(self.del_rewritings)>0:
-                    self.result.append(rw_2.removePropertiesFrom(self.del_rewritings, True))
+                    res = rw_2.removePropertiesFrom(self.del_rewritings, True)
                 else:
-                    self.result.append(rw_2)
+                    res = rw_2
+                self.result.append(res)
         else:
             from Parmenides.TBox.SentenceMatch import structure_dictionary
             dd = structure_dictionary(d)
@@ -256,7 +281,7 @@ def do_match(datum, toMatch, onto_query, p, replacement_map,
 
     ## 3. Defining the correspondences across the same variable object and across matchings
     N = len(struct_dict_dd)
-    qRec = DoMatchRec(onto_query, p, ORIG, sentence_transformations)
+    qRec = DoMatchRec(onto_query, p, ORIG, sentence_transformations, datum)
 
     if value_invention is None:
         qRec.do_replacement_match_rec(N - 1, dtr, fugitive_init, rw_init)
@@ -467,13 +492,13 @@ def query3():
 
 if __name__ == "__main__":
     de = DoExpand("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/turtle.ttl",
-             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file2.txt")
+             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file.txt")
     with open("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/sentences/newcastle_sentences.txt_logical_rewriting.json", "r") as f:
         list_json = json.load(f)
         list_json = formula_from_dict(list_json)
-        for x in list_json:
-            s1 = de(x)
-            print(s1)
+        # for x in list_json:
+        s1 = de(list_json[3])
+        print(list(map(str, s1)))
         # s2 = de(list_json[7])
         # print(list_json[7])
     #query1(q1bis) #q1bis

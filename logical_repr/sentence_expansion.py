@@ -6,6 +6,8 @@ __version__ = "2.0"
 __maintainer__ = "Giacomo Bergami"
 __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
+
+import json
 from collections import defaultdict
 from enum import Enum
 from functools import reduce
@@ -126,6 +128,7 @@ class SentenceExpansion:
         for i in range(len(self.sentence_list)):
             for x in self.getSentenceAtomsFromId(sentence_id):
                 self.d[sentence_id].add(self.minimal_constituents.add(x))
+        from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
 
     def build_up_truth_table(self):
         if not self.buildup:

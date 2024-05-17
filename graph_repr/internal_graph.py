@@ -268,7 +268,7 @@ class AssignTypeToSingleton:
         for item in self.associations:
             # for association in associations:
             if len(self.meu_entities[item]) > 0:
-                if item.type == '∃' or item.type.startswith("JJ"):
+                if item.type == '∃' or item.type.startswith("JJ") or item.type.startswith("IN") or item.type.startswith("NEG"):
                     best_score = item.confidence
                     best_items = [item]
                     best_type = item.type

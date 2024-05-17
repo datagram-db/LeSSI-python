@@ -18,6 +18,9 @@ from typing import Tuple, Dict, Union
 
 class Formula:
 
+    def __str__(self):
+        return "Formula(?)"
+
     def isOntoUnmatched(self):
         return False
 
@@ -166,6 +169,16 @@ class FVariable(Formula):
     meta: str = field(default_factory=lambda : "FVariable")
     matched: bool = field(default_factory=lambda : False)
 
+    def __str__(self):
+        s = self.name
+        if s is None:
+            s = "?"
+        if self.specification is not None and len(self.specification) > 0:
+            s += (" [of] "+ self.specification)
+        if self.cop is not None:
+            s += (" JJ:" + str(self.cop))
+        return s
+
     def isOntoUnmatched(self):
         if isStringUnresolved(self.name): return True
         if isStringUnresolved(self.type): return True
@@ -213,8 +226,8 @@ class FVariable(Formula):
                 return var
         if isAncestorNone:
             ancestor = None
-        cop = match_formula(self.cop, f, d, ancestor, fugitive)
-        return FVariable(self.name, self.type, self.specification, cop=cop)
+        # cop = match_formula(self.cop, f, d, ancestor, fugitive)
+        return FVariable(self.name, self.type, self.specification, cop=self.cop)
 
     def updateWithProperties(self, toFrozenSet):
         return self
@@ -323,6 +336,16 @@ class FUnaryPredicate(Formula):
     meta: str = field(default_factory=lambda : "FUnaryPredicate")
     matched: bool = field(default_factory=lambda : False)
 
+    def __str__(self):
+        s = self.rel
+        if s is None:
+            s = "?"
+        if self.arg is not None:
+            s += ("(" + str(self.arg) + ")")
+        if self.properties is not None:
+            s += json.dumps({k:[str(x) for x in v] for k,v in self.properties})
+        return s
+
     def isOntoUnmatched(self):
         if isStringUnresolved(self.rel): return True
         if self.arg is not None and self.arg.isOntoUnmatched(): return True
@@ -332,13 +355,13 @@ class FUnaryPredicate(Formula):
         return False
 
     def getFlattenedProperties(self):
+        props = defaultdict(set)
         if self.arg is not None:
-            props = {x:set(y) for x,y in self.arg.getFlattenedProperties()}
-        else:
-            props = defaultdict(set)
+            for x, y in self.arg.getFlattenedProperties():
+                props[x] = set(y)
         if self.properties is not None:
             for x, y in self.properties:
-                props[x].union(set(y))
+                props[x] = props[x].union(set(y))
         return frozenset({x: tuple(y) for x,y in props.items()}.items())
 
     def getProperties(self):
@@ -379,10 +402,11 @@ class FUnaryPredicate(Formula):
                 for k,y in dd.items():
                     d[k] = y
                 arg = match_formula(self.arg, f.arg, d, ancestor, fugitive)
-                var = FUnaryPredicate(rel_value, arg, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive), matched=True)
-                if isAncestorNone:
-                    retaliate_dd(d, self, var, fugitive)
-                return var
+                if arg is None or arg.matched:
+                    var = FUnaryPredicate(rel_value, arg, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive), matched=True)
+                    if isAncestorNone:
+                        retaliate_dd(d, self, var, fugitive)
+                    return var
         if isAncestorNone:
             ancestor = None
         arg = match_formula(self.arg, f, d, ancestor, fugitive)
@@ -408,7 +432,7 @@ class FUnaryPredicate(Formula):
             properties = {x:set(y) for x,y in properties}
             for x, y in forAllProperties[self].getFlattenedProperties():
                 if x in properties:
-                    properties[x].union(set(y))
+                    properties[x] = properties[x].union(set(y))
                 else:
                     properties[x] = set(y)
             properties = frozenset({x:tuple(y) for x,y in properties.items()}.items())
@@ -438,6 +462,24 @@ class FBinaryPredicate(Formula):
     meta: str = field(default_factory=lambda : "FBinaryPredicate")
     matched: bool = field(default_factory=lambda : False)
 
+    def __str__(self):
+        s = self.rel
+        if s is None:
+            s = "?("
+        else:
+            s += "("
+        if self.src is not None:
+            s += (str(self.src) + ",")
+        else:
+            s += "?,"
+        if self.dst is not None:
+            s += (str(self.dst) + ")")
+        else:
+            s += "?)"
+        if self.properties is not None:
+            s += json.dumps({k:[str(x) for x in v] for k,v in self.properties})
+        return s
+
     def isOntoUnmatched(self):
         if isStringUnresolved(self.rel): return True
         if self.src is not None and self.src.isOntoUnmatched(): return True
@@ -466,17 +508,17 @@ class FBinaryPredicate(Formula):
                 if x not in flattenedSuperSet:
                     flattenedSuperSet[x] = set(y)
                 else:
-                    flattenedSuperSet[x].union(set(y))
+                    flattenedSuperSet[x] = flattenedSuperSet[x].union(set(y))
         if self.dst is not None:
             for x, y in self.dst.getFlattenedProperties():
                 if x not in flattenedSuperSet:
                     flattenedSuperSet[x] = set(y)
                 else:
-                    flattenedSuperSet[x].union(set(y))
+                    flattenedSuperSet[x] = flattenedSuperSet[x].union(set(y))
         if self.properties is not None:
             for x, y in self.properties:
-                flattenedSuperSet[x].union(set(y))
-        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()})
+                flattenedSuperSet[x] = flattenedSuperSet[x].union(set(y))
+        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()}.items())
 
 
     def getProperties(self):
@@ -515,10 +557,11 @@ class FBinaryPredicate(Formula):
                     d[k] = y
                 src = match_formula(self.src, f.src, d, ancestor, fugitive)
                 dst = match_formula(self.dst, f.dst, d, ancestor, fugitive)
-                var = FBinaryPredicate(rel_value, src, dst, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive), matched=True)
-                if isAncestorNone:
-                    retaliate_dd(d, self, var, fugitive)
-                return var
+                if (src is None or src.matched) and (dst is None or dst.matched):
+                    var = FBinaryPredicate(rel_value, src, dst, score, match_frozen_set(self.properties, f.properties, d, ancestor, fugitive), matched=True)
+                    if isAncestorNone:
+                        retaliate_dd(d, self, var, fugitive)
+                    return var
         if isAncestorNone:
             ancestor = None
         src = match_formula(self.src, f, d, ancestor, fugitive)
@@ -546,7 +589,7 @@ class FBinaryPredicate(Formula):
             properties = {x:set(y) for x,y in properties}
             for x, y in forAllProperties[self].getFlattenedProperties():
                 if x in properties:
-                    properties[x].union(set(y))
+                    properties[x] = properties[x].union(set(y))
                 else:
                     properties[x] = set(y)
             properties = frozenset({x:tuple(y) for x,y in properties.items()}.items())
@@ -571,6 +614,9 @@ class FAnd(Formula):
     meta: str = field(default_factory=lambda : "FAnd")
     matched: bool = field(default_factory=lambda : False)
 
+    def __str__(self):
+        return " /\\ ".join(map(str, self.args))
+
     def isOntoUnmatched(self):
         return any(map(lambda x: x is not None and x.isOntoUnmatched(), self.args))
 
@@ -579,15 +625,14 @@ class FAnd(Formula):
 
     def getFlattenedProperties(self):
         flattenedSuperSet = defaultdict(set)
-        keys = set()
         for arg in self.args:
             if arg is not None:
                 for x,y in arg.getFlattenedProperties():
                     if x not in flattenedSuperSet:
                         flattenedSuperSet[x] = set(y)
                     else:
-                        flattenedSuperSet[x].union(set(y))
-        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()})
+                        flattenedSuperSet[x] = flattenedSuperSet[x].union(set(y))
+        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()}.items())
 
 
     def updateWithProperties(self, toFrozenSet):
@@ -658,6 +703,10 @@ class FOr(Formula):
     meta: str = field(default_factory=lambda : "FOr")
     matched: bool = field(default_factory=lambda : False)
 
+
+    def __str__(self):
+        return " \// ".join(map(str, self.args))
+
     def isOntoUnmatched(self):
         return any(map(lambda x: x is not None and x.isOntoUnmatched(), self.args))
 
@@ -674,8 +723,8 @@ class FOr(Formula):
                     if x not in flattenedSuperSet:
                         flattenedSuperSet[x] = set(y)
                     else:
-                        flattenedSuperSet[x].union(set(y))
-        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()})
+                        flattenedSuperSet[x] = flattenedSuperSet[x].union(set(y))
+        return frozenset({x:tuple(y) for x,y in flattenedSuperSet.items()}.items())
 
     def updateWithProperties(self, toFrozenSet):
         return self
@@ -743,6 +792,9 @@ class FNot(Formula):
     arg: Formula
     meta: str = field(default_factory=lambda : "FNot")
     matched: bool = field(default_factory=lambda : False)
+
+    def __str__(self):
+        return " ~ "+str(self.arg)
 
     def isOntoUnmatched(self):
         return self.arg is not None and self.arg.isOntoUnmatched()
