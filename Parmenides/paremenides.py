@@ -7,6 +7,7 @@ __maintainer__ = "Giacomo Bergami"
 __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
 
+import copy
 import re
 from collections import defaultdict
 from functools import reduce
@@ -22,6 +23,9 @@ from rdflib.namespace import OWL, RDF, RDFS, FOAF
 def instantiateWithMap(s:str, m:dict):
     return Template(s.replace("@","$")).safe_substitute(m)
 
+# def combine_or_cross(x,y):
+#     if len(set(x.columns).intersection(y.columns)) == 0:
+#
 
 class Parmenides():
      parmenides_ns = Namespace("https://lo-ds.github.io/parmenides#")
@@ -58,13 +62,13 @@ class Parmenides():
          from Parmenides.TBox.ExpandConstituents import CasusHappening
          if (src == dst):
              return CasusHappening.EQUIVALENT
-         elif src is None:
+         elif (src is None) or len(src)==0:
              return CasusHappening.INDIFFERENT
-         elif dst is None:
+         elif (dst is None) or len(dst)==0:
              return CasusHappening.IMPLICATION
          else:
-             resolveTypeFromOntologyLHS = set(self.typeOf(src))
-             resolveTypeFromOntologyRHS = set(self.typeOf(dst))
+             resolveTypeFromOntologyLHS = set(self.getSuperTypes(src))
+             resolveTypeFromOntologyRHS = set(self.getSuperTypes(dst))
              isect = resolveTypeFromOntologyLHS.intersection(resolveTypeFromOntologyRHS)
              if len(resolveTypeFromOntologyLHS) == 0:
                  return CasusHappening.INDIFFERENT
@@ -74,6 +78,8 @@ class Parmenides():
                  return CasusHappening.INDIFFERENT
              else:
                  for k in isect:
+                    if len(list(self.single_edge(src, "neqTo", dst)))>0:
+                        return CasusHappening.EXCLUSIVES
                     if (src, dst) in self.getTransitiveClosureHier(k):
                         return CasusHappening.IMPLICATION
                  return CasusHappening.INDIFFERENT
@@ -101,6 +107,30 @@ class Parmenides():
              ?a rdfs:label ?c .
          }"""
          return self._single_unary_query(knows_query, lambda x: str(x.c))
+
+     def getSuperTypes(self,src):
+        s = list(self.typeOf(src))
+        visited = set()
+        while len(s)>0:
+            x = s.pop()
+            if x not in visited:
+                 visited.add(x)
+                 for y in self.typeOf2(Parmenides.parmenides_ns[str(x)[len(Parmenides.parmenides_ns):]]):
+                     s.append(y)
+        return visited
+
+
+     def typeOf2(self, src):
+         knows_query = """
+         SELECT DISTINCT ?dst 
+         WHERE {
+             ?src rdfs:subClassOf ?dst.
+         }"""
+         qres = self.g.query(knows_query, initBindings={"src":src})
+         s = set()
+         for x in qres:
+            s.add(str(x.dst))
+         return s
 
      def typeOf(self, src):
          knows_query = """
@@ -137,6 +167,7 @@ class Parmenides():
          for x in qres:
              d = x.asdict()
              k = dict()
+             k["@^hasResult"] = True
              if srcBool:
                  k[src[1:]] = str(d.get("src_label"))
              if dstBool:
@@ -180,6 +211,7 @@ class Parmenides():
          for x in qres:
             d = x.asdict()
             k = dict()
+            k["@^hasResult"] = True
             if srcBool:
                 k[src[1:]] = str(d.get("src_label"))
             if subjBool:
@@ -233,6 +265,7 @@ class Parmenides():
          for x in qres:
             d = x.asdict()
             k = dict()
+            k["@^hasResult"] = True
             if srcBool:
                 k[src[1:]] = str(d.get("src_label"))
             if subjBool:
@@ -281,6 +314,7 @@ class Parmenides():
          for x in qres:
             d = x.asdict()
             k = dict()
+            k["@^hasResult"] = True
             if srcBool:
                 k[src[1:]] = str(d.get("src_label"))
             if srcSpecBool:
@@ -331,6 +365,7 @@ class Parmenides():
          for x in qres:
             d = x.asdict()
             k = dict()
+            k["@^hasResult"] = True
             if srcBool:
                 k[src[1:]] = str(d.get("src_label"))
             if dstBool:
@@ -367,7 +402,10 @@ class Parmenides():
          elif isinstance(Q, tuple):
              assert len(Q)==2
              if Q[0].lower() == "and":
-                 return reduce(lambda x,y: x.merge(y), map(self.old_multiple_queries, Q[1]))
+                 M = list(map(self.old_multiple_queries, Q[1]))
+                 if any(map(lambda x: len(x)==0, M)):
+                     return pandas.DataFrame()
+                 return reduce(lambda x,y: x.merge(y), M)
              else:
                  raise ValueError(Q[0]+" is unexpected")
          else:
@@ -399,7 +437,7 @@ if __name__ == "__main__":
     #     ?a rdfs:label ?c .
     # }"""
     # qres = g.query(knows_query)
-    w = g.old_multiple_queries(tuple(["and", [["^x", "^y", "^z"], ["^a", "^b", "^z"]]]))
+    w = g.old_multiple_queries(tuple(["and", [["^x", "^y", "^z"], ["slow", "Adjective"]]]))
     for hasEdge in g.single_edge("city center", "partOf", "^var"):
         print(hasEdge)
     for outcome in g.isA("flow", "^t"):

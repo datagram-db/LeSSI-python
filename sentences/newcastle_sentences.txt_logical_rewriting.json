@@ -79,14 +79,6 @@
                     },
                     "meta": "FNot",
                     "matched": false
-                },
-                {
-                    "name": "not",
-                    "type": "GPE",
-                    "specification": null,
-                    "cop": null,
-                    "meta": "FVariable",
-                    "matched": false
                 }
             ]
         },
@@ -131,28 +123,20 @@
         },
         "score": 1.0,
         "properties": {
-            "GPE": [
+            "DATE": [
                 {
-                    "name": "Newcastle",
-                    "type": "GPE",
-                    "specification": null,
-                    "cop": null,
-                    "meta": "FVariable",
-                    "matched": false
-                },
-                {
-                    "name": "in",
-                    "type": "GPE",
+                    "name": "saturday",
+                    "type": "DATE",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable",
                     "matched": false
                 }
             ],
-            "DATE": [
+            "GPE": [
                 {
-                    "name": "saturday",
-                    "type": "DATE",
+                    "name": "Newcastle",
+                    "type": "GPE",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable",
@@ -209,16 +193,6 @@
         },
         "score": 1.0,
         "properties": {
-            "DATE": [
-                {
-                    "name": "saturdays",
-                    "type": "DATE",
-                    "specification": null,
-                    "cop": null,
-                    "meta": "FVariable",
-                    "matched": false
-                }
-            ],
             "ENTITY": [
                 {
                     "name": "city",
@@ -231,6 +205,16 @@
                 {
                     "name": "centers",
                     "type": "ENTITY",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ],
+            "DATE": [
+                {
+                    "name": "saturdays",
+                    "type": "DATE",
                     "specification": null,
                     "cop": null,
                     "meta": "FVariable",

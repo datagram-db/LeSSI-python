@@ -144,7 +144,7 @@ class DoMatchRec:
                     else:
                         res = rw_2_dis
                     self.result.append(res)
-                    expansion.replaceWith(merged_morphism_ddd, True, forAllProperties=forAllProperties)
+                    # expansion.replaceWith(merged_morphism_ddd, True, forAllProperties=forAllProperties)
 
     def do_replacement_match_rec(self, i, d, fugitive_init, rw_2):
         """
@@ -497,7 +497,7 @@ if __name__ == "__main__":
         list_json = json.load(f)
         list_json = formula_from_dict(list_json)
         # for x in list_json:
-        s1 = de(list_json[3])
+        s1 = de(list_json[5])
         print(list(map(str, s1)))
         # s2 = de(list_json[7])
         # print(list_json[7])

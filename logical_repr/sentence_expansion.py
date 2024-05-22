@@ -76,7 +76,7 @@ class SentenceExpansion:
         self.sentence_to_id = dict()
         for idx in range(len(sentence_list)):
             self.sentence_to_id[sentence_list[idx]] = idx
-            self.sentence_list.append(sentence_list[idx].strippedByType())
+            self.sentence_list.append(sentence_list[idx])
         self.kb = kb
         self.minimal_constituents = CountingDictionary()
         self.U = None

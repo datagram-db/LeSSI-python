@@ -11,6 +11,7 @@ UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
 INVENT
   from ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
   as ( "be" ( "@x" none none  ( "@y" "JJ" none ) ) 1.0 {  } )
+  over isa "@y" "Adjective"
   with-properties;
 
 # 3. If x has a property y and y is equivalent to z, then x has also z
@@ -40,7 +41,7 @@ INVENT
 # 5.
 INVENT
    from ( "have" ( "@x" none none  , "@y" none none ) 1.0 {} )
-   as ( "be" (  "@y" none none ) 1.0 { "GPE" : "@x" none none . } )
+   as ( "be" (  "@y" none none ) 1.0 { "GPE" : "@x" "LOC" none . } )
    over isa "@x" "LOC"
    with-properties;
 
@@ -53,8 +54,8 @@ INVENT
    with-properties;
 
 # 7.
-UPDATE ( "have" ( "@x" none none , "@z" none none ) 1.0 {} )
-   over "@z" "relatedTo" "^y"
+UPDATE ( "have" ( "@x" none none , "@z" "@t" none ) 1.0 {} )
+   over all [ "@z" "relatedTo" "^y" , isa "^z" "^t" ]
    replace "z" -> "y";
 
 # 3.

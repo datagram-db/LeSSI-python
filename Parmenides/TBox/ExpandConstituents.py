@@ -49,28 +49,49 @@ def compare_variable(d, lhs, rhs, kb):
         d[cp] = CasusHappening.EQUIVALENT
     if cp in d:
         return d[cp]
-    assert isinstance(lhs, FVariable)
-    assert isinstance(rhs, FVariable)
-    nameEQ = kb.name_eq(lhs.name, rhs.name)
-    specEQ = kb.name_eq(lhs.specification, rhs.specification)
-    copCompare = compare_variable(d, lhs.cop, rhs.cop, kb)
-    val = CasusHappening.INDIFFERENT
-    if (nameEQ == specEQ) and (specEQ == copCompare):
-        return specEQ
-    if nameEQ == CasusHappening.INDIFFERENT:
-        nameAgainstSpec = kb.name_eq(lhs.name, rhs.specification)
-        if nameAgainstSpec == CasusHappening.EQUIVALENT:
-            val = CasusHappening.IMPLICATION
-    elif nameEQ == CasusHappening.EQUIVALENT:
-        if (specEQ == copCompare):
-            val = specEQ
-        elif (specEQ == CasusHappening.EQUIVALENT):
-            val = copCompare
-        else:
-            val = specEQ
-    elif nameEQ == CasusHappening.EXCLUSIVES:
-        if (specEQ == copCompare) and (specEQ == CasusHappening.EQUIVALENT):
-            val = CasusHappening.EXCLUSIVES
+    if (lhs == rhs):
+        val = CasusHappening.EQUIVALENT
+    elif lhs is None:
+        val = CasusHappening.INDIFFERENT
+    elif rhs is None:
+        val = CasusHappening.IMPLICATION
+    elif (lhs == FNot(rhs)) or (rhs == FNot(lhs)):
+        val = CasusHappening.EXCLUSIVES
+    elif isinstance(lhs, FNot):
+        val = transformCaseWhenOneArgIsNegated(compare_variable(d, lhs.arg, rhs, kb))
+    elif isinstance(rhs, FNot):
+        val = transformCaseWhenOneArgIsNegated(compare_variable(d, lhs, rhs.arg, kb))
+    else:
+        assert isinstance(lhs, FVariable)
+        assert isinstance(rhs, FVariable)
+        nameEQ = kb.name_eq(lhs.name, rhs.name)
+        specEQ = kb.name_eq(lhs.specification, rhs.specification)
+        copCompare = compare_variable(d, lhs.cop, rhs.cop, kb)
+        val = CasusHappening.INDIFFERENT
+        if (nameEQ == specEQ) and (specEQ == copCompare):
+            return specEQ
+        if nameEQ == CasusHappening.INDIFFERENT:
+            nameAgainstSpec = kb.name_eq(lhs.name, rhs.specification)
+            if nameAgainstSpec == CasusHappening.EQUIVALENT and lhs.name is not None and rhs.specification is not None:
+                val = CasusHappening.IMPLICATION
+        elif nameEQ == CasusHappening.EQUIVALENT:
+            if (specEQ == copCompare):
+                val = specEQ
+            elif (specEQ == CasusHappening.EQUIVALENT):
+                val = copCompare
+            else:
+                val = specEQ
+        elif nameEQ == CasusHappening.IMPLICATION:
+            nameAgainstSpec = kb.name_eq(lhs.name, rhs.specification)
+            if (specEQ == copCompare) and (specEQ == CasusHappening.EQUIVALENT):
+                val = CasusHappening.IMPLICATION
+            elif (specEQ == CasusHappening.EQUIVALENT) and (copCompare == CasusHappening.EXCLUSIVES):
+                val = CasusHappening.EXCLUSIVES
+            elif lhs.specification is None and nameAgainstSpec == CasusHappening.EQUIVALENT:
+                val = CasusHappening.IMPLICATION
+        elif nameEQ == CasusHappening.EXCLUSIVES:
+            if (specEQ == copCompare) and (specEQ == CasusHappening.EQUIVALENT):
+                val = CasusHappening.EXCLUSIVES
     # if (rhs.specification is None) and (lhs.specification is None):
     #     d[cp] = CasusHappening.INDIFFERENT
     # else:
@@ -106,9 +127,9 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None):
     elif (x == FNot(y)) or (y == FNot(x)):
         val = CasusHappening.EXCLUSIVES
     elif isinstance(x, FNot):
-        val = transformCaseWhenOneArgIsNegated(test_pairwise_sentence_similarity(d, x.arg, y, False))
+        val = transformCaseWhenOneArgIsNegated(test_pairwise_sentence_similarity(d, x.arg, y, False, kb))
     elif isinstance(y, FNot):
-        val = transformCaseWhenOneArgIsNegated(test_pairwise_sentence_similarity(d, x, y.arg, False))
+        val = transformCaseWhenOneArgIsNegated(test_pairwise_sentence_similarity(d, x, y.arg, False, kb))
     else:
         if (x.meta != y.meta):
             val = CasusHappening.INDIFFERENT
@@ -123,9 +144,9 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None):
             dRHS = dict(yprop)
             for key in keys:
                 if key in dLHS and key in dRHS:
-                    for xx in dLHS:
-                        for yy in dRHS:
-                            keyCmp[key].add(test_pairwise_sentence_similarity(d, xx, yy, store, kb))
+                    for xx in dLHS[key]:
+                        for yy in dRHS[key]:
+                            keyCmp[key].add(compare_variable(d, xx, yy, kb))
                 elif key in dLHS:
                     keyCmp[key].add(CasusHappening.INDIFFERENT)
                 else:

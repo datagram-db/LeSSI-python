@@ -162,3 +162,4 @@ zope.interface==6.1
 psycopg2
 rdflib
 antlr4-python3-runtime==4.13.1
+pytest==7.4.0

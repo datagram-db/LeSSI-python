@@ -257,8 +257,7 @@ def make_variable(var, type=None, spec=None, cop:Formula=None):
     return FVariable(name="@"+str(var), type=type, specification=spec, cop=cop)
 
 def make_name(var, type=None, spec=None, cop:Formula=None):
-    return FVariable(name=str(var), type=type, specification=spec, cop=cop)
-
+    return FVariable(name=str(var) if var is not None else None, type=type, specification=spec, cop=cop)
 
 def stripArg(x):
     if x is None:
