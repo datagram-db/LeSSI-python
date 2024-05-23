@@ -63,9 +63,9 @@ class Parmenides():
          if (src == dst):
              return CasusHappening.EQUIVALENT
          elif (src is None) or len(src)==0:
-             return CasusHappening.INDIFFERENT
+             return CasusHappening.MISSING_1ST_IMPLICATION
          elif (dst is None) or len(dst)==0:
-             return CasusHappening.IMPLICATION
+             return CasusHappening.INDIFFERENT
          else:
              resolveTypeFromOntologyLHS = set(self.getSuperTypes(src))
              resolveTypeFromOntologyRHS = set(self.getSuperTypes(dst))
@@ -81,7 +81,7 @@ class Parmenides():
                     if len(list(self.single_edge(src, "neqTo", dst)))>0:
                         return CasusHappening.EXCLUSIVES
                     if (src, dst) in self.getTransitiveClosureHier(k):
-                        return CasusHappening.IMPLICATION
+                        return CasusHappening.GENERAL_IMPLICATION
                  return CasusHappening.INDIFFERENT
 
 
