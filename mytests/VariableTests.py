@@ -258,6 +258,90 @@ class VariableTests(unittest.TestCase):
                          "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
 
 
+    def test_unary_timeleft(self):
+        from Parmenides.TBox.ExpandConstituents import CasusHappening
+        from Parmenides.TBox.ExpandConstituents import test_pairwise_sentence_similarity
+
+        d = dict()
+        from logical_repr.rewrite_kernels import make_unary
+        btncc = make_unary("be", self.t, 1.0, prop={"GPE": tuple([self.ncc])})
+        btnotncc = make_unary("be", self.t, 1.0, prop={"GPE": tuple([self.nncc])})
+        btncc_d = make_unary("be", self.t, 1.0, prop={"GPE": tuple([self.ncc]),"TIME": tuple([self.Saturdays])})
+        btnotncc_d = make_unary("be", self.t, 1.0, prop={"GPE": tuple([self.nncc]),"TIME": tuple([self.Saturdays])})
+        from logical_repr.Sentences import FUnaryPredicate
+        btfn = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE":tuple([self.Newcastle])}.items()))
+        btsn = FUnaryPredicate("be", self.st, 1.0, frozenset({"GPE":tuple([self.Newcastle])}.items()))
+        bttn = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE":tuple([self.Newcastle])}.items()))
+        ntsncc = FUnaryPredicate("be", self.st, 1.0, frozenset({"GPE":tuple([self.ncc])}.items()))
+        ntfncc = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE":tuple([self.ncc])}.items()))
+        ntsn = FUnaryPredicate("be", self.st, 1.0, frozenset({"GPE":tuple([self.Newcastle])}.items()))
+        ftN = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE": tuple([self.Newcastle])}.items()))
+        ftncc = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE": tuple([self.ncc])}.items()))
+        btN = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE": tuple([self.Newcastle])}.items()))
+        btNcc = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE": tuple([self.ncc])}.items()))
+        ftcc = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE": tuple([self.cc])}.items()))
+        btfn_d = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE":tuple([self.Newcastle]),"TIME": tuple([self.Saturdays])}.items()))
+        btsn_d = FUnaryPredicate("be", self.st, 1.0, frozenset({"GPE":tuple([self.Newcastle]),"TIME": tuple([self.Saturdays])}.items()))
+        bttn_d = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE":tuple([self.Newcastle]),"TIME": tuple([self.Saturdays])}.items()))
+        ntsncc_d = FUnaryPredicate("be", self.st, 1.0, frozenset({"GPE":tuple([self.ncc]),"TIME": tuple([self.Saturdays])}.items()))
+        ntfncc_d = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE":tuple([self.ncc]),"TIME": tuple([self.Saturdays])}.items()))
+        ntsn_d = FUnaryPredicate("be", self.st, 1.0, frozenset({"GPE":tuple([self.Newcastle]),"TIME": tuple([self.Saturdays])}.items()))
+        ftN_d = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE": tuple([self.Newcastle]),"TIME": tuple([self.Saturdays])}.items()))
+        ftncc_d = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE": tuple([self.ncc]),"TIME": tuple([self.Saturdays])}.items()))
+        btN_d = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE": tuple([self.Newcastle]),"TIME": tuple([self.Saturdays])}.items()))
+        btNcc_d = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE": tuple([self.ncc]),"TIME": tuple([self.Saturdays])}.items()))
+        ftcc_d = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE": tuple([self.cc]),"TIME": tuple([self.Saturdays])}.items()))
+
+        ## All the previous tests leading to an inconsistency or to an indifference being extended by adding the time
+        ## only on the rightmost argument, then should always lead to the same result
+        test_pairwise_sentence_similarity(d, bttn_d, btfn, kb=self.kb.g)
+        self.assertEqual(d[( bttn_d, btfn)], CasusHappening.INDIFFERENT,
+                         "Negation of the specification where the rest is the same should yield to an incompatibility")
+        test_pairwise_sentence_similarity(d, btsn_d, btfn, kb=self.kb.g)
+        self.assertEqual(d[( btsn_d, btfn)], CasusHappening.EXCLUSIVES,
+                         "Negation of the specification where the rest is the same should yield to an incompatibility")
+        test_pairwise_sentence_similarity(d, btfn_d, btsn, kb=self.kb.g)
+        self.assertEqual(d[( btfn_d,btsn)], CasusHappening.EXCLUSIVES,
+                         "Negation of the specification where the rest is the same should yield to an incompatibility")
+        test_pairwise_sentence_similarity(d, ntfncc_d, ntsn, kb=self.kb.g)
+        self.assertEqual(d[(ntfncc_d, ntsn)], CasusHappening.EXCLUSIVES,
+                         "Implication is blocked by inequality, that should dominate (in this case) rather than providing unknowingness")
+        test_pairwise_sentence_similarity(d, ntsn_d, ntfncc, kb=self.kb.g)
+        self.assertEqual(d[(ntsn_d, ntfncc)], CasusHappening.EXCLUSIVES,
+                         "Implication is blocked by inequality, that should dominate (in this case) rather than providing unknowingness")
+        test_pairwise_sentence_similarity(d, ftncc_d, ftN, kb=self.kb.g)
+        self.assertEqual(d[(ftncc_d, ftN)], CasusHappening.INDIFFERENT,
+                         "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
+        test_pairwise_sentence_similarity(d, ntfncc_d, bttn, kb=self.kb.g)
+        self.assertEqual(d[(ntfncc_d, bttn)], CasusHappening.INDIFFERENT,
+                         "Maximum reduction by stripping all information, both adjective and specification")
+        test_pairwise_sentence_similarity(d, ntfncc_d, btfn, kb=self.kb.g)
+        self.assertEqual(d[(ntfncc_d, btfn)], CasusHappening.INDIFFERENT,
+                         "If the arguments are the same but the properties are indifferent, then you should reflect the latter")
+        test_pairwise_sentence_similarity(d, btNcc_d, ftN, kb=self.kb.g)
+        self.assertEqual(d[(btNcc_d, ftN)], CasusHappening.INDIFFERENT,
+                         "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
+        test_pairwise_sentence_similarity(d, ftncc_d, btN, kb=self.kb.g)
+        self.assertEqual(d[(ftncc_d, btN)], CasusHappening.INDIFFERENT,
+                         "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
+        test_pairwise_sentence_similarity(d, btfn_d, bttn, kb=self.kb.g)
+        self.assertEqual(d[(btfn_d, bttn)], CasusHappening.INDIFFERENT,
+                         "Negation of the specification where the rest is the same should yield to an incompatibility")
+        test_pairwise_sentence_similarity(d, ftN_d, btNcc, kb=self.kb.g)
+        self.assertEqual(d[(ftN_d, btNcc)], CasusHappening.INDIFFERENT,
+                         "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
+        test_pairwise_sentence_similarity(d, ftcc_d, btNcc, kb=self.kb.g)
+        self.assertEqual(d[(ftcc_d, btNcc)], CasusHappening.INDIFFERENT,
+                         "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
+
+
+        test_pairwise_sentence_similarity(d, ftN_d, ftncc, kb=self.kb.g)
+        self.assertEqual(d[(ftN_d, ftncc)], CasusHappening.INDIFFERENT,
+                         "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
+        test_pairwise_sentence_similarity(d, ftcc_d, ntfncc, kb=self.kb.g)
+        self.assertEqual(d[(ftcc_d, ntfncc)], CasusHappening.INDIFFERENT,
+                         "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
+
 
     def test_unary_alltime_location(self):
         #

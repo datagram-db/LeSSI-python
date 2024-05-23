@@ -288,7 +288,9 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None, shift=True):
                         if isImplication(keyCmpElements):
                             if copKeyComparisonOutcome == CasusHappening.EQUIVALENT and (
                                     (y.arg is not None) and (y.arg.cop is not None)):
-                                if CasusHappening.LOSE_SPEC_IMPLICATION in set(keyCmp.values()):
+                                if CasusHappening.INDIFFERENT in set(keyCmp.values()):
+                                    val = CasusHappening.INDIFFERENT
+                                elif CasusHappening.LOSE_SPEC_IMPLICATION in set(keyCmp.values()):
                                     val = CasusHappening.INDIFFERENT
                                 elif keyCmpElements == CasusHappening.INSTANTIATION_IMPLICATION or CasusHappening.INSTANTIATION_IMPLICATION in set(keyCmp.values()):# or keyCmpElements == CasusHappening.GENERAL_IMPLICATION:
                                     val = keyCmpElements
