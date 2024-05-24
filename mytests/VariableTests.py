@@ -463,5 +463,65 @@ class VariableTests(unittest.TestCase):
         val = test_pairwise_sentence_similarity(dict(), be_traffic_fN, be_traffics_ccd, kb=self.kb.g)
         self.assertEquals(val, CasusHappening.EXCLUSIVES)
 
+        #1
+        be_traffic_Ncc = FUnaryPredicate("be", self.t, 1.0, frozenset(
+            {"GPE": tuple([self.ncc]), "DATE": tuple([self.Saturdays])}.items()))
+        #2
+        to_traffic = FUnaryPredicate("traffic", self.t, 1.0, frozenset(
+            {"GPE": tuple([self.ncc])}.items()))
+        #3
+        be_traffic_Nncc = FUnaryPredicate("be", self.t, 1.0, frozenset(
+            {"GPE": tuple([make_not(self.ncc)])}.items()))
+        # 4
+        be_traffic_fNccd = FUnaryPredicate("be", self.ft, 1.0, frozenset(
+            {"GPE": tuple([self.ncc]), "DATE": tuple([self.Saturdays])}.items()))
+        # 5
+        be_traffics_N = FUnaryPredicate("be", self.st, 1.0,  frozenset({"GPE": tuple([self.Newcastle])}.items()))
+        # 6
+        be_traffic_fccd = FUnaryPredicate("be", self.ft, 1.0,  frozenset({"GPE": tuple([self.cc]), "DATE": tuple([self.Saturdays])}.items()))
+
+        LCOMP = [be_traffic_Ncc, to_traffic, be_traffic_Nncc, be_traffic_fNccd, be_traffics_N, be_traffic_fccd]
+        LPART = [be_traffic_fNccd, be_traffics_N, be_traffic_fccd]
+
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fNccd, be_traffic_fNccd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fNccd, be_traffics_N, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fNccd, be_traffic_fccd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.INDIFFERENT)
+
+        val = test_pairwise_sentence_similarity(dict(), be_traffics_N, be_traffic_fNccd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+        val = test_pairwise_sentence_similarity(dict(), be_traffics_N, be_traffics_N, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+        val = test_pairwise_sentence_similarity(dict(), be_traffics_N, be_traffic_fccd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fccd, be_traffic_fNccd, kb=self.kb.g)
+        self.assertTrue(isImplication(val))
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fccd, be_traffics_N, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fccd, be_traffic_fccd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+
+        vals1 = list(map(lambda x : test_pairwise_sentence_similarity(dict(), be_traffic_Ncc, x, kb=self.kb.g), LCOMP))
+        self.assertEquals(vals1, [CasusHappening.EQUIVALENT, CasusHappening.INDIFFERENT, CasusHappening.EXCLUSIVES, CasusHappening.INDIFFERENT, CasusHappening.INDIFFERENT, CasusHappening.INDIFFERENT])
+        vals1r = list(map(lambda x : test_pairwise_sentence_similarity(dict(), x, be_traffic_Ncc, kb=self.kb.g), LCOMP))
+        self.assertEqual(vals1r[0], CasusHappening.EQUIVALENT)
+        self.assertEqual(vals1r[1], CasusHappening.INDIFFERENT)
+        self.assertEqual(vals1r[2], CasusHappening.EXCLUSIVES)
+        self.assertTrue(all(map(isImplication, vals1r[3:])))
+
+        vals2 = list(map(lambda x: test_pairwise_sentence_similarity(dict(), to_traffic, x, kb=self.kb.g), LCOMP))
+        vals2r = list(map(lambda x: test_pairwise_sentence_similarity(dict(), x, to_traffic, kb=self.kb.g), LCOMP))
+        self.assertEquals(vals2, vals2r)
+        self.assertEquals(vals2, [CasusHappening.INDIFFERENT, CasusHappening.EQUIVALENT, CasusHappening.INDIFFERENT,
+                                  CasusHappening.INDIFFERENT, CasusHappening.INDIFFERENT, CasusHappening.INDIFFERENT])
+        test_pairwise_sentence_similarity(dict(),  LPART[0],be_traffic_Nncc, kb=self.kb.g)
+        vals3 = list(map(lambda x: test_pairwise_sentence_similarity(dict(), be_traffic_Nncc, x, kb=self.kb.g), LPART))
+        vals3r = list(map(lambda x: test_pairwise_sentence_similarity(dict(), x, be_traffic_Nncc, kb=self.kb.g), LPART))
+        self.assertTrue(all(map(lambda x: x == CasusHappening.INDIFFERENT, vals3)))
+        self.assertTrue(all(map(lambda x: x == CasusHappening.INDIFFERENT, vals3r)))
+
 if __name__ == '__main__':
     unittest.main()
