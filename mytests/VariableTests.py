@@ -344,7 +344,6 @@ class VariableTests(unittest.TestCase):
 
 
     def test_unary_alltime_location(self):
-        #
         from Parmenides.TBox.ExpandConstituents import CasusHappening
         from Parmenides.TBox.ExpandConstituents import test_pairwise_sentence_similarity
         from logical_repr.rewrite_kernels import make_not, make_cop, make_unary
@@ -422,7 +421,47 @@ class VariableTests(unittest.TestCase):
         self.assertEqual(d[(btNcc, ftN)], CasusHappening.INDIFFERENT,
                          "Notwithstanding that the argument are not generally implying themselves, when dealing with predicate implication then we need to consider ")
 
+    def test_additionals(self):
+        from Parmenides.TBox.ExpandConstituents import CasusHappening
+        from Parmenides.TBox.ExpandConstituents import test_pairwise_sentence_similarity
+        from logical_repr.rewrite_kernels import make_not, make_cop, make_unary
+        from logical_repr.Sentences import FUnaryPredicate
+        from Parmenides.TBox.ExpandConstituents import isImplication
 
+        be_traffic_ncc = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE": tuple([self.ncc])}.items()))
+        be_traffic_not_ncc = FUnaryPredicate("be", self.t, 1.0, frozenset({"GPE": tuple([make_not(self.ncc)])}.items()))
+        be_traffic_fN = FUnaryPredicate("be", self.ft, 1.0, frozenset({"GPE": tuple([self.Newcastle])}.items()))
+        be_traffics_Nd = FUnaryPredicate("be", self.st, 1.0,  frozenset({"GPE": tuple([self.Newcastle]), "DATE": tuple([self.Saturdays])}.items()))
+        be_traffics_ccd = FUnaryPredicate("be", self.st, 1.0,  frozenset({"GPE": tuple([self.cc]), "DATE": tuple([self.Saturdays])}.items()))
+
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_ncc, be_traffic_ncc, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_not_ncc, be_traffic_not_ncc, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fN, be_traffic_fN, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+        val = test_pairwise_sentence_similarity(dict(), be_traffics_Nd, be_traffics_Nd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+        val = test_pairwise_sentence_similarity(dict(), be_traffics_ccd, be_traffics_ccd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EQUIVALENT)
+
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fN, be_traffic_ncc, kb=self.kb.g)
+        self.assertTrue(isImplication(val))
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_ncc, be_traffic_fN,  kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.INDIFFERENT)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_ncc, be_traffic_not_ncc,  kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_not_ncc, be_traffic_ncc, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+
+        val = test_pairwise_sentence_similarity(dict(), be_traffics_ccd, be_traffic_fN, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+        val = test_pairwise_sentence_similarity(dict(), be_traffics_Nd, be_traffic_fN, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fN, be_traffics_Nd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
+        val = test_pairwise_sentence_similarity(dict(), be_traffic_fN, be_traffics_ccd, kb=self.kb.g)
+        self.assertEquals(val, CasusHappening.EXCLUSIVES)
 
 if __name__ == '__main__':
     unittest.main()
