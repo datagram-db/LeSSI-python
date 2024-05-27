@@ -135,30 +135,6 @@ parmenides:check a parmenides:TransitiveVerb ;
 parmenides:chill a parmenides:TransitiveVerb ;
     rdfs:label "chill"^^xsd:string .
 
-<https://lo-ds.github.io/parmenides#city+center> a parmenides:LOC ;
-    rdfs:label "city center"^^xsd:string ;
-    parmenides:entryPoint parmenides:city ;
-    parmenides:hasAdjective parmenides:center ;
-    parmenides:partOf parmenides:city .
-
-<https://lo-ds.github.io/parmenides#city+centers> a parmenides:LOC ;
-    rdfs:label "city centers"^^xsd:string ;
-    parmenides:entryPoint parmenides:city ;
-    parmenides:hasAdjective parmenides:center ;
-    parmenides:partOf parmenides:city .
-
-<https://lo-ds.github.io/parmenides#city+centre> a parmenides:LOC ;
-    rdfs:label "city centre"^^xsd:string ;
-    parmenides:entryPoint parmenides:city ;
-    parmenides:hasAdjective parmenides:centre ;
-    parmenides:partOf parmenides:city .
-
-<https://lo-ds.github.io/parmenides#city+centres> a parmenides:LOC ;
-    rdfs:label "city centres"^^xsd:string ;
-    parmenides:entryPoint parmenides:city ;
-    parmenides:hasAdjective parmenides:centre ;
-    parmenides:partOf parmenides:city .
-
 parmenides:clean a parmenides:TransitiveVerb ;
     rdfs:label "clean"^^xsd:string .
 
@@ -1328,6 +1304,42 @@ parmenides:jam a parmenides:Noun ;
         parmenides:traffic%23n ;
     parmenides:entryPoint parmenides:traffic%23n ;
     parmenides:eqTo <https://lo-ds.github.io/parmenides#traffic+congestion> .
+
+<https://lo-ds.github.io/parmenides#city+center> a parmenides:LOC ;
+    rdfs:label "city center"^^xsd:string ;
+    parmenides:entryPoint parmenides:city ;
+    parmenides:eqTo <https://lo-ds.github.io/parmenides#city+centers>,
+        <https://lo-ds.github.io/parmenides#city+centre>,
+        <https://lo-ds.github.io/parmenides#city+centres> ;
+    parmenides:hasAdjective parmenides:center ;
+    parmenides:partOf parmenides:city .
+
+<https://lo-ds.github.io/parmenides#city+centers> a parmenides:LOC ;
+    rdfs:label "city centers"^^xsd:string ;
+    parmenides:entryPoint parmenides:city ;
+    parmenides:eqTo <https://lo-ds.github.io/parmenides#city+center>,
+        <https://lo-ds.github.io/parmenides#city+centre>,
+        <https://lo-ds.github.io/parmenides#city+centres> ;
+    parmenides:hasAdjective parmenides:center ;
+    parmenides:partOf parmenides:city .
+
+<https://lo-ds.github.io/parmenides#city+centre> a parmenides:LOC ;
+    rdfs:label "city centre"^^xsd:string ;
+    parmenides:entryPoint parmenides:city ;
+    parmenides:eqTo <https://lo-ds.github.io/parmenides#city+center>,
+        <https://lo-ds.github.io/parmenides#city+centers>,
+        <https://lo-ds.github.io/parmenides#city+centres> ;
+    parmenides:hasAdjective parmenides:centre ;
+    parmenides:partOf parmenides:city .
+
+<https://lo-ds.github.io/parmenides#city+centres> a parmenides:LOC ;
+    rdfs:label "city centres"^^xsd:string ;
+    parmenides:entryPoint parmenides:city ;
+    parmenides:eqTo <https://lo-ds.github.io/parmenides#city+center>,
+        <https://lo-ds.github.io/parmenides#city+centers>,
+        <https://lo-ds.github.io/parmenides#city+centre> ;
+    parmenides:hasAdjective parmenides:centre ;
+    parmenides:partOf parmenides:city .
 
 parmenides:crowded a parmenides:Adjective ;
     rdfs:label "crowded"^^xsd:string ;

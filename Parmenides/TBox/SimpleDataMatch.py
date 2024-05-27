@@ -342,7 +342,7 @@ def test_query(list_json, qs, i, n):
 
 
 if __name__ == "__main__":
-    with open("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/sentences/newcastle_sentences.txt_logical_rewriting.json", "r") as f:
+    with open("/old_specifications/newcastle_sentences.txt_logical_rewriting.json", "r") as f:
         list_json = json.load(f)
         list_json = formula_from_dict(list_json)
         n, m = -1,0

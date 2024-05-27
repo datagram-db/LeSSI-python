@@ -1,3 +1,5 @@
+import os.path
+import pickle
 from collections import defaultdict
 from enum import Enum
 
@@ -82,7 +84,8 @@ def compare_variable(d, lhs, rhs, kb):
         copCompareInv = compare_variable(d, rhs.cop, lhs.cop, kb)
         val = CasusHappening.INDIFFERENT
         if (nameEQ == specEQ) and (specEQ == copCompareInv):
-            return specEQ
+            d[cp] = specEQ
+            return d[cp]
         if nameEQ == CasusHappening.INDIFFERENT:
             nameAgainstSpec = kb.name_eq(lhs.name, rhs.specification)
             if nameAgainstSpec == CasusHappening.EQUIVALENT and lhs.name is not None and rhs.specification is not None:
@@ -216,6 +219,10 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None, shift=True):
         val = CasusHappening.INDIFFERENT
     elif (x == y):
         val = CasusHappening.EQUIVALENT
+    elif (isinstance(x, FNot) and isinstance(y, FNot)):
+        val = test_pairwise_sentence_similarity(d, x.arg, y.arg, False, kb)
+        if isImplication(val):
+            val = CasusHappening.INDIFFERENT
     elif (x == FNot(y)) or (y == FNot(x)):
         val = CasusHappening.EXCLUSIVES
     elif isinstance(x, FNot):
@@ -250,6 +257,7 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None, shift=True):
             keyCmp = {key: simplifyConstituents(val) for key, val in keyCmp.items()}
             keyCmpInv = {key: simplifyConstituents(val) for key, val in keyCmpInv.items()}
             keyCmpElements, keyCmpElementsInv = CasusHappening.EQUIVALENT, CasusHappening.EQUIVALENT
+            keyComparisonOutcome = copKeyComparisonOutcome = CasusHappening.INDIFFERENT
             if len(keyCmp)>0:
                 keyCmpElements = simplifyConstituentsAcross({keyCmp[key] for key in keyCmp })
                 keyCmpElementsInv = simplifyConstituentsAcross({keyCmpInv[key] for key in keyCmpInv })
@@ -259,35 +267,43 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None, shift=True):
                 else:
                     keyComparison = (x.src, y.src)
                     srcCmp = compare_variable(d, x.src, y.src, kb)
-                    dstCmp = compare_variable(d, x.dst, y.dst, kb)
-                    if (srcCmp == CasusHappening.EXCLUSIVES) and (dstCmp == CasusHappening.EXCLUSIVES):
+                    if (srcCmp == CasusHappening.INDIFFERENT):
                         val = CasusHappening.INDIFFERENT
-                    elif (srcCmp == CasusHappening.EXCLUSIVES) and (dstCmp != CasusHappening.INDIFFERENT):
-                        val = CasusHappening.EXCLUSIVES
-                    elif (dstCmp == CasusHappening.EXCLUSIVES) and (srcCmp != CasusHappening.INDIFFERENT):
-                        val = CasusHappening.EXCLUSIVES
-                    elif srcCmp == CasusHappening.EQUIVALENT:
-                        val = dstCmp
-                    elif dstCmp == CasusHappening.EQUIVALENT:
-                        val = srcCmp
                     else:
-                        val = simplifyConstituents({srcCmp, dstCmp})
+                        dstCmp = compare_variable(d, x.dst, y.dst, kb)
+                        if (dstCmp == CasusHappening.INDIFFERENT):
+                            val = CasusHappening.INDIFFERENT
+                        else:
+                            keyComparisonOutcome = compare_variable(d, x.src, y.src, kb)
+                            copKeyComparisonOutcome = compare_variable(d, x.src.cop, y.src.cop, kb)
+                            if (srcCmp == CasusHappening.EXCLUSIVES) and (dstCmp == CasusHappening.EXCLUSIVES):
+                                val = CasusHappening.INDIFFERENT
+                            elif (srcCmp == CasusHappening.EXCLUSIVES) and (dstCmp != CasusHappening.INDIFFERENT):
+                                val = CasusHappening.EXCLUSIVES
+                            elif (dstCmp == CasusHappening.EXCLUSIVES) and (srcCmp != CasusHappening.INDIFFERENT):
+                                val = CasusHappening.EXCLUSIVES
+                            elif srcCmp == CasusHappening.EQUIVALENT:
+                                val = dstCmp
+                            elif dstCmp == CasusHappening.EQUIVALENT:
+                                val = srcCmp
+                            else:
+                                val = simplifyConstituents({srcCmp, dstCmp})
             elif isinstance(y,FUnaryPredicate) and isinstance(x, FUnaryPredicate):
                 if (x.rel != y.rel):
                     val = CasusHappening.INDIFFERENT
                 else:
                     keyComparison = (x.arg, y.arg)
                     val = compare_variable(d, x.arg, y.arg, kb)
+                keyComparisonOutcome = compare_variable(d, x.arg, y.arg, kb)
+                copKeyComparisonOutcome = compare_variable(d, x.arg.cop, y.arg.cop, kb)
             else:
                 raise ValueError("Unexpected comparison between "+str(x)+" and"+str(y))
             if val != CasusHappening.INDIFFERENT:
-                keyComparisonOutcome = compare_variable(d, x.arg, y.arg, kb)
-                copKeyComparisonOutcome = compare_variable(d, x.arg.cop, y.arg.cop, kb)
                 if val == CasusHappening.EQUIVALENT:
                     if keyComparisonOutcome == CasusHappening.EQUIVALENT:
                         if isImplication(keyCmpElements):
-                            if copKeyComparisonOutcome == CasusHappening.EQUIVALENT and (
-                                    (y.arg is not None) and (y.arg.cop is not None)):
+                            if copKeyComparisonOutcome == CasusHappening.EQUIVALENT: # and (
+                                #(y.arg is not None) and (y.arg.cop is not None)):
                                 if CasusHappening.INDIFFERENT in set(keyCmp.values()):
                                     val = CasusHappening.INDIFFERENT
                                 elif CasusHappening.LOSE_SPEC_IMPLICATION in set(keyCmp.values()):
@@ -321,64 +337,130 @@ def test_pairwise_sentence_similarity(d, x, y, store=True, kb=None, shift=True):
         d[(x, y)] = val
     return val
 
+
+def instantiate_rules(e, constituents, expansion_dictionary, final_constituents, isImpl):
+        for constituent in constituents:
+            s = set(e(constituent, isImpl))
+            s.add(constituent)
+            expansion_dictionary[constituent] = s
+        for y in expansion_dictionary.values():
+            final_constituents = final_constituents.union(set(y))
+        # return {(x, y): CasusHappening.NONE for x in final_constituents for y in
+        #         final_constituents}
+
 class ExpandConstituents:
-    def __init__(self, expander, list_of_rules):
+    def __init__(self, cfg, expander, list_of_impl_rules):
         print("Setting up the rule expander...")
-        self.set_of_rules = list(list_of_rules)
         self.expander = expander
-        #Expanding the constituents
-        self.expander
-        if not all(map(lambda x: isinstance(x, FBinaryPredicate) or isinstance(x, FUnaryPredicate), self.set_of_rules)):
-            raise ValueError("Error: all the rules within the set of rules must represent Predicates to be assessed, be them unary or binary")
-        self.expansion_dictionary = dict()
-        for rule in self.set_of_rules:
-            s = set(self.expander(rule))
-            if len(s) == 0:
-                s.add(rule)
-            self.expansion_dictionary[rule] = s
-        with open("/home/giacomo/dump.json", "w") as f:
-            from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
-            import json
-            json.dump({str(k):[str(x) for x in v] for k,v in self.expansion_dictionary.items()}, f, cls=EnhancedJSONEncoder, indent=4)
-            exit(1)
+
+        self.constituents = list(list_of_impl_rules)
+
+        if (os.path.exists(cfg['hand_dataset']+"_ied.pickle") and
+            os.path.exists(cfg['hand_dataset'] + "_ic.pickle") and
+            os.path.exists(cfg['hand_dataset'] + "_eed.pickle") and
+            os.path.exists(cfg['hand_dataset'] + "_ec.pickle")):
+            with open(cfg['hand_dataset']+"_ied.pickle", "rb") as f:
+                self.impl_expansion_dictionary = pickle.load(f)
+            with open(cfg['hand_dataset']+"_ic.pickle", "rb") as f:
+                self.impl_constituents = pickle.load(f)
+            with open(cfg['hand_dataset']+"_eed.pickle", "rb") as f:
+                self.eq_expansion_dictionary = pickle.load(f)
+            with open(cfg['hand_dataset']+"_ec.pickle", "rb") as f:
+                self.eq_constituents = pickle.load(f)
+        else:
+            self.impl_expansion_dictionary = dict()
+            self.impl_constituents = set()
+            # self.constituents_eq = list(list_of_impl_rules)
+            self.eq_expansion_dictionary = dict()
+            self.eq_constituents = set()
+
+            if not all(map(lambda x: isinstance(x, FBinaryPredicate) or isinstance(x, FUnaryPredicate),
+                           self.constituents)):
+                raise ValueError(
+                    "Error: all the rules within the set of rules must represent Predicates to be assessed, be them unary or binary")
+
+            # Expanding the constituents
+            # self.outcome_implication_dictionary =
+            instantiate_rules(self.expander, self.constituents, self.impl_expansion_dictionary, self.impl_constituents,
+                              True)
+            # self.outcome_eq_dictionary =
+            instantiate_rules(self.expander, self.constituents, self.eq_expansion_dictionary, self.eq_constituents,
+                              False)
+            with open(cfg['hand_dataset']+"_ied.pickle", "wb") as f:
+                pickle.dump(self.impl_expansion_dictionary, f, protocol=pickle.HIGHEST_PROTOCOL)
+            with open(cfg['hand_dataset']+"_ic.pickle", "wb") as f:
+                pickle.dump(self.impl_constituents, f, protocol=pickle.HIGHEST_PROTOCOL)
+            with open(cfg['hand_dataset']+"_eed.pickle", "wb") as f:
+                pickle.dump(self.eq_expansion_dictionary, f, protocol=pickle.HIGHEST_PROTOCOL)
+            with open(cfg['hand_dataset']+"_ec.pickle", "wb") as f:
+                pickle.dump(self.eq_constituents, f, protocol=pickle.HIGHEST_PROTOCOL)
+
+        # with open("/home/giacomo/dump_impl.json", "w") as f:
+        #     from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+        #     import json
+        #     json.dump({str(k):[str(x) for x in v] for k,v in self.impl_expansion_dictionary.items()}, f, cls=EnhancedJSONEncoder, indent=4)
+        # with open("/home/giacomo/dump_eq.json", "w") as f:
+        #     from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
+        #     import json
+        #     json.dump({str(k):[str(x) for x in v] for k,v in self.eq_expansion_dictionary.items()}, f, cls=EnhancedJSONEncoder, indent=4)
+        # exit(101)
+        from inference_engine.ModelSearch import ModelSearch
         self.result_cache = dict()
-        self.constituents = set()
-        for y in self.expansion_dictionary.values():
-            self.constituents = self.constituents.union(set(y))
-        self.outcome_implication_dictionary = {(x,y):CasusHappening.NONE for x in self.constituents for y in self.constituents}
-        for x in self.constituents:
-            for y in self.constituents:
-                test_pairwise_sentence_similarity(self.outcome_implication_dictionary, x, y, True, self.expander.g)
+        self.ms = ModelSearch(self.expander.g)
+        # exit(102)
+        # for x in self.impl_constituents:
+        #     for y in self.eq_constituents:
+        #         test_pairwise_sentence_similarity(self.outcome_implication_dictionary, x, y, True, self.expander.g)
+
+
 
     def determine(self, i:int, j:int):
-        assert i<len(self.set_of_rules)
-        assert j<len(self.set_of_rules)
+        from logical_repr.sentence_expansion import PairwiseCases
+        if (i == j):
+            self.result_cache[(i, j)] = PairwiseCases.Equivalent
+        assert i<len(self.constituents)
+        assert j<len(self.constituents)
         if (i,j) in self.result_cache:
             return self.result_cache[(i,j)]
-        from logical_repr.sentence_expansion import PairwiseCases
         val = PairwiseCases.NonImplying
-        expansionLeft = self.expansion_dictionary[self.set_of_rules[i]]
-        y = self.set_of_rules[j]
-        # expansionRight = self.expansion_dictionary[self.set_of_rules[j]]
-        result = set()
-        for x in expansionLeft:
-            #for y in expansionRight:
-                assert (x,y) in self.outcome_implication_dictionary
-                tmp = self.outcome_implication_dictionary[(x,y)]
-                if tmp == CasusHappening.EXCLUSIVES:
-                    val = PairwiseCases.MutuallyExclusive
-                    break
-                else:
-                    result.add(tmp)
-            # if val == PairwiseCases.MutuallyExclusive:
-            #     break
-        if val != PairwiseCases.MutuallyExclusive:
-            if CasusHappening.EQUIVALENT in result:
-                val = PairwiseCases.Equivalent
-            elif CasusHappening.GENERAL_IMPLICATION in result:
-                val = PairwiseCases.Implying
-            else:
-                val = PairwiseCases.NonImplying
+
+        from inference_engine.ModelSearch import ModelSearchBasis
+        lhsOrig = ModelSearchBasis(self.constituents[i], self.impl_expansion_dictionary[self.constituents[i]])
+        rhsOrig = ModelSearchBasis(self.constituents[j], self.eq_expansion_dictionary[self.constituents[j]])
+        from inference_engine.ModelSearch import ModelSearch
+        tmp = self.ms.compare(lhsOrig, rhsOrig)
+        if tmp == CasusHappening.EXCLUSIVES:
+            val = PairwiseCases.MutuallyExclusive
+        elif tmp == CasusHappening.EQUIVALENT:
+            val = PairwiseCases.Equivalent
+        elif isImplication(tmp):
+            val = PairwiseCases.Implying
+        else:
+            val = PairwiseCases.NonImplying
+
+
+        # expansionLeft = self.impl_expansion_dictionary[self.constituents_impl[i]]
+        # y = self.constituents_impl[j]
+        # # expansionRight = self.expansion_dictionary[self.set_of_rules[j]]
+        # result = set()
+        # for x in expansionLeft:
+        #     #for y in expansionRight:
+        #         assert (x,y) in self.outcome_implication_dictionary
+        #         tmp = self.outcome_implication_dictionary[(x,y)]
+        #         if tmp == CasusHappening.EXCLUSIVES:
+        #             val = PairwiseCases.MutuallyExclusive
+        #             break
+        #         else:
+        #             result.add(tmp)
+        #     # if val == PairwiseCases.MutuallyExclusive:
+        #     #     break
+        # if val != PairwiseCases.MutuallyExclusive:
+        #     if CasusHappening.EQUIVALENT in result:
+        #         val = PairwiseCases.Equivalent
+        #     elif CasusHappening.GENERAL_IMPLICATION in result:
+        #         val = PairwiseCases.Implying
+        #     else:
+        #         val = PairwiseCases.NonImplying
         self.result_cache[(i, j)] = val
         return val
 

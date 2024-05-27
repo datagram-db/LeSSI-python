@@ -312,8 +312,8 @@ def applyOperation(formula:Formula, operation:PostProcessingOperations):
             for x,y in formula.properties:
                 if x == operation.ofField:
                     wasFound = True
-                    tmp = list(y)
-                    tmp.append(operation.toAddInFields)
+                    tmp = set()
+                    tmp.add(operation.toAddInFields)
                     properties[x] = tuple(tmp)
                 else:
                     properties[x] = y
@@ -431,7 +431,7 @@ class FUnaryPredicate(Formula):
             properties = {x:set(y) for x,y in properties}
             for x, y in forAllProperties[self].getFlattenedProperties():
                 if x in properties:
-                    properties[x] = properties[x].union(set(y))
+                    properties[x] = properties[x]#.union(set(y))
                 else:
                     properties[x] = set(y)
             properties = frozenset({x:tuple(y) for x,y in properties.items()}.items())
@@ -588,7 +588,7 @@ class FBinaryPredicate(Formula):
             properties = {x:set(y) for x,y in properties}
             for x, y in forAllProperties[self].getFlattenedProperties():
                 if x in properties:
-                    properties[x] = properties[x].union(set(y))
+                    properties[x] = properties[x]#.union(set(y))
                 else:
                     properties[x] = set(y)
             properties = frozenset({x:tuple(y) for x,y in properties.items()}.items())

@@ -6,7 +6,8 @@ from Parmenides.TBox.SimpleDataMatch import boolean_simple_data_match
 from Parmenides.TBox.language.TBoxParse import UpdateOperation, parse_query
 from Parmenides.paremenides import Parmenides
 from logical_repr.Sentences import formula_from_dict, FBinaryPredicate, make_variable, make_name, FUnaryPredicate, \
-    PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties, Formula, FNot
+    PostProcessingOperations, RemovePropertiesFromResult, AddPropertyFromResult, InheritProperties, Formula, FNot, \
+    FVariable
 import math
 
 def object_magic(id):
@@ -310,14 +311,15 @@ def do_actual_match(datum, Q, g:Parmenides):
 
 
 class DoExpand:
-    def __init__(self, parmenides_file:str, tbox_file:str):
+    def __init__(self, parmenides_file:str, tbox_file_impl:str, tbox_file_eq:str):
         from Parmenides.TBox.language.TBoxParse import load_tbox_rules
         print("Loading TBox Rules...")
-        self.q_list = load_tbox_rules(tbox_file)
+        self.q_list_impl = load_tbox_rules(tbox_file_impl)
+        self.q_list_eq = load_tbox_rules(tbox_file_eq)
         print("Loading ABox Data...")
         self.g = Parmenides(parmenides_file)
 
-    def __call__(self, formula:Formula):
+    def __call__(self, formula:Formula, isImpl:bool):
         stack = [formula]
         visited = set()
         while len(stack)>0:
@@ -325,7 +327,7 @@ class DoExpand:
             if f in visited:
                 continue
             visited.add(f)
-            for Q in self.q_list:
+            for Q in (self.q_list_impl if isImpl else self.q_list_eq):
                 for f2 in do_actual_match(f, Q, self.g):
                     if f2 not in visited:
                         stack.append(f2)
@@ -492,12 +494,15 @@ def query3():
 
 if __name__ == "__main__":
     de = DoExpand("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/turtle.ttl",
-             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file.txt")
-    with open("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/sentences/newcastle_sentences.txt_logical_rewriting.json", "r") as f:
+             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file.txt",
+             "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/Parmenides/TBox/file_eq.txt")
+    with open("/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/sentences/newcastle_sentences2.txt_logical_rewriting.json", "r") as f:
         list_json = json.load(f)
         list_json = formula_from_dict(list_json)
+        s1 = list_json[3]
+        # s1 = FUnaryPredicate("be", FVariable("busy", "JJ", None, None), 1.0, frozenset({"GPE": tuple([FVariable("Newcastle",None,None)])}.items()))
         # for x in list_json:
-        s1 = de(list_json[5])
+        s1 = de(s1, True)
         print(list(map(str, s1)))
         # s2 = de(list_json[7])
         # print(list_json[7])

@@ -1,12 +1,3 @@
-# 1. If x has y and x is part of z, then also z has y
-UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
-   over "@x" "partOf" "^z"
-   replace "x" -> "z";
-
-UPDATE ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
-   over "^z" "isA" "@x"
-   replace "x" -> "z";
-
 # 2. If x has a property y which is an adjective, then x exists with such a property
 INVENT
   from ( "have" ( "@x" none none , "@y" "JJ" none ) 1.0 {} )
@@ -104,13 +95,3 @@ INVENT
   as ( ( "have" ( "@y" "@t" "@s" , "@x" "JJ" none ) 1.0 {} ) )
   with-properties
   rem "GPE" ;
-
-INVENT
-   from ( "be" ( "@x" none none   ) 1.0 { "GPE" : "@y" none none . } )
-   as ( "be" ( "@x" none none   ) 1.0 { "GPE" : "@y" none "@z" . } )
-   over "@y" "isA" "^z"
-   with-properties;
-
- UPDATE ( "be" ( "@x" none none   ) 1.0 { "GPE" : "@y" none "@z" . } )
-   over "^t" "partOf" "@z"
-   replace "z" -> "t" ;

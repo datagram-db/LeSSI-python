@@ -1,0 +1,180 @@
+[
+    {
+        "rel": "be",
+        "arg": {
+            "name": "traffic",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": "city centre",
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate",
+        "matched": false
+    },
+    {
+        "rel": "traffic",
+        "arg": {
+            "name": "?",
+            "type": "None",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": "city centre",
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate",
+        "matched": false
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "traffic",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "arg": {
+                        "name": "Newcastle",
+                        "type": "GPE",
+                        "specification": "city centre",
+                        "cop": null,
+                        "meta": "FVariable",
+                        "matched": false
+                    },
+                    "meta": "FNot",
+                    "matched": false
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate",
+        "matched": false
+    },
+    {
+        "rel": "flow in",
+        "arg": {
+            "name": "traffic",
+            "type": "ENTITY",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": "city center",
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ],
+            "DATE": [
+                {
+                    "name": "saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate",
+        "matched": false
+    },
+    {
+        "rel": "be",
+        "arg": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "score": 1.0,
+        "properties": {
+            "GPE": [
+                {
+                    "name": "Newcastle",
+                    "type": "GPE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ]
+        },
+        "meta": "FUnaryPredicate",
+        "matched": false
+    },
+    {
+        "rel": "have",
+        "src": {
+            "name": "city centers",
+            "type": "None",
+            "specification": "",
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "dst": {
+            "name": "busy",
+            "type": "JJ",
+            "specification": null,
+            "cop": null,
+            "meta": "FVariable",
+            "matched": false
+        },
+        "score": 1.0,
+        "properties": {
+            "DATE": [
+                {
+                    "name": "saturdays",
+                    "type": "DATE",
+                    "specification": null,
+                    "cop": null,
+                    "meta": "FVariable",
+                    "matched": false
+                }
+            ]
+        },
+        "meta": "FBinaryPredicate",
+        "matched": false
+    }
+]

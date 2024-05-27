@@ -8,6 +8,8 @@ __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
 
 import copy
+import os.path
+import pickle
 import re
 from collections import defaultdict
 from functools import reduce
@@ -34,6 +36,8 @@ class Parmenides():
          self.g = rdflib.Graph()
          self.g.parse(filename)
          self.trcl = defaultdict(set)
+         self.syn = defaultdict(set)
+         self.st = defaultdict(set)
 
      def extractPureHierarchy(self, t, flip=False):
          ye = list(self.single_edge("^src", t, "^dst"))
@@ -51,12 +55,38 @@ class Parmenides():
          else:
              return {x["x"] for x in ye}
 
+     def getSynonymy(self, k):
+         if len(self.syn)==0:
+             if os.path.exists("syn.pickle"):
+                 with open("syn.pickle", "rb") as f:
+                    self.syn = pickle.load(f)
+             else:
+                from Parmenides.TBox.CrossMatch import transitive_closure
+                self.syn = self.extractPureHierarchy("eqTo", True) | self.extractPureHierarchy("eqTo", False)
+                self.syn = transitive_closure(self.syn)
+                tmp = defaultdict(set)
+                for (x,y) in self.syn:
+                    tmp[x].add(y)
+                    tmp[y].add(x)
+                self.syn = tmp
+                with open("syn.pickle", "wb") as f:
+                    pickle.dump(self.syn, f, protocol=pickle.HIGHEST_PROTOCOL)
+         if k in self.syn:
+             return self.syn[k]
+         else:
+             return {k}
+
      def getTransitiveClosureHier(self, t):
          from Parmenides.TBox.CrossMatch import transitive_closure
-         if t not in self.trcl:
+         if os.path.exists("hier.pickle"):
+             with open("hier.pickle", "rb") as f:
+                self.trcl = pickle.load(f)
+         if len(self.trcl)==0:
              s = self.extractPureHierarchy("isA", True) | self.extractPureHierarchy("partOf", False)
-             self.trcl[t] = transitive_closure(s)
-         return self.trcl[t]
+             self.trcl = transitive_closure(s)
+             with open("hier.pickle", "wb") as f:
+                 pickle.dump(self.trcl, f, protocol=pickle.HIGHEST_PROTOCOL)
+         return self.trcl
 
      def name_eq(self, src, dst):
          from Parmenides.TBox.ExpandConstituents import CasusHappening
@@ -80,8 +110,14 @@ class Parmenides():
                  for k in isect:
                     if len(list(self.single_edge(src, "neqTo", dst)))>0:
                         return CasusHappening.EXCLUSIVES
-                    if (src, dst) in self.getTransitiveClosureHier(k):
-                        return CasusHappening.GENERAL_IMPLICATION
+                    srcS = self.getSynonymy(src)
+                    dstS = self.getSynonymy(dst)
+                    if len(set(srcS).intersection(set(dstS)))>0:
+                        return CasusHappening.EQUIVALENT
+                    for lhs in self.getSynonymy(src):
+                        for rhs in self.getSynonymy(dst):
+                            if (lhs, rhs) in self.getTransitiveClosureHier(k):
+                                return CasusHappening.GENERAL_IMPLICATION
                  return CasusHappening.INDIFFERENT
 
 
@@ -109,6 +145,8 @@ class Parmenides():
          return self._single_unary_query(knows_query, lambda x: str(x.c))
 
      def getSuperTypes(self,src):
+        if src in self.st:
+            return self.st[src]
         s = list(self.typeOf(src))
         visited = set()
         while len(s)>0:
@@ -117,6 +155,7 @@ class Parmenides():
                  visited.add(x)
                  for y in self.typeOf2(Parmenides.parmenides_ns[str(x)[len(Parmenides.parmenides_ns):]]):
                      s.append(y)
+        self.st[src] = visited
         return visited
 
 

@@ -5,7 +5,7 @@ class VariableTests(unittest.TestCase):
 
     def setUp(self):
         from Parmenides.TBox.CrossMatch import DoExpand
-        self.kb = DoExpand('../Parmenides/turtle.ttl', '../Parmenides/TBox/file.txt')
+        self.kb = DoExpand('../Parmenides/turtle.ttl', '../Parmenides/TBox/file.txt', '../Parmenides/TBox/file_eq.txt')
         from logical_repr.Sentences import make_name
         from logical_repr.rewrite_kernels import make_not,make_cop,make_unary
         self.genoveffo = make_name("genoveffo")

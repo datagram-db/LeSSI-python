@@ -9,3 +9,5 @@ venv/*
 /mini.h5_db_input.txt
 mini.h5_sql_input.txt
 /mini.h5_sql_input.txt
+/antlr-4.13.1-complete.jar
+*.pickle

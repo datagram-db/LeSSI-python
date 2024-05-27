@@ -208,7 +208,7 @@ class CleanPipeline:
                 import json
                 from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
                 json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
-                # sys.exit(101)
+                sys.exit(101)
         return sentences
 
     def transformation_pipeline(self, sentences):
@@ -263,9 +263,9 @@ class CleanPipeline:
                 return self.legacy_pipeline.graph_with_logic_similarity
             else:
                 from Parmenides.TBox.CrossMatch import DoExpand
-                doexp = DoExpand(self.cfg['ontology'], self.cfg['TBox'])
+                doexp = DoExpand(self.cfg['ontology'], self.cfg['TBoxImpl'], self.cfg['TBoxEq'])
 
-                return SentenceExpansion(sentences, doexp)
+                return SentenceExpansion(self.cfg, sentences, doexp)
         else:
             return self.legacy_pipeline.sc.string_similarity
 

@@ -213,7 +213,6 @@ def rewrite_kernels(obj: Sentence) -> Formula:
     rel = main_pop.edgeLabel.named_entity
     negated = main_pop.isNegated
 
-    #TODO: @Olvier. this, at the end of the debugging, shall not be 0 (Giacomo)
     score = main_pop.edgeLabel.confidence
     if main_pop.source is not None:
         score *= main_pop.source.confidence
@@ -221,21 +220,3 @@ def rewrite_kernels(obj: Sentence) -> Formula:
         score *= main_pop.target.confidence
 
     return src_make_prop(main_pop.source, rel, negated, score, properties, main_pop.target)
-
-    # not_ = "~" if main_pop.isNegated else " "
-    # rel = main_pop.edgeLabel.named_entity
-
-    # isExactMatch = numpy.isclose(score, 1.0)
-    # score = " " if isExactMatch else str(score)
-    #
-    # L = []
-    # if main_pop.source is not None:
-    #     L.append(property_write("src", main_pop.source))
-    # if main_pop.target is not None:
-    #     L.append(property_write("dst", main_pop.source))
-    # for k,v in properties.items():
-    #     L.append(property_write(k, v))
-    # args = "; ".join(L)
-    #
-    # return f' {not_} "{rel}" {score} := {args} .'
-
