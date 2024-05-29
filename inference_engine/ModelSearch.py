@@ -35,8 +35,9 @@ class ModelSearch:
     def searchInSet(self, lhs, rhsSet):
         foundImplication = False
         for rhs in rhsSet:
-            val = test_pairwise_sentence_similarity(self.pairwise_similarity_cache, lhs, rhs, kb=self.kb)
+            val = test_pairwise_sentence_similarity(self.pairwise_similarity_cache, lhs, rhs, kb=self.kb, shift=False)
             if (val == CasusHappening.EXCLUSIVES):
+                # val = test_pairwise_sentence_similarity(dict(), lhs, rhs, kb=self.kb, shift=False)
                 return val
             if isImplication(val):
                 # val = test_pairwise_sentence_similarity(dict(), lhs, rhs, kb=self.kb)

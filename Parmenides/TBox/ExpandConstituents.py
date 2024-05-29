@@ -136,6 +136,8 @@ def compare_variable(d, lhs, rhs, kb):
 def simplifyConstituentsAcross(constituentCollection):
     if isinstance(constituentCollection, CasusHappening):
         return constituentCollection
+    if CasusHappening.INDIFFERENT in constituentCollection:
+        return CasusHappening.INDIFFERENT
     elif CasusHappening.EXCLUSIVES in constituentCollection:
         return CasusHappening.EXCLUSIVES
     elif CasusHappening.MISSING_1ST_IMPLICATION in constituentCollection:
