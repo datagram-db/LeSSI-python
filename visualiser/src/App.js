@@ -18,7 +18,11 @@ import {
   simMPNETData,
   ABSimL6Data,
   ABSimMPNETData,
-  CatSimIdeasDataGraphsLogical, CatSimIdeasDataLogicLogical, ABSimIdeasDataGraphsLogical, ABSimIdeasDataLogicLogical
+  CatSimIdeasDataGraphsLogical,
+  CatSimIdeasDataLogicLogical,
+  ABSimIdeasDataGraphsLogical,
+  ABSimIdeasDataLogicLogical,
+  NewcastleSimIdeasDataGraphsLogical, NewcastleSimIdeasDataLogicLogical
 } from './results';
 import {elementToSVG, inlineResources} from "dom-to-svg";
 
@@ -311,7 +315,7 @@ function App() {
             </div>
             <div className={'configButtons'}>
               <ExampleButton name={'CAT AND MICE'} ideasGraphsSimplistic={CatSimIdeasDataGraphsSimplistic} ideasGraphsLogical={CatSimIdeasDataGraphsLogical} ideasLogicLogical={CatSimIdeasDataLogicLogical} l6Data={CatSimL6Data} mpnetData={CatSimMPNETData} path={'cat/'} newStyle={{marginLeft: '-35px'}}/>
-              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasGraphsSimplistic={NewcastleSimIdeasDataGraphsSimplistic} l6Data={NewcastleSimL6Data} mpnetData={NewcastleSimMPNETData} path={'newcastle/'} />
+              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasGraphsSimplistic={NewcastleSimIdeasDataGraphsSimplistic} ideasGraphsLogical={NewcastleSimIdeasDataGraphsLogical} ideasLogicLogical={NewcastleSimIdeasDataLogicLogical} l6Data={NewcastleSimL6Data} mpnetData={NewcastleSimMPNETData} path={'newcastle/'} />
               <ExampleButton name={'ALICE AND BOB'} ideasGraphsSimplistic={ABSimIdeasDataGraphsSimplistic} ideasGraphsLogical={ABSimIdeasDataGraphsLogical} ideasLogicLogical={ABSimIdeasDataLogicLogical} l6Data={ABSimL6Data} mpnetData={ABSimMPNETData} path={'ab/'} />
               <ExampleButton name={'PREVIOUS RESULTS'} ideasGraphsSimplistic={simIdeasDataGraphsSimplistic} l6Data={simL6Data} mpnetData={simMPNETData} path={''} newStyle={{marginLeft: '-175px'}} />
               </div>
@@ -443,8 +447,6 @@ function App() {
                   {IDEASLogicalLogicMatrix}
                 </div>
               </div>
-            </div>
-            <div className={'resultsInnerDiv'}>
               <div>
                 <h3 className={'resultTitle'}>all-MiniLM-L6-v2</h3>
                 <div>
@@ -458,6 +460,9 @@ function App() {
                 </div>
               </div>
             </div>
+            {/*<div className={'resultsInnerDiv'}>*/}
+
+            {/*</div>*/}
           </div>
 
           <div className={'resultsInnerDiv'}>

@@ -1,8 +1,8 @@
 // Examples
 // Newcastle
-export { default as NewcastleSimIdeasDataGraphsSimplistic } from './newcastle/similarity_IDEAS24_graphs.json'
-// export { default as NewcastleSimIdeasDataGraphsLogical } from './newcastle/similarity_IDEAS24_graphs_logical.json'
-// export { default as NewcastleSimIdeasDataLogicLogical } from './newcastle/similarity_IDEAS24_logic_logical.json'
+export { default as NewcastleSimIdeasDataGraphsSimplistic } from './newcastle/similarity_IDEAS24_graphs_logical.json'
+export { default as NewcastleSimIdeasDataGraphsLogical } from './newcastle/similarity_IDEAS24_graphs_logical.json'
+export { default as NewcastleSimIdeasDataLogicLogical } from './newcastle/similarity_IDEAS24_logic_logical.json'
 export { default as NewcastleSimL6Data } from './newcastle/similarity_SentenceTransformer_sentence-transformers_all-MiniLM-L6-v2.json'
 export { default as NewcastleSimMPNETData } from './newcastle/similarity_SentenceTransformer_sentence-transformers_all-mpnet-base-v2.json'
 

@@ -1,7 +1,7 @@
 [
     [
         {
-            "id": 4,
+            "id": 3,
             "ell": [
                 "noun"
             ],
@@ -10,42 +10,42 @@
             ],
             "properties": {
                 "specification": "common",
-                "begin": "42",
-                "end": "48",
+                "begin": "39",
+                "end": "45",
                 "number": "singular",
-                "pos": "9.000000",
+                "pos": "8.000000",
                 "det": "the",
                 "case": "in"
             },
             "phi": [
                 {
                     "containment": "compound",
-                    "content": 6,
+                    "content": 5,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
-                        "parent": 4,
+                        "parent": 3,
                         "label": "compound",
-                        "child": 6,
+                        "child": 5,
                         "id": 0
                     }
                 },
                 {
                     "containment": "compound",
-                    "content": 7,
+                    "content": 6,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
-                        "parent": 4,
+                        "parent": 3,
                         "label": "compound",
-                        "child": 7,
+                        "child": 6,
                         "id": 2
                     }
                 }
             ],
             "scores": {
                 "type": "ProvObject",
-                "object": 4
+                "object": 3
             }
         },
         {
@@ -58,9 +58,9 @@
             ],
             "properties": {
                 "specification": "common",
-                "begin": "12",
-                "end": "19",
-                "pos": "4.000000",
+                "begin": "9",
+                "end": "16",
+                "pos": "3.000000",
                 "kernel": "traffic",
                 "adv": "",
                 "number": "singular",
@@ -68,26 +68,26 @@
             },
             "phi": [
                 {
-                    "containment": "  no is",
+                    "containment": "   is",
                     "content": 1,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
                         "parent": 2,
-                        "label": "  no is",
+                        "label": "   is",
                         "child": 1,
                         "id": 0
                     }
                 },
                 {
                     "containment": "nmod",
-                    "content": 4,
+                    "content": 3,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
                         "parent": 2,
                         "label": "nmod",
-                        "child": 4,
+                        "child": 3,
                         "id": 0
                     }
                 }
@@ -127,10 +127,10 @@
             ],
             "properties": {
                 "specification": "proper",
-                "begin": "27",
-                "end": "36",
+                "begin": "24",
+                "end": "33",
                 "number": "singular",
-                "pos": "7.000000"
+                "pos": "6.000000"
             },
             "phi": [],
             "scores": {
@@ -139,7 +139,7 @@
             }
         },
         {
-            "id": 7,
+            "id": 5,
             "ell": [
                 "noun"
             ],
@@ -148,15 +148,15 @@
             ],
             "properties": {
                 "specification": "common",
-                "begin": "37",
-                "end": "41",
+                "begin": "34",
+                "end": "38",
                 "number": "singular",
-                "pos": "8.000000"
+                "pos": "7.000000"
             },
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 7
+                "object": 5
             }
         }
     ],
@@ -233,7 +233,7 @@
             }
         },
         {
-            "id": 3,
+            "id": 4,
             "ell": [
                 "noun"
             ],
@@ -250,11 +250,11 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 3
+                "object": 4
             }
         },
         {
-            "id": 4,
+            "id": 3,
             "ell": [
                 "noun"
             ],
@@ -271,13 +271,105 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 4
+                "object": 3
             }
         }
     ],
     [
         {
             "id": 0,
+            "ell": [
+                "CC"
+            ],
+            "xi": [
+                "but"
+            ],
+            "properties": {
+                "begin": "17",
+                "end": "20",
+                "pos": "4.000000"
+            },
+            "phi": [
+                {
+                    "containment": "neg",
+                    "content": 1,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 0,
+                        "label": "neg",
+                        "child": 1,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "obl",
+                    "content": 2,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 0,
+                        "label": "obl",
+                        "child": 2,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 0
+            }
+        },
+        {
+            "id": 2,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "centre"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "47",
+                "end": "53",
+                "number": "singular",
+                "pos": "10.000000",
+                "det": "the",
+                "case": "in"
+            },
+            "phi": [
+                {
+                    "containment": "compound",
+                    "content": 4,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "compound",
+                        "child": 4,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "compound",
+                    "content": 5,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "compound",
+                        "child": 5,
+                        "id": 2
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 9,
             "ell": [
                 "noun"
             ],
@@ -297,84 +389,36 @@
             "phi": [
                 {
                     "containment": "   is",
-                    "content": 9,
+                    "content": 8,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
-                        "parent": 0,
+                        "parent": 9,
                         "label": "   is",
-                        "child": 9,
+                        "child": 8,
                         "id": 0
                     }
                 },
                 {
                     "containment": "dep",
-                    "content": 1,
+                    "content": 0,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
-                        "parent": 0,
+                        "parent": 9,
                         "label": "dep",
-                        "child": 1,
+                        "child": 0,
                         "id": 0
                     }
                 }
             ],
             "scores": {
                 "type": "ProvObject",
-                "object": 0
+                "object": 9
             }
         },
         {
-            "id": 3,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "centre"
-            ],
-            "properties": {
-                "specification": "common",
-                "begin": "47",
-                "end": "53",
-                "number": "singular",
-                "pos": "10.000000",
-                "det": "the",
-                "case": "in"
-            },
-            "phi": [
-                {
-                    "containment": "compound",
-                    "content": 5,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 3,
-                        "label": "compound",
-                        "child": 5,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "compound",
-                    "content": 6,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 3,
-                        "label": "compound",
-                        "child": 6,
-                        "id": 2
-                    }
-                }
-            ],
-            "scores": {
-                "type": "ProvObject",
-                "object": 3
-            }
-        },
-        {
-            "id": 9,
+            "id": 8,
             "ell": [
                 "\u2203"
             ],
@@ -390,11 +434,11 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 9
+                "object": 8
             }
         },
         {
-            "id": 6,
+            "id": 5,
             "ell": [
                 "noun"
             ],
@@ -411,11 +455,11 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 6
+                "object": 5
             }
         },
         {
-            "id": 5,
+            "id": 4,
             "ell": [
                 "noun"
             ],
@@ -432,11 +476,11 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 5
+                "object": 4
             }
         },
         {
-            "id": 2,
+            "id": 1,
             "ell": [
                 "NEG"
             ],
@@ -451,55 +495,33 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 2
-            }
-        },
-        {
-            "id": 1,
-            "ell": [
-                "CC"
-            ],
-            "xi": [
-                "but"
-            ],
-            "properties": {
-                "begin": "17",
-                "end": "20",
-                "pos": "4.000000"
-            },
-            "phi": [
-                {
-                    "containment": "neg",
-                    "content": 2,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 1,
-                        "label": "neg",
-                        "child": 2,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "obl",
-                    "content": 3,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 1,
-                        "label": "obl",
-                        "child": 3,
-                        "id": 0
-                    }
-                }
-            ],
-            "scores": {
-                "type": "ProvObject",
                 "object": 1
             }
         }
     ],
     [
+        {
+            "id": 5,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "Saturdays"
+            ],
+            "properties": {
+                "specification": "proper",
+                "begin": "28",
+                "end": "37",
+                "number": "singular",
+                "pos": "6.000000",
+                "case": "on"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 5
+            }
+        },
         {
             "id": 4,
             "ell": [
@@ -510,10 +532,10 @@
             ],
             "properties": {
                 "specification": "common",
-                "begin": "14",
-                "end": "21",
+                "begin": "39",
+                "end": "46",
                 "number": "singular",
-                "pos": "4.000000",
+                "pos": "8.000000",
                 "kernel": "traffic"
             },
             "phi": [
@@ -553,6 +575,64 @@
                 "noun"
             ],
             "xi": [
+                "center"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "18",
+                "end": "24",
+                "number": "singular",
+                "pos": "4.000000"
+            },
+            "phi": [
+                {
+                    "containment": "compound",
+                    "content": 6,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "compound",
+                        "child": 6,
+                        "id": 0
+                    }
+                },
+                {
+                    "containment": "compound",
+                    "content": 7,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "compound",
+                        "child": 7,
+                        "id": 2
+                    }
+                },
+                {
+                    "containment": "nmod",
+                    "content": 5,
+                    "properties": {},
+                    "score": {
+                        "type": "ProvPhi",
+                        "parent": 2,
+                        "label": "nmod",
+                        "child": 5,
+                        "id": 0
+                    }
+                }
+            ],
+            "scores": {
+                "type": "ProvObject",
+                "object": 2
+            }
+        },
+        {
+            "id": 6,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
                 "Newcastle"
             ],
             "properties": {
@@ -565,36 +645,34 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 2
+                "object": 6
+            }
+        },
+        {
+            "id": 7,
+            "ell": [
+                "noun"
+            ],
+            "xi": [
+                "city"
+            ],
+            "properties": {
+                "specification": "common",
+                "begin": "13",
+                "end": "17",
+                "number": "singular",
+                "pos": "3.000000"
+            },
+            "phi": [],
+            "scores": {
+                "type": "ProvObject",
+                "object": 7
             }
         }
     ],
     [
         {
-            "id": 2,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "Saturday"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "29",
-                "end": "37",
-                "number": "singular",
-                "pos": "8.000000",
-                "det": "a",
-                "case": "on"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 2
-            }
-        },
-        {
-            "id": 7,
+            "id": 3,
             "ell": [
                 "PRP"
             ],
@@ -612,24 +690,24 @@
             "phi": [
                 {
                     "containment": "dep",
-                    "content": 1,
+                    "content": 2,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
-                        "parent": 7,
+                        "parent": 3,
                         "label": "dep",
-                        "child": 1,
+                        "child": 2,
                         "id": 0
                     }
                 }
             ],
             "scores": {
                 "type": "ProvObject",
-                "object": 7
+                "object": 3
             }
         },
         {
-            "id": 1,
+            "id": 2,
             "ell": [
                 "noun"
             ],
@@ -646,36 +724,24 @@
             "phi": [
                 {
                     "containment": "case",
-                    "content": 3,
+                    "content": 4,
                     "properties": {},
                     "score": {
                         "type": "ProvPhi",
-                        "parent": 1,
+                        "parent": 2,
                         "label": "case",
-                        "child": 3,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "nmod",
-                    "content": 2,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 1,
-                        "label": "nmod",
-                        "child": 2,
+                        "child": 4,
                         "id": 0
                     }
                 }
             ],
             "scores": {
                 "type": "ProvObject",
-                "object": 1
+                "object": 2
             }
         },
         {
-            "id": 3,
+            "id": 4,
             "ell": [
                 "IN"
             ],
@@ -690,7 +756,7 @@
             "phi": [],
             "scores": {
                 "type": "ProvObject",
-                "object": 3
+                "object": 4
             }
         }
     ],
@@ -828,458 +894,6 @@
             "scores": {
                 "type": "ProvObject",
                 "object": 4
-            }
-        }
-    ],
-    [
-        {
-            "id": 0,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "Saturdays"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "16",
-                "end": "25",
-                "number": "singular",
-                "pos": "4.000000",
-                "kernel": "Saturdays",
-                "cop": "busy"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 0
-            }
-        },
-        {
-            "id": 2,
-            "ell": [
-                "verb",
-                "root"
-            ],
-            "xi": [
-                "centers"
-            ],
-            "properties": {
-                "begin": "5",
-                "end": "12",
-                "lemma": "center",
-                "pos": "2.000000"
-            },
-            "phi": [
-                {
-                    "containment": "advcl",
-                    "content": 0,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "advcl",
-                        "child": 0,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "nsubj",
-                    "content": 4,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "nsubj",
-                        "child": 4,
-                        "id": 0
-                    }
-                }
-            ],
-            "scores": {
-                "type": "ProvObject",
-                "object": 2
-            }
-        },
-        {
-            "id": 4,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "City"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "0",
-                "end": "4",
-                "number": "singular",
-                "pos": "1.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 4
-            }
-        }
-    ],
-    [
-        {
-            "id": 3,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "Saturdays"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "16",
-                "end": "25",
-                "number": "singular",
-                "pos": "4.000000",
-                "case": "on"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 3
-            }
-        },
-        {
-            "id": 2,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "centres"
-            ],
-            "properties": {
-                "specification": "common",
-                "begin": "5",
-                "end": "12",
-                "number": "plural",
-                "lemma": "centre",
-                "pos": "2.000000",
-                "kernel": "centres",
-                "cop": "busy"
-            },
-            "phi": [
-                {
-                    "containment": "compound",
-                    "content": 4,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "compound",
-                        "child": 4,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "nmod",
-                    "content": 3,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "nmod",
-                        "child": 3,
-                        "id": 0
-                    }
-                }
-            ],
-            "scores": {
-                "type": "ProvObject",
-                "object": 2
-            }
-        },
-        {
-            "id": 4,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "City"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "0",
-                "end": "4",
-                "number": "singular",
-                "pos": "1.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 4
-            }
-        }
-    ],
-    [
-        {
-            "id": 2,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "centre"
-            ],
-            "properties": {
-                "specification": "common",
-                "begin": "15",
-                "end": "21",
-                "number": "singular",
-                "pos": "3.000000",
-                "kernel": "centre"
-            },
-            "phi": [
-                {
-                    "containment": "    has ",
-                    "content": 1,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "    has ",
-                        "child": 1,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "compound",
-                    "content": 3,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "compound",
-                        "child": 3,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "compound",
-                    "content": 4,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "compound",
-                        "child": 4,
-                        "id": 2
-                    }
-                },
-                {
-                    "containment": "dep",
-                    "content": 1,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 2,
-                        "label": "dep",
-                        "child": 1,
-                        "id": 0
-                    }
-                }
-            ],
-            "scores": {
-                "type": "ProvObject",
-                "object": 2
-            }
-        },
-        {
-            "id": 4,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "Newcastle"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "0",
-                "end": "9",
-                "number": "singular",
-                "pos": "1.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 4
-            }
-        },
-        {
-            "id": 3,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "city"
-            ],
-            "properties": {
-                "specification": "common",
-                "begin": "10",
-                "end": "14",
-                "number": "singular",
-                "pos": "2.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 3
-            }
-        },
-        {
-            "id": 1,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "traffic"
-            ],
-            "properties": {
-                "specification": "common",
-                "begin": "26",
-                "end": "33",
-                "number": "singular",
-                "pos": "5.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 1
-            }
-        }
-    ],
-    [
-        {
-            "id": 5,
-            "ell": [],
-            "xi": [
-                "Brighton Newcastle"
-            ],
-            "properties": {
-                "kernel": "Brighton Newcastle",
-                "conj": "and"
-            },
-            "phi": [
-                {
-                    "containment": "    have ",
-                    "content": 1,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 5,
-                        "label": "    have ",
-                        "child": 1,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "dep",
-                    "content": 1,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 5,
-                        "label": "dep",
-                        "child": 1,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "orig",
-                    "content": 3,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 5,
-                        "label": "orig",
-                        "child": 3,
-                        "id": 0
-                    }
-                },
-                {
-                    "containment": "orig",
-                    "content": 4,
-                    "properties": {},
-                    "score": {
-                        "type": "ProvPhi",
-                        "parent": 5,
-                        "label": "orig",
-                        "child": 4,
-                        "id": 2
-                    }
-                }
-            ],
-            "scores": {
-                "type": "ProvObject",
-                "object": 5
-            }
-        },
-        {
-            "id": 1,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "traffic"
-            ],
-            "properties": {
-                "specification": "common",
-                "begin": "28",
-                "end": "35",
-                "number": "singular",
-                "pos": "5.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 1
-            }
-        },
-        {
-            "id": 4,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "Newcastle"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "0",
-                "end": "9",
-                "number": "singular",
-                "pos": "1.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 4
-            }
-        },
-        {
-            "id": 3,
-            "ell": [
-                "noun"
-            ],
-            "xi": [
-                "Brighton"
-            ],
-            "properties": {
-                "specification": "proper",
-                "begin": "14",
-                "end": "22",
-                "number": "singular",
-                "pos": "3.000000"
-            },
-            "phi": [],
-            "scores": {
-                "type": "ProvObject",
-                "object": 3
             }
         }
     ]

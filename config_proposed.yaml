@@ -20,8 +20,8 @@ ontology: 'Parmenides/parmenides.ttl'  # Non verbs / rejected edges / transitive
 force_regenerate: False  # Forcefully regenerate the databases (Stanza / GSM)
 
 rewriting_strategy: 'logic' # simplistic / logic
-'similarity': 'IDEAS24_graphs' #IDEAS24_graphs / #IDEAS24_logic / SentenceTransformer
-'HuggingFace': 'sentence-transformers/all-MiniLM-L6-v2' # all-MiniLM-L6-v2 / all-mpnet-base-v2
+'similarity': 'SentenceTransformer' #IDEAS24_graphs / #IDEAS24_logic / SentenceTransformer
+'HuggingFace': 'sentence-transformers/all-mpnet-base-v2' # all-MiniLM-L6-v2 / all-mpnet-base-v2
 'string_similarity': 'Prevailing'
 'string_similarity_prevailing': 'HuggingFace'
 'verb_similarity': 'Prevailing'
