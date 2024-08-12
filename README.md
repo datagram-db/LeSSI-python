@@ -1,5 +1,9 @@
-# news-crawler
+<p align="center">
+  <img src="https://raw.githubusercontent.com/datagram-db/LeSSI-python/main/WhoIsLeSSI.jpeg" width="300" alt="This is LeSSI: a pun from "I read" in Italian, and the way Lassie (dog) is pronounced in Italian."/>
+</p>
 
-Crawling Web News and storing them in JSON Format
 
-This project crawls the news' RSS Feed and optionally retrieves articles being stored in the Web Archive. This then extracts the full-text of an article, and it dumps it in a JSON semistructured file. All the articles are then associated to a timestamp. Articles that were not successfully parsed are dumped raw as HTML in a ```extra``` folder. Have a look at the shell script for an idea on how to make things work.
+## What is LeSSI?
+
+It is a pun from "I read (past)", "(to be) boiled", and how Lassie (dog) is pronounced, all in Italian.
+In other words, this is the main Python component for the overall [LaSSI project](https://github.com/datagram-db/LaSSI-pipeline): please refer to this repository for the entire ecosystem, which is the main contact point for the following paper: [TBA].
