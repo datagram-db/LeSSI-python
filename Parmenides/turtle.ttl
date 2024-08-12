@@ -9,6 +9,9 @@ parmenides:Adverb a owl:Class ;
 parmenides:IntransitiveVerb a owl:Class ;
     rdfs:subClassOf parmenides:Verb .
 
+parmenides:TransitiveVerb a owl:Class ;
+    rdfs:subClassOf parmenides:Verb .
+
 parmenides:accept a parmenides:TransitiveVerb ;
     rdfs:label "accept"^^xsd:string .
 
