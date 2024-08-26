@@ -6,4 +6,6 @@
 ## What is LeSSI?
 
 It is a pun from "I read (past)", "(to be) boiled", and how Lassie (dog) is pronounced, all in Italian.
-In other words, this is the main Python component for the overall [LaSSI project](https://github.com/datagram-db/LaSSI-pipeline): please refer to this repository for the entire ecosystem, which is the main contact point for the following paper: [TBA].
+In other words, this is the main Python component for the overall [LaSSI project](https://github.com/datagram-db/LaSSI-pipeline): please refer to this repository for the entire ecosystem, which is the main contact point for the following paper:
+
+> OR. Fox, **G. Bergami**, G. Morgan. "LaSSI: Logical, Structural, and Semantic text Interpretation". [IDEAS 2024](https://conferences.sigappfr.org/ideas2024/program/#session_3)
