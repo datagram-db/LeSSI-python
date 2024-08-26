@@ -8,6 +8,7 @@ db:
   db: conceptnet #ideas  # conceptnet
 conceptnet: "/home/fox/PycharmProjects/news-crawler2/mini.h5_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt"
 geonames: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt" #"/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
+jar_old_server: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/target/StanfordNLPExtractor-1.0-SNAPSHOT-jar-with-dependencies.jar"
 
 'iterations': 5 # Number of iterations for creating GSM output
 #'should_generate_final_stanza_db': False
@@ -15,7 +16,7 @@ geonames: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_
 #'should_generate_cypher_in_db': False
 #'should_run_datagram_db': True
 should_match_sentences: True
-hand_dataset: 'sentences/newcastle_sentences2.txt' #newcastle_sentences2
+hand_dataset: 'sentences/ab.txt' #newcastle_sentences2
 ontology: 'Parmenides/turtle.ttl'
 TBoxImpl: 'Parmenides/TBox/file.txt'
 TBoxEq: 'Parmenides/TBox/file_eq.txt'

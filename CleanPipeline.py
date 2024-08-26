@@ -120,7 +120,11 @@ class CleanPipeline:
         #         self.non_verbs = set(f.readlines())
         # else:
         self.simplistic = self.cfg['rewriting_strategy'] == 'simplistic'
-
+        if "jar" in self.cfg:
+            from standfordnlp.OldWrapper import OldWrapper
+            self.old_java = OldWrapper(self.cfg["jar"])
+        else:
+            self.old_java = None
         # TODO: Add check for if NLTK is downloaded
 
         return self
