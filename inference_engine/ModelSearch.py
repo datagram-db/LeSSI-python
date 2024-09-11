@@ -34,11 +34,14 @@ class ModelSearch:
 
     def searchInSet(self, lhs, rhsSet):
         foundImplication = False
+        foundEquivalence = False
         for rhs in rhsSet:
             val = test_pairwise_sentence_similarity(self.pairwise_similarity_cache, lhs, rhs, kb=self.kb, shift=False)
             if (val == CasusHappening.EXCLUSIVES):
                 # val = test_pairwise_sentence_similarity(dict(), lhs, rhs, kb=self.kb, shift=False)
                 return val
+            if (val == CasusHappening.EQUIVALENT): ## To check: if I found at least one equivalence after rewriting, then that's it.
+                return CasusHappening.EQUIVALENT
             if isImplication(val):
                 # val = test_pairwise_sentence_similarity(dict(), lhs, rhs, kb=self.kb)
                 foundImplication = True
