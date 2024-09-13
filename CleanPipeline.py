@@ -134,7 +134,7 @@ class CleanPipeline:
         if 'sentences' in self.cfg and len(self.cfg['sentences']) > 0:
             self.sentences = self.cfg['sentences']
             with open("automated_dataset.txt", "w") as f:
-                f.writelines(self.sentences)
+                f.write('\n'.join(self.sentences))
             self.cfg['hand_dataset'] = "automated_dataset.txt"
         else:
             load_sentences(self.legacy_pipeline, self.sentences)
@@ -212,7 +212,7 @@ class CleanPipeline:
                 import json
                 from gsmtosimilarity.graph_similarity import EnhancedJSONEncoder
                 json.dump(sentences, f, cls=EnhancedJSONEncoder, indent=4)
-                sys.exit(101)
+                # sys.exit(101)
         return sentences
 
     def transformation_pipeline(self, sentences):

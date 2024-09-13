@@ -6,6 +6,7 @@ __version__ = "2.0"
 __maintainer__ = "Giacomo Bergami"
 __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
+
 from dataclasses import dataclass
 from enum import Enum
 from typing import List
@@ -18,6 +19,7 @@ class Grouping(Enum):
     NOT = 3
     NONE = 4
     GROUPING = 5
+    MULTIINDIRECT = 6
 
 
 # class Properties(TypedDict):  # Key-Value association
@@ -31,6 +33,7 @@ class NodeEntryPoint:
 
 @dataclass(order=True, frozen=True, eq=True)
 class Singleton(NodeEntryPoint):  # Graph node representing just one entity
+    id: int
     named_entity: str  # String representation of the entity
     properties: frozenset  # Key-Value association for such entity
     min: int
@@ -39,16 +42,19 @@ class Singleton(NodeEntryPoint):  # Graph node representing just one entity
     confidence: float
 
 
-def replaceNamed(entity:Singleton, s:str)->Singleton:
-    return Singleton(named_entity=s,
+def replaceNamed(entity: Singleton, s: str) -> Singleton:
+    return Singleton(id=entity.id,
+                     named_entity=s,
                      properties=entity.properties,
                      min=entity.min,
                      max=entity.max,
                      type=entity.type,
                      confidence=entity.confidence)
 
+
 @dataclass(order=True, frozen=True, eq=True)
 class SetOfSingletons(NodeEntryPoint):  # Graph node representing conjunction/disjunction/exclusion between entities
+    id: int
     type: Grouping  # Type of node grouping
     entities: List[NodeEntryPoint]  # A list of entity nodes
     min: int

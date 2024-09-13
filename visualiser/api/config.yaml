@@ -1,7 +1,7 @@
 'stanford_nlp_host': 'localhost'
 'stanford_nlp_port': '9998'
 
-'web_dir': '/home/fox/PycharmProjects/news-crawler2/visualiser/src/results/'
+'web_dir': '/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results/'
 
 'iterations': 5 # Number of iterations for creating GSM output
 'should_generate_final_stanza_db': True

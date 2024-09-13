@@ -1,14 +1,14 @@
 'stanford_nlp_host': 'localhost'
 'stanford_nlp_port': '9998'
 db:
-  uname: giacomo #fox  # giacomo
-  pw: omocaig #password  # omocaig
+  uname: fox  #fox #giacomo
+  pw: password  #password #omocaig
   host: localhost
   port: 5432
-  db: conceptnet #ideas  # conceptnet
+  db: ideas  #ideas #conceptnet
 conceptnet: "/home/fox/PycharmProjects/news-crawler2/mini.h5_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt"
-geonames: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt" #"/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
-jar_old_server: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/target/StanfordNLPExtractor-1.0-SNAPSHOT-jar-with-dependencies.jar"
+geonames: "/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt" #/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
+jar_old_server: "/home/fox/IdeaProjects/stanfordnlp_dg_server/target/StanfordNLPExtractor-1.0-SNAPSHOT.jar" #"/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/target/StanfordNLPExtractor-1.0-SNAPSHOT-jar-with-dependencies.jar"
 
 'iterations': 5 # Number of iterations for creating GSM output
 #'should_generate_final_stanza_db': False
@@ -16,10 +16,10 @@ jar_old_server: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordn
 #'should_generate_cypher_in_db': False
 #'should_run_datagram_db': True
 should_match_sentences: True
-hand_dataset: 'sentences/ab.txt' #newcastle_sentences2
-ontology: 'Parmenides/turtle.ttl'
-TBoxImpl: 'Parmenides/TBox/file.txt'
-TBoxEq: 'Parmenides/TBox/file_eq.txt'
+hand_dataset: 'sentences/newcastle_permutations/3/newcastle_permutations_3.txt'
+ontology: '/home/fox/PycharmProjects/LeSSI-python/Parmenides/turtle.ttl'
+TBoxImpl: '/home/fox/PycharmProjects/LeSSI-python/Parmenides/TBox/file.txt'
+TBoxEq: '/home/fox/PycharmProjects/LeSSI-python/Parmenides/TBox/file_eq.txt'
 #non_verbs: 'gsmtosimilarity/non_verb_types.txt'
 #rejected_edge_types: 'gsmtosimilarity/rejected_edge_types.txt'
 #transitive_verbs: 'gsmtosimilarity/transitive_verbs.txt'
@@ -49,4 +49,8 @@ resolve_params:
 #'generate_final_db':
 #  'db_ph2': 'final_db.json' # JSON for crawled data
 
-'gsm_gsql_file_path': '/home/giacomo/projects/gsm2/' # '/home/fox/CLionProjects/gsm_gsql/' #
+'gsm_gsql_file_path': '/home/fox/CLionProjects/gsm_gsql/' # '/home/fox/CLionProjects/gsm_gsql/' '/home/giacomo/projects/gsm2/'
+
+
+# React Visualiser
+'web_dir': '/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results/'

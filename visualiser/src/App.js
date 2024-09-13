@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import './fonts/index.css'
-import {ConfusionMatrix} from "react-confusion-matrix";
+import {ConfusionMatrix} from "./components/ConfusionMatrix";
 
 // Data
 import {
@@ -10,20 +10,24 @@ import {
   Log,
   CatSimMPNETData,
   CatSimL6Data,
-  CatSimRobertaData,
   NewcastleSimIdeasDataGraphsSimplistic,
   NewcastleSimL6Data,
   NewcastleSimMPNETData,
-  NewcastleSimRobertaData,
   ABSimIdeasDataGraphsSimplistic,
   simL6Data,
   simMPNETData,
-  simRobertaData,
   ABSimL6Data,
   ABSimMPNETData,
-  ABSimRobertaData,
-  CatSimIdeasDataGraphsLogical, CatSimIdeasDataLogicLogical, ABSimIdeasDataGraphsLogical, ABSimIdeasDataLogicLogical
+  CatSimIdeasDataGraphsLogical,
+  CatSimIdeasDataLogicLogical,
+  ABSimIdeasDataGraphsLogical,
+  ABSimIdeasDataLogicLogical,
+  NewcastleSimIdeasDataGraphsLogical,
+  NewcastleSimIdeasDataLogicLogical,
+  simIdeasDataGraphsLogical,
+  simIdeasDataLogicLogical
 } from './results';
+import {elementToSVG, inlineResources} from "dom-to-svg";
 
 function App() {
   // Config
@@ -47,11 +51,11 @@ function App() {
   const [IDEASGraphsLogicalResults, setIDEASGraphsLogicalResults] = useState(<div></div>);
   const [IDEASLogicLogicalResults, setIDEASLogicLogicalResults] = useState(<div></div>);
 
-  const [IDEASGraphsSimplisticMatrix, setIDEASGraphsSimplisticMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
-  const [IDEASGraphsLogicalMatrix, setIDEASGraphsLogicalMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
-  const [IDEASLogicalLogicMatrix, setIDEASLogicalLogicMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
-  const [L6Matrix, setL6Matrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
-  const [MPNETMatrix, setMPNETMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
+  const [IDEASGraphsSimplisticMatrix, setIDEASGraphsSimplisticMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} indexes={[0]}/>)
+  const [IDEASGraphsLogicalMatrix, setIDEASGraphsLogicalMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} indexes={[0]} noLeft={true} />)
+  const [IDEASLogicalLogicMatrix, setIDEASLogicalLogicMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} indexes={[0]} noLeft={true} />)
+  const [L6Matrix, setL6Matrix] = useState(<ConfusionMatrix data={[]} labels={[]} noLeft={true} />)
+  const [MPNETMatrix, setMPNETMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} noLeft={true} />)
   // const [RobertaMatrix, setRobertaMatrix] = useState(<ConfusionMatrix data={[]} labels={[]} />)
 
   const inputs = inputSentences.map((v, i) =>
@@ -153,10 +157,10 @@ function App() {
           'sentences': tempSentences,
           'similarity': similarity,
           'HuggingFace': `sentence-transformers/${transformer}`,
-          'should_generate_final_stanza_db': true,
-          'should_load_handwritten_sentences': true,
-          'should_run_datagram_db': true,
-          'web_dir': `/home/fox/PycharmProjects/news-crawler2/visualiser/src/results/${directory}`
+          // 'should_generate_final_stanza_db': true,
+          // 'should_load_handwritten_sentences': true,
+          // 'should_run_datagram_db': true,
+          'web_dir': `/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results`
         }
       })
     }).then(response => {
@@ -171,23 +175,7 @@ function App() {
     })
   }
 
-  function loadResult(sentences, ideasGraphsSimplistic, ideasGraphsLogical, ideasLogicLogical, l6Data, mpnetData, path = 'dataset/') {
-    // let desc = <div></div>;
-    // if (sentences.includes("There is traffic in the Newcastle city centre")) {
-    //   desc = <div>
-    //     In this example, BERT seems to evaluate that <i>'There is traffic in Newcastle but not in the city centre'</i> is <b>90% similar</b> to <i>'There is traffic in Newcastle city centre'</i>, and
-    //     in fact does this for all opposing sentences. Whereas our approach evaluates a much lower similarity, suggesting a correlation but not a strong one.
-    //   </div>
-    //   setResultDescription(desc);
-    // } else if (sentences.includes("There is traffic in Newcastle city centre")) {
-    //   desc = <div>
-    //     Need to write this
-    //   </div>
-    //   setResultDescription(desc);
-    // }
-    // setResultDescription(desc);
-
-
+  function loadResult(sentences, ideasGraphsSimplistic, ideasGraphsLogical, ideasLogicLogical, l6Data, mpnetData, path = 'dataset/', indexes) {
     setSelectedGraphUrl('')
     let results = sentences.map((v, i) =>
       <div key={i} className={'result'}>
@@ -215,11 +203,11 @@ function App() {
       </div>)
 
     // Round matricies
-    let tempIData = roundMatrix(ideasGraphsSimplistic, 4)
-    let tempI2Data = roundMatrix(ideasGraphsLogical, 4)
-    let tempI3Data = roundMatrix(ideasLogicLogical, 4)
-    let tempL6Data = roundMatrix(l6Data, 4)
-    let tempMPNETData = roundMatrix(mpnetData, 4)
+    let tempIData = roundMatrix(ideasGraphsSimplistic)
+    let tempI2Data = roundMatrix(ideasGraphsLogical)
+    let tempI3Data = roundMatrix(ideasLogicLogical)
+    let tempL6Data = roundMatrix(l6Data)
+    let tempMPNETData = roundMatrix(mpnetData)
     // let tempRobertaData = roundMatrix(robertaData, 4)
 
     const numbers = Array.from({ length: tempIData.sentences.length }, (_, index) => index + 1);
@@ -228,27 +216,32 @@ function App() {
     setIDEASGraphsSimplisticMatrix(<ConfusionMatrix
       data={tempIData.similarity_matrix}
       labels={numbers}
+      indexes={indexes}
     />)
     setIDEASGraphsLogicalMatrix(<ConfusionMatrix
       data={tempI2Data.similarity_matrix}
       labels={numbers}
+      indexes={indexes}
+       noLeft={true}
     />)
     setIDEASLogicalLogicMatrix(<ConfusionMatrix
       data={tempI3Data.similarity_matrix}
       labels={numbers}
+      indexes={indexes}
+       noLeft={true}
     />)
     setL6Matrix(<ConfusionMatrix
       data={tempL6Data.similarity_matrix}
       labels={numbers}
+      indexes={indexes}
+       noLeft={true}
     />)
     setMPNETMatrix(<ConfusionMatrix
       data={tempMPNETData.similarity_matrix}
       labels={numbers}
+      indexes={indexes}
+       noLeft={true}
     />)
-    // setRobertaMatrix(<ConfusionMatrix
-    //   data={tempRobertaData.similarity_matrix}
-    //   labels={numbers}
-    // />)
 
     setLoadedSentences(sentences)
   }
@@ -265,20 +258,12 @@ function App() {
   }
 
   const ExampleButton = (props) => {
-    let name = props.name;
-    let ideasGraphsSimplistic = props.ideasGraphsSimplistic;
-    let ideasGraphsLogical = props.ideasGraphsLogical;
-    let ideasLogicLogical = props.ideasLogicLogical;
-    let l6Data = props.l6Data;
-    let mpnetData = props.mpnetData;
-    // let robertaData = props.robertaData;
-    let path = props.path;
-    let style = props.newStyle;
+    let { name, ideasGraphsSimplistic, ideasGraphsLogical, ideasLogicLogical, l6Data, mpnetData, path, style, indexes } = props;
 
     return <button className={'buttonToolTip'} style={{
       backgroundColor: (loadedSentences === ideasGraphsSimplistic.sentences ? '#5bae38' : '')
     }} onClick={() => {
-      loadResult(ideasGraphsSimplistic.sentences, ideasGraphsSimplistic, ideasGraphsLogical, ideasLogicLogical, l6Data, mpnetData, path);
+      loadResult(ideasLogicLogical.sentences, ideasGraphsSimplistic, ideasGraphsLogical, ideasLogicLogical, l6Data, mpnetData, path, indexes);
       setInputSentences(ideasGraphsSimplistic.sentences)
       setDirectory(path)
     }}>{name}
@@ -317,10 +302,18 @@ function App() {
               that our proposed approach improves upon.
             </div>
             <div className={'configButtons'}>
-              <ExampleButton name={'CAT AND MICE'} ideasGraphsSimplistic={CatSimIdeasDataGraphsSimplistic} ideasGraphsLogical={CatSimIdeasDataGraphsLogical} ideasLogicLogical={CatSimIdeasDataLogicLogical} l6Data={CatSimL6Data} mpnetData={CatSimMPNETData} path={'cat/'} newStyle={{marginLeft: '-35px'}}/>
-              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasGraphsSimplistic={NewcastleSimIdeasDataGraphsSimplistic} l6Data={NewcastleSimL6Data} mpnetData={NewcastleSimMPNETData} path={'newcastle/'} />
-              <ExampleButton name={'ALICE AND BOB'} ideasGraphsSimplistic={ABSimIdeasDataGraphsSimplistic} ideasGraphsLogical={ABSimIdeasDataGraphsLogical} ideasLogicLogical={ABSimIdeasDataLogicLogical} l6Data={ABSimL6Data} mpnetData={ABSimMPNETData} path={'ab/'} />
-              <ExampleButton name={'PREVIOUS RESULTS'} ideasGraphsSimplistic={simIdeasDataGraphsSimplistic} l6Data={simL6Data} mpnetData={simMPNETData} path={''} newStyle={{marginLeft: '-175px'}} />
+              <ExampleButton name={'CAT AND MICE'} ideasGraphsSimplistic={CatSimIdeasDataGraphsSimplistic}
+                             ideasGraphsLogical={CatSimIdeasDataGraphsLogical} ideasLogicLogical={CatSimIdeasDataLogicLogical}
+                             l6Data={CatSimL6Data} mpnetData={CatSimMPNETData} path={'cat/'} newStyle={{marginLeft: '-35px'}} indexes={[0, 3]}/>
+              <ExampleButton name={'NEWCASTLE TRAFFIC'} ideasGraphsSimplistic={NewcastleSimIdeasDataGraphsSimplistic}
+                             ideasGraphsLogical={NewcastleSimIdeasDataGraphsLogical} ideasLogicLogical={NewcastleSimIdeasDataLogicLogical}
+                             l6Data={NewcastleSimL6Data} mpnetData={NewcastleSimMPNETData} path={'newcastle/'} indexes={[2, 3]}/>
+              <ExampleButton name={'ALICE AND BOB'} ideasGraphsSimplistic={ABSimIdeasDataGraphsSimplistic}
+                             ideasGraphsLogical={ABSimIdeasDataGraphsLogical} ideasLogicLogical={ABSimIdeasDataLogicLogical}
+                             l6Data={ABSimL6Data} mpnetData={ABSimMPNETData} path={'ab/'} indexes={[2, 3]}/>
+              <ExampleButton name={'PREVIOUS RESULTS'} ideasGraphsSimplistic={simIdeasDataGraphsSimplistic}
+                             ideasGraphsLogical={simIdeasDataGraphsLogical} ideasLogicLogical={simIdeasDataLogicLogical}
+                             l6Data={simL6Data} mpnetData={simMPNETData} path={'newcastle_permutations_3/'} indexes={[-1]}/>
               </div>
 
               {/*<h2>Config</h2>*/}
@@ -403,14 +396,6 @@ function App() {
               setTransformer('all-mpnet-base-v2')
             }}>all-mpnet-base-v2
             </button>
-            {/*<button style={{*/}
-            {/*  backgroundColor: 'all-roberta-large-v1' === transformer ? '#5bae38' : '#3c3c3c',*/}
-            {/*  color: 'all-roberta-large-v1' === transformer ? '' : '#6d6d6d'*/}
-            {/*}} onClick={() => {*/}
-            {/*  setSimilarity('SentenceTransformer')*/}
-            {/*  setTransformer('all-roberta-large-v1')*/}
-            {/*}}>all-roberta-large-v1*/}
-            {/*</button>*/}
           </div>
           <br/>
           <button className={'runBtn'} onClick={submitSentences}>RUN</button>
@@ -422,46 +407,60 @@ function App() {
           </div>
         </div>
 
+        {/* Download SVG */}
+        {/*<button onClick={async () => {*/}
+        {/*  const svgDocument = elementToSVG(document.querySelector('.resultsContainer'))*/}
+        {/*  await inlineResources(svgDocument.documentElement)*/}
+
+        {/*  // Get SVG string*/}
+        {/*  const svgString = new XMLSerializer().serializeToString(svgDocument)*/}
+        {/*  console.log(svgString)*/}
+        {/*}}></button>*/}
+
 
         <div className={'rightSide'}>
           <h1>Results</h1>
           <div>
             {resultDescription}
           </div>
-          <div className={'resultsInnerDiv'}>
-            <div>
-              <h3 className={'resultTitle'}>Graphs Simplistic</h3>
+          <div className={'resultsContainer'} style={{backgroundColor:"white"}}>
+            <div className={'resultsInnerDiv'}>
               <div>
-                {IDEASGraphsSimplisticMatrix}
+                <h3 className={'resultTitle'}>Simplistic Graphs</h3>
+                <div>
+                  {IDEASGraphsSimplisticMatrix}
+                </div>
+              </div>
+              <div>
+                <h3 className={'resultTitle'}>Graphs with Logic</h3>
+                <div>
+                  {IDEASGraphsLogicalMatrix}
+                </div>
+              </div>
+              <div>
+                <h3 className={'resultTitle'}>Logical Representation</h3>
+                <div>
+                  {IDEASLogicalLogicMatrix}
+                </div>
+              </div>
+              <div>
+                <h3 className={'resultTitle'}>all-MiniLM-L6-v2</h3>
+                <div>
+                  {L6Matrix}
+                </div>
+              </div>
+              <div>
+                <h3 className={'resultTitle'}>all-mpnet-base-v2</h3>
+                <div>
+                  {MPNETMatrix}
+                </div>
               </div>
             </div>
-            <div>
-              <h3 className={'resultTitle'}>Graphs with Logic</h3>
-              <div>
-                {IDEASGraphsLogicalMatrix}
-              </div>
-            </div>
-            <div>
-              <h3 className={'resultTitle'}>Logical Representation</h3>
-              <div>
-                {IDEASLogicalLogicMatrix}
-              </div>
-            </div>
+            {/*<div className={'resultsInnerDiv'}>*/}
+
+            {/*</div>*/}
           </div>
-          <div className={'resultsInnerDiv'}>
-            <div>
-              <h3 className={'resultTitle'}>all-MiniLM-L6-v2</h3>
-              <div>
-                {L6Matrix}
-              </div>
-            </div>
-            <div>
-              <h3 className={'resultTitle'}>all-mpnet-base-v2</h3>
-              <div>
-                {MPNETMatrix}
-              </div>
-            </div>
-          </div>
+
           <div className={'resultsInnerDiv'}>
 
             {/*<div>*/}

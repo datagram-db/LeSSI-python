@@ -26,6 +26,10 @@ h2 {
   margin-top: 15px;
   font-size: 1.25rem;
 }
+h3 {
+  font-size: 1.3rem;
+  font-family: 'Arial', sans-serif;
+}
 button {
   color: white;
   padding: 8px;
@@ -163,19 +167,36 @@ input:focus{
 
 /* Matrix styling */
 td {
-  font-size: 0.75rem;
-  width: 15px !important;
-  height: 15px !important;
-  padding: 0;
+  /*font-size: 0rem;*/
+  /*width: 22px !important;*/
+  /*height: 29px !important;*/
+  /*padding: 0;*/
+  /*border: none !important;*/
 }
-.css-1jb5lza {
+tr td {
+  padding: 4px !important;
+}
+/* Table */
+.css-1vh16gd {
+  /*border-spacing: 0;*/
+  /*aspect-ratio: auto !important;*/
+}
+.css-1yw8ytw { /* Left numbers */
+  font-size: 1.5rem;
+}
+.css-1yw8ytw:contains('1') {
+  background-color: red;
+}
+.css-1jb5lza { /* Bottom row numbers */
   /*writing-mode: vertical-rl;*/
-  padding: 0;
+  font-size: 1.5rem;
+  height: 6px !important;
+  /*padding: 0 !important;*/
   transform: rotate(0deg) !important;
   -webkit-writing-mode: inherit !important;
 }
 .css-2tza7a-MuiGrid-root {
-  padding: 5px !important;
+  padding: 2px !important;
 }
 .resultTitle {
   margin: 10px 0 0 0;

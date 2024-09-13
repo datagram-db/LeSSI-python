@@ -44,7 +44,7 @@ def update_sentences():
     sentences = request.json['sentences']
     config = request.json['config']
 
-    with open('config.yaml') as f:
+    with open('../../config.yaml') as f:
         cfg = yaml.load(f, Loader=yaml.FullLoader)
         for cKey, cValue in config.items():
             cfg[cKey] = cValue
@@ -57,7 +57,7 @@ def update_sentences():
 
 @app.route('/log', methods=['GET'])
 def get_log():
-    with open('config.yaml') as f:
+    with open('../../config.yaml') as f:
         cfg = yaml.load(f, Loader=yaml.FullLoader)
 
         with open(f"{cfg['web_dir']}/log.txt", "r+") as l:
@@ -93,14 +93,14 @@ def html_base64_image(fig):
 
 @app.route("/morphisms/<dataset>/<folder>", methods=['GET'])
 def morphisms(dataset, folder):
-    return parsers.NestedTables.generate_morphism_html(os.path.join("/home/fox/PycharmProjects/news-crawler2/visualiser/src/results", dataset, "data", folder), folder)
+    return parsers.NestedTables.generate_morphism_html(os.path.join("/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results", dataset, "data", folder), folder)
 
 
 def load_nodes_any(dataset, folder, N, file):
     new_folder = f"{dataset}/{folder}"
     if new_folder not in N:
         N[new_folder] = dict()
-        for obj in deserialize_gsm_file(os.path.join("/home/fox/PycharmProjects/news-crawler2/visualiser/src/results", dataset, "data", folder, file)):
+        for obj in deserialize_gsm_file(os.path.join("/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results", dataset, "data", folder, file)):
             N[new_folder][obj.id] = obj
     return N
 
@@ -127,9 +127,9 @@ def load_input_nodes(dataset, folder):
     global N_input
     global N_removed
     global N_inserted
-    with open(os.path.join("/home/fox/PycharmProjects/news-crawler2/visualiser/src/results", dataset, "data", folder, "removed.json"), "r") as f:
+    with open(os.path.join("/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results", dataset, "data", folder, "removed.json"), "r") as f:
         N_removed[new_folder] = set(json.load(f))
-    with open(os.path.join("/home/fox/PycharmProjects/news-crawler2/visualiser/src/results", dataset, "data", folder, "inserted.json"), "r") as f:
+    with open(os.path.join("/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results", dataset, "data", folder, "inserted.json"), "r") as f:
         N_inserted[new_folder] = set(json.load(f))
     N_input = load_nodes_any(dataset, folder, N_input, "input.json")
 
@@ -228,7 +228,7 @@ def input_graph(dataset, folder):
         new_folder = f"{dataset}/{folder}"
         content = f.read().replace("§", new_folder).replace('£', 'input')
         pos = content.find("<div id=\"title\">")
-        result = content[:pos] + parsers.NestedTables.generate_morphism_html(os.path.join("/home/fox/PycharmProjects/news-crawler2/visualiser/src/results", dataset, "data"),
+        result = content[:pos] + parsers.NestedTables.generate_morphism_html(os.path.join("/home/fox/PycharmProjects/LeSSI-python/visualiser/src/results", dataset, "data"),
                                                                              folder) + content[pos:]
         return result  # f.read().replace("§", folder).replace('£','input')
 

@@ -1,0 +1,17 @@
+p3("graph", "B", "*") {
+	[0, NULL, @*("V", "Z", "n_label", "n", "S", "ge_label", "ge", "A", "T", "w_label", "w") {
+		[0, 2, "nsubj", "↑18", 4, "obl", "↑22", 1, 8, NULL, "↑NULL"]
+}]
+	[1, NULL, @*("V", "Z", "n_label", "n", "S", "ge_label", "ge", "A", "T", "w_label", "w") {
+		[4, 2, "nsubj", "↑19", 7, "obl", "↑23", 5, 3, NULL, "↑NULL"]
+		[4, 6, "nsubj", "↑19", 7, "obl", "↑24", 5, 9, NULL, "↑NULL"]
+}]
+	[2, NULL, @*("V", "Z", "n_label", "n", "S", "ge_label", "ge", "A", "T", "w_label", "w") {
+		[0, 2, "nsubj", "↑20", 5, "obl", "↑25", 1, 6, NULL, "↑NULL"]
+		[0, 3, "nsubj", "↑20", 5, "obl", "↑26", 1, 9, NULL, "↑NULL"]
+}]
+	[3, NULL, @*("V", "Z", "n_label", "n", "S", "ge_label", "ge", "A", "T", "w_label", "w") {
+		[7, 5, "nsubj", "↑21", 2, "xcomp", "↑0", NULL, NULL, NULL, "↑NULL"]
+		[7, 8, "nsubj", "↑21", 2, "obl", "↑27", NULL, 0, NULL, "↑NULL"]
+}]
+}

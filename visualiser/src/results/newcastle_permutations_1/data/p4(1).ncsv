@@ -1,0 +1,11 @@
+p4("graph", "B", "*") {
+	[0, 0, @*("V", "Z", "l_label", "l", "T", "w_label", "w") {
+		[2, 5, "nmod", "↑17", 9, "obl", "↑22"]
+}]
+	[3, 7, @*("V", "Z", "l_label", "l", "T", "w_label", "w") {
+		[5, 6, "obj", "↑1", NULL, "xcomp", "↑0"]
+}]
+	[3, NULL, @*("V", "Z", "l_label", "l", "T", "w_label", "w") {
+		[7, 5, "xcomp", "↑0", NULL, NULL, "↑NULL"]
+}]
+}

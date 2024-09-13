@@ -165,7 +165,7 @@ def stanford_nlp_to_gsm(self, sentences:List[str]):
 def send_time_parsing(self, sentences):
     # all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
     output = None
-    if self.old_java is None:
+    if not hasattr(self, 'old_java') or self.old_java is None:
         url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
         data = dict(zip(map(str,range(len(sentences))), map(str,sentences)))
         output = fire_post_request(url, data)
@@ -235,7 +235,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
     sentence_id = -1
     for sentence, withTime in zip(sentences, tp):
         sentence_id += 1
-        entities = []
+        org_entities = []
         multi_entity_unit = []
 
         # Add results from Stanza to MEU
@@ -245,8 +245,8 @@ def multi_named_entity_recognition(count, db, self, sentences):
             # monad = ""
             entity = ent.text
             monad = entity.replace(" ", "")
-            if ent.type == "ORG":  # Remove spaces to create one word 'ORG' entities
-                entities.append([entity, monad])
+            if ent.type == "ORG":  # Remove spaces to create one word 'ORG' org_entities
+                org_entities.append([entity, monad])
             # Possible alternative to keep one single entity:
             # meu.add_entity(sentence_id, ent.text, ent.type, ent.start_char, ent.end_char, monad, 1)
             result = {
@@ -279,7 +279,7 @@ def multi_named_entity_recognition(count, db, self, sentences):
             # meu.add_entity_from_dict(sentence_id, loc)
             multi_entity_unit.append(loc)
 
-        # Get ConceptNet entities
+        # Get ConceptNet org_entities
         concept_net = concept_net_service.resolve_u(
             self.cfg['resolve_params']['recall_threshold'],
             self.cfg['resolve_params']['precision_threshold'],
@@ -291,8 +291,8 @@ def multi_named_entity_recognition(count, db, self, sentences):
             # meu.add_entity_from_dict(sentence_id, net)
             multi_entity_unit.append(net)
 
-        # Loop through all entities and replace in sentence before passing to NLP server
-        for entity in entities:
+        # Loop through all org_entities and replace in sentence before passing to NLP server
+        for entity in org_entities:
             sentence = sentence.replace(entity[0], entity[1])
 
         db.append({'first_sentence': sentence, 'multi_entity_unit': multi_entity_unit})

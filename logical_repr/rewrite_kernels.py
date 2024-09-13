@@ -6,6 +6,7 @@ __version__ = "2.0"
 __maintainer__ = "Giacomo Bergami"
 __email__ = "bergamigiacomo@gmail.com"
 __status__ = "Production"
+
 from collections import defaultdict
 
 from scipy._lib.array_api_compat.array_api_compat import numpy
@@ -18,12 +19,14 @@ from logical_repr.Sentences import FNot, FOr, FAnd, FUnaryPredicate, FVariable, 
 bogus_dst = FVariable(name="there", type="non_verb", specification=None, cop=None)
 bogus_src = {"it"}
 
-def property_write(key, val:NodeEntryPoint)->str:
+
+def property_write(key, val: NodeEntryPoint) -> str:
     value = '""'
     # if isinstance(val, Singleton):
     return f'{key} : {value}'
 
-def make_cop(entity)->FVariable:
+
+def make_cop(entity) -> FVariable:
     if entity is None:
         return None
     elif isinstance(entity, str):
@@ -45,9 +48,9 @@ def make_arg(entity):
         for k in props:
             if k.endswith("mod"):
                 coplist.append(make_cop(props[k]))
-    if len(coplist)==1:
+    if len(coplist) == 1:
         cop = coplist[0]
-    elif len(coplist)>1:
+    elif len(coplist) > 1:
         cop = tuple(coplist)
     named_entity = props["named_entity"] if isinstance(entity, dict) else entity.named_entity
     type = props["type"] if isinstance(entity, dict) else entity.type
@@ -55,20 +58,25 @@ def make_arg(entity):
         named_entity = named_entity.lower()
     return FVariable(name=named_entity, type=type, specification=specification, cop=cop)
 
+
 def make_and(entities):
     return FAnd(args=tuple(entities))
+
 
 def make_or(entities):
     return FOr(args=tuple(entities))
 
+
 def make_not(param):
     return FNot(arg=param)
 
+
 def make_unary(rel, dst, score, prop):
-    if rel == "be": # TODO: generalise
-        if dst is not None and dst.cop is not None: # TODO: generalise
+    if rel == "be":  # TODO: generalise
+        if dst is not None and dst.cop is not None:  # TODO: generalise
             return make_binary("have", prune_from_cop(dst), dst.cop, score, prop)
-        if dst is not None and (dst.type =="DATE" or dst.type =="GPE" or dst.type =="LOC") and dst.cop is not None: # TODO: generalise
+        if dst is not None and (
+                dst.type == "DATE" or dst.type == "GPE" or dst.type == "LOC") and dst.cop is not None:  # TODO: generalise
             if dst.type not in prop:
                 prop[dst.type] = []
             prop[dst.type].append(dst)
@@ -84,9 +92,11 @@ def make_unary(rel, dst, score, prop):
                 prop[x] = tuple(prop[x])
     return FUnaryPredicate(rel=rel, arg=dst, score=score, properties=frozenset(prop.items()))
 
+
 def make_binary(rel, src, dst, score, prop):
-    if rel == "have":# TODO: generalise
-        if src is not None and (src.type =="DATE" or src.type =="GPE" or src.type =="LOC") and src.cop is None: # TODO: generalise
+    if rel == "have":  # TODO: generalise
+        if src is not None and (
+                src.type == "DATE" or src.type == "GPE" or src.type == "LOC") and src.cop is None:  # TODO: generalise
             if src.type not in prop:
                 prop[src.type] = []
             prop[src.type].append(src)
@@ -102,6 +112,7 @@ def make_binary(rel, src, dst, score, prop):
                 prop[x] = tuple(prop[x])
     return FBinaryPredicate(rel=rel, src=src, dst=dst, score=score, properties=frozenset(prop.items()))
 
+
 def make_properties(p):
     result = defaultdict(set)
     if "not" in set(map(lambda x: x.lower(), p.keys())):
@@ -115,7 +126,7 @@ def make_properties(p):
                 single_val = make_not(make_arg(single_val))
                 result[type].add(single_val)
 
-    for k,v in p.items():
+    for k, v in p.items():
         if str(k) == "\u2203" or str(k).lower() == "in" or str(k).lower() == "not":
             continue
         else:
@@ -126,16 +137,16 @@ def make_properties(p):
                     result[k].add(tmp)
 
     result2 = dict()
-    for k,v in result.items():
+    for k, v in result.items():
         result2[k] = list(v)
-    return result2 #dict(result2.items())
+    return result2  # dict(result2.items())
 
 
-def make_prop(src, rel, negated, score,properties, dst):
+def make_prop(src, rel, negated, score, properties, dst):
     if (dst is not None):
         if isinstance(dst, SetOfSingletons):
             if dst.type == Grouping.AND:
-                return make_and(map(lambda x : make_prop(src, rel, negated, score, properties, x), dst.entities))
+                return make_and(map(lambda x: make_prop(src, rel, negated, score, properties, x), dst.entities))
             elif dst.type == Grouping.OR:
                 return make_or(map(lambda x: make_prop(src, rel, negated, score, properties, x), dst.entities))
             elif dst.type == Grouping.NOT:
@@ -148,7 +159,7 @@ def make_prop(src, rel, negated, score,properties, dst):
                 return make_not(make_prop(src, rel, False, score, properties, dst))
             else:
                 p = dict()
-                for k,v in properties.items():
+                for k, v in properties.items():
                     p[k] = v
                 src = make_arg(src)
                 p["src"] = []
@@ -188,23 +199,22 @@ def make_prop(src, rel, negated, score,properties, dst):
             return make_unary(rel, make_arg(src), score, prop)
 
 
-
-def src_make_prop(src, rel, negated, score,properties, dst):
+def src_make_prop(src, rel, negated, score, properties, dst):
     if src is not None:
         if isinstance(src, SetOfSingletons):
             if src.type == Grouping.AND:
-                return make_and(map(lambda x : src_make_prop(x, rel, negated, score, properties, dst), src.entities))
+                return make_and(map(lambda x: src_make_prop(x, rel, negated, score, properties, dst), src.entities))
             elif src.type == Grouping.OR:
                 return make_or(map(lambda x: src_make_prop(x, rel, negated, score, properties, dst), src.entities))
             elif src.type == Grouping.NOT:
-                return make_not(src_make_prop(list(src.entities)[0], rel, negated, score,properties, dst))
+                return make_not(src_make_prop(list(src.entities)[0], rel, negated, score, properties, dst))
             else:
                 n = src.type.name
                 raise RuntimeError(f"Unknown source type: {n}")
         else:
-            return make_prop(src, rel, negated,score, properties, dst)
+            return make_prop(src, rel, negated, score, properties, dst)
     else:
-        return make_prop(None, rel, negated, score,properties,dst)
+        return make_prop(None, rel, negated, score, properties, dst)
 
 
 def rewrite_kernels(obj: Sentence) -> Formula:

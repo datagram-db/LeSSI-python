@@ -95,11 +95,11 @@ class LegacyPipeline:
         if gsm_sentences is None:
             gsm_sentences = self.cfg['gsm_sentences']
         if should_run_datagram_db:
-            try:
-                from PyDatagramDB import DatagramDB
-                d = DatagramDB(gsm_sentences, os.path.abspath("data/test/einstein/einstein_query.txt"), "materialisation_folder", isSerializationFull=True, opt_data_schema="pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt")
-                d.run()
-            except ImportError:
+            # try:
+            #     from PyDatagramDB import DatagramDB
+            #     d = DatagramDB(gsm_sentences, os.path.abspath("data/test/einstein/einstein_query.txt"), "materialisation_folder", isSerializationFull=True, opt_data_schema="pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt")
+            #     d.run()
+            # except ImportError:
                 command = (f"{self.cfg['gsm_gsql_file_path']}cmake-build-release/gsm2_server "
                            f"data/test/einstein/einstein_query.txt '{gsm_sentences}' "
                            f"-iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
