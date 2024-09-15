@@ -164,3 +164,4 @@ rdflib
 antlr4-python3-runtime==4.13.1
 pytest==7.4.0
 jpype1
+StanfordNLPExtractor @ git+https://github.com/datagram-db/stanfordnlp_dg_server.git
