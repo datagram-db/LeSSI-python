@@ -909,3 +909,10 @@ def formula_from_dict(f:Union[dict,str]):
                     properties[k].append(formula_from_dict(x))
         properties = {k: tuple(v) for k, v in properties.items()}
         return FBinaryPredicate(rel, src, dst, score, frozenset(properties.items()))
+
+if __name__ == "__main__":
+    file_name = "/home/giacomo/Scaricati/test(2).json"
+    sentences = []
+    with open(file_name, "r") as fp:
+        sentences = list(map(formula_from_dict, json.load(fp)))
+    print(sentences)

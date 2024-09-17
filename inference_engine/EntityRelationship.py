@@ -39,6 +39,7 @@ class Singleton(NodeEntryPoint):  # Graph node representing just one entity
     confidence: float
 
 
+
 def replaceNamed(entity:Singleton, s:str)->Singleton:
     return Singleton(named_entity=s,
                      properties=entity.properties,

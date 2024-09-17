@@ -6,7 +6,7 @@ db:
   host: localhost
   port: 5432
   db: conceptnet #ideas  # conceptnet
-conceptnet: "/home/fox/PycharmProjects/news-crawler2/mini.h5_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt"
+conceptnet: "/home/giacomo/projects/similarity-pipeline/submodules/news-crawler/mini.h5_sql_input.txt" # "/home/fox/PycharmProjects/news-crawler2/mini.h5_sql_input.txt"  #
 geonames: "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt" #"/home/fox/IdeaProjects/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"  # "/home/giacomo/projects/similarity-pipeline/submodules/stanfordnlp_dg_server/allCountries.txt_sql_input.txt"
 
 'iterations': 5 # Number of iterations for creating GSM output

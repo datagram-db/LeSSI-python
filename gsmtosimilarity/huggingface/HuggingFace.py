@@ -5,7 +5,9 @@ class HuggingFace:
     def __init__(self, model=None):
         if model is None:
             model = 'sentence-transformers/all-MiniLM-L6-v2'
+
         self.model = SentenceTransformer(model)
+        #model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
     def getEmbedding(self, x):
         return self.model.encode(x)

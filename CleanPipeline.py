@@ -47,7 +47,7 @@ class CleanPipeline:
         else:
             print(text)
 
-    def init(self, conf):
+    def init(self, conf, doLegacy = True):
         if ".yaml" in conf:  # Check if this is a file instead of loaded from React
             try:
                 with open(conf) as f:
@@ -94,7 +94,7 @@ class CleanPipeline:
         self.geo_names = GeoNamesService()
         # global concept_net
         self.concept_net = ConceptNetService()
-        self.legacy_pipeline = LegacyPipeline(self.cfg)
+        self.legacy_pipeline = LegacyPipeline(self.cfg) if doLegacy else None
         self.db = []
         self.sentences = []
         self.transitive_verbs = set()
@@ -135,6 +135,32 @@ class CleanPipeline:
         else:
             load_sentences(self.legacy_pipeline, self.sentences)
         return self.sentences
+
+    def fromExternalSentences(self, file):
+        j = None
+        from io import TextIOWrapper
+        if isinstance(file, str):
+            with open(file, "r") as fp:
+                j = json.load(fp)
+        elif isinstance(file, TextIOWrapper):
+            j = json.load(file)
+        else:
+            with open(str(file), "r") as fp:
+                j = json.load(fp)
+        from logical_repr.Sentences import formula_from_dict
+        result = list(map(formula_from_dict, j))
+        from Parmenides.TBox.CrossMatch import DoExpand
+        doexp = DoExpand(self.cfg['ontology'], self.cfg['TBoxImpl'], self.cfg['TBoxEq'])
+        f = SentenceExpansion(self.cfg, result, doexp)
+        M = []
+        for x in result:
+            ls = []
+            for y in result:
+                ls.append(f(x, y))
+            M.append(ls)
+        M = np.array(M)
+        return json.dumps({"similarity_matrix": M.tolist(), "sentences": result})
+
 
     def run(self):
         import json

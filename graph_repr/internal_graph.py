@@ -95,7 +95,7 @@ def merge_set_of_singletons(item, nodes, key, simplistic, stanza_row):
                 for z in candidate_delete:
                     d.pop(z)
                 d[x] = exp
-    print(d)
+    # print(d)
 
     # for entity in sorted_entities:
     #     norm_confidence *= entity.confidence
