@@ -40,7 +40,7 @@ class ModelSearch:
             if (val == CasusHappening.EXCLUSIVES):
                 # val = test_pairwise_sentence_similarity(dict(), lhs, rhs, kb=self.kb, shift=False)
                 return val
-            if (val == CasusHappening.EQUIVALENT):
+            if (val == CasusHappening.EQUIVALENT): ## To check: if I found at least one equivalence after rewriting, then that's it.
                 return CasusHappening.EQUIVALENT
             if isImplication(val):
                 # val = test_pairwise_sentence_similarity(dict(), lhs, rhs, kb=self.kb)

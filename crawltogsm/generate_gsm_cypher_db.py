@@ -139,14 +139,19 @@ def sentence_preprocessing(self):
 def stanford_nlp_to_gsm(self, sentences:List[str]):
     # output = None
     # all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
-    url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
-    data = dict(zip(map(str,range(len(sentences))), map(str,sentences)))
-    output = fire_post_request(url, data)
-    if output is not None:
+    if self.old_java is None:
+        url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
+        data = dict(zip(map(str,range(len(sentences))), map(str,sentences)))
+        output = fire_post_request(url, data)
+        if output is not None:
+            with open(self.cfg['gsm_sentences'], 'w') as f:
+                f.write(output)
+        else:
+            print("Make sure 'stanford_nlp_dg_server' is running")
+    else:
+        output = self.old_java.generateGSMDatabase(sentences)
         with open(self.cfg['gsm_sentences'], 'w') as f:
             f.write(output)
-    else:
-        print("Make sure 'stanford_nlp_dg_server' is running")
     # # command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/stanfordnlp'
     # try:
     #     output = subprocess.check_output(command, shell=True, text=True)
@@ -159,20 +164,24 @@ def stanford_nlp_to_gsm(self, sentences:List[str]):
 
 def send_time_parsing(self, sentences):
     # all_sentences = " ".join(map(lambda x: f'-F "p={x}"', sentences))
-    url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
-    data = dict(zip(map(str,range(len(sentences))), map(str,sentences)))
-    output = fire_post_request(url, data)
-    if output is not None:
-        return json.loads(output)
+    output = None
+    if self.old_java is None:
+        url = f'{str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
+        data = dict(zip(map(str,range(len(sentences))), map(str,sentences)))
+        output = fire_post_request(url, data)
     else:
-        print("Make sure 'stanford_nlp_dg_server' is running")
-        return None
+        output = self.old_java.getTimeUnits(sentences)
     # command = f'curl -X POST {all_sentences} {str(self.cfg["stanford_nlp_host"])}:{str(self.cfg["stanford_nlp_port"])}/sutime'
     # try:
     #     output = subprocess.check_output(command, shell=True, text=True)
     #     return json.loads(output)
     # except subprocess.CalledProcessError:
     #     print("Make sure 'stanford_nlp_dg_server' is running")
+    if output is not None:
+        return json.loads(output)
+    else:
+        print("Make sure 'stanford_nlp_dg_server' is running")
+        return None
 
 
 @dataclass

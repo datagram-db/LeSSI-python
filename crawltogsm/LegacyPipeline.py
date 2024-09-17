@@ -95,15 +95,20 @@ class LegacyPipeline:
         if gsm_sentences is None:
             gsm_sentences = self.cfg['gsm_sentences']
         if should_run_datagram_db:
-            command = (f"{self.cfg['gsm_gsql_file_path']}cmake-build-release/gsm2_server "
-                       f"data/test/einstein/einstein_query.txt '{gsm_sentences}' "
-                       f"-iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
             try:
-                # This will create the outputs for the given sentences in the C++ GSM
-                output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
-                # print(output)
-            except subprocess.CalledProcessError as e:
-                raise Exception(e.output)
+                from PyDatagramDB import DatagramDB
+                d = DatagramDB(gsm_sentences, os.path.abspath("data/test/einstein/einstein_query.txt"), "materialisation_folder", isSerializationFull=True, opt_data_schema="pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt")
+                d.run()
+            except ImportError:
+                command = (f"{self.cfg['gsm_gsql_file_path']}cmake-build-release/gsm2_server "
+                           f"data/test/einstein/einstein_query.txt '{gsm_sentences}' "
+                           f"-iortv -z \"pos\nSizeTAtt\nbegin\nSizeTAtt\nend\nSizeTAtt\"")
+                try:
+                    # This will create the outputs for the given sentences in the C++ GSM
+                    output = subprocess.check_output(command, shell=True, text=True, cwd=self.cfg['gsm_gsql_file_path'])
+                    # print(output)
+                except subprocess.CalledProcessError as e:
+                    raise Exception(e.output)
         directory = os.path.join(self.cfg['gsm_gsql_file_path'], "viz", "data")
         # Check if config contains web dir, for visualisation tool
         if 'web_dir' in self.cfg and self.cfg['web_dir'] is not None:
