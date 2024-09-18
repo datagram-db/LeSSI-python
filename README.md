@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/datagram-db/LeSSI-python/solid-state-survivor/DeprecatedProject.jpeg" width="300" alt="This is LeSSI: a pun from "I read" in Italian, and the way Lassie (dog) is pronounced in Italian."/>
+  <img src="https://github.com/datagram-db/LeSSI-python/blob/solid_state_survivor/DeprecatedProject.jpeg?raw=true" width="300" alt="This is LeSSI: a pun from "I read" in Italian, and the way Lassie (dog) is pronounced in Italian."/>
 </p>
 
 
